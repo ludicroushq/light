@@ -1,17 +1,21 @@
 {
   "name": "light",
-  "version": "0.0.0",
+  "version": "0.0.0-development",
   "description": "a modern framework",
   "main": "index.js",
   "scripts": {
     "test": "npm run lint && npm run jest:ci",
     "jest": "jest --verbose --coverage",
     "jest:ci": "jest --verbose --coverage --coverageReporters=text-lcov | coveralls",
-    "lint": "eslint src server tests *.js --ext js,ts"
+    "lint": "eslint src server tests *.js --ext js,ts",
+    "dev": "tsc -w",
+    "compile": "tsc",
+    "prepublish": "npm run compile",
+    "semantic-release": "npx semantic-release"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/ludicrousxyz/light.git"
+    "url": "https://github.com/ludicrousxyz/light.git"
   },
   "keywords": [
     "light",
