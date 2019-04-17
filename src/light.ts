@@ -8,17 +8,23 @@ import {
   join, relative, parse, basename,
 } from 'path';
 import { lstatSync } from 'fs';
+import { Server } from 'http';
 
 interface Route {
   path: string;
   name: string;
 }
 
+interface Light {
+  server: Server;
+  router: any;
+}
+
 const light = ({
   routes: routesPath,
 }: {
   routes: string | string[];
-}) => {
+}): Light => {
   const router = new Router();
   const server = micro((req, res): () => {} => router.handle(req, res));
 
@@ -98,10 +104,9 @@ const light = ({
 
   return {
     router,
-    server
+    server,
   };
-}
-
+};
 
 
 export default light;

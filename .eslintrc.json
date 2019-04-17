@@ -22,7 +22,8 @@
     "sourceType": "module"
   },
   "rules": {
-    "@typescript-eslint/indent": ["error", 2]
+    "@typescript-eslint/indent": ["error", 2],
+    "@typescript-eslint/no-explicit-any": "off"
   },
   "settings": {
     "import/resolver": {
