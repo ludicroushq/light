@@ -2,7 +2,6 @@ import micro from 'micro';
 import Router from 'micro-http-router';
 import * as fg from 'fast-glob';
 import isFunction from 'lodash.isfunction';
-import isPlainObject from 'lodash.isplainobject';
 import isArray from 'lodash.isarray';
 import {
   join, relative, parse, basename,
@@ -61,38 +60,34 @@ const light = ({
       throw new Error(`unable to import route ${routeData.path}\n${err.stack}`);
     }
 
-    let route = handler;
-
-    if (isFunction(route)) {
-      if (!(route as any).path) {
-        const { name, dir } = parse(routeData.name);
-        const path = join('/', dir, name === 'index' ? '/' : name);
-        router.get(path, route);
-        router.post(path, route);
-        router.put(path, route);
-        router.patch(path, route);
-        router.delete(path, route);
-        router.options(path, route);
-        router.trace(path, route);
-        return;
-      }
-
-      (route as any).handler = handler;
+    if (isFunction(handler) && !(handler as any).path) {
+      const { name, dir } = parse(routeData.name);
+      const path = join('/', dir, name === 'index' ? '/' : name);
+      router.get(path, handler);
+      router.post(path, handler);
+      router.put(path, handler);
+      router.patch(path, handler);
+      router.delete(path, handler);
+      router.options(path, handler);
+      router.trace(path, handler);
+      return;
     }
 
-    if (isPlainObject(handler)) {
+    let route: any = {};
+    if (!handler.handler) {
+      route.handler = handler;
+      route.path = (handler as any).path;
+    } else {
       route = {
         ...handler,
       };
     }
 
-    if (!route.handler) {
-      throw new Error('missing handler');
-    }
     if (!route.method) {
       route.method = 'GET'; // default to GET
     }
     route.method = route.method.toUpperCase();
+
     if (!route.path) {
       const { name, dir } = parse(routeData.name);
       route.path = join(dir, name);

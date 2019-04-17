@@ -58,15 +58,5 @@ describe('routes', () => {
       expect(req.status).toStrictEqual(200);
       expect(res).toMatchObject({ hello: 'missing nested url world' });
     });
-
-    it('should not work with missing handler', async () => {
-      expect.assertions(1);
-      expect(() => {
-        const server = light({
-          routes: join(__dirname, 'seeds/errors/object-missing-handler.ts'),
-        });
-        return server;
-      }).toThrow();
-    });
   });
 });
