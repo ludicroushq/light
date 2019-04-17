@@ -1,0 +1,55 @@
+{
+  "name": "light",
+  "version": "0.0.0",
+  "description": "a modern framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run lint && npm run jest",
+    "jest": "jest --coverage --verbose",
+    "lint": "eslint src server tests *.js --ext js,ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ludicrousxyz/light.git"
+  },
+  "keywords": [
+    "light",
+    "fastify",
+    "server"
+  ],
+  "author": "Manthan Mallikarjun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ludicrousxyz/light/issues"
+  },
+  "homepage": "https://github.com/ludicrousxyz/light#readme",
+  "dependencies": {
+    "fast-glob": "^2.2.6",
+    "lodash.isarray": "^4.0.0",
+    "lodash.isfunction": "^3.0.9",
+    "lodash.isplainobject": "^4.0.6",
+    "micro": "^9.3.3",
+    "micro-http-router": "^1.3.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.11",
+    "@types/lodash.isarray": "^4.0.6",
+    "@types/lodash.isfunction": "^3.0.6",
+    "@types/lodash.isplainobject": "^4.0.6",
+    "@types/micro": "^7.3.3",
+    "@types/node": "^11.13.4",
+    "@types/node-fetch": "^2.3.2",
+    "@types/test-listen": "^1.1.0",
+    "@typescript-eslint/eslint-plugin": "^1.6.0",
+    "@typescript-eslint/parser": "^1.6.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-jest": "^22.4.1",
+    "jest": "^24.7.1",
+    "node-fetch": "^2.3.0",
+    "test-listen": "^1.1.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.4.3"
+  }
+}
