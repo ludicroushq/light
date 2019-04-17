@@ -1,5 +1,5 @@
 export default {
-  url: '/default-object',
+  path: '/default-object',
   async handler() {
     return {
       hello: 'default object world',

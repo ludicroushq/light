@@ -1,10 +1,10 @@
 import { route } from '../../../src/index';
 
-module.exports = route({
-  path: '/route',
+export default route({
+  path: '/route-default',
   handler() {
     return {
-      hello: 'route world',
+      hello: 'default route world',
     };
   },
 });
