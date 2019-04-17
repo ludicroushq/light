@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const start = Date.now();
 const { join } = require('path');
-const { Light } = require('../../lib/index');
+const { Light } = require('../../lib/index'); // eslint-disable-line
 
 const light = new Light({
   routes: join(__dirname, 'routes'),
