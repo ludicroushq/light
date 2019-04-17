@@ -4,8 +4,9 @@
   "description": "a modern framework",
   "main": "index.js",
   "scripts": {
-    "test": "npm run lint && npm run jest",
-    "jest": "jest --verbose --coverage --coverageReporters=text-lcov | coveralls",
+    "test": "npm run lint && npm run jest:ci",
+    "jest": "jest --verbose --coverage",
+    "jest:ci": "jest --verbose --coverage --coverageReporters=text-lcov | coveralls",
     "lint": "eslint src server tests *.js --ext js,ts"
   },
   "repository": {

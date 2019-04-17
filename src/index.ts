@@ -1,2 +1,2 @@
-export { default as Light } from './light';
+export { default as Light, default as light } from './light';
 export { default } from './light';

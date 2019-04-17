@@ -2,18 +2,18 @@ import { join } from 'path';
 import listen from 'test-listen';
 import { resolve } from 'url';
 import fetch from 'node-fetch';
-import Light from '../src/index';
+import light from '../src/index';
 
-const light = new Light({
+const app = light({
   routes: join(__dirname, 'seeds/routes'),
 });
 let url: string;
 
 beforeAll(async () => {
-  url = await listen(light.server);
+  url = await listen(app.server);
 });
 
-afterAll(() => light.server.close());
+afterAll(() => app.server.close());
 
 describe('routes', () => {
   describe('objects', () => {
@@ -62,7 +62,7 @@ describe('routes', () => {
     it('should not work with missing handler', async () => {
       expect.assertions(1);
       expect(() => {
-        const server = new Light({
+        const server = light({
           routes: join(__dirname, 'seeds/errors/object-missing-handler.ts'),
         });
         return server;

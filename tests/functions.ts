@@ -2,18 +2,18 @@ import { join } from 'path';
 import listen from 'test-listen';
 import { resolve } from 'url';
 import fetch from 'node-fetch';
-import Light from '../src/index';
+import light from '../src/index';
 
-const light = new Light({
+const app = light({
   routes: join(__dirname, 'seeds/routes'),
 });
 let url: string;
 
 beforeAll(async () => {
-  url = await listen(light.server);
+  url = await listen(app.server);
 });
 
-afterAll(() => light.server.close());
+afterAll(() => app.server.close());
 
 describe('routes', () => {
   describe('functions', () => {
@@ -58,6 +58,14 @@ describe('routes', () => {
       const res = await req.json();
       expect(req.status).toStrictEqual(200);
       expect(res).toMatchObject({ hello: 'default world' });
+    });
+
+    it('should work with custom properties on a default export', async () => {
+      expect.assertions(2);
+      const req = await fetch(resolve(url, '/default-custom-function'));
+      const res = await req.json();
+      expect(req.status).toStrictEqual(200);
+      expect(res).toMatchObject({ hello: 'custom default world' });
     });
   });
 });

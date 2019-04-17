@@ -2,24 +2,24 @@ import { join } from 'path';
 import listen from 'test-listen';
 import { resolve } from 'url';
 import fetch from 'node-fetch';
-import Light from '../src/index';
+import light from '../src/index';
 
 describe('routes', () => {
   it('should not run with errors', async () => {
     expect.assertions(1);
     expect(() => {
-      const light = new Light({
+      const app = light({
         routes: join(__dirname, 'seeds/errors/routes.ts'),
       });
-      return light;
+      return app;
     }).toThrow();
   });
 
   it('should run with an array of routes', async () => {
-    const light = new Light({
+    const app = light({
       routes: [join(__dirname, 'seeds/routes/function.ts'), join(__dirname, 'seeds/routes/object.ts')],
     });
-    const url = await listen(light.server);
+    const url = await listen(app.server);
     expect.assertions(4);
 
     {

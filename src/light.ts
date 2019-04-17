@@ -14,90 +14,94 @@ interface Route {
   name: string;
 }
 
-class Light {
-  public server: any; // eslint-disable-line
-  public router: any; // eslint-disable-line
+const light = ({
+  routes: routesPath,
+}: {
+  routes: string | string[];
+}) => {
+  const router = new Router();
+  const server = micro((req, res): () => {} => router.handle(req, res));
 
-  public constructor({
-    routes: routesPath,
-  }: {
-    routes: string | string[];
-  }) {
-    this.router = new Router();
-    this.server = micro((req, res): () => {} => this.router.handle(req, res));
+  const routes: Route[] = [];
 
-    const routes: Route[] = [];
+  const addRoutes = (path: string): number => {
+    if (lstatSync(path).isFile()) {
+      return routes.push({
+        path,
+        name: basename(path),
+      });
+    }
+    const files: string[] = fg.sync(join(path, '**/*.{js,ts}'));
+    return routes.push(...files.map((r: string): Route => ({
+      path: r,
+      name: relative(path, r),
+    })));
+  };
 
-    const addRoutes = (path: string): number => {
-      if (lstatSync(path).isFile()) {
-        return routes.push({
-          path,
-          name: basename(path),
-        });
+  if (isArray(routesPath)) {
+    routesPath.forEach((r): number => addRoutes(r));
+  } else {
+    addRoutes(routesPath);
+  }
+
+  routes.forEach((routeData: Route): void => {
+    let handler: any;
+    try {
+      handler = require(routeData.path); // eslint-disable-line
+      if (handler.default) {
+        handler = handler.default;
       }
-      const files: string[] = fg.sync(join(path, '**/*.{js,ts}'));
-      return routes.push(...files.map((r: string): Route => ({
-        path: r,
-        name: relative(path, r),
-      })));
-    };
-
-    if (isArray(routesPath)) {
-      routesPath.forEach((r): number => addRoutes(r));
-    } else {
-      addRoutes(routesPath);
+    } catch (err) {
+      throw new Error(`unable to import route ${routeData.path}\n${err.stack}`);
     }
 
-    routes.forEach((route: Route): void => {
-      let handler;
-      try {
-        handler = require(route.path); // eslint-disable-line
-        if (handler.default) {
-          handler = handler.default;
-        }
-      } catch (err) {
-        throw new Error(`unable to import route ${route.path}\n${err.stack}`);
-      }
+    let route = handler;
 
-      if (isFunction(handler)) {
-        const { name, dir } = parse(route.name);
+    if (isFunction(route)) {
+      if (!(route as any).path) {
+        const { name, dir } = parse(routeData.name);
         const path = join('/', dir, name === 'index' ? '/' : name);
-        this.router.get(path, handler);
-        this.router.post(path, handler);
-        this.router.put(path, handler);
-        this.router.patch(path, handler);
-        this.router.delete(path, handler);
-        this.router.options(path, handler);
-        this.router.trace(path, handler);
+        router.get(path, route);
+        router.post(path, route);
+        router.put(path, route);
+        router.patch(path, route);
+        router.delete(path, route);
+        router.options(path, route);
+        router.trace(path, route);
         return;
       }
 
-      let router = handler;
+      (route as any).handler = handler;
+    }
 
-      if (isPlainObject(handler)) {
-        router = {
-          ...handler,
-        };
-      }
+    if (isPlainObject(handler)) {
+      route = {
+        ...handler,
+      };
+    }
 
-      if (!router.handler) {
-        throw new Error('missing handler');
-      }
-      if (!router.method) {
-        router.method = 'GET'; // default to GET
-      }
-      router.method = router.method.toUpperCase();
-      if (!router.path) {
-        const { name, dir } = parse(route.name);
-        router.path = join(dir, name);
-      }
-      if (router.path) {
-        router.path = join('/', router.path);
-      }
+    if (!route.handler) {
+      throw new Error('missing handler');
+    }
+    if (!route.method) {
+      route.method = 'GET'; // default to GET
+    }
+    route.method = route.method.toUpperCase();
+    if (!route.path) {
+      const { name, dir } = parse(routeData.name);
+      route.path = join(dir, name);
+    }
+    route.path = join('/', route.path);
 
-      this.router.route(router);
-    });
-  }
+    router.route(route);
+  });
+
+  return {
+    router,
+    server
+  };
 }
 
-export default Light;
+
+
+export default light;
