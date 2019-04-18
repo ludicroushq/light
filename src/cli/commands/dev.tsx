@@ -1,9 +1,11 @@
 const start = Date.now();
 import light from '../../index';
 import { CommandBuilder } from 'yargs'; // eslint-disable-line
-import { join } from 'path';
+import { join, relative } from 'path';
 import { black, bgGreen, redBright } from 'colorette';
 import emojic from 'emojic';
+
+import importRoute from '../../utils/import-route';
 
 export const command: string = 'dev';
 export const aliases: string[] = ['d'];
@@ -26,9 +28,10 @@ const handle = async (argv: Args) => {
 	console.log(redBright(`${emojic.fire} igniting the server ${emojic.fire}`))
 
 	const cwd = process.cwd();
+	const routesPath = join(cwd, './routes');
 
 	const app = light({
-		routes: join(cwd, './routes'),
+		routes: routesPath,
 		log: argv.log,
 	});
 
@@ -43,6 +46,17 @@ const handle = async (argv: Args) => {
 
 	app.server.listen(PORT, (HOST as any), () => {
 		console.log(bgGreen(black(` ${Date.now() - start}ms `)), 'listening on 3000');
+
+		const chokidar = require('chokidar');
+		chokidar.watch(routesPath).on('change', (p: string) => {
+			delete require.cache[p];
+			importRoute(app.router, {
+				path: p,
+				name: relative(routesPath, p),
+			}, {
+				log: argv.log,
+			});
+		});
 	});
 };
 
