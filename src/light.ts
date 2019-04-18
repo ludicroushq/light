@@ -1,6 +1,5 @@
 import micro from 'micro';
 import Router from 'micro-http-router';
-import * as fg from 'fast-glob';
 import isFunction from 'lodash.isfunction';
 import isArray from 'lodash.isarray';
 import {
@@ -10,6 +9,7 @@ import { lstatSync } from 'fs';
 import { IncomingMessage, ServerResponse, Server } from 'http';
 
 import logger from './middleware/logger';
+import glob from './utils/glob';
 
 interface Route {
   path: string;
@@ -43,7 +43,8 @@ const light = ({
         name: basename(path),
       });
     }
-    const files: string[] = fg.sync(join(path, '**/*.{js,ts}'));
+
+    const files: string[] = glob(join('/', path), '**/*.{js,ts}');
     return routes.push(...files.map((r: string): Route => ({
       path: r,
       name: relative(path, r),
@@ -125,6 +126,5 @@ const light = ({
     server,
   };
 };
-
 
 export default light;
