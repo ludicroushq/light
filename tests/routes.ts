@@ -10,6 +10,7 @@ describe('routes', () => {
     expect(() => {
       const app = light({
         routes: join(__dirname, 'seeds/errors/routes.ts'),
+        log: false,
       });
       return app;
     }).toThrow();
@@ -18,6 +19,7 @@ describe('routes', () => {
   it('should work without slash', async () => {
     const app = light({
       routes: join(__dirname, 'seeds/routes/no-slash.ts'),
+      log: false,
     });
     const url = await listen(app.server);
     expect.assertions(2);
@@ -30,6 +32,7 @@ describe('routes', () => {
   it('should run with an array of routes', async () => {
     const app = light({
       routes: [join(__dirname, 'seeds/routes/function.ts'), join(__dirname, 'seeds/routes/object.ts')],
+      log: false,
     });
     const url = await listen(app.server);
     expect.assertions(4);

@@ -7,7 +7,9 @@ import {
   join, relative, parse, basename,
 } from 'path';
 import { lstatSync } from 'fs';
-import { Server } from 'http';
+import { IncomingMessage, ServerResponse, Server } from 'http';
+
+import logger from './middleware/logger';
 
 interface Route {
   path: string;
@@ -19,13 +21,18 @@ interface Light {
   router: any;
 }
 
+type handler = (req: IncomingMessage, res: ServerResponse) => any;
+
 const light = ({
   routes: routesPath,
+  log,
 }: {
   routes: string | string[];
+  log?: boolean | any;
 }): Light => {
   const router = new Router();
-  const server = micro((req, res): () => {} => router.handle(req, res));
+
+  const server = micro((req: IncomingMessage, res: ServerResponse): any => router.handle(req, res));
 
   const routes: Route[] = [];
 
@@ -49,8 +56,21 @@ const light = ({
     addRoutes(routesPath);
   }
 
+  const middlewares: handler[] = [];
+  if (log !== false) {
+    middlewares.push(logger);
+  }
+
+  type a = Promise<any>;
+  const mw = (handler: handler): any => async (req: IncomingMessage, res: ServerResponse): a => {
+    for (const middleware of middlewares) {  // eslint-disable-line
+      await middleware(req, res); // eslint-disable-line
+    }
+    return handler(req, res);
+  };
+
   routes.forEach((routeData: Route): void => {
-    let handler: any;
+    let handler: ((req: IncomingMessage, res: ServerResponse) => {}) | any;
     try {
       handler = require(routeData.path); // eslint-disable-line
       if (handler.default) {
@@ -63,17 +83,18 @@ const light = ({
     if (isFunction(handler) && !(handler as any).path) {
       const { name, dir } = parse(routeData.name);
       const path = join('/', dir, name === 'index' ? '/' : name);
-      router.get(path, handler);
-      router.post(path, handler);
-      router.put(path, handler);
-      router.patch(path, handler);
-      router.delete(path, handler);
-      router.options(path, handler);
-      router.trace(path, handler);
+      const handle = mw(handler);
+      router.get(path, handle);
+      router.post(path, handle);
+      router.put(path, handle);
+      router.patch(path, handle);
+      router.delete(path, handle);
+      router.options(path, handle);
+      router.trace(path, handle);
       return;
     }
 
-    let route: any = {};
+    let route: ((req: IncomingMessage, res: ServerResponse) => {}) | any = {};
     if (!handler.handler) {
       route.handler = handler;
       route.path = (handler as any).path;
@@ -82,6 +103,8 @@ const light = ({
         ...handler,
       };
     }
+
+    route.handler = mw(route.handler);
 
     if (!route.method) {
       route.method = 'GET'; // default to GET

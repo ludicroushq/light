@@ -6,6 +6,7 @@ import light from '../src/index';
 
 const app = light({
   routes: join(__dirname, 'seeds/routes'),
+  log: false,
 });
 let url: string;
 
