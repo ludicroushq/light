@@ -2,7 +2,7 @@ const start = Date.now();
 import light from '../../index';
 import { CommandBuilder } from 'yargs'; // eslint-disable-line
 import { join, relative } from 'path';
-import { black, bgGreen, redBright } from 'colorette';
+import { black, bgGreen, bgBlueBright, redBright, yellow } from 'colorette';
 import emojic from 'emojic';
 
 import importRoute from '../../utils/import-route';
@@ -47,8 +47,12 @@ const handle = async (argv: Args) => {
 	app.server.listen(PORT, (HOST as any), () => {
 		console.log(bgGreen(black(` ${Date.now() - start}ms `)), 'listening on 3000');
 
+		console.log(bgBlueBright(black(' DEV ')), 'starting the hot reloader');
 		const chokidar = require('chokidar');
-		chokidar.watch(routesPath).on('change', (p: string) => {
+		const watcher = chokidar.watch(routesPath);
+		watcher.on('ready', () => console.log(bgBlueBright(black(' DEV ')), 'watching for changes'));
+		watcher.on('change', (p: string) => {
+			console.log(bgBlueBright(black(' DEV ')), `swapping out ${yellow(relative(cwd, p))}`);
 			delete require.cache[p];
 			importRoute(app.router, {
 				path: p,
