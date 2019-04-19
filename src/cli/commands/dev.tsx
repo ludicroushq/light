@@ -2,10 +2,11 @@ const start = Date.now();
 import light from '../../index';
 import { CommandBuilder } from 'yargs'; // eslint-disable-line
 import { join, relative } from 'path';
-import { black, bgGreen, bgBlueBright, redBright, yellow } from 'colorette';
 import emojic from 'emojic';
+import { yellow, blueBright } from 'colorette';
 
 import importRoute from '../../utils/import-route';
+import log from '../log';
 
 export const command: string = 'dev';
 export const aliases: string[] = ['d'];
@@ -25,7 +26,10 @@ interface Args {
 }
 
 const handle = async (argv: Args) => {
-	console.log(redBright(`${emojic.fire} igniting the server ${emojic.fire}`))
+	log('start', `${emojic.fire} igniting the server ${emojic.fire}`, {
+		titleColor: 'brightred',
+		messageColor: 'brightred',
+	});
 
 	const cwd = process.cwd();
 	const routesPath = join(cwd, './routes');
@@ -45,14 +49,22 @@ const handle = async (argv: Args) => {
 	}: ProcessEnv = process.env;
 
 	app.server.listen(PORT, (HOST as any), () => {
-		console.log(bgGreen(black(` ${Date.now() - start}ms `)), 'listening on 3000');
+		log(`${Date.now() - start}ms`, 'listening on 3000', {
+			titleColor: 'green',
+		});
 
-		console.log(bgBlueBright(black(' DEV ')), 'starting the hot reloader');
+		log('hmr', 'starting the hot reloader', {
+			titleColor: 'brightblue',
+		});
 		const chokidar = require('chokidar');
 		const watcher = chokidar.watch(routesPath);
-		watcher.on('ready', () => console.log(bgBlueBright(black(' DEV ')), 'watching for changes'));
+		watcher.on('ready', () => log('hmr', 'watching for changes', {
+			titleColor: 'brightblue',
+		}))
 		watcher.on('change', (p: string) => {
-			console.log(bgBlueBright(black(' DEV ')), `swapping out ${yellow(relative(cwd, p))}`);
+			log('hmr', `swapping out ${yellow(relative(cwd, p))}`, {
+				titleColor: 'brightblue',
+			});
 			delete require.cache[p];
 			importRoute(app.router, {
 				path: p,
