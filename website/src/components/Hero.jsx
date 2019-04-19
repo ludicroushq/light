@@ -31,6 +31,7 @@ export default data => (
           </h2>
         </div>
       </div>
+      { data.children }
     </section>
   </div>
 );

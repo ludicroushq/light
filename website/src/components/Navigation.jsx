@@ -37,7 +37,7 @@ class Navigation extends React.Component {
           <div className="navbar-brand">
             <Link href="/">
               <a className="navbar-item has-text-weight-bold">
-                <span className="is-size-5" onClick={this.closeMenu}>light</span>
+                <span className="is-size-5" onClick={this.closeMenu}>light <small style={{ fontSize: '0.5em' }}>(WIP)</small></span>
               </a>
             </Link>
 
