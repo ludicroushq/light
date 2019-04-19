@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next src",
     "build": "next build src",
-    "start": "next start src"
+    "start": "next start src",
+    "export": "next export src"
   },
   "repository": {
     "type": "git",
