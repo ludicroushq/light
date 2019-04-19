@@ -1,0 +1,14 @@
+@import './bulma.scss';
+
+.header {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.no-pad-bottom {
+  padding-bottom: 0px !important;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0px !important;
+}

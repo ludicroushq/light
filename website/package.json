@@ -1,0 +1,37 @@
+{
+  "name": "light-website",
+  "version": "0.0.0",
+  "description": "website for light",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next src",
+    "build": "next build src",
+    "start": "next start src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ludicrousxyz/light.git"
+  },
+  "keywords": [
+    "light",
+    "website"
+  ],
+  "author": "Manthan Mallikarjun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ludicrousxyz/light/issues"
+  },
+  "homepage": "https://github.com/ludicrousxyz/light#readme",
+  "dependencies": {
+    "@zeit/next-sass": "^1.0.1",
+    "classnames": "^2.2.6",
+    "next": "^8.1.0",
+    "node-sass": "^4.11.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-typed": "^1.1.2"
+  },
+  "devDependencies": {
+    "bulma": "^0.7.4"
+  }
+}
