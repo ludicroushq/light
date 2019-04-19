@@ -14,7 +14,7 @@ interface Opts {
 
 export default (route: R, opts: Opts = {}): (req: IncomingMessage, res: ServerResponse) => {} => {
   const fn = async (req: IncomingMessage, res: ServerResponse): Promise<any> => {
-    const root = join(fn.module, '../', opts.middlewareRoot || 'middleware');
+    const root = join(fn.module, '../../../', opts.middlewareRoot || 'middleware');
     const middlewarePaths: string[] = [];
 
     if (fn.log !== false) {
