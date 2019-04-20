@@ -14,7 +14,7 @@ export default () => (
       smartBackspace={true}
       size="medium"
     >
-      <div class="hero-foot has-text-centered">
+      <div className="hero-foot has-text-centered">
         <div className="container">
           <div>
             <a href="https://circleci.com/gh/ludicrousxyz/light" target="_blank" rel="noopener noreferrer">

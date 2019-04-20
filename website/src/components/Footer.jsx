@@ -12,7 +12,7 @@ export default class extends React.Component {
         <footer className="footer">
           <div className="content has-text-centered">
             <p>
-              <a href="https://www.ludicrous.xyz" class="has-text-black">&copy; { year } ludicrous.</a>
+              <a href="https://www.ludicrous.xyz" className="has-text-black">&copy; { year } ludicrous.</a>
             </p>
           </div>
         </footer>
