@@ -1,6 +1,7 @@
 import { run } from 'micro';
 import { join } from 'path';
 import { IncomingMessage, ServerResponse } from 'http';
+import pino from 'pino-http';
 
 interface Route {
   path?: string;
@@ -15,18 +16,10 @@ type AP = Promise<any>;
 
 export default (route: Route): Handler => {
   const fn = (Req: IM, Res: SR): AP => run(Req, Res, async (req: IM, res: SR): AP => {
-    const importMiddleware = (path: string): any => {
-      let mw = require(path); // eslint-disable-line
-      if (mw.default) {
-        mw = mw.default;
-      }
-      return mw;
-    };
-
     const middleware: any[] = route.middleware || [];
 
     if (fn.log !== false) {
-      const logger = importMiddleware(join(fn.module, 'middleware/logger'));
+      const logger = pino();
       middleware.unshift(logger);
     }
 
