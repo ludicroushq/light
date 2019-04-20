@@ -15,14 +15,12 @@ interface Light {
   router: any;
 }
 
-type handler = (req: IncomingMessage, res: ServerResponse) => any;
-
 const light = ({
   routes: routesPath,
-  log,
+  log = true,
 }: {
   routes: string | string[];
-  log?: boolean | any;
+  log?: boolean;
 }): Light => {
   const router = new Router();
 

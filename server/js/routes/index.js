@@ -2,10 +2,10 @@ const { route } = require('../../../lib/index'); // eslint-disable-line
 
 module.exports = route({
   path: '/',
-  async handler() {
-    return { hello: 'hmr' };
+  middleware: [(req) => {
+    req.message = 'test';
+  }],
+  async handler(req) {
+    return { hello: 'hmr', message: req.message };
   },
-}, {
-  middleware: ['test'],
-  middlewareRoot: './server/js/middleware',
 });
