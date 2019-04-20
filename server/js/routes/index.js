@@ -1,4 +1,4 @@
-const { route } = require('../../../lib/index'); // eslint-disable-line
+const route = require('../../../lib/index'); // eslint-disable-line
 
 module.exports = route({
   path: '/',

@@ -1,3 +1,7 @@
-export { default as Light, default as light } from './light';
-export { default as route } from './route';
-export { default } from './light';
+const route = require('./route'); // eslint-disable-line
+
+module.exports = route.default;
+exports = route.default;
+
+export { default as server } from './server';
+export { default, default as route } from './route';

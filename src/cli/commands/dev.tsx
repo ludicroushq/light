@@ -1,9 +1,9 @@
 const start = Date.now();
-import light from '../../index';
+import { server } from '../../index';
 import { CommandBuilder } from 'yargs'; // eslint-disable-line
 import { join, relative } from 'path';
 import emojic from 'emojic';
-import { yellow, blueBright } from 'colorette';
+import { yellow } from 'colorette';
 
 import importRoute from '../../utils/import-route';
 import log from '../log';
@@ -34,7 +34,7 @@ const handle = async (argv: Args) => {
 	const cwd = process.cwd();
 	const routesPath = join(cwd, './routes');
 
-	const app = light({
+	const app = server({
 		routes: routesPath,
 		log: argv.log,
 	});

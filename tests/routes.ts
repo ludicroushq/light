@@ -2,13 +2,13 @@ import { join } from 'path';
 import listen from 'test-listen';
 import { resolve } from 'url';
 import fetch from 'node-fetch';
-import light from '../src/index';
+import { server } from '../src/index';
 
 describe('routes', () => {
   it('should not run with errors', async () => {
     expect.assertions(1);
     expect(() => {
-      const app = light({
+      const app = server({
         routes: join(__dirname, 'seeds/errors/routes.ts'),
         log: false,
       });
@@ -17,7 +17,7 @@ describe('routes', () => {
   });
 
   it('should work without slash', async () => {
-    const app = light({
+    const app = server({
       routes: join(__dirname, 'seeds/routes/no-slash.ts'),
       log: false,
     });
@@ -30,7 +30,7 @@ describe('routes', () => {
   });
 
   it('should run with an array of routes', async () => {
-    const app = light({
+    const app = server({
       routes: [join(__dirname, 'seeds/routes/function.ts'), join(__dirname, 'seeds/routes/object.ts')],
       log: false,
     });

@@ -2,9 +2,9 @@ import { join } from 'path';
 import listen from 'test-listen';
 import { resolve } from 'url';
 import fetch from 'node-fetch';
-import light from '../src/index';
+import { server } from '../src/index';
 
-const app = light({
+const app = server({
   routes: join(__dirname, 'seeds/routes'),
 });
 let url: string;
