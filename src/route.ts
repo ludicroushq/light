@@ -1,5 +1,4 @@
 import { run } from 'micro';
-import { join } from 'path';
 import { IncomingMessage, ServerResponse } from 'http';
 import pino from 'pino-http';
 
