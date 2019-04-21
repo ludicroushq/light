@@ -8,7 +8,7 @@ import { yellow } from 'colorette';
 import importRoute from '../../utils/import-route';
 import log from '../log';
 
-export const command: string = 'dev';
+export const command: string = 'dev [dir]';
 export const aliases: string[] = ['d'];
 export const desc: string = 'start a development srvr';
 
@@ -18,11 +18,17 @@ export const builder: CommandBuilder = {
     description: 'enable or disable logs',
     boolean: true,
     default: true,
-  },
+	},
+	'dir': {
+		default: './',
+		description: 'base directory for the light server',
+		hidden: true,
+	},
 };
 
 interface Args {
 	log: boolean;
+	dir: string;
 }
 
 const handle = async (argv: Args) => {
@@ -31,7 +37,7 @@ const handle = async (argv: Args) => {
 		messageColor: 'brightred',
 	});
 
-	const cwd = process.cwd();
+	const cwd = join(process.cwd(), argv.dir);
 	const routesPath = join(cwd, './routes');
 
 	const app = server({
