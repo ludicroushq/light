@@ -1,5 +1,5 @@
 import {
-  blueBright, green, redBright, yellow,
+  blueBright, green, redBright, yellow, red,
 } from 'colorette';
 
 interface Options {
@@ -13,6 +13,8 @@ const color = (clr: string | undefined, message: string): string => {
       return blueBright(message);
     case 'brightred':
       return redBright(message);
+    case 'red':
+      return red(message);
     case 'green':
       return green(message);
     case 'yellow':

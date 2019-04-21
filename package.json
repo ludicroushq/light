@@ -6,7 +6,7 @@
     "test": "npm run lint && npm run jest:ci",
     "jest": "jest --verbose --coverage",
     "jest:ci": "jest --verbose --coverage --coverageReporters=text-lcov | coveralls",
-    "lint": "eslint src server tests *.js --ext js,ts",
+    "lint": "eslint src server tests *.js --ext js,ts,tsx",
     "dev": "tsc -w",
     "compile": "tsc",
     "prepublish": "npm run compile",
