@@ -64,7 +64,7 @@ const handle = async (argv: Args): Promise<void> => {
       titleColor: 'brightblue',
     });
     const chokidar = require('chokidar'); // eslint-disable-line
-    const watcher = chokidar.watch(routesPath);
+    const watcher = chokidar.watch(cwd);
     watcher.on('ready', (): void => log('hmr', 'watching for changes', {
       titleColor: 'brightblue',
     }));
@@ -73,12 +73,14 @@ const handle = async (argv: Args): Promise<void> => {
         titleColor: 'brightblue',
       });
       delete require.cache[p];
-      importRoute(app.router, {
-        path: p,
-        name: relative(routesPath, p),
-      }, {
-        log: argv.log,
-      });
+      if (p.includes(routesPath)) {
+        importRoute(app.router, {
+          path: p,
+          name: relative(routesPath, p),
+        }, {
+          log: argv.log,
+        });
+      }
     });
   });
 };
