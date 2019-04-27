@@ -7,7 +7,7 @@ import Route from '../../types/route';
 import { server } from '../../index';
 import findRoutes from '../../utils/find-routes';
 import importRoute from '../../utils/import-route';
-import log from '../log';
+import log from '../utils/log';
 
 const start = Date.now();
 
