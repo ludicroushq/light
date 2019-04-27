@@ -2,8 +2,10 @@ import { CommandBuilder } from 'yargs'; // eslint-disable-line
 import { join, relative } from 'path';
 import emojic from 'emojic';
 import { yellow } from 'colorette';
-import { server } from '../../index';
 
+import Route from '../../types/route';
+import { server } from '../../index';
+import findRoutes from '../../utils/find-routes';
 import importRoute from '../../utils/import-route';
 import log from '../log';
 
@@ -73,12 +75,21 @@ const handle = async (argv: Args): Promise<void> => {
         titleColor: 'brightblue',
       });
       delete require.cache[p];
+      // if the file change is a single route, update only that route, otherwise update all routes
       if (p.includes(routesPath)) {
         importRoute(app.router, {
           path: p,
           name: relative(routesPath, p),
         }, {
           log: argv.log,
+        });
+      } else {
+        const routes = findRoutes(routesPath);
+        routes.forEach((route: Route): void => {
+          delete require.cache[route.path];
+          importRoute(app.router, route, {
+            log: argv.log,
+          });
         });
       }
     });
