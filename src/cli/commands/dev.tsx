@@ -75,23 +75,13 @@ const handle = async (argv: Args): Promise<void> => {
         titleColor: 'brightblue',
       });
       delete require.cache[p];
-      // if the file change is a single route, update only that route, otherwise update all routes
-      if (p.includes(routesPath)) {
-        importRoute(app.router, {
-          path: p,
-          name: relative(routesPath, p),
-        }, {
+      const routes = findRoutes(routesPath);
+      routes.forEach((route: Route): void => {
+        delete require.cache[route.path];
+        importRoute(app.router, route, {
           log: argv.log,
         });
-      } else {
-        const routes = findRoutes(routesPath);
-        routes.forEach((route: Route): void => {
-          delete require.cache[route.path];
-          importRoute(app.router, route, {
-            log: argv.log,
-          });
-        });
-      }
+      });
     });
   });
 };
