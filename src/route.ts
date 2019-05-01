@@ -18,12 +18,17 @@ export default (route: Route): Handler => {
     const middleware: any[] = route.middleware || [];
 
     if (fn.log !== false) {
-      const logger = pino();
+      const pinoOptions = process.env.NODE_ENV === 'production' ? {} : {
+        prettyPrint: {
+          levelFirst: true,
+        },
+      };
+      const logger = pino(pinoOptions);
       middleware.unshift(logger);
     }
 
-      for (const mw of middleware) { // eslint-disable-line
-        await mw(req, res); // eslint-disable-line
+    for (const mw of middleware) { // eslint-disable-line
+      await mw(req, res); // eslint-disable-line
     }
 
     return route.handler(req, res);
