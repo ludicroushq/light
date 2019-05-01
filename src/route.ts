@@ -1,5 +1,6 @@
 import { run } from 'micro';
 import { IncomingMessage, ServerResponse } from 'http';
+import AWSServerlessMicro from 'aws-serverless-micro';
 import pino from 'pino-http';
 
 interface Route {
@@ -8,7 +9,8 @@ interface Route {
   handler: Handler;
 }
 
-type Handler = (req: IncomingMessage, res: ServerResponse) => {};
+// TODO: Define types for micro and aws
+type Handler = any;
 type IM = IncomingMessage;
 type SR = ServerResponse;
 type AP = Promise<any>;
@@ -37,5 +39,22 @@ export default (route: Route): Handler => {
   fn.path = route.path;
   fn.log = true;
   fn.module = __dirname;
+
+  const isAWS: boolean = !!(
+    (process.env.LAMBDA_TASK_ROOT && process.env.AWS_EXECUTION_ENV) || false
+  );
+  if (isAWS) {
+    return {
+      handler: AWSServerlessMicro(fn),
+    };
+  }
+
+  const isGCP: boolean = !!(process.env.X_GOOGLE_FUNCTION_NAME || false);
+  if (isGCP) {
+    return {
+      handler: fn,
+    };
+  }
+
   return fn;
 };

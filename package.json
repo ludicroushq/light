@@ -35,6 +35,7 @@
   },
   "homepage": "https://github.com/ludicrousxyz/light#readme",
   "dependencies": {
+    "aws-serverless-micro": "^1.0.2",
     "chokidar": "^2.1.5",
     "colorette": "^1.0.7",
     "emojic": "^1.1.15",
