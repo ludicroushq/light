@@ -41,10 +41,10 @@ export default (route: Route): Handler => {
       (process.env.LAMBDA_TASK_ROOT && process.env.AWS_EXECUTION_ENV) || false
     );
     if (isAWS) {
-      return AWSServerlessMicro(exec)
+      return AWSServerlessMicro(exec);
     }
     return run(Req, Res, exec);
-  }
+  };
 
   fn.path = route.path;
   fn.log = true;
