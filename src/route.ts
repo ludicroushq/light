@@ -10,6 +10,7 @@ interface Route {
 }
 
 // TODO: Define types for micro and aws
+// TODO: Add test for POST/other methods
 type Handler = any;
 type IM = IncomingMessage;
 type SR = ServerResponse;
@@ -46,7 +47,9 @@ export default (route: Route): Handler => {
     return run(Req, Res, exec);
   };
 
-  fn.path = route.path;
+  Object.keys(route).forEach((key): void => {
+    (fn as any)[key] = (route as any)[key];
+  });
   fn.log = true;
   fn.module = __dirname;
   fn.handler = fn;
