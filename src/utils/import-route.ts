@@ -44,6 +44,17 @@ export default (router: any, routeData: Route, opts: Options): void => {
     };
   }
 
+  if (!route.path) {
+    const { name, dir } = parse(routeData.name);
+    route.path = join(dir, name);
+  }
+
+  if (!Array.isArray(route.path)) {
+    route.path = [route.path];
+  }
+
+  route.path = route.path.map((p: string): string => join('/', p));
+
   route.handler.log = opts.log;
 
   if (!route.method) {
@@ -51,11 +62,11 @@ export default (router: any, routeData: Route, opts: Options): void => {
   }
   route.method = route.method.toUpperCase();
 
-  if (!route.path) {
-    const { name, dir } = parse(routeData.name);
-    route.path = join(dir, name);
-  }
-  route.path = join('/', route.path);
-
-  router.route(route);
+  route.path.forEach((path: string): void => {
+    const obj = {
+      ...route,
+    };
+    obj.path = path;
+    router.route(obj);
+  });
 };
