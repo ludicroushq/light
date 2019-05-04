@@ -5,3 +5,12 @@ exports = route.default;
 
 export { default as server } from './server';
 export { default, default as route } from './route';
+export {
+  buffer,
+  text,
+  json,
+  run,
+  send,
+  sendError,
+  createError,
+} from 'micro';
