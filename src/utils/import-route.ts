@@ -62,15 +62,21 @@ export default (router: any, routeData: Route, opts: Options): void => {
   route.handler.log = opts.log;
 
   if (!route.method) {
-    route.method = 'GET'; // default to GET
+    route.method = ['GET']; // default to GET
   }
-  route.method = route.method.toUpperCase();
+  if (!Array.isArray(route.method)) {
+    route.method = [route.method];
+  }
+  route.method = route.method.map((m: string): string => m.toUpperCase());
 
   route.path.forEach((path: string): void => {
-    const obj = {
-      ...route,
-    };
-    obj.path = path;
-    router.route(obj);
+    route.method.forEach((method: string): void => {
+      const obj = {
+        ...route,
+      };
+      obj.path = path;
+      obj.method = method;
+      router.route(obj);
+    });
   });
 };
