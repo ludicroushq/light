@@ -1,1 +1,1 @@
-declare module 'micro-http-router';
+declare module '@ludicrousxyz/micro-http-router';

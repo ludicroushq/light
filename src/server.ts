@@ -1,5 +1,5 @@
 import micro from 'micro';
-import Router from 'micro-http-router';
+import Router from '@ludicrousxyz/micro-http-router';
 import { IncomingMessage, ServerResponse, Server } from 'http';
 import findRoutes from './utils/find-routes';
 import Route from './types/route';
