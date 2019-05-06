@@ -15,5 +15,5 @@ export {
   sendError,
 } from 'micro';
 export {
-  createError
+  createError,
 } from 'micro-boom';

@@ -1,15 +1,13 @@
-import { run, send } from 'micro';
+import { run } from 'micro';
 import { IncomingMessage, ServerResponse } from 'http';
 import AWSServerlessMicro from 'aws-serverless-micro';
 import pino from 'pino-http';
 import { handleErrors } from 'micro-boom';
 
-const { NODE_ENV } = process.env;
-const DEV = NODE_ENV === 'development';
-
 interface Route {
   path?: string;
   middleware?: any[];
+  plugins?: any[];
   handler: Handler;
 }
 
@@ -22,7 +20,7 @@ type AP = Promise<any>;
 
 export default (route: Route): Handler => {
   const fn = (Req: IM, Res: SR): AP => {
-    const exec = async (req: IM, res: SR): AP => {
+    let exec = async (req: IM, res: SR): AP => {
       const middleware: any[] = route.middleware || [];
 
       if (fn.log !== false) {
@@ -41,6 +39,10 @@ export default (route: Route): Handler => {
 
       return route.handler(req, res);
     };
+
+    if (route.plugins) {
+      exec = route.plugins.reverse().reduce((acc, val): any => val(acc), exec);
+    }
 
     const isAWS: boolean = !!(
       (process.env.LAMBDA_TASK_ROOT && process.env.AWS_EXECUTION_ENV) || false
