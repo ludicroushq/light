@@ -2,13 +2,14 @@ import { run, send } from 'micro';
 import { IncomingMessage, ServerResponse } from 'http';
 import AWSServerlessMicro from 'aws-serverless-micro';
 import pino from 'pino-http';
+import { handleErrors } from 'micro-boom';
 
 const { NODE_ENV } = process.env;
 const DEV = NODE_ENV === 'development';
 
 interface Route {
   path?: string;
-  middleware?: string[];
+  middleware?: any[];
   handler: Handler;
 }
 
@@ -39,21 +40,6 @@ export default (route: Route): Handler => {
       }
 
       return route.handler(req, res);
-    };
-
-    const handleErrors = (hndlr: any): any => async (req: IM, res: SR): AP => {
-      try {
-        return await hndlr(req, res);
-      } catch (errorObj) {
-        const statusCode = errorObj.statusCode || errorObj.status || 500;
-        const message = statusCode ? errorObj.message : 'Internal Server Error';
-        if (errorObj instanceof Error) {
-          console.error(errorObj.stack); // eslint-disable-line
-        } else {
-          console.warn('thrown error must be an instance Error'); // eslint-disable-line
-        }
-        return send(res, statusCode, DEV ? errorObj.stack : { statusCode, message });
-      }
     };
 
     const isAWS: boolean = !!(

@@ -13,5 +13,7 @@ export {
   run,
   send,
   sendError,
-  createError,
 } from 'micro';
+export {
+  createError
+} from 'micro-boom';
