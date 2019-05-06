@@ -2,7 +2,7 @@ import { run } from 'micro';
 import { IncomingMessage, ServerResponse } from 'http';
 import AWSServerlessMicro from 'aws-serverless-micro';
 import pino from 'pino-http';
-import { handleErrors } from 'micro-boom';
+import { handleErrors } from '@ludicrousxyz/micro-boom';
 
 interface Route {
   path?: string;
