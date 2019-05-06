@@ -44,9 +44,7 @@ export default (route: Route): Handler => {
       exec = route.plugins.reverse().reduce((acc, val): any => val(acc), exec);
     }
 
-    const isAWS: boolean = !!(
-      (process.env.LAMBDA_TASK_ROOT && process.env.AWS_EXECUTION_ENV) || false
-    );
+    const isAWS: boolean = process.env.LIGHT_ENVIRONMENT === 'aws';
     if (isAWS) {
       return AWSServerlessMicro(handleErrors(exec));
     }
