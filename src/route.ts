@@ -35,6 +35,9 @@ export default (route: Route): Handler => {
 
       for (const mw of middleware) { // eslint-disable-line
         await mw(req, res); // eslint-disable-line
+        if (res.headersSent) {
+          return null;
+        }
       }
 
       return route.handler(req, res);
