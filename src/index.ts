@@ -16,4 +16,4 @@ export {
 } from 'micro';
 export {
   createError,
-} from '@ludicrousxyz/micro-boom';
+} from 'micro-boom';

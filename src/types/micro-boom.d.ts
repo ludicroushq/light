@@ -1,1 +1,1 @@
-declare module '@ludicrousxyz/micro-boom';
+declare module 'micro-boom';

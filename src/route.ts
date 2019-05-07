@@ -2,7 +2,14 @@ import { run } from 'micro';
 import { IncomingMessage, ServerResponse } from 'http';
 import AWSServerlessMicro from 'aws-serverless-micro';
 import pino from 'pino-http';
-import { handleErrors } from '@ludicrousxyz/micro-boom';
+import { handleErrors } from 'micro-boom';
+
+const pinoOptions = process.env.NODE_ENV === 'production' ? {} : {
+  prettyPrint: {
+    levelFirst: true,
+  },
+};
+const logger = pino(pinoOptions);
 
 interface Route {
   path?: string;
@@ -24,13 +31,8 @@ export default (route: Route): Handler => {
       const middleware: any[] = route.middleware || [];
 
       if (fn.log !== false) {
-        const pinoOptions = process.env.NODE_ENV === 'production' ? {} : {
-          prettyPrint: {
-            levelFirst: true,
-          },
-        };
-        const logger = pino(pinoOptions);
         middleware.unshift(logger);
+        fn.log = false;
       }
 
       for (const mw of middleware) { // eslint-disable-line
