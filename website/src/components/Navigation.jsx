@@ -50,21 +50,15 @@ class Navigation extends React.Component {
 
           <div className={classnames('navbar-menu', 'header', { 'is-active': active })}>
             <div className="navbar-end">
-              <Link href="/">
-                <a className={classnames('navbar-item', { 'is-active': route === '/' })} role="navigation" onClick={this.closeMenu}>
-                  Home
-                </a>
-              </Link>
-              <Link href="/guides">
-                <a className={classnames('navbar-item', { 'is-active': route === '/login' })} role="navigation" onClick={this.closeMenu}>
-                  Guides
-                </a>
-              </Link>
-              <Link href="/docs">
-                <a className={classnames('navbar-item', { 'is-active': route === '/login' })} role="navigation" onClick={this.closeMenu}>
-                  Docs
-                </a>
-              </Link>
+              <a href="/" className={classnames('navbar-item', { 'is-active': route === '/' })} role="navigation" onClick={this.closeMenu}>
+                Home
+              </a>
+              <a href="/guides" className={classnames('navbar-item', { 'is-active': route === '/login' })} role="navigation" onClick={this.closeMenu}>
+                Guides
+              </a>
+              <a href="/docs" className={classnames('navbar-item', { 'is-active': route === '/login' })} role="navigation" onClick={this.closeMenu}>
+                Docs
+              </a>
             </div>
           </div>
         </div>

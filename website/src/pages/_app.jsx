@@ -8,8 +8,18 @@ import Footer from '../components/Footer';
 import '../assets/css/index.scss';
 
 export default class extends App {
+  static async getInitialProps({ Component, ctx }) {
+    let pageProps = {};
+
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx);
+    }
+
+    return { pageProps };
+  }
+
   render() {
-    const { Component } = this.props;
+    const { Component, pageProps } = this.props;
 
     return (
       <Container>
@@ -25,7 +35,7 @@ export default class extends App {
           </div>
         </div>
         <Navigation />
-        <Component />
+        <Component {...pageProps} />
         <Footer />
       </Container>
     );
