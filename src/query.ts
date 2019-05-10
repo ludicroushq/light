@@ -1,11 +1,15 @@
 import { IncomingMessage } from 'http';
-import { parse as parseURL } from 'url';
-import { parse as parseQueryString } from 'querystring';
+import { URL } from 'url';
 
 export default (req: IncomingMessage): any => {
   if (!req.url) {
     return {};
   }
-  const { query } = parseURL(req.url);
-  return parseQueryString(query || '');
+  const { searchParams } = new URL(req.url, 'http://localhost');
+
+  const params = {};
+  searchParams.forEach((value: string, key: string) => {
+    (params as any)[key] = value;
+  })
+  return params;
 };
