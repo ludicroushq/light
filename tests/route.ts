@@ -26,7 +26,7 @@ describe('routes', () => {
       expect(res).toMatchObject({ hello: 'route world' });
     });
 
-    it('should work', async () => {
+    it('should work again', async () => {
       expect.assertions(2);
       const req = await fetch(resolve(url, '/runkit'));
       const res = await req.json();
