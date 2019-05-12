@@ -1,10 +1,12 @@
-[
-  "getting-started",
-  "deployment/server",
-  "deployment/now",
-  "deployment/runkit",
-  "deployment/heroku",
-  "deployment/aws",
-  "deployment/google-cloud",
-  "deployment/netlify"
-]
+{
+  "Getting Started": "getting-started",
+  "Deployment": {
+    "Server": "deployment/server",
+    "Now": "deployment/now",
+    "RunKit": "deployment/runkit",
+    "Heroku": "deployment/heroku",
+    "AWS": "deployment/aws",
+    "Google Cloud": "deployment/google-cloud",
+    "Netlify": "deployment/netlify"
+  }
+}

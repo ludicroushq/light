@@ -1,5 +1,5 @@
 const withSass = require('@zeit/next-sass');
-const { join } = require('path');
+const join = require('url-join');
 const guides = require('../../guides/guides.json');
 
 const { NODE_ENV, COMMIT_REF } = process.env;
@@ -13,12 +13,20 @@ module.exports = withSass({
       '/guides/': { page: '/guides' },
     };
 
-    guides.forEach((guide) => {
-      routes[join('/guides', guide)] = {
-        page: '/guides',
-        query: { title: guide },
-      };
-    });
+    const processRoutes = (obj) => {
+      Object.keys(obj).forEach((key) => {
+        const guide = obj[key];
+        if (typeof guide !== 'string') {
+          return processRoutes(guide);
+        }
+        routes[join('/guides', guide)] = {
+          page: '/guides',
+          query: { title: guide },
+        };
+      });
+    };
+
+    processRoutes(guides);
 
     return routes;
   },

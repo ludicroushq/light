@@ -23,32 +23,34 @@ export default class extends React.Component {
 
   render() {
     const { menu, active } = this.props;
-    const tree = this.buildTree(menu);
-    const keys = Array.from(tree.keys());
-    const guides = menu.filter(m => !m.includes('/'));
     return (
       <div>
         <aside className="menu">
           <p className="menu-label">
             Guides
           </p>
-          { guides.map((item) => (
-            <ul className="menu-list" key={item}>
-              <li><a href={`/guides/${item}`} className={classnames({ 'is-active': active === item })}>{ this.titleize(item) }</a></li>
-            </ul>
-          )) }
-          { keys.map((key) => (
-            <React.Fragment key={key}>
-              <p className="menu-label">
-                { key }
-              </p>
-              { tree.get(key).map((item) => (
-                <ul className="menu-list" key={item}>
-                  <li><a href={`/guides/${key}/${item}`} className={classnames({ 'is-active': active === `${key}/${item}` })}>{ this.titleize(item) }</a></li>
-                </ul>
-              )) }
-            </React.Fragment>
-          )) }
+          { Object.keys(menu).map((key) => {
+            const guide = menu[key];
+            if (typeof guide !== 'string') {
+              return (
+                <React.Fragment key={key}>
+                  <p className="menu-label">
+                    { key }
+                  </p>
+                  { Object.keys(guide).map((subkey) => (
+                    <ul className="menu-list" key={subkey}>
+                      <li><a href={`/guides/${guide[subkey]}`} className={classnames({ 'is-active': active === guide[subkey] })}>{ this.titleize(subkey) }</a></li>
+                    </ul>
+                  ))}
+                </React.Fragment>
+              );
+            }
+            return (
+              <ul className="menu-list" key={key}>
+                <li><a href={`/guides/${guide}`} className={classnames({ 'is-active': active === guide })}>{ this.titleize(key) }</a></li>
+              </ul>
+            );
+          })}
         </aside>
       </div>
     );
