@@ -49,10 +49,11 @@ export default (route: Route): Handler => {
       exec = route.plugins.reverse().reduce((acc, val): any => val(acc), exec);
     }
 
-    const isAWS: boolean = process.env.LIGHT_ENVIRONMENT === 'aws';
+    const isAWS: boolean = !!(process.env.LIGHT_ENVIRONMENT && process.env.LIGHT_ENVIRONMENT.toLowerCase() === 'aws');
     if (isAWS) {
       return AWSServerlessMicro(handleErrors(exec));
     }
+
     return run(Req, Res, handleErrors(exec));
   };
 
@@ -62,6 +63,13 @@ export default (route: Route): Handler => {
   fn.log = true;
   fn.module = __dirname;
   fn.handler = fn;
+
+  const isRunKit: boolean = !!(process.env.LIGHT_ENVIRONMENT && process.env.LIGHT_ENVIRONMENT.toLowerCase() === 'runkit');
+  if (isRunKit) {
+    return {
+      endpoint: fn,
+    };
+  }
 
   return fn;
 };
