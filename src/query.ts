@@ -8,8 +8,12 @@ export default (req: IncomingMessage): any => {
   const { searchParams } = new URL(req.url, 'http://localhost');
 
   const params = {};
-  searchParams.forEach((value: string, key: string): void => {
+  Array.from(searchParams.keys()).forEach((key) => {
+    let value: string | string[] = searchParams.getAll(key);
+    if (value.length === 1) {
+      value = value[0];
+    }
     (params as any)[key] = value;
-  });
+  })
   return params;
 };
