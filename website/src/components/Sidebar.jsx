@@ -38,7 +38,7 @@ export default class extends React.Component {
             </ul>
           )) }
           { keys.map((key) => (
-            <React.Fragment>
+            <React.Fragment key={key}>
               <p className="menu-label">
                 { key }
               </p>

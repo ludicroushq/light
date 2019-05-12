@@ -1,4 +1,10 @@
 [
   "getting-started",
-  "deployment/runkit"
+  "deployment/server",
+  "deployment/now",
+  "deployment/runkit",
+  "deployment/heroku",
+  "deployment/aws",
+  "deployment/google-cloud",
+  "deployment/netlify"
 ]
