@@ -1,5 +1,5 @@
 import React from 'react';
-import { resolve } from 'url';
+import join from 'url-join';
 import fetch from 'isomorphic-unfetch';
 
 import Hero from '../components/Hero';
@@ -12,7 +12,7 @@ export default class Posts extends React.Component {
       title = 'getting-started';
     }
 
-    const fetchPost = await fetch(resolve(process.env.baseURL, `guides/${title}.md`));
+    const fetchPost = await fetch(join(process.env.BASE_URL, `guides/${title}.md`));
     const post = await fetchPost.text();
     const split = post.split('---');
     split.shift();
@@ -27,7 +27,7 @@ export default class Posts extends React.Component {
       res[attr.trim()] = val.trim();
     });
 
-    const fetchSidebar = await fetch(resolve(process.env.baseURL, `guides/guides.json`));
+    const fetchSidebar = await fetch(join(process.env.BASE_URL, `guides/guides.json`));
     const menu = await fetchSidebar.json();
 
     return {

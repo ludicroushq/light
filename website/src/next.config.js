@@ -23,6 +23,6 @@ module.exports = withSass({
     return routes;
   },
   env: {
-    baseURL: NODE_ENV === 'development' ? 'http://localhost:8080' : mappedURL,
+    BASE_URL: NODE_ENV === 'development' ? 'http://localhost:8080' : mappedURL,
   },
 });
