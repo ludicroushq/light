@@ -37,6 +37,7 @@ export default (route: Route): Handler => {
 
       for (const mw of middleware) { // eslint-disable-line
         await mw(req, res); // eslint-disable-line
+
         if (res.headersSent) {
           return null;
         }
@@ -49,7 +50,9 @@ export default (route: Route): Handler => {
       exec = route.plugins.reverse().reduce((acc, val): any => val(acc), exec);
     }
 
+    // TODO: Fix this
     const isAWS: boolean = !!(process.env.LIGHT_ENVIRONMENT && process.env.LIGHT_ENVIRONMENT.toLowerCase() === 'aws');
+    /* istanbul ignore if  */
     if (isAWS) {
       return AWSServerlessMicro(handleErrors(exec));
     }
@@ -60,6 +63,7 @@ export default (route: Route): Handler => {
   Object.keys(route).forEach((key): void => {
     (fn as any)[key] = (route as any)[key];
   });
+
   fn.log = true;
   fn.module = __dirname;
   fn.handler = fn;

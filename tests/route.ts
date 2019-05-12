@@ -26,6 +26,14 @@ describe('routes', () => {
       expect(res).toMatchObject({ hello: 'route world' });
     });
 
+    it('should work', async () => {
+      expect.assertions(2);
+      const req = await fetch(resolve(url, '/runkit'));
+      const res = await req.json();
+      expect(req.status).toStrictEqual(200);
+      expect(res).toMatchObject({ hello: 'runkit world' });
+    });
+
     it('should work with default export', async () => {
       expect.assertions(2);
       const req = await fetch(resolve(url, '/route-default'));

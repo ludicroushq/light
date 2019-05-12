@@ -5,6 +5,7 @@ export default (req: IncomingMessage): any => {
   if (!req.url) {
     return {};
   }
+
   const { searchParams } = new URL(req.url, 'http://localhost');
 
   const params = {};

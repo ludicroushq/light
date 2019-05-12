@@ -12,6 +12,14 @@ describe('query', () => {
       expect(hello).toStrictEqual('world');
     });
 
+    it('should work without req.url', async () => {
+      expect.assertions(1);
+      const req = {
+      };
+      const res = query((req as IncomingMessage));
+      expect(res).toMatchObject({});
+    });
+
     it('should work with multiple params', async () => {
       expect.assertions(2);
       const req = {

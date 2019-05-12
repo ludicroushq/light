@@ -64,9 +64,11 @@ export default (router: any, routeData: Route, opts: Options): void => {
   if (!route.method) {
     route.method = ['GET']; // default to GET
   }
+
   if (!Array.isArray(route.method)) {
     route.method = [route.method];
   }
+
   route.method = route.method.map((m: string): string => m.toUpperCase());
 
   route.path.forEach((path: string): void => {
