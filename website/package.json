@@ -33,8 +33,11 @@
     "next": "^8.1.0",
     "node-sass": "^4.11.0",
     "prismjs": "^1.16.0",
+    "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-markdown": "^4.0.8",
+    "react-syntax-highlighter": "^10.2.1",
     "react-typed": "^1.1.2",
     "url-join": "^4.0.0"
   },
