@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import {
   blueBright, green, redBright, yellow, red,
 } from 'colorette';
