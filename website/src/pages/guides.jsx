@@ -59,6 +59,7 @@ export default class Posts extends React.Component {
                 <div className="content is-medium">
                   <Markdown
                     source={content}
+                    linkTarget="_blank"
                     renderers={{
                       code: CodeBlock,
                     }}
