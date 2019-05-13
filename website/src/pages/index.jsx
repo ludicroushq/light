@@ -143,20 +143,20 @@ export default class Index extends React.Component {
                 <h2 className="subtitle">deploy anywhere</h2>
               </div>
               <div className="column">
-                <div class="columns is-vcentered">
-                  <div class="column is-one-quarter">
-                    <aside class="menu">
-                      <p class="menu-label">
+                <div className="columns is-vcentered">
+                  <div className="column is-one-quarter">
+                    <aside className="menu">
+                      <p className="menu-label">
                         Deployments
                       </p>
-                      <ul class="menu-list">
+                      <ul className="menu-list">
                         { deployments.map((deployment) => (
-                          <li><a onClick={() => this.changeDeployment(deployment)} class={classnames({ 'is-active': deployment.name === selectedDeploy.name })}>{ deployment.name }</a></li>
+                          <li><a onClick={() => this.changeDeployment(deployment)} className={classnames({ 'is-active': deployment.name === selectedDeploy.name })}>{ deployment.name }</a></li>
                         )) }
                       </ul>
                     </aside>
                   </div>
-                  <div class="column">
+                  <div className="column">
                     <CodeBlock language="javascript" value={`const light = require('light');
 
 ${selectedDeploy.code ? `${selectedDeploy.code}` : ''}
