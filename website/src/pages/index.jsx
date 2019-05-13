@@ -132,6 +132,7 @@ export default class Index extends React.Component {
             </div>
           </div>
         </section>
+        <hr />
         <section className="section">
           <div className="container">
             <div className="columns is-vcentered">
@@ -172,6 +173,7 @@ module.exports = light({
             </div>
           </div>
         </section>
+        <hr />
         <section className="section">
           <div className="container">
             <div className="columns">
