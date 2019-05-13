@@ -11,6 +11,8 @@ module.exports = withSass({
     const routes = {
       '/': { page: '/' },
       '/guides/': { page: '/guides' },
+      '/docs': { page: '/docs' },
+      '/docs/': { page: '/docs' },
     };
 
     const processRoutes = (obj) => {
