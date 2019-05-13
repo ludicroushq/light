@@ -33,9 +33,11 @@ export default class Index extends React.Component {
       },
       {
         name: 'Server',
+        code: '// no configuration needed',
       },
       {
         name: 'Heroku',
+        code: '// no configuration needed',
       },
     ]
   }
@@ -176,7 +178,7 @@ module.exports = light({
         <hr />
         <section className="section">
           <div className="container">
-            <div className="columns is-vcentered">
+            <div className="columns is-vcentered" style={{ height: '350px' }}>
               <div className="column is-one-third has-text-centered">
                 <h1 className="title">try it yourself</h1>
                 <h2 className="subtitle">on RunKit</h2>
