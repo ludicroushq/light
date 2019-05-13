@@ -28,6 +28,7 @@ export default class extends App {
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="description" hid="description" content="a lightining fast web server" />
+          <script src="https://embed.runkit.com"></script>
         </Head>
         <div className="has-background-info has-text-white" style={{ padding: '0.5em' }}>
           <div className="container has-text-centered">

@@ -1,5 +1,12 @@
 {
   "Getting Started": "getting-started",
+  "Server vs Serverless": "server-vs-serverless",
+  "Handler": "handler",
+  "Routing": "routing",
+  "Methods": "methods",
+  "Hot Module Reloading": "hot-module-reloading",
+  "Middleware": "middleware",
+  "Plugins": "plugins",
   "Deployment": {
     "Server": "deployment/server",
     "Now": "deployment/now",

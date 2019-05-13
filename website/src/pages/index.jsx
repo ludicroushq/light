@@ -1,11 +1,50 @@
 import React from 'react';
 import GDemo from '@glorious/demo';
 import Prism from 'prismjs';
+import classnames from 'classnames';
+import Embed from 'react-runkit';
 
 import Hero from '../components/Hero';
+import CodeBlock from '../components/CodeBlock';
 
 export default class Index extends React.Component {
+  state = {
+    selectedDeploy: {},
+    deployments: [
+      {
+        name: 'Zeit Now',
+        code: 'process.env.LIGHT_ENVIRONMENT = \'now\';',
+      },
+      {
+        name: 'RunKit',
+        code: 'process.env.LIGHT_ENVIRONMENT = \'runkit\';',
+      },
+      {
+        name: 'AWS',
+        code: 'process.env.LIGHT_ENVIRONMENT = \'aws\';',
+      },
+      {
+        name: 'Google Cloud',
+        code: 'process.env.LIGHT_ENVIRONMENT = \'gcloud\';',
+      },
+      {
+        name: 'Netlify',
+        code: 'process.env.LIGHT_ENVIRONMENT = \'netlify\';',
+      },
+      {
+        name: 'Server',
+      },
+      {
+        name: 'Heroku',
+      },
+    ]
+  }
+
   componentDidMount() {
+    this.setState(prevState => ({
+      selectedDeploy: prevState.deployments[0],
+    }));
+
     const demo = new GDemo('#light-demo');
 
     const code = `
@@ -27,16 +66,28 @@ export default class Index extends React.Component {
       'javascript',
     );
 
-    demo.openApp('editor', {minHeight: '300px', windowTitle: 'routes/index.js'})
-      .write(highlightedCode, {onCompleteDelay: 1500})
-      .openApp('terminal', {minHeight: '300px', promptString: '$'})
-      .command('light dev', {onCompleteDelay: 500})
-      .respond('Hello World!')
-      .command('')
+    demo.openApp('editor', { minHeight: '300px', windowTitle: 'routes/index.js' })
+      .write(highlightedCode, { onCompleteDelay: 1500 })
+      .openApp('terminal', { minHeight: '300px', promptString: '$' })
+      .command('light dev &', { onCompleteDelay: 250 })
+      .respond('[ start ]  🔥 igniting the server 🔥', { onCompleteDelay: 1000 })
+      .respond('[ 100ms ]  listening on 3000', { onCompleteDelay: 250 })
+      .respond('[ hmr ]    starting the hot reloader', { onCompleteDelay: 750 })
+      .respond('[ hmr ]    watching for changes', { onCompleteDelay: 750 })
+      .command('curl http://localhost:3000', { onCompleteDelay: 500 })
+      .respond('{"hello":"world"}', { onCompleteDelay: 500 })
+      .command('# thats it!', { onCompleteDelay: 500 })
       .end();
   }
 
+  changeDeployment(obj) {
+    this.setState({
+      selectedDeploy: obj,
+    });
+  }
+
   render() {
+    const { deployments, selectedDeploy } = this.state;
     return (
       <div>
         <Hero
@@ -69,13 +120,76 @@ export default class Index extends React.Component {
         </Hero>
         <section className="section">
           <div className="container">
-            <div className="columns is-vcentered" style={{ height: '300px' }}>
-              <div className="column">
-                <h1 className="title">Lorem Ipsum</h1>
-                <h2 className="subtitle">Dolor sit amet</h2>
-              </div>
-              <div className="column" style={{ alignSelf: 'flex-start', paddingTop: '0px', paddingBottom: '0px' }}>
+            <div className="columns" style={{ height: '375px' }}>
+              <div className="column is-half is-offset-one-quarter" style={{ alignSelf: 'flex-start', height: '300px', display: 'inline', paddingTop: '0px', paddingBottom: '0px' }}>
+                <div className="has-text-centered">
+                  <h1 className="title">as simple as</h1>
+                  <h2 className="subtitle"><code>light dev</code></h2>
+                </div>
+                <br />
                 <div id="light-demo"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="section">
+          <div className="container">
+            <div className="columns is-vcentered">
+              <div className="column is-one-third has-text-centered">
+                <h1 className="title">write once</h1>
+                <h2 className="subtitle">deploy anywhere</h2>
+              </div>
+              <div className="column">
+                <div class="columns is-vcentered">
+                  <div class="column is-one-quarter">
+                    <aside class="menu">
+                      <p class="menu-label">
+                        Deployments
+                      </p>
+                      <ul class="menu-list">
+                        { deployments.map((deployment) => (
+                          <li><a onClick={() => this.changeDeployment(deployment)} class={classnames({ 'is-active': deployment.name === selectedDeploy.name })}>{ deployment.name }</a></li>
+                        )) }
+                      </ul>
+                    </aside>
+                  </div>
+                  <div class="column">
+                    <CodeBlock language="javascript" value={`const light = require('light');
+
+${selectedDeploy.code ? `${selectedDeploy.code}` : ''}
+
+module.exports = light({
+  path: '/',
+  async handler() {
+    return {
+      hello: 'world',
+    };
+  },
+});`} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="section">
+          <div className="container">
+            <div className="columns">
+              <div className="column is-one-third has-text-centered">
+                <h1 className="title">try it yourself</h1>
+                <h2 className="subtitle">on RunKit</h2>
+              </div>
+              <div className="column runkit">
+                <Embed source={ `const light = require('light');
+
+module.exports = light({
+  path: '/',
+  async handler() {
+    return {
+      hello: 'world',
+    };
+  },
+});` } mode='endpoint' />
               </div>
             </div>
           </div>
