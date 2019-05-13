@@ -176,7 +176,7 @@ module.exports = light({
         <hr />
         <section className="section">
           <div className="container">
-            <div className="columns">
+            <div className="columns is-vcentered">
               <div className="column is-one-third has-text-centered">
                 <h1 className="title">try it yourself</h1>
                 <h2 className="subtitle">on RunKit</h2>
