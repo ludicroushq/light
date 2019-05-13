@@ -4,7 +4,16 @@ import AWSServerlessMicro from 'aws-serverless-micro';
 import pino from 'pino-http';
 import { handleErrors } from 'micro-boom';
 
-const pinoOptions = process.env.NODE_ENV === 'production' ? {} : {
+const isProd = process.env.NODE_ENV === 'production';
+
+let Youch: any;
+let forTerminal: any;
+if (!isProd) {
+  Youch = require('youch'); // eslint-disable-line
+  forTerminal = require('youch-terminal'); // eslint-disable-line
+}
+
+const pinoOptions = isProd ? {} : {
   prettyPrint: {
     levelFirst: true,
   },
@@ -50,6 +59,19 @@ export default (route: Route): Handler => {
       exec = route.plugins.reverse().reduce((acc, val): any => val(acc), exec);
     }
 
+    const youchErrors = (fun: any): any => async (req: IM, res: SR): Promise<void> => {
+      try {
+        return await fun(req, res);
+      } catch (err) {
+        if (!isProd) {
+          const youch = new Youch(err, req);
+          const json = await youch.toJSON();
+          console.log(forTerminal(json)); // eslint-disable-line
+        }
+        throw err;
+      }
+    };
+
     // TODO: Fix this
     const isAWS: boolean = !!(process.env.LIGHT_ENVIRONMENT && process.env.LIGHT_ENVIRONMENT.toLowerCase() === 'aws');
     /* istanbul ignore if  */
@@ -57,7 +79,7 @@ export default (route: Route): Handler => {
       return AWSServerlessMicro(handleErrors(exec));
     }
 
-    return run(Req, Res, handleErrors(exec));
+    return run(Req, Res, handleErrors(youchErrors(exec)));
   };
 
   Object.keys(route).forEach((key): void => {

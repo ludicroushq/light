@@ -47,7 +47,9 @@
     "micromatch": "^4.0.1",
     "pino-http": "^4.2.0",
     "pino-pretty": "^3.0.0",
-    "yargs": "^13.2.2"
+    "yargs": "^13.2.2",
+    "youch": "^2.0.10",
+    "youch-terminal": "^1.0.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.11",
