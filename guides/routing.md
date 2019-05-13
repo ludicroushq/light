@@ -28,5 +28,4 @@ module.exports = light({
 });
 ```
 
-
 You can also use route parameters such as the `:id` in the route above which become accessible in the req object as `req.params.id`.

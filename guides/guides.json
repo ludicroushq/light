@@ -4,6 +4,8 @@
   "Handler": "handler",
   "Routing": "routing",
   "Methods": "methods",
+  "Query": "query",
+  "Error Handling": "error-handling",
   "Hot Module Reloading": "hot-module-reloading",
   "Middleware": "middleware",
   "Plugins": "plugins",
