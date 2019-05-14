@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import micromatch from 'micromatch';
 
+/* istanbul ignore next */
 const ls: (dir: string, filelist: string[]) => any = (dir, filelist = []): any[] => fs.readdirSync(dir)
   .map((file: string): any[] => (fs.statSync(path.join(dir, file)).isDirectory()
     ? ls(path.join(dir, file), filelist)
