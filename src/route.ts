@@ -23,7 +23,7 @@ interface Route {
   path?: string;
   middleware?: any[];
   plugins?: any[];
-  method: string[] | string;
+  method?: string[] | string;
   handler: Handler;
 }
 
