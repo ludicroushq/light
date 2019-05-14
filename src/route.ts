@@ -13,6 +13,7 @@ if (!isProd) {
   forTerminal = require('youch-terminal'); // eslint-disable-line
 }
 
+/* istanbul ignore next */
 const pinoOptions = isProd ? {} : {
   prettyPrint: true,
 };
@@ -22,6 +23,7 @@ interface Route {
   path?: string;
   middleware?: any[];
   plugins?: any[];
+  method: string[] | string;
   handler: Handler;
 }
 
@@ -71,8 +73,9 @@ export default (route: Route): Handler => {
     };
 
     // TODO: Fix this
+    /* istanbul ignore next */
     const isAWS: boolean = !!(process.env.LIGHT_ENVIRONMENT && process.env.LIGHT_ENVIRONMENT.toLowerCase() === 'aws');
-    /* istanbul ignore if  */
+    /* istanbul ignore if */
     if (isAWS) {
       return AWSServerlessMicro(handleErrors(exec));
     }
