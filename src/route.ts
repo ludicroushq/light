@@ -14,9 +14,7 @@ if (!isProd) {
 }
 
 const pinoOptions = isProd ? {} : {
-  prettyPrint: {
-    levelFirst: true,
-  },
+  prettyPrint: true,
 };
 const logger = pino(pinoOptions);
 

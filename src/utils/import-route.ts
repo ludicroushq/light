@@ -28,6 +28,7 @@ export default (router: any, routeData: Route, opts: Options): void => {
   if (isFunction(handler) && !(handler as any).path) {
     const { name, dir } = parse(routeData.name);
     const path = join('/', dir, name === 'index' ? '/' : name);
+    (handler as any).log = opts.log;
     router.get(path, handler);
     router.post(path, handler);
     router.put(path, handler);
