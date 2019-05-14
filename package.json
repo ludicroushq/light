@@ -4,8 +4,8 @@
   "description": "a modern framework",
   "scripts": {
     "test": "npm run lint && npm run jest:ci",
-    "jest": "jest --verbose --coverage",
-    "jest:ci": "jest --verbose --coverage --coverageReporters=text-lcov | coveralls",
+    "jest": "jest --verbose --coverage --maxWorkers=4",
+    "jest:ci": "jest --verbose --coverage --maxWorkers=4 --coverageReporters=text-lcov | coveralls",
     "lint": "eslint src server tests *.js --ext js,ts,tsx",
     "dev": "tsc -w",
     "compile": "tsc",
