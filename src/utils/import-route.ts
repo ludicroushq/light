@@ -19,7 +19,7 @@ export default (router: any, routeData: Route, opts: Options): void => {
       handler = handler.default;
     }
   } catch (err) {
-    log('error', `unable to import route ${routeData.path}\n${err.stack}`, {
+    log('error', `unable to import route ${routeData.path}\n${err}`, {
       titleColor: 'red',
     });
     return;
