@@ -151,7 +151,7 @@ export default class Index extends React.Component {
                       </p>
                       <ul className="menu-list">
                         { deployments.map((deployment) => (
-                          <li><a onClick={() => this.changeDeployment(deployment)} className={classnames({ 'is-active': deployment.name === selectedDeploy.name })}>{ deployment.name }</a></li>
+                          <li key={deployment.name}><a onClick={() => this.changeDeployment(deployment)} className={classnames({ 'is-active': deployment.name === selectedDeploy.name })}>{ deployment.name }</a></li>
                         )) }
                       </ul>
                     </aside>
@@ -185,6 +185,8 @@ module.exports = light({
               </div>
               <div className="column runkit">
                 <Embed source={ `const light = require('light');
+
+process.env.LIGHT_ENVIRONMENT = 'runkit';
 
 module.exports = light({
   path: '/',
