@@ -163,7 +163,7 @@ ${selectedDeploy.code ? `${selectedDeploy.code}` : ''}
 
 module.exports = light({
   path: '/',
-  async handler() {
+  async handler(req, res) {
     return {
       hello: 'world',
     };
