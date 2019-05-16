@@ -190,7 +190,7 @@ process.env.LIGHT_ENVIRONMENT = 'runkit';
 
 module.exports = light({
   path: '/',
-  async handler() {
+  async handler(req, res) {
     return {
       hello: 'world',
     };
