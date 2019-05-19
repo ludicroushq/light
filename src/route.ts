@@ -3,6 +3,7 @@ import { IncomingMessage, ServerResponse } from 'http';
 import AWSServerlessMicro from 'aws-serverless-micro';
 import pino from 'pino-http';
 import { handleErrors } from 'micro-boom';
+import bytes from 'bytes';
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -32,13 +33,37 @@ if (isProd) {
   const signale = require('./utils/logger'); // eslint-disable-line
 
   logger = (fn: any): any => async (req: IM, res: SR): AP => {
+    const id = Math.random().toString(36).substring(2, 6);
+    const log = signale.scope(id);
     const msg = `${req.url}`;
     const { method } = req as any;
-    if (signale[method]) {
-      signale[method](msg);
+    if (log[method]) {
+      log[method](msg);
     } else {
-      signale.request(msg);
+      log.request(msg);
     }
+
+    const done = (): void => {
+      res.removeListener('finish', onfinish); // eslint-disable-line
+      res.removeListener('close', onclose); // eslint-disable-line
+      const status = res.statusCode;
+      const len = (res as any)._contentLength; // eslint-disable-line
+      let length;
+      if ([204, 205, 304].includes(status)) {
+        length = '';
+      } else if (len == null) {
+        length = '-';
+      } else {
+        length = bytes(len).toLowerCase();
+      }
+      log.response(`${status} ${length}`);
+    };
+
+    const onfinish = done.bind(null, 'finish');
+    const onclose = done.bind(null, 'close');
+
+    res.once('finish', onfinish);
+    res.once('close', onclose);
 
     return fn(req, res);
   };

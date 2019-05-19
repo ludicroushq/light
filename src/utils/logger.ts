@@ -11,6 +11,10 @@ const options = {
       ...defaults,
       label: 'REQUEST',
     },
+    response: {
+      ...defaults,
+      label: '<',
+    },
     start: {
       badge: '',
       label: 'start',

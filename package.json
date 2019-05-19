@@ -36,6 +36,7 @@
   "homepage": "https://github.com/ludicrousxyz/light#readme",
   "dependencies": {
     "aws-serverless-micro": "^1.0.2",
+    "bytes": "^3.1.0",
     "chalk": "^2.4.2",
     "chokidar": "^2.1.5",
     "emojic": "^1.1.15",
@@ -53,6 +54,7 @@
     "youch-terminal": "^1.0.0"
   },
   "devDependencies": {
+    "@types/bytes": "^3.0.0",
     "@types/jest": "^24.0.11",
     "@types/lodash.isarray": "^4.0.6",
     "@types/lodash.isfunction": "^3.0.6",
