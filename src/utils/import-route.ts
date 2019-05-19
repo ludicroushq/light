@@ -3,7 +3,7 @@ import {
 } from 'path';
 import isFunction from 'lodash.isfunction';
 import { IncomingMessage, ServerResponse } from 'http';
-import log from '../cli/utils/log';
+import logger from './logger';
 
 import Route from '../types/route';
 
@@ -19,9 +19,8 @@ export default (router: any, routeData: Route, opts: Options): void => {
       handler = handler.default;
     }
   } catch (err) {
-    log('error', `unable to import route ${routeData.path}\n${err}`, {
-      titleColor: 'red',
-    });
+    logger.error(`unable to import route ${routeData.path}`);
+    logger.fatal(err);
     return;
   }
 

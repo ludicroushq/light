@@ -36,8 +36,8 @@
   "homepage": "https://github.com/ludicrousxyz/light#readme",
   "dependencies": {
     "aws-serverless-micro": "^1.0.2",
+    "chalk": "^2.4.2",
     "chokidar": "^2.1.5",
-    "colorette": "^1.0.7",
     "emojic": "^1.1.15",
     "lodash.isarray": "^4.0.0",
     "lodash.isfunction": "^3.0.9",
@@ -47,6 +47,7 @@
     "micromatch": "^4.0.1",
     "pino-http": "^4.2.0",
     "pino-pretty": "^3.0.0",
+    "signale": "^1.4.0",
     "yargs": "^13.2.2",
     "youch": "^2.0.10",
     "youch-terminal": "^1.0.0"
@@ -60,6 +61,7 @@
     "@types/node": "^11.13.4",
     "@types/node-fetch": "^2.3.2",
     "@types/pino-http": "^4.0.2",
+    "@types/signale": "^1.2.1",
     "@types/test-listen": "^1.1.0",
     "@types/yargs": "^13.0.0",
     "@typescript-eslint/eslint-plugin": "^1.6.0",

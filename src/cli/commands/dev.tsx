@@ -1,15 +1,13 @@
 import { CommandBuilder } from 'yargs'; // eslint-disable-line
 import { join, relative } from 'path';
 import emojic from 'emojic';
-import { yellow } from 'colorette';
+import chalk from 'chalk';
+import logger from '../../utils/logger';
 
 import Route from '../../types/route';
 import { server } from '../../index';
 import findRoutes from '../../utils/find-routes';
 import importRoute from '../../utils/import-route';
-import log from '../utils/log';
-
-const start = Date.now();
 
 export const command = 'dev [dir]';
 export const aliases: string[] = ['d'];
@@ -35,10 +33,7 @@ interface Args {
 }
 
 const handle = async (argv: Args): Promise<void> => {
-  log('start', `${emojic.fire} igniting the server ${emojic.fire}`, {
-    titleColor: 'brightred',
-    messageColor: 'brightred',
-  });
+  logger.start(`${emojic.fire} igniting the server ${emojic.fire}`);
 
   const cwd = join(process.cwd(), argv.dir);
   const routesPath = join(cwd, './routes');
@@ -58,22 +53,14 @@ const handle = async (argv: Args): Promise<void> => {
   }: ProcessEnv = process.env;
 
   app.server.listen(PORT, (HOST as any), (): void => {
-    log(`${Date.now() - start}ms`, 'listening on 3000', {
-      titleColor: 'green',
-    });
+    logger.listening('on port 3000');
 
-    log('hmr', 'starting the hot reloader', {
-      titleColor: 'brightblue',
-    });
+    logger.hmr('starting the hot reloader');
     const chokidar = require('chokidar'); // eslint-disable-line
     const watcher = chokidar.watch(cwd);
-    watcher.on('ready', (): void => log('hmr', 'watching for changes', {
-      titleColor: 'brightblue',
-    }));
+    watcher.on('ready', (): void => logger.hmr('watching for changes'));
     watcher.on('change', (p: string): void => {
-      log('hmr', `swapping out ${yellow(relative(cwd, p))}`, {
-        titleColor: 'brightblue',
-      });
+      logger.hmr(`swapping out ${chalk.yellow(relative(cwd, p))}`);
       delete require.cache[p];
       const routes = findRoutes(routesPath);
       routes.forEach((route: Route): void => {
@@ -88,8 +75,7 @@ const handle = async (argv: Args): Promise<void> => {
 
 export const handler = (argv: Args): void => {
   handle(argv).catch((err: Error): void => {
-    log('error', err.toString(), {
-      titleColor: 'red',
-    });
+    logger.fatal(err);
+    process.exit(1);
   });
 };

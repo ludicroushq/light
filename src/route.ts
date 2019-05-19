@@ -13,11 +13,36 @@ if (!isProd) {
   forTerminal = require('youch-terminal'); // eslint-disable-line
 }
 
+// TODO: Define types for micro and aws
+// TODO: Add test for POST/other methods
+type Handler = any;
+type IM = IncomingMessage;
+type SR = ServerResponse;
+type AP = Promise<any>;
+
+let logger: any;
 /* istanbul ignore next */
-const pinoOptions = isProd ? {} : {
-  prettyPrint: true,
-};
-const logger = pino(pinoOptions);
+if (isProd) {
+  const pinoHandler = pino();
+  logger = (fn: any): any => async (req: IM, res: SR): AP => {
+    pinoHandler(req, res);
+    return fn(req, res);
+  };
+} else {
+  const signale = require('./utils/logger'); // eslint-disable-line
+
+  logger = (fn: any): any => async (req: IM, res: SR): AP => {
+    const msg = `${req.url}`;
+    const { method } = req as any;
+    if (signale[method]) {
+      signale[method](msg);
+    } else {
+      signale.request(msg);
+    }
+
+    return fn(req, res);
+  };
+}
 
 interface Route {
   path?: string;
@@ -27,22 +52,10 @@ interface Route {
   handler: Handler;
 }
 
-// TODO: Define types for micro and aws
-// TODO: Add test for POST/other methods
-type Handler = any;
-type IM = IncomingMessage;
-type SR = ServerResponse;
-type AP = Promise<any>;
-
 export default (route: Route): Handler => {
   const fn = (Req: IM, Res: SR): AP => {
     let exec = async (req: IM, res: SR): AP => {
       const middleware: any[] = route.middleware || [];
-
-      if (fn.log !== false) {
-        middleware.unshift(logger);
-        fn.log = false;
-      }
 
       for (const mw of middleware) { // eslint-disable-line
         await mw(req, res); // eslint-disable-line
@@ -55,8 +68,15 @@ export default (route: Route): Handler => {
       return route.handler(req, res);
     };
 
-    if (route.plugins) {
-      exec = route.plugins.reverse().reduce((acc, val): any => val(acc), exec);
+    const plugins = route.plugins || [];
+
+    if (fn.log !== false) {
+      plugins.unshift(logger);
+      fn.log = false;
+    }
+
+    if (plugins.length) {
+      exec = plugins.reverse().reduce((acc, val): any => val(acc), exec);
     }
 
     const youchErrors = (fun: any): any => async (req: IM, res: SR): Promise<void> => {
