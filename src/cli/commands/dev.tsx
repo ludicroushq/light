@@ -20,6 +20,10 @@ export const builder: CommandBuilder = {
     boolean: true,
     default: true,
   },
+  port: {
+    alias: 'p',
+    description: 'specify which port the server should run on',
+  },
   dir: {
     default: './',
     description: 'base directory for the light server',
@@ -30,6 +34,7 @@ export const builder: CommandBuilder = {
 interface Args {
   log: boolean;
   dir: string;
+  port?: string;
 }
 
 const handle = async (argv: Args): Promise<void> => {
@@ -48,12 +53,18 @@ const handle = async (argv: Args): Promise<void> => {
   }
 
   const {
-    PORT = 3000,
     HOST = '0.0.0.0',
   }: ProcessEnv = process.env;
 
+  let {
+    PORT = 3000,
+  }: ProcessEnv = process.env;
+  if (argv.port) {
+    PORT = argv.port;
+  }
+
   app.server.listen(PORT, (HOST as any), (): void => {
-    logger.listening('on port 3000');
+    logger.listening(`on port ${PORT}`);
 
     logger.hmr('starting the hot reloader');
     const chokidar = require('chokidar'); // eslint-disable-line
