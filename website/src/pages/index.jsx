@@ -50,9 +50,9 @@ export default class Index extends React.Component {
     const demo = new GDemo('#light-demo');
 
     const code = `
-    const { route } = require('light');
+    const light = require('light');
 
-    module.exports = route({
+    module.exports = light({
       path: '/',
       async handler() {
         return {
