@@ -113,6 +113,14 @@ export default class Index extends React.Component {
                   <img alt="NPM" src="https://img.shields.io/npm/v/light.svg?label=npm%20version&style=for-the-badge" />
                 </a>
                 &nbsp;&nbsp;
+                <a href="https://www.npmjs.com/package/light" target="_blank" rel="noopener noreferrer">
+                  <img alt="Downloads" src="https://img.shields.io/npm/dm/light.svg?label=downloads&style=for-the-badge" />
+                </a>
+                &nbsp;&nbsp;
+                <a href="https://github.com/ludicrousxyz/light" target="_blank" rel="noopener noreferrer">
+                  <img alt="Stars" src="https://img.shields.io/github/stars/ludicrousxyz/light.svg?style=for-the-badge" />
+                </a>
+                &nbsp;&nbsp;
                 <a href="https://coveralls.io/github/ludicrousxyz/light" target="_blank" rel="noopener noreferrer">
                   <img alt="Coveralls" src="https://img.shields.io/coveralls/github/ludicrousxyz/light.svg?label=code%20coverage&style=for-the-badge" />
                 </a>
