@@ -10,6 +10,9 @@ interface Light {
   router: any;
 }
 
+type IM = IncomingMessage;
+type SR = ServerResponse;
+
 const light = ({
   routes: routesPath,
   log = true,
@@ -19,7 +22,7 @@ const light = ({
 }): Light => {
   const router = new Router();
 
-  const server = micro(async (req: IncomingMessage, res: ServerResponse): Promise<any> => router.handle(req, res));
+  const server = micro(async (req: IM, res: SR): Promise<any> => router.handle(req, res));
 
   const routes = findRoutes(routesPath);
 
