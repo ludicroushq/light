@@ -1,5 +1,5 @@
 import micro from 'micro';
-import Router from 'micro-http-router-query-params';
+import Router from 'micro-http-router';
 import { IncomingMessage, ServerResponse, Server } from 'http';
 import findRoutes from './utils/find-routes';
 import Route from './types/route';
@@ -19,7 +19,7 @@ const light = ({
 }): Light => {
   const router = new Router();
 
-  const server = micro((req: IncomingMessage, res: ServerResponse): any => router.handle(req, res));
+  const server = micro(async (req: IncomingMessage, res: ServerResponse): Promise<any> => router.handle(req, res));
 
   const routes = findRoutes(routesPath);
 

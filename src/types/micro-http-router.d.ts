@@ -1,1 +1,1 @@
-declare module 'micro-http-router-query-params';
+declare module 'micro-http-router';

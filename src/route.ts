@@ -78,7 +78,7 @@ interface Route {
 }
 
 export default (route: Route): Handler => {
-  const fn = (Req: IM, Res: SR): AP => {
+  const fn = async (Req: IM, Res: SR): AP => {
     let exec = async (req: IM, res: SR): AP => {
       const middleware: any[] = route.middleware || [];
 
