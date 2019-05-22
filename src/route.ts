@@ -117,14 +117,6 @@ export default (route: Route): Handler => {
       }
     };
 
-    // TODO: Fix this
-    /* istanbul ignore next */
-    const isAWS: boolean = !!(process.env.LIGHT_ENVIRONMENT && process.env.LIGHT_ENVIRONMENT.toLowerCase() === 'aws');
-    /* istanbul ignore if */
-    if (isAWS) {
-      return AWSServerlessMicro(handleErrors(exec));
-    }
-
     return run(Req, Res, handleErrors(youchErrors(exec)));
   };
 
@@ -135,6 +127,15 @@ export default (route: Route): Handler => {
   fn.log = true;
   fn.module = __dirname;
   fn.handler = fn;
+
+  // TODO: Fix this
+  /* istanbul ignore next */
+  const { LIGHT_ENVIRONMENT } = process.env;
+  const isAWS: boolean = LIGHT_ENVIRONMENT === 'aws';
+  /* istanbul ignore if */
+  if (isAWS) {
+    return AWSServerlessMicro(fn);
+  }
 
   const isRunKit: boolean = !!(process.env.LIGHT_ENVIRONMENT && process.env.LIGHT_ENVIRONMENT.toLowerCase() === 'runkit');
   if (isRunKit) {

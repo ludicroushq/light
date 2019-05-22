@@ -1,17 +1,13 @@
 import { CommandBuilder } from 'yargs'; // eslint-disable-line
-import { join, relative } from 'path';
+import { join } from 'path';
 import emojic from 'emojic';
-import chalk from 'chalk';
 import logger from '../../utils/logger';
 
-import Route from '../../types/route';
 import { server } from '../../index';
-import findRoutes from '../../utils/find-routes';
-import importRoute from '../../utils/import-route';
 
-export const command = 'dev [dir]';
-export const aliases: string[] = ['d'];
-export const desc = 'start a development srvr';
+export const command = 'start [dir]';
+export const aliases: string[] = ['s'];
+export const desc = 'start a production server';
 
 export const builder: CommandBuilder = {
   log: {
@@ -65,22 +61,6 @@ const handle = async (argv: Args): Promise<void> => {
 
   app.server.listen(PORT, (HOST as any), (): void => {
     logger.listening(`on port ${PORT}`);
-
-    logger.hmr('starting the hot reloader');
-    const chokidar = require('chokidar'); // eslint-disable-line
-    const watcher = chokidar.watch(cwd);
-    watcher.on('ready', (): void => logger.hmr('watching for changes'));
-    watcher.on('change', (p: string): void => {
-      logger.hmr(`swapping out ${chalk.yellow(relative(cwd, p))}`);
-      delete require.cache[p];
-      const routes = findRoutes(routesPath);
-      routes.forEach((route: Route): void => {
-        delete require.cache[route.path];
-        importRoute(app.router, route, {
-          log: argv.log,
-        });
-      });
-    });
   });
 };
 
