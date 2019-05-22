@@ -12,7 +12,7 @@ export default class Index extends React.Component {
     selectedDeploy: {},
     deployments: [
       {
-        name: 'Zeit Now',
+        name: 'ZEIT Now',
         code: 'process.env.LIGHT_ENVIRONMENT = \'now\';',
       },
       {
