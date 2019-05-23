@@ -133,13 +133,10 @@ export default (route: Route): Handler => {
   fn.module = __dirname;
   fn.handler = fn;
 
-  console.log('isNetlify', isNetlify)
   if (isNetlify) {
-    const a = {
+    return {
       handler: AWSServerlessMicro(fn),
     };
-    console.log(a);
-    return a;
   }
 
   // TODO: Fix this
