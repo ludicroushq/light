@@ -6,6 +6,7 @@ import { handleErrors } from 'micro-boom';
 import bytes from 'bytes';
 
 const isProd = process.env.NODE_ENV === 'production';
+const isNetlify = process.env.LIGHT_ENV === 'netlify';
 
 let Youch: any;
 let forTerminal: any;
@@ -131,6 +132,15 @@ export default (route: Route): Handler => {
   fn.log = true;
   fn.module = __dirname;
   fn.handler = fn;
+
+  console.log('isNetlify', isNetlify)
+  if (isNetlify) {
+    const a = {
+      handler: AWSServerlessMicro(fn),
+    };
+    console.log(a);
+    return a;
+  }
 
   // TODO: Fix this
   /* istanbul ignore next */
