@@ -77,6 +77,19 @@ interface Route {
   handler: Handler;
 }
 
+const youchErrors = (fun: any): any => async (req: IM, res: SR): Promise<void> => {
+  try {
+    return await fun(req, res);
+  } catch (err) {
+    if (!isProd) {
+      const youch = new Youch(err, req);
+      const json = await youch.toJSON();
+      console.log(forTerminal(json)); // eslint-disable-line
+    }
+    throw err;
+  }
+};
+
 export default (route: Route): Handler => {
   const fn = async (Req: IM, Res: SR): AP => {
     let exec = async (req: IM, res: SR): AP => {
@@ -95,6 +108,12 @@ export default (route: Route): Handler => {
 
     const plugins = route.plugins || [];
 
+    plugins.unshift(handleErrors);
+
+    if (!isProd) {
+      plugins.unshift(youchErrors);
+    }
+
     if (fn.log !== false) {
       plugins.unshift(logger);
       fn.log = false;
@@ -104,20 +123,7 @@ export default (route: Route): Handler => {
       exec = plugins.reverse().reduce((acc, val): any => val(acc), exec);
     }
 
-    const youchErrors = (fun: any): any => async (req: IM, res: SR): Promise<void> => {
-      try {
-        return await fun(req, res);
-      } catch (err) {
-        if (!isProd) {
-          const youch = new Youch(err, req);
-          const json = await youch.toJSON();
-          console.log(forTerminal(json)); // eslint-disable-line
-        }
-        throw err;
-      }
-    };
-
-    return run(Req, Res, handleErrors(youchErrors(exec)));
+    return run(Req, Res, exec);
   };
 
   Object.keys(route).forEach((key): void => {
