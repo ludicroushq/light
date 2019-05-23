@@ -73,7 +73,7 @@ const handle = async (argv: Args): Promise<void> => {
     watcher.on('change', (p: string): void => {
       logger.hmr(`swapping out ${chalk.yellow(relative(cwd, p))}`);
       delete require.cache[p];
-      app.router.unrouteAll();
+      app.router.reset();
       const routes = findRoutes(routesPath);
       routes.forEach((route: Route): void => {
         delete require.cache[route.path];

@@ -28,13 +28,7 @@ export default (router: any, routeData: Route, opts: Options): void => {
     const { name, dir } = parse(routeData.name);
     const path = join('/', dir, name === 'index' ? '/' : name);
     (handler as any).log = opts.log;
-    router.get(path, handler);
-    router.post(path, handler);
-    router.put(path, handler);
-    router.patch(path, handler);
-    router.delete(path, handler);
-    router.options(path, handler);
-    router.trace(path, handler);
+    router.all(path, handler);
     return;
   }
 
@@ -72,13 +66,6 @@ export default (router: any, routeData: Route, opts: Options): void => {
   route.method = route.method.map((m: string): string => m.toUpperCase());
 
   route.path.forEach((path: string): void => {
-    route.method.forEach((method: string): void => {
-      const obj = {
-        ...route,
-      };
-      obj.path = path;
-      obj.method = method;
-      router.route(obj);
-    });
+    router.on(route.method, path, route.handler);
   });
 };
