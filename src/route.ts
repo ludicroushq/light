@@ -141,7 +141,7 @@ export default (route: Route): Handler => {
     return AWSServerlessMicro(fn);
   }
 
-  const isRunKit: boolean = !!(process.env.LIGHT_ENVIRONMENT && process.env.LIGHT_ENVIRONMENT.toLowerCase() === 'runkit');
+  const isRunKit = !!(process.env.LIGHT_ENVIRONMENT && process.env.LIGHT_ENVIRONMENT.toLowerCase() === 'runkit');
   if (isRunKit) {
     return {
       endpoint: fn,

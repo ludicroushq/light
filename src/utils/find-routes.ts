@@ -1,4 +1,3 @@
-import isArray from 'lodash.isarray';
 import {
   join, relative, basename,
 } from 'path';
@@ -24,7 +23,7 @@ export default (routesPath: string | string[]): Route[] => {
     })));
   };
 
-  if (isArray(routesPath)) {
+  if (Array.isArray(routesPath)) {
     routesPath.forEach((r): number => addRoutes(r));
   } else {
     addRoutes(routesPath);
