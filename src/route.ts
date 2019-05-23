@@ -81,11 +81,9 @@ const youchErrors = (fun: any): any => async (req: IM, res: SR): Promise<void> =
   try {
     return await fun(req, res);
   } catch (err) {
-    if (!isProd) {
-      const youch = new Youch(err, req);
-      const json = await youch.toJSON();
-      console.log(forTerminal(json)); // eslint-disable-line
-    }
+    const youch = new Youch(err, req);
+    const json = await youch.toJSON();
+    console.log(forTerminal(json)); // eslint-disable-line
     throw err;
   }
 };
@@ -108,16 +106,16 @@ export default (route: Route): Handler => {
 
     const plugins = route.plugins || [];
 
-    plugins.unshift(handleErrors);
+    if (fn.log !== false) {
+      plugins.unshift(logger);
+      fn.log = false;
+    }
 
     if (!isProd) {
       plugins.unshift(youchErrors);
     }
 
-    if (fn.log !== false) {
-      plugins.unshift(logger);
-      fn.log = false;
-    }
+    plugins.unshift(handleErrors);
 
     if (plugins.length) {
       exec = plugins.reverse().reduce((acc, val): any => val(acc), exec);
