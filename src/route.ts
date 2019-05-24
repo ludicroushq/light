@@ -5,8 +5,11 @@ import pino from 'pino-http';
 import { handleErrors } from 'micro-boom';
 import bytes from 'bytes';
 
-const isProd = process.env.NODE_ENV === 'production';
-const isNetlify = process.env.LIGHT_ENV === 'netlify';
+const { LIGHT_ENVIRONMENT, NODE_ENV } = process.env;
+const isProd = NODE_ENV === 'production';
+const isNetlify = LIGHT_ENVIRONMENT === 'netlify';
+const isAWS = LIGHT_ENVIRONMENT === 'aws';
+const isRunKit = LIGHT_ENVIRONMENT === 'runkit';
 
 let Youch: any;
 let forTerminal: any;
@@ -122,7 +125,7 @@ export default (route: Route): Handler => {
       exec = plugins.reverse().reduce((acc, val): any => val(acc), exec);
     }
 
-    return run(Req, Res, exec);
+    return exec(Req, Res);
   };
 
   Object.keys(route).forEach((key): void => {
@@ -133,28 +136,17 @@ export default (route: Route): Handler => {
   fn.module = __dirname;
   fn.handler = fn;
 
-  console.log(isNetlify)
-  if (true) {
+  if (isNetlify || isAWS) {
     return {
       handler: AWSServerlessMicro(fn),
     };
   }
 
-  // // TODO: Fix this
-  // /* istanbul ignore next */
-  // const { LIGHT_ENVIRONMENT } = process.env;
-  // const isAWS: boolean = LIGHT_ENVIRONMENT === 'aws';
-  // /* istanbul ignore if */
-  // if (isAWS) {
-  //   return AWSServerlessMicro(fn);
-  // }
+  if (isRunKit) {
+    return {
+      endpoint: async (req: IM, res: SR): AP => run(req, res, fn),
+    };
+  }
 
-  // const isRunKit = !!(process.env.LIGHT_ENVIRONMENT && process.env.LIGHT_ENVIRONMENT.toLowerCase() === 'runkit');
-  // if (isRunKit) {
-  //   return {
-  //     endpoint: fn,
-  //   };
-  // }
-
-  // return fn;
+  return async (req: IM, res: SR): AP => run(req, res, fn);
 };
