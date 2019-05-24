@@ -133,27 +133,28 @@ export default (route: Route): Handler => {
   fn.module = __dirname;
   fn.handler = fn;
 
-  if (isNetlify) {
+  console.log(isNetlify)
+  if (true) {
     return {
       handler: AWSServerlessMicro(fn),
     };
   }
 
-  // TODO: Fix this
-  /* istanbul ignore next */
-  const { LIGHT_ENVIRONMENT } = process.env;
-  const isAWS: boolean = LIGHT_ENVIRONMENT === 'aws';
-  /* istanbul ignore if */
-  if (isAWS) {
-    return AWSServerlessMicro(fn);
-  }
+  // // TODO: Fix this
+  // /* istanbul ignore next */
+  // const { LIGHT_ENVIRONMENT } = process.env;
+  // const isAWS: boolean = LIGHT_ENVIRONMENT === 'aws';
+  // /* istanbul ignore if */
+  // if (isAWS) {
+  //   return AWSServerlessMicro(fn);
+  // }
 
-  const isRunKit = !!(process.env.LIGHT_ENVIRONMENT && process.env.LIGHT_ENVIRONMENT.toLowerCase() === 'runkit');
-  if (isRunKit) {
-    return {
-      endpoint: fn,
-    };
-  }
+  // const isRunKit = !!(process.env.LIGHT_ENVIRONMENT && process.env.LIGHT_ENVIRONMENT.toLowerCase() === 'runkit');
+  // if (isRunKit) {
+  //   return {
+  //     endpoint: fn,
+  //   };
+  // }
 
-  return fn;
+  // return fn;
 };
