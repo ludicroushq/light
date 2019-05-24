@@ -93,7 +93,7 @@ const youchErrors = (fun: any): any => async (req: IM, res: SR): Promise<void> =
 };
 
 export default (route: Route): Handler => {
-  const fn = async (Req: IM, Res: SR): AP => {
+  let fn = async (Req: IM, Res: SR): AP => {
     let exec = async (req: IM, res: SR): AP => {
       const middleware: any[] = route.middleware || [];
 
@@ -110,9 +110,9 @@ export default (route: Route): Handler => {
 
     const plugins = route.plugins || [];
 
-    if (fn.log !== false) {
+    if ((fn as any).log !== false) {
       plugins.unshift(logger);
-      fn.log = false;
+      (fn as any).log = false;
     }
 
     if (!isProd) {
@@ -128,14 +128,20 @@ export default (route: Route): Handler => {
     return exec(Req, Res);
   };
 
+
+
   Object.keys(route).forEach((key): void => {
     (fn as any)[key] = (route as any)[key];
   });
 
-  fn.log = true;
-  fn.module = __dirname;
-  fn.handler = fn;
+  (fn as any).log = true;
+  (fn as any).module = __dirname;
+  (fn as any).handler = fn;
+  if (!isNetlify && !isAWS) {
+    (fn as any).handler = async (req: IM, res: SR): AP => run(req, res, fn)
+  }
 
+  /* istanbul ignore if */
   if (isNetlify || isAWS) {
     return {
       handler: AWSServerlessMicro(fn),
@@ -144,9 +150,9 @@ export default (route: Route): Handler => {
 
   if (isRunKit) {
     return {
-      endpoint: async (req: IM, res: SR): AP => run(req, res, fn),
+      endpoint: fn,
     };
   }
 
-  return async (req: IM, res: SR): AP => run(req, res, fn);
+  return fn;
 };
