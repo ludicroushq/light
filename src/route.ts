@@ -93,7 +93,7 @@ const youchErrors = (fun: any): any => async (req: IM, res: SR): Promise<void> =
 };
 
 export default (route: Route): Handler => {
-  let fn = async (Req: IM, Res: SR): AP => {
+  const fn = async (Req: IM, Res: SR): AP => {
     let exec = async (req: IM, res: SR): AP => {
       const middleware: any[] = route.middleware || [];
 
@@ -129,7 +129,6 @@ export default (route: Route): Handler => {
   };
 
 
-
   Object.keys(route).forEach((key): void => {
     (fn as any)[key] = (route as any)[key];
   });
@@ -138,7 +137,7 @@ export default (route: Route): Handler => {
   (fn as any).module = __dirname;
   (fn as any).handler = fn;
   if (!isNetlify && !isAWS) {
-    (fn as any).handler = async (req: IM, res: SR): AP => run(req, res, fn)
+    (fn as any).handler = async (req: IM, res: SR): AP => run(req, res, fn);
   }
 
   /* istanbul ignore if */
