@@ -9,7 +9,6 @@ const { LIGHT_ENVIRONMENT, NODE_ENV } = process.env;
 const isProd = NODE_ENV === 'production';
 const isNetlify = LIGHT_ENVIRONMENT === 'netlify';
 const isAWS = LIGHT_ENVIRONMENT === 'aws';
-const isRunKit = LIGHT_ENVIRONMENT === 'runkit';
 
 let Youch: any;
 let forTerminal: any;
@@ -95,6 +94,8 @@ const youchErrors = (fun: any): any => async (req: IM, res: SR): Promise<void> =
 };
 
 export default (route: Route): Handler => {
+  const isRunKit = LIGHT_ENVIRONMENT === 'runkit';
+
   const fn = async (Req: IM, Res: SR): AP => {
     let exec = async (req: IM, res: SR): AP => {
       const middleware: any[] = route.middleware || [];
