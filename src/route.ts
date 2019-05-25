@@ -5,10 +5,16 @@ import pino from 'pino-http';
 import { handleErrors } from 'micro-boom';
 import bytes from 'bytes';
 
-const isProd = process.env.NODE_ENV === 'production';
+const { LIGHT_ENVIRONMENT, NODE_ENV } = process.env;
+const isProd = NODE_ENV === 'production';
+const isNetlify = LIGHT_ENVIRONMENT === 'netlify';
+const isAWS = LIGHT_ENVIRONMENT === 'aws';
+const isRunKit = LIGHT_ENVIRONMENT === 'runkit';
 
 let Youch: any;
 let forTerminal: any;
+
+/* istanbul ignore next */
 if (!isProd) {
   Youch = require('youch'); // eslint-disable-line
   forTerminal = require('youch-terminal'); // eslint-disable-line
@@ -106,11 +112,12 @@ export default (route: Route): Handler => {
 
     const plugins = route.plugins || [];
 
-    if (fn.log !== false) {
+    if ((fn as any).log !== false) {
       plugins.unshift(logger);
-      fn.log = false;
+      (fn as any).log = false;
     }
 
+    /* istanbul ignore next */
     if (!isProd) {
       plugins.unshift(youchErrors);
     }
@@ -121,27 +128,29 @@ export default (route: Route): Handler => {
       exec = plugins.reverse().reduce((acc, val): any => val(acc), exec);
     }
 
-    return run(Req, Res, exec);
+    return exec(Req, Res);
   };
+
 
   Object.keys(route).forEach((key): void => {
     (fn as any)[key] = (route as any)[key];
   });
 
-  fn.log = true;
-  fn.module = __dirname;
-  fn.handler = fn;
-
-  // TODO: Fix this
+  (fn as any).log = true;
+  (fn as any).module = __dirname;
+  (fn as any).handler = fn;
   /* istanbul ignore next */
-  const { LIGHT_ENVIRONMENT } = process.env;
-  const isAWS: boolean = LIGHT_ENVIRONMENT === 'aws';
-  /* istanbul ignore if */
-  if (isAWS) {
-    return AWSServerlessMicro(fn);
+  if (!isNetlify && !isAWS) {
+    (fn as any).handler = async (req: IM, res: SR): AP => run(req, res, fn);
   }
 
-  const isRunKit = !!(process.env.LIGHT_ENVIRONMENT && process.env.LIGHT_ENVIRONMENT.toLowerCase() === 'runkit');
+  /* istanbul ignore if */
+  if (isNetlify || isAWS) {
+    return {
+      handler: AWSServerlessMicro(fn),
+    };
+  }
+
   if (isRunKit) {
     return {
       endpoint: fn,

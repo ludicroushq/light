@@ -1,6 +1,6 @@
 {
-  "name": "light",
-  "version": "0.0.0-development",
+  "name": "light-test-netlify",
+  "version": "0.0.10",
   "description": "a modern framework",
   "scripts": {
     "test": "npm run lint && npm run jest:ci",
@@ -47,7 +47,7 @@
     "micro-http-router-query-params": "^1.4.0",
     "micromatch": "^4.0.2",
     "pino-http": "^4.2.0",
-    "pino-pretty": "^3.0.0",
+    "pino-pretty": "^3.0.1",
     "signale": "^1.4.0",
     "yargs": "^13.2.4",
     "youch": "^2.0.10",
@@ -71,7 +71,7 @@
     "coveralls": "^3.0.3",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-jest": "^22.6.4",
     "jest": "^24.8.0",
     "node-fetch": "^2.6.0",
