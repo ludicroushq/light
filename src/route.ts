@@ -130,7 +130,7 @@ export default (route: Route): Handler => {
     return exec(Req, Res);
   };
 
-  const fn = (!isNetlify && !isAWS) ? proxy : async (req: IM, res: SR): AP => run(req, res, proxy);
+  const fn = (isNetlify || isAWS) ? proxy : async (req: IM, res: SR): AP => run(req, res, proxy);
   Object.assign(fn, route, { handler: fn });
 
   (fn as any).log = true;
