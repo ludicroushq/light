@@ -94,8 +94,6 @@ const youchErrors = (fun: any): any => async (req: IM, res: SR): Promise<void> =
 };
 
 export default (route: Route): Handler => {
-  const isRunKit = LIGHT_ENVIRONMENT === 'runkit';
-
   const fn = async (Req: IM, Res: SR): AP => {
     let exec = async (req: IM, res: SR): AP => {
       const middleware: any[] = route.middleware || [];
@@ -152,6 +150,7 @@ export default (route: Route): Handler => {
     };
   }
 
+  const isRunKit = process.env.LIGHT_ENVIRONMENT === 'runkit';
   if (isRunKit) {
     return {
       endpoint: fn,
