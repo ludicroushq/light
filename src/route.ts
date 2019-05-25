@@ -130,20 +130,8 @@ export default (route: Route): Handler => {
     return exec(Req, Res);
   };
 
-  let fn = proxy;
-
-  Object.keys(route).forEach((key): void => {
-    (fn as any)[key] = (route as any)[key];
-  });
-  (fn as any).handler = proxy;
-
-  if (!isNetlify && !isAWS) {
-    fn = async (req, res): AP => run(req, res, proxy);
-    Object.keys(route).forEach((key): void => {
-      (fn as any)[key] = (route as any)[key];
-    });
-    (fn as any).handler = async (req: IM, res: SR): AP => run(req, res, proxy);
-  }
+  const fn = (!isNetlify && !isAWS) ? proxy : async (req: IM, res: SR): AP => run(req, res, proxy);
+  Object.assign(fn, route, { handler: fn });
 
   (fn as any).log = true;
   (fn as any).module = __dirname;
