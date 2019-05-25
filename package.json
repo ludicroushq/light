@@ -1,6 +1,6 @@
 {
-  "name": "light-test-netlify",
-  "version": "0.0.10",
+  "name": "light",
+  "version": "0.0.0-development",
   "description": "a modern framework",
   "scripts": {
     "test": "npm run lint && npm run jest:ci",
