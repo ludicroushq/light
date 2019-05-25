@@ -94,7 +94,7 @@ const youchErrors = (fun: any): any => async (req: IM, res: SR): Promise<void> =
 };
 
 export default (route: Route): Handler => {
-  const fn = async (Req: IM, Res: SR): AP => {
+  const proxy = async (Req: IM, Res: SR): AP => {
     let exec = async (req: IM, res: SR): AP => {
       const middleware: any[] = route.middleware || [];
 
@@ -111,9 +111,9 @@ export default (route: Route): Handler => {
 
     const plugins = route.plugins || [];
 
-    if ((fn as any).log !== false) {
+    if ((proxy as any).log !== false) {
       plugins.unshift(logger);
-      (fn as any).log = false;
+      (proxy as any).log = false;
     }
 
     /* istanbul ignore next */
@@ -130,18 +130,23 @@ export default (route: Route): Handler => {
     return exec(Req, Res);
   };
 
+  let fn = proxy;
 
   Object.keys(route).forEach((key): void => {
     (fn as any)[key] = (route as any)[key];
   });
+  (fn as any).handler = proxy;
+
+  if (!isNetlify && !isAWS) {
+    fn = async (req, res): AP => run(req, res, proxy);
+    Object.keys(route).forEach((key): void => {
+      (fn as any)[key] = (route as any)[key];
+    });
+    (fn as any).handler = async (req: IM, res: SR): AP => run(req, res, proxy);
+  }
 
   (fn as any).log = true;
   (fn as any).module = __dirname;
-  (fn as any).handler = fn;
-  /* istanbul ignore next */
-  if (!isNetlify && !isAWS) {
-    (fn as any).handler = async (req: IM, res: SR): AP => run(req, res, fn);
-  }
 
   /* istanbul ignore if */
   if (isNetlify || isAWS) {
