@@ -7,8 +7,6 @@ import bytes from 'bytes';
 
 const { LIGHT_ENVIRONMENT, NODE_ENV } = process.env;
 const isProd = NODE_ENV === 'production';
-const isNetlify = LIGHT_ENVIRONMENT === 'netlify';
-const isAWS = LIGHT_ENVIRONMENT === 'aws';
 
 let Youch: any;
 let forTerminal: any;
@@ -130,6 +128,11 @@ export default (route: Route): Handler => {
     return exec(Req, Res);
   };
 
+  const { env } = process;
+  const isNetlify = LIGHT_ENVIRONMENT === 'netlify' || env.LIGHT_ENVIRONMENT === 'netlify';
+  const isAWS = LIGHT_ENVIRONMENT === 'aws' || env.LIGHT_ENVIRONMENT === 'aws';
+  const isRunKit = LIGHT_ENVIRONMENT === 'runkit' || env.LIGHT_ENVIRONMENT === 'runkit';
+
   const fn = (isNetlify || isAWS) ? proxy : async (req: IM, res: SR): AP => run(req, res, proxy);
   Object.assign(fn, route, { handler: fn });
 
@@ -143,7 +146,6 @@ export default (route: Route): Handler => {
     };
   }
 
-  const isRunKit = process.env.LIGHT_ENVIRONMENT === 'runkit';
   if (isRunKit) {
     return {
       endpoint: fn,
