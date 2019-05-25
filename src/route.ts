@@ -13,6 +13,8 @@ const isRunKit = LIGHT_ENVIRONMENT === 'runkit';
 
 let Youch: any;
 let forTerminal: any;
+
+/* istanbul ignore next */
 if (!isProd) {
   Youch = require('youch'); // eslint-disable-line
   forTerminal = require('youch-terminal'); // eslint-disable-line
@@ -115,6 +117,7 @@ export default (route: Route): Handler => {
       (fn as any).log = false;
     }
 
+    /* istanbul ignore next */
     if (!isProd) {
       plugins.unshift(youchErrors);
     }
@@ -136,6 +139,7 @@ export default (route: Route): Handler => {
   (fn as any).log = true;
   (fn as any).module = __dirname;
   (fn as any).handler = fn;
+  /* istanbul ignore next */
   if (!isNetlify && !isAWS) {
     (fn as any).handler = async (req: IM, res: SR): AP => run(req, res, fn);
   }
