@@ -52,10 +52,10 @@ module.exports = light({
 Run `npm run dev` to start the development server. You should see an output in your terminal similar to the one below.
 
 ```txt
-[ start ]  🔥 igniting the server 🔥
-[ 100ms ]  listening on 3000
-[ hmr ]    starting the hot reloader
-[ hmr ]    watching for changes
+› start      🔥 igniting the server 🔥
+› listening  on port 3000
+› hmr        starting the hot reloader
+› hmr        watching for changes
 ```
 
 View your resulting website at [localhost:3000](http://localhost:3000)!
