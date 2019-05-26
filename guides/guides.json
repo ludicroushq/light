@@ -17,5 +17,9 @@
     "AWS": "deployment/aws",
     "Google Cloud": "deployment/google-cloud",
     "Netlify": "deployment/netlify"
+  },
+  "Databases": {
+    "Knex/Objection": "databases/objection",
+    "Mongo/Mongoose": "databases/mongoose"
   }
 }
