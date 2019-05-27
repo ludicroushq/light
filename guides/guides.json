@@ -9,17 +9,20 @@
   "Hot Module Reloading": "hot-module-reloading",
   "Middleware": "middleware",
   "Plugins": "plugins",
-  "Deployment": {
-    "Server": "deployment/server",
-    "Now": "deployment/now",
-    "RunKit": "deployment/runkit",
-    "Heroku": "deployment/heroku",
-    "AWS": "deployment/aws",
-    "Google Cloud": "deployment/google-cloud",
-    "Netlify": "deployment/netlify"
+  "Deployments": {
+    "Server": "deployments/server",
+    "Now": "deployments/now",
+    "RunKit": "deployments/runkit",
+    "Heroku": "deployments/heroku",
+    "AWS": "deployments/aws",
+    "Google Cloud": "deployments/google-cloud",
+    "Netlify": "deployments/netlify"
   },
   "Databases": {
-    "Knex/Objection": "databases/objection",
-    "Mongo/Mongoose": "databases/mongoose"
+    "Knex and Objection": "databases/objection",
+    "Mongo and Mongoose": "databases/mongoose"
+  },
+  "Misc": {
+    "Apollo and GraphQL": "misc/apollo"
   }
 }

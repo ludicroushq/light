@@ -24,6 +24,7 @@ and add the dev script to your `package.json`.
 {
   // ...
   "scripts": {
+    "start": "light start",
     "dev": "light dev"
   }
   // ...

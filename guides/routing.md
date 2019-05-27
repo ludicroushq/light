@@ -21,11 +21,9 @@ When in server mode, you can define custom paths which will override the automat
 const light = require('light');
 
 module.exports = light({
-  path: '/posts/:id', // your route here
+  path: '/posts', // your route here
   async handler() {
     // ...
   },
 });
 ```
-
-You can also use route parameters such as the `:id` in the route above which become accessible in the req object as `req.params.id`.
