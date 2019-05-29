@@ -14,9 +14,10 @@
     "Now": "deployments/now",
     "RunKit": "deployments/runkit",
     "Heroku": "deployments/heroku",
+    "Netlify": "deployments/netlify",
     "AWS": "deployments/aws",
     "Google Cloud": "deployments/google-cloud",
-    "Netlify": "deployments/netlify"
+    "Azure": "deployments/azure"
   },
   "Databases": {
     "Knex and Objection": "databases/objection",

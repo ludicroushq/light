@@ -3,6 +3,6 @@ title: deploying to aws
 subtitle: deploy your application to AWS's lambda service
 ---
 
-# Currently Not Possible
+## Coming soon
 
-We are working hard to get this feature out!
+We have netlify working, and just need to port this to work on AWS

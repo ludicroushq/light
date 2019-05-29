@@ -3,6 +3,6 @@ title: deploying to google cloud
 subtitle: deploy your application to Google's cloud function platform
 ---
 
-# Currently Not Possible
+## Coming soon
 
-We are working hard to get this feature out!
+We are still experimenting with the GCloud platform
