@@ -11,7 +11,7 @@ If there are multiple query parameters with the same name, it will return an arr
 
 ## Usage
 
-Simply import the `query` function and pass it the `req` object.
+Simply import the `query` function and pass it the url of the request.
 
 ```javascript
 const { light, query } = require('light');
@@ -20,7 +20,7 @@ module.exports = light({
   path: '/',
 
   async handler(req) {
-    const { id, name } = await query(req);
+    const { id, name } = await query(req.url);
 
     return {
       id,
