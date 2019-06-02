@@ -9,7 +9,7 @@ Now is a new serverless platform provided by ZEIT. Their aim is to make serverle
 
 Note that this guide targets their V2 platform and will not work with their older docker system (see [server](/guides/deployments/server) on how to use server mode)
 
-## Usage
+## Setup
 
 All data required to host on the now platform is stored in a `now.json` file.
 
