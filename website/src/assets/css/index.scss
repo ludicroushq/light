@@ -2,6 +2,16 @@
 @import '~@glorious/demo/dist/gdemo.min.css';
 @import '~prismjs/themes/prism-tomorrow.css';
 
+.app {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+}
+
 .header {
   text-transform: uppercase;
   letter-spacing: 1px;

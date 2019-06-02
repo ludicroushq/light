@@ -2,12 +2,6 @@ import React from 'react';
 import classnames from 'classnames';
 
 export default class extends React.Component {
-  titleize = (str) => {
-    const splitFolder = str.split('/');
-    const uppercase = word => word.charAt(0).toUpperCase() + word.slice(1);
-    return splitFolder[splitFolder.length - 1].split('-').map(w => uppercase(w)).join(' ');
-  }
-
   buildTree = (menu) => {
     return menu.reduce((acc, val) => {
       const split = val.split('/');
@@ -22,12 +16,12 @@ export default class extends React.Component {
   }
 
   render() {
-    const { menu, active } = this.props;
+    const { menu, active, label, prefix } = this.props;
     return (
       <div>
         <aside className="menu">
           <p className="menu-label">
-            Guides
+            { label }
           </p>
           { Object.keys(menu).map((key) => {
             const guide = menu[key];
@@ -39,7 +33,7 @@ export default class extends React.Component {
                   </p>
                   { Object.keys(guide).map((subkey) => (
                     <ul className="menu-list" key={subkey}>
-                      <li><a href={`/guides/${guide[subkey]}`} className={classnames({ 'is-active': active === guide[subkey] })}>{ this.titleize(subkey) }</a></li>
+                      <li><a href={`${prefix}/${guide[subkey]}`} className={classnames({ 'is-active': active === guide[subkey] })}>{ subkey }</a></li>
                     </ul>
                   ))}
                 </React.Fragment>
@@ -47,7 +41,7 @@ export default class extends React.Component {
             }
             return (
               <ul className="menu-list" key={key}>
-                <li><a href={`/guides/${guide}`} className={classnames({ 'is-active': active === guide })}>{ this.titleize(key) }</a></li>
+                <li><a href={`${prefix}/${guide}`} className={classnames({ 'is-active': active === guide })}>{ key }</a></li>
               </ul>
             );
           })}

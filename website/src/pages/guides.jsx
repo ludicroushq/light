@@ -53,7 +53,7 @@ export default class Posts extends React.Component {
           <div className="container">
             <div className="columns">
               <div className="column is-one-quarter">
-                <Sidebar menu={menu} active={path} />
+                <Sidebar menu={menu} active={path} prefix="/guides" label="Guides" />
               </div>
               <div className="column">
                 <div className="content is-medium">

@@ -1,6 +1,7 @@
 const withSass = require('@zeit/next-sass');
 const join = require('url-join');
 const guides = require('../../guides/guides.json');
+const docs = require('../../docs/docs.json');
 
 const { NODE_ENV, COMMIT_REF } = process.env;
 
@@ -10,25 +11,28 @@ module.exports = withSass({
   async exportPathMap() {
     const routes = {
       '/': { page: '/' },
+      '/guides': { page: '/guides' },
       '/guides/': { page: '/guides' },
       '/docs': { page: '/docs' },
       '/docs/': { page: '/docs' },
     };
 
-    const processRoutes = (obj) => {
+    const processRoutes = (obj, prefix) => {
       Object.keys(obj).forEach((key) => {
         const guide = obj[key];
         if (typeof guide !== 'string') {
-          return processRoutes(guide);
+          return processRoutes(guide, prefix);
         }
-        routes[join('/guides', guide)] = {
-          page: '/guides',
+        routes[join(prefix, guide)] = {
+          page: prefix,
           query: { title: guide },
         };
+        return null;
       });
     };
 
-    processRoutes(guides);
+    processRoutes(guides, '/guides');
+    processRoutes(docs, '/docs');
 
     return routes;
   },

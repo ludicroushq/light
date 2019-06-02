@@ -30,14 +30,18 @@ export default class extends App {
           <meta name="description" hid="description" content="a lightining fast web server" />
           <script src="https://embed.runkit.com"></script>
         </Head>
-        <div className="has-background-info has-text-white" style={{ padding: '0.5em' }}>
-          <div className="container has-text-centered">
-            NOTICE: Since <strong>light</strong> is a work in progress, breaking changes will be made every MINOR patch until 2.0
+        <div className="app">
+          <div className="has-background-info has-text-white" style={{ padding: '0.5em' }}>
+            <div className="container has-text-centered">
+              NOTICE: Since <strong>light</strong> is a work in progress, breaking changes will be made every MINOR patch until 2.0
+            </div>
           </div>
+          <Navigation />
+          <main className="main">
+            <Component {...pageProps} />
+          </main>
+          <Footer />
         </div>
-        <Navigation />
-        <Component {...pageProps} />
-        <Footer />
       </Container>
     );
   }

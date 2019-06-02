@@ -21,10 +21,10 @@
     "Azure": "deployments/azure"
   },
   "Databases": {
-    "Knex and Objection": "databases/objection",
-    "Mongo and Mongoose": "databases/mongoose"
+    "Knex/Objection": "databases/objection",
+    "Mongo/Mongoose": "databases/mongoose"
   },
   "Misc": {
-    "Apollo and GraphQL": "misc/apollo"
+    "Apollo/GraphQL": "misc/apollo"
   }
 }
