@@ -27,3 +27,7 @@ module.exports = light({
   },
 });
 ```
+
+## Params
+
+If you want to handle urls with params such as `/posts/:id`, check out the [params guide](/guides/params).

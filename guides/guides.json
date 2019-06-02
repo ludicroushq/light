@@ -4,6 +4,7 @@
   "Handler": "handler",
   "Routing": "routing",
   "Methods": "methods",
+  "Params": "params",
   "Query": "query",
   "Error Handling": "error-handling",
   "Hot Module Reloading": "hot-module-reloading",

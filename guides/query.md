@@ -20,7 +20,7 @@ module.exports = light({
   path: '/',
 
   async handler(req) {
-    const { id, name } = query(req);
+    const { id, name } = await query(req);
 
     return {
       id,
