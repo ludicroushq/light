@@ -1,12 +1,7 @@
-import { IncomingMessage } from 'http';
 import { URL } from 'url';
 
-export default async (req: IncomingMessage): Promise<any> => {
-  if (!req.url) {
-    return {};
-  }
-
-  const { searchParams } = new URL(req.url, 'http://localhost');
+export default async (url: string): Promise<any> => {
+  const { searchParams } = new URL(url, 'http://localhost');
 
   const params = {};
   Array.from(searchParams.keys()).forEach((key): void => {
