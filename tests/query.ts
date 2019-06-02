@@ -8,7 +8,7 @@ describe('query', () => {
       const req = {
         url: '/test?hello=world',
       };
-      const { hello } = query((req as IncomingMessage));
+      const { hello } = await query((req as IncomingMessage));
       expect(hello).toStrictEqual('world');
     });
 
@@ -16,7 +16,7 @@ describe('query', () => {
       expect.assertions(1);
       const req = {
       };
-      const res = query((req as IncomingMessage));
+      const res = await query((req as IncomingMessage));
       expect(res).toMatchObject({});
     });
 
@@ -25,7 +25,7 @@ describe('query', () => {
       const req = {
         url: '/test?hello=world&foo=bar',
       };
-      const { hello, foo } = query((req as IncomingMessage));
+      const { hello, foo } = await query((req as IncomingMessage));
       expect(hello).toStrictEqual('world');
       expect(foo).toStrictEqual('bar');
     });
@@ -35,7 +35,7 @@ describe('query', () => {
       const req = {
         url: '/test?hello=world&foo=bar&hello=test',
       };
-      const { hello, foo } = query((req as IncomingMessage));
+      const { hello, foo } = await query((req as IncomingMessage));
       expect(hello).toEqual(['world', 'test']);
       expect(foo).toStrictEqual('bar');
     });

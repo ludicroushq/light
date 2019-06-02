@@ -5,6 +5,7 @@ exports = route.default;
 
 export { default as server } from './server';
 export { default as query } from './query';
+export { default as params } from './params';
 export { default, default as route, default as light } from './route';
 export {
   buffer,

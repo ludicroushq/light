@@ -46,6 +46,7 @@
     "micro-boom": "^1.2.0",
     "micro-http-router-query-params": "^1.4.0",
     "micromatch": "^4.0.2",
+    "path-parser": "^4.2.0",
     "pino-http": "^4.2.0",
     "pino-pretty": "^3.0.1",
     "signale": "^1.4.0",

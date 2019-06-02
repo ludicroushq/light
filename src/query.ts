@@ -1,7 +1,7 @@
 import { IncomingMessage } from 'http';
 import { URL } from 'url';
 
-export default (req: IncomingMessage): any => {
+export default async (req: IncomingMessage): Promise<any> => {
   if (!req.url) {
     return {};
   }
