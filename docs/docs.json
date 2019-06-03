@@ -1,5 +1,17 @@
 {
   "server": "server",
   "query": "query",
-  "params": "params"
+  "params": "params",
+  "route/light": "light",
+  "micro": {
+    "buffer": "micro/buffer",
+    "text": "micro/text",
+    "json": "micro/json",
+    "run": "micro/run",
+    "send": "micro/send",
+    "sendError": "micro/send-error"
+  },
+  "boom": {
+    "createError": "boom/create-error"
+  }
 }

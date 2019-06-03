@@ -8,10 +8,15 @@ import Hero from '../components/Hero';
 import Sidebar from '../components/Sidebar';
 
 export default class Posts extends React.Component {
-  static async getInitialProps({ query }) {
+  static async getInitialProps({ query, req, res }) {
     let { title } = query;
     if (!title) {
-      title = 'getting-started';
+      if (req) {
+        res.writeHead(302, { Location: '/guides/getting-started' });
+        return res.end();
+      }
+
+      return Router.push('/guides/getting-started');
     }
 
     const fetchPost = await fetch(join(process.env.BASE_URL, `guides/${title}.md`));
@@ -21,12 +26,12 @@ export default class Posts extends React.Component {
     const metadata = split.shift().trim();
     const content = split.join('---').trim();
 
-    const res = {};
-    res.content = content;
+    const response = {};
+    response.content = content;
 
     metadata.split('\n').forEach((line) => {
       const [attr, val] = line.split(':');
-      res[attr.trim()] = val.trim();
+      response[attr.trim()] = val.trim();
     });
 
     const fetchSidebar = await fetch(join(process.env.BASE_URL, `guides/guides.json`));
@@ -36,7 +41,7 @@ export default class Posts extends React.Component {
       query,
       menu,
       path: title,
-      ...res,
+      ...response,
     };
   }
 

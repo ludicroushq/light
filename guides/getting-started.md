@@ -8,7 +8,7 @@ subtitle: a quick guide on how to start with light
 ### Prerequisites
 
 - Node >= `8.0.0`
-- NPM >= `8.0.0`
+- NPM >= `5.0.0`
 
 ### Install
 
