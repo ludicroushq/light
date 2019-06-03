@@ -7,6 +7,8 @@ subtitle: deploy your application alongside your frontend with netlify functions
 
 Netlify is an extremely popular static website host, following the JAM stack principle. While their main focus is to build and host static content, they have released a lambda service called functions which allows you to run endpoints that has the same signature as AWS Lambda functions. The benefit of using Netlify is having quick and automatic deployments which propagate through Netlify's CDN all triggered with a simple `git push`.
 
+**NOTE: Netlify does not support functions in subdirectories! This means if you have a route `routes/hello/world.js`, it will not work.** See this [GitHub issue](https://github.com/netlify/netlify-lambda/issues/90) for more details.
+
 ## Setup
 
 This guide assumes that you have already set up a Netlify account, and a GitHub repository.
