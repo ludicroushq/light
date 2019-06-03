@@ -11,10 +11,6 @@ module.exports = withSass({
   async exportPathMap() {
     const routes = {
       '/': { page: '/' },
-      '/guides': { page: '/guides' },
-      '/guides/': { page: '/guides' },
-      '/docs': { page: '/docs' },
-      '/docs/': { page: '/docs' },
     };
 
     const processRoutes = (obj, prefix) => {

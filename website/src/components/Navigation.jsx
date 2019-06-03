@@ -53,10 +53,10 @@ class Navigation extends React.Component {
               <a href="/" className={classnames('navbar-item', { 'is-active': route === '/' })} role="navigation" onClick={this.closeMenu}>
                 Home
               </a>
-              <a href="/guides" className={classnames('navbar-item', { 'is-active': route === '/login' })} role="navigation" onClick={this.closeMenu}>
+              <a href="/guides/getting-started" className={classnames('navbar-item', { 'is-active': route.includes('/guides') })} role="navigation" onClick={this.closeMenu}>
                 Guides
               </a>
-              <a href="/docs" className={classnames('navbar-item', { 'is-active': route === '/login' })} role="navigation" onClick={this.closeMenu}>
+              <a href="/docs/server" className={classnames('navbar-item', { 'is-active': route.includes('/docs') })} role="navigation" onClick={this.closeMenu}>
                 Docs
               </a>
             </div>
