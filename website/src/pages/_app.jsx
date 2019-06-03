@@ -2,10 +2,18 @@ import React from 'react';
 import App, { Container } from 'next/app';
 import Head from 'next/head';
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCaretLeft, faCaretRight, faChevronRight, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 
 import '../assets/css/index.scss';
+
+library.add(
+  faCaretLeft,
+  faCaretRight,
+);
 
 export default class extends App {
   static async getInitialProps({ Component, ctx }) {
