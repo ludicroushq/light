@@ -10,6 +10,7 @@ import CodeBlock from '../components/CodeBlock';
 export default class Index extends React.Component {
   state = {
     selectedDeploy: {},
+    featureTab: 'hmr',
     deployments: [
       {
         name: 'ZEIT Now',
@@ -89,7 +90,7 @@ export default class Index extends React.Component {
   }
 
   render() {
-    const { deployments, selectedDeploy } = this.state;
+    const { deployments, selectedDeploy, featureTab } = this.state;
     return (
       <div>
         <Hero
@@ -145,27 +146,42 @@ export default class Index extends React.Component {
         <hr />
         <section className="section">
           <div className="container">
-            <div className="columns is-vcentered">
-              <div className="column is-one-third has-text-centered">
-                <h1 className="title">write once</h1>
-                <h2 className="subtitle">deploy anywhere</h2>
-              </div>
-              <div className="column">
-                <div className="columns is-vcentered">
-                  <div className="column is-one-quarter">
-                    <aside className="menu">
-                      <p className="menu-label">
-                        Deployments
-                      </p>
-                      <ul className="menu-list">
-                        { deployments.map((deployment) => (
-                          <li key={deployment.name}><a onClick={() => this.changeDeployment(deployment)} className={classnames({ 'is-active': deployment.name === selectedDeploy.name })}>{ deployment.name }</a></li>
-                        )) }
-                      </ul>
-                    </aside>
-                  </div>
-                  <div className="column">
-                    <CodeBlock language="javascript" value={`const light = require('light');
+            <div className="tabs is-toggle is-small is-fullwidth">
+              <ul>
+                <li className={classnames({ 'is-active': featureTab === 'deploy' })} onClick={() => this.setState({ featureTab: 'deploy' })}>
+                  <a>
+                    <span className="is-uppercase">Deploy Anywhere</span>
+                  </a>
+                </li>
+                <li className={classnames({ 'is-active': featureTab === 'hmr' })} onClick={() => this.setState({ featureTab: 'hmr' })}>
+                  <a>
+                    <span className="is-uppercase">Hot Module Reloading</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            { featureTab === 'deploy' ? (
+              <div className="columns is-vcentered">
+                <div className="column is-one-third">
+                  <h1 className="title">write once</h1>
+                  <h2 className="subtitle">deploy anywhere</h2>
+                </div>
+                <div className="column">
+                  <div className="columns is-vcentered">
+                    <div className="column is-one-quarter">
+                      <aside className="menu">
+                        <p className="menu-label">
+                          Deployments
+                        </p>
+                        <ul className="menu-list">
+                          { deployments.map((deployment) => (
+                            <li key={deployment.name}><a onClick={() => this.changeDeployment(deployment)} className={classnames({ 'is-active': deployment.name === selectedDeploy.name })}>{ deployment.name }</a></li>
+                          )) }
+                        </ul>
+                      </aside>
+                    </div>
+                    <div className="column">
+                      <CodeBlock language="javascript" value={`const light = require('light');
 
 ${selectedDeploy.code ? `${selectedDeploy.code}` : ''}
 
@@ -177,17 +193,51 @@ module.exports = light({
     };
   },
 });`} />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            ) : null }
+            { featureTab === 'hmr' ? (
+              <div className="columns is-vcentered">
+                <div className="column">
+                  <h1 className="title has-text-centered">reload without actually reloading</h1>
+                  <h2 className="subtitle has-text-centered">dont waste your time waiting for your server to restart</h2>
+                  <div className="columns is-vcentered">
+                    <div className="column">
+                      <pre className="box">
+                        <code className="has-text-primary">$ light dev</code>{ '\n' }
+                        <code className="has-text-info">> listening on port 3000</code>{ '\n' }
+                        <code className="has-text-info">> routes/index.js changed</code>{ '\n' }
+                        <code className="has-text-grey">hot-swapping file</code>{ '\n' }
+                        <code className="has-text-success">> done [1 ms]</code>
+                      </pre>
+                    </div>
+                    <div className="is-divider-vertical" data-content="VS"></div>
+                    <div className="column">
+                      <pre className="box">
+                        <code className="has-text-primary">$ node express.js</code>{ '\n' }
+                        <code className="has-text-info">> listening on port 3000</code>{ '\n' }
+                        <code className="has-text-info">> routes/index.js changed</code>{ '\n' }
+                        <code className="has-text-grey">restarting server</code>{ '\n' }
+                        <code className="has-text-grey">reimporting all routes</code>{ '\n' }
+                        <code className="has-text-grey">reconnecting to database</code>{ '\n' }
+                        <code className="has-text-grey">reconnecting to cache</code>{ '\n' }
+                        <code className="has-text-grey">recompiling templates</code>{ '\n' }
+                        <code className="has-text-success">> done [1-5 s]</code>
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : null }
           </div>
         </section>
         <hr />
         <section className="section">
           <div className="container">
             <div className="columns is-vcentered">
-              <div className="column is-one-third has-text-centered">
+              <div className="column is-one-third">
                 <h1 className="title">try it yourself</h1>
                 <h2 className="subtitle">on RunKit</h2>
               </div>
