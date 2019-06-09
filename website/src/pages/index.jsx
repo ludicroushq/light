@@ -10,7 +10,7 @@ import CodeBlock from '../components/CodeBlock';
 export default class Index extends React.Component {
   state = {
     selectedDeploy: {},
-    featureTab: 'hmr',
+    featureTab: 'deploy',
     deployments: [
       {
         name: 'ZEIT Now',
