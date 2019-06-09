@@ -146,6 +146,29 @@ export default class Index extends React.Component {
         <hr />
         <section className="section">
           <div className="container">
+            <div className="columns">
+              <div className="column has-text-centered">
+                <p className="title is-uppercase">HMR</p>
+                <p className="subtitle">Speed up your development by hot-swapping routes and never restarting your server</p>
+              </div>
+              <div className="column has-text-centered">
+                <p className="title is-uppercase">Test</p>
+                <p className="subtitle">Easily and consistently test your serverless functions without worry</p>
+              </div>
+              <div className="column has-text-centered">
+                <p className="title is-uppercase">Deploy</p>
+                <p className="subtitle">Deploy to any serverless (or VPS) provider out there without changing your code</p>
+              </div>
+              <div className="column has-text-centered">
+                <p className="title is-uppercase">Micro</p>
+                <p className="subtitle">Micro is used under the hood so you know you have a rock-solid, production level base</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <hr />
+        <section className="section">
+          <div className="container">
             <div className="tabs is-toggle is-small is-fullwidth">
               <ul>
                 <li className={classnames({ 'is-active': featureTab === 'deploy' })} onClick={() => this.setState({ featureTab: 'deploy' })}>
