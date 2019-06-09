@@ -130,14 +130,14 @@ export default class Index extends React.Component {
         </Hero>
         <section className="section">
           <div className="container">
-            <div className="columns" style={{ height: '375px' }}>
-              <div className="column is-half is-offset-one-quarter" style={{ alignSelf: 'flex-start', height: '300px', display: 'inline', paddingTop: '0px', paddingBottom: '0px' }}>
+            <div className="columns">
+              <div className="column is-half is-offset-one-quarter">
                 <div className="has-text-centered">
                   <h1 className="title">as simple as</h1>
                   <h2 className="subtitle"><code>light dev</code></h2>
                 </div>
                 <br />
-                <div id="light-demo"></div>
+                <div id="light-demo" style={{ height: '300px' }}></div>
               </div>
             </div>
           </div>
@@ -186,7 +186,7 @@ module.exports = light({
         <hr />
         <section className="section">
           <div className="container">
-            <div className="columns is-vcentered" style={{ height: '350px' }}>
+            <div className="columns is-vcentered">
               <div className="column is-one-third has-text-centered">
                 <h1 className="title">try it yourself</h1>
                 <h2 className="subtitle">on RunKit</h2>
