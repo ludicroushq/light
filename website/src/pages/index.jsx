@@ -162,7 +162,7 @@ export default class Index extends React.Component {
             </div>
             { featureTab === 'deploy' ? (
               <div className="columns is-vcentered">
-                <div className="column is-one-third">
+                <div className="column is-one-third has-text-centered">
                   <h1 className="title">write once</h1>
                   <h2 className="subtitle">deploy anywhere</h2>
                 </div>
@@ -233,11 +233,11 @@ module.exports = light({
             ) : null }
           </div>
         </section>
-        <hr />
-        <section className="section">
+        <hr className="is-hidden-mobile" />
+        <section className="section is-hidden-mobile">
           <div className="container">
             <div className="columns is-vcentered">
-              <div className="column is-one-third">
+              <div className="column is-one-third has-text-centered">
                 <h1 className="title">try it yourself</h1>
                 <h2 className="subtitle">on RunKit</h2>
               </div>
