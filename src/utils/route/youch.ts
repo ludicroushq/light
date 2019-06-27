@@ -23,5 +23,5 @@ if (!isProd) {
     }
   };
 } else {
-  module.exports = (fun: any) => async (req: IM, res: SR) => await fun();
+  module.exports = (fun: any): any => async (req: IM, res: SR): Promise<any> => fun(req, res);
 }

@@ -17,7 +17,7 @@ if (isProd) {
 } else {
   const signale = require('../logger'); // eslint-disable-line
 
-  module.exports  = (fn: any): any => async (req: IM, res: SR): Promise<any> => {
+  module.exports = (fn: any): any => async (req: IM, res: SR): Promise<any> => {
     const id = Math.random().toString(36).substring(2, 6);
     const log = signale.scope(id);
     const msg = `${req.url}`;

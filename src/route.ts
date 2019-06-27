@@ -6,8 +6,8 @@ import { handleErrors } from 'micro-boom';
 
 const { LIGHT_ENVIRONMENT } = process.env;
 
-const youchErrors = require('./utils/route/youch');
-const logger = require('./utils/route/logger');
+const youchErrors = require('./utils/route/youch'); // eslint-disable-line @typescript-eslint/no-var-requires
+const logger = require('./utils/route/logger'); // eslint-disable-line @typescript-eslint/no-var-requires
 
 // TODO: Define types for micro and aws
 // TODO: Add test for POST/other methods
