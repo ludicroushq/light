@@ -5,7 +5,6 @@ import Markdown from 'react-markdown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import CodeBlock from '../components/CodeBlock';
-import Hero from '../components/Hero';
 import Sidebar from '../components/Sidebar';
 
 export default class Posts extends React.Component {
@@ -94,11 +93,11 @@ export default class Posts extends React.Component {
     const { title, subtitle, content, menu, path, cont } = this.props;
     return (
       <div>
-        <Hero
+        {/* <Hero
           title={title}
           subtitle={subtitle}
           typed={false}
-        />
+        /> */}
         <section className="section">
           <div className="container">
             <div className="columns">
@@ -118,8 +117,8 @@ export default class Posts extends React.Component {
                 <div className="columns">
                   <div className="column">
                     { cont.previous ? (
-                      <a href={`/docs/${cont.previous.path}`} class="button is-fullwidth is-outlined is-info">
-                        <span class="icon">
+                      <a href={`/docs/${cont.previous.path}`} className="button is-fullwidth is-outlined is-info">
+                        <span className="icon">
                           <FontAwesomeIcon icon="caret-left" />
                         </span>
                         <span>{ cont.previous.name }</span>
@@ -129,9 +128,9 @@ export default class Posts extends React.Component {
                   <div className="column is-6" />
                   <div className="column">
                     { cont.next ? (
-                      <a href={`/docs/${cont.next.path}`} class="button is-fullwidth is-outlined is-info">
+                      <a href={`/docs/${cont.next.path}`} className="button is-fullwidth is-outlined is-info">
                         <span>{ cont.next.name }</span>
-                        <span class="icon">
+                        <span className="icon">
                           <FontAwesomeIcon icon="caret-right" />
                         </span>
                       </a>
