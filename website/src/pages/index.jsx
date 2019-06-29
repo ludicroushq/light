@@ -151,7 +151,7 @@ module.exports = light({
           <h2 className="text-lg text-center pb-4">dont waste your time waiting for your server to restart</h2>
           <div className="flex flex-row flex-wrap">
             <div className="flex flex-row flex-1 text-center p-4 pb-0">
-              <div className="self-center w-full bg-gray-900 shadow-xl text-left p-4 rounded">
+              <div className="self-center w-full bg-gray-900 shadow-3xl text-left p-4 rounded">
                 <pre className="items-end">
                   <code className="text-indigo-400">$ light dev</code>{ '\n' }
                   <code className="text-pink-400">> listening on port 3000</code>{ '\n' }
@@ -165,7 +165,7 @@ module.exports = light({
               vs
             </div>
             <div className="flex flex-row flex-1 text-center p-4 pb-0">
-              <div className="self-center w-full bg-gray-900 shadow-xl text-left p-4 rounded">
+              <div className="self-center w-full bg-gray-900 shadow-3xl text-left p-4 rounded">
                 <pre className="items-end">
                   <code className="text-indigo-400">$ node express.js</code>{ '\n' }
                   <code className="text-pink-400">> listening on port 3000</code>{ '\n' }
