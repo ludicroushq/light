@@ -2,8 +2,10 @@ import React from 'react';
 import App, { Container } from 'next/app';
 import Head from 'next/head';
 
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { library, config } from '@fortawesome/fontawesome-svg-core';
 import { faCaretLeft, faCaretRight, faChevronRight, faArrowRight, faBolt } from '@fortawesome/free-solid-svg-icons';
+config.autoAddCss = false;
+import '../../node_modules/@fortawesome/fontawesome-svg-core/styles.css';
 
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
