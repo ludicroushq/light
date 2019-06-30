@@ -150,7 +150,7 @@ module.exports = light({
           <h1 className="text-3xl text-center">reload without actually reloading</h1>
           <h2 className="text-lg text-center pb-4">dont waste your time waiting for your server to restart</h2>
           <div className="flex flex-row flex-wrap">
-            <div className="flex flex-row flex-1 text-center p-4 pb-0">
+            <div className="flex flex-row flex-1 text-center p-4 md:pb-0">
               <div className="self-center w-full bg-gray-900 shadow-3xl text-left p-4 rounded">
                 <pre className="items-end">
                   <code className="text-indigo-400">$ light dev</code>{ '\n' }
@@ -161,7 +161,7 @@ module.exports = light({
                 </pre>
               </div>
             </div>
-            <div className="flex flex-row self-center text-center text-md uppercase text-gray-500 tracking-wider p-2">
+            <div className="flex flex-col self-center text-center text-md uppercase text-gray-500 tracking-wider p-2 w-full md:w-auto">
               vs
             </div>
             <div className="flex flex-row flex-1 text-center p-4 pb-0">
@@ -182,7 +182,7 @@ module.exports = light({
             </div>
           </div>
         </div>
-        <div className="bg-gray-100 py-12">
+        <div className="bg-gray-100 py-12 -mb-12 md:m-0">
           <div className="flex container mx-auto flex-row flex-wrap">
             <div className="flex flex-col w-full md:w-1/3 text-center p-4 md:pb-0">
               <span className="flex-1" />
@@ -214,8 +214,8 @@ module.exports = light({
             </div>
           </div>
         </div>
-        <div className="pt-12">
-          <div className="flex container mx-auto flex-col-reverse md:flex-row flex-wrap">
+        <div className="pt-12 md:block md:m-0 hidden">
+          <div className="container mx-auto flex-col-reverse md:flex-row flex-wrap md:flex">
             <div className="w-full md:w-2/3 text-center px-2 m-4 md:m-0">
             <Embed source={ `const light = require('light');
 
