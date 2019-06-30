@@ -21,28 +21,22 @@ export default class extends React.Component {
       <div>
         <aside className="menu">
           <p className="menu-label">
-            { label }
+            <span className="uppercase text-gray-700 tracking-wider pb-2">{ label }</span>
           </p>
           { Object.keys(menu).map((key) => {
             const guide = menu[key];
             if (typeof guide !== 'string') {
               return (
                 <React.Fragment key={key}>
-                  <p className="menu-label">
-                    { key }
-                  </p>
+                  <span className="uppercase text-gray-700 tracking-wider pb-2">{ key }</span>
                   { Object.keys(guide).map((subkey) => (
-                    <ul className="menu-list" key={subkey}>
-                      <li><a href={`${prefix}/${guide[subkey]}`} className={classnames({ 'is-active': active === guide[subkey] })}>{ subkey }</a></li>
-                    </ul>
+                    <a key={subkey} href={`${prefix}/${guide[subkey]}`} className={classnames('w-full text-left rounded py-2 px-4 cursor-pointer', active === guide[subkey] ? 'bg-indigo-500 text-white' : 'hover:bg-gray-200')}>{ subkey }</a>
                   ))}
                 </React.Fragment>
               );
             }
             return (
-              <ul className="menu-list" key={key}>
-                <li><a href={`${prefix}/${guide}`} className={classnames({ 'is-active': active === guide })}>{ key }</a></li>
-              </ul>
+              <a key={key} href={`${prefix}/${guide}`} className={classnames('w-full text-left rounded py-2 px-4 cursor-pointer', active === guide ? 'bg-indigo-500 text-white' : 'hover:bg-gray-200')}>{ key }</a>
             );
           })}
         </aside>

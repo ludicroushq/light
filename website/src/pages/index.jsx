@@ -198,8 +198,8 @@ module.exports = light({
               )) }
               <span className="flex-1" />
             </div>
-            <div className="w-full md:w-1/2 bg-white shadow-xl text-center px-2 m-4 md:m-0 rounded">
-            <CodeBlock language="javascript" value={`const light = require('light');
+            <div className="w-full md:w-1/2 bg-white shadow-xl text-center px-2 m-4 md:m-0 rounded overflow-x-scroll">
+              <CodeBlock language="javascript" value={`const light = require('light');
 
 ${selectedDeploy.code ? `${selectedDeploy.code}` : ''}
 
@@ -217,7 +217,7 @@ module.exports = light({
         <div className="pt-12 md:block md:m-0 hidden">
           <div className="container mx-auto flex-col-reverse md:flex-row flex-wrap md:flex">
             <div className="w-full md:w-2/3 text-center px-2 m-4 md:m-0">
-            <Embed source={ `const light = require('light');
+              <Embed source={ `const light = require('light');
 
 process.env.LIGHT_ENVIRONMENT = 'runkit';
 
