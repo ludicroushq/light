@@ -120,8 +120,8 @@ export default class Index extends React.Component {
           <div className="flex container mx-auto flex-row flex-wrap">
             <div className="flex flex-col w-full md:w-1/2 text-center p-4 pb-0">
               <span className="flex-1" />
-              <h2 className="text-lg pb-1">as simple as</h2>
-              <h1 className="text-3xl font-mono pb-4 md:pb-0">light dev</h1>
+              <h2 className="text-lg pb-1 px-3">as simple as</h2>
+              <h1 className="text-3xl font-mono pb-4 md:pb-0 px-3">light dev</h1>
               <span className="flex-1" />
               <div className="bg-white shadow-xl text-left p-4 rounded overflow-x-auto">
                 <pre className="items-end">
@@ -147,8 +147,8 @@ module.exports = light({
           </div>
         </div>
         <div className="py-12 container mx-auto">
-          <h1 className="text-3xl text-center">reload without actually reloading</h1>
-          <h2 className="text-lg text-center pb-4">dont waste your time waiting for your server to restart</h2>
+          <h1 className="text-3xl text-center px-3">reload without actually reloading</h1>
+          <h2 className="text-lg text-center pb-4 px-3">dont waste your time waiting for your server to restart</h2>
           <div className="flex flex-row flex-wrap">
             <div className="flex flex-row flex-1 text-center p-4 md:pb-0">
               <div className="self-center w-full bg-gray-900 shadow-3xl text-left p-4 rounded">
@@ -186,8 +186,8 @@ module.exports = light({
           <div className="flex container mx-auto flex-row flex-wrap">
             <div className="flex flex-col w-full md:w-1/3 text-center p-4 md:pb-0">
               <span className="flex-1" />
-              <h1 className="text-3xl">write once</h1>
-              <h2 className="text-lg">deploy anywhere</h2>
+              <h1 className="text-3xl px-3">write once</h1>
+              <h2 className="text-lg px-3">deploy anywhere</h2>
               <span className="flex-1" />
             </div>
             <div className="flex flex-col w-full md:w-1/6 px-4">
