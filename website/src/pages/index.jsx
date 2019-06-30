@@ -123,7 +123,7 @@ export default class Index extends React.Component {
               <h2 className="text-lg pb-1">as simple as</h2>
               <h1 className="text-3xl font-mono pb-4 md:pb-0">light dev</h1>
               <span className="flex-1" />
-              <div className="bg-white shadow-xl text-left p-4 rounded">
+              <div className="bg-white shadow-xl text-left p-4 rounded overflow-x-auto">
                 <pre className="items-end">
                   <code className="text-indigo-500">$ light dev</code>{ '\n' }
                   <code className="text-pink-500">> listening on port 3000</code>{ '\n' }
@@ -132,7 +132,7 @@ export default class Index extends React.Component {
                 </pre>
               </div>
             </div>
-            <div className="w-full md:w-1/2 bg-white shadow-xl text-center px-2 m-4 md:m-0 rounded">
+            <div className="w-full md:w-1/2 bg-white shadow-xl text-center px-2 m-4 md:m-0 rounded overflow-x-auto">
             <CodeBlock language="javascript" value={`const light = require('light');
 
 module.exports = light({
@@ -198,7 +198,7 @@ module.exports = light({
               )) }
               <span className="flex-1" />
             </div>
-            <div className="w-full md:w-1/2 bg-white shadow-xl text-center px-2 m-4 md:m-0 rounded overflow-x-scroll">
+            <div className="w-full md:w-1/2 bg-white shadow-xl text-center px-2 m-4 md:m-0 rounded overflow-x-auto">
               <CodeBlock language="javascript" value={`const light = require('light');
 
 ${selectedDeploy.code ? `${selectedDeploy.code}` : ''}
