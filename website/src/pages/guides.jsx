@@ -98,11 +98,11 @@ export default class Posts extends React.Component {
           <h2 className="text-xl font-semibold uppercase">{ subtitle }</h2>
         </div>
         <div className="pt-12 container mx-auto">
-          <div className="flex flex-row flex-wrap">
+          <div className="flex flex-col-reverse md:flex-row flex-wrap">
             <div className="flex flex-row w-full px-4 md:px-0 md:w-1/4">
               <Sidebar menu={menu} active={path} prefix="/guides" label="Guides" />
             </div>
-            <div className="flex flex-col content px-4 w-full md:w-3/4">
+            <div className="flex flex-col content px-4 w-full md:w-3/4 pb-12 md:pb-0">
               <Markdown
                 source={content}
                 linkTarget="_blank"
