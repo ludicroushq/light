@@ -43,7 +43,7 @@ export default class extends App {
         </Head>
         <div className="app">
           <Navigation />
-          <div className="bg-gray-100 p-3 text-sm">
+          <div className="bg-indigo-300 p-3 text-sm">
             <div className="text-center">
               NOTICE: Since <strong>light</strong> is a work in progress, breaking changes will be made every MINOR patch until 2.0
             </div>

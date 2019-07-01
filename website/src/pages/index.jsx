@@ -78,7 +78,7 @@ export default class Index extends React.Component {
     const { deployments, selectedDeploy, featureTab, selectedHeroText, heroText } = this.state;
     return (
       <div>
-        <div className="w-full max-w-screen-xl relative mx-auto container mx-auto pb-6 text-center">
+        <div className="w-full max-w-screen-xl relative mx-auto container pb-6 text-center">
           <h1 className="font-bold uppercase text-yellow-400 pt-16"><FontAwesomeIcon icon="bolt" size="6x" /></h1>
           <h1 className="text-xl font-bold uppercase pb-8 pt-2">light.js</h1>
           <h2 className="text-xl font-semibold uppercase">a</h2>
@@ -132,7 +132,7 @@ export default class Index extends React.Component {
                 </pre>
               </div>
             </div>
-            <div className="w-full md:w-1/2 bg-white shadow-xl text-center px-2 m-4 md:m-0 rounded overflow-x-auto">
+            <div className="w-full md:w-1/2 shadow-xl text-center m-4 md:m-0 rounded overflow-x-auto">
             <CodeBlock language="javascript" value={`const light = require('light');
 
 module.exports = light({
@@ -198,7 +198,7 @@ module.exports = light({
               )) }
               <span className="flex-1" />
             </div>
-            <div className="w-full md:w-1/2 bg-white shadow-xl text-center px-2 m-4 md:m-0 rounded overflow-x-auto">
+            <div className="w-full md:w-1/2 shadow-xl text-center m-4 md:m-0 rounded overflow-x-auto">
               <CodeBlock language="javascript" value={`const light = require('light');
 
 ${selectedDeploy.code ? `${selectedDeploy.code}` : ''}

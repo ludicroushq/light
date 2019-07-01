@@ -48,13 +48,13 @@ class Navigation extends React.Component {
             <div className="md:flex-grow">
             </div>
             <div>
-              <a href="/" className={classnames('block mt-4 md:inline-block md:mt-0 uppercase mr-4', (route === '/') ? 'text-blue-400 font-medium' : 'text-gray-700 hover:text-black')} role="navigation" onClick={this.closeMenu}>
+              <a href="/" className={classnames('block mt-4 md:inline-block md:mt-0 uppercase mr-4', (route === '/') ? 'text-indigo-400 font-medium' : 'text-gray-700 hover:text-black')} role="navigation" onClick={this.closeMenu}>
                 Home
               </a>
-              <a href="/guides/getting-started" className={classnames('block mt-4 md:inline-block md:mt-0 uppercase mr-4', route.includes('/guides') ? 'text-blue-400 font-medium' : 'text-gray-700 hover:text-black')} role="navigation" onClick={this.closeMenu}>
+              <a href="/guides/getting-started" className={classnames('block mt-4 md:inline-block md:mt-0 uppercase mr-4', route.includes('/guides') ? 'text-indigo-400 font-medium' : 'text-gray-700 hover:text-black')} role="navigation" onClick={this.closeMenu}>
                 Guides
               </a>
-              <a href="/docs/server" className={classnames('block mt-4 md:inline-block md:mt-0 uppercase mr-4', route.includes('/docs') ? 'text-blue-400 font-medium' : 'text-gray-700 hover:text-black')} role="navigation" onClick={this.closeMenu}>
+              <a href="/docs/server" className={classnames('block mt-4 md:inline-block md:mt-0 uppercase mr-4', route.includes('/docs') ? 'text-indigo-400 font-medium' : 'text-gray-700 hover:text-black')} role="navigation" onClick={this.closeMenu}>
                 Docs
               </a>
             </div>
