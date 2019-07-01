@@ -1,4 +1,4 @@
-const withSass = require('@zeit/next-sass');
+const withCSS = require("@zeit/next-css");
 const join = require('url-join');
 const guides = require('../../guides/guides.json');
 const docs = require('../../docs/docs.json');
@@ -7,7 +7,7 @@ const { NODE_ENV, COMMIT_REF } = process.env;
 
 const mappedURL = `https://raw.githubusercontent.com/ludicrousxyz/light/${COMMIT_REF || 'master'}`;
 
-module.exports = withSass({
+module.exports = withCSS({
   async exportPathMap() {
     const routes = {
       '/': { page: '/' },

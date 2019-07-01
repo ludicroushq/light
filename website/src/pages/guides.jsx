@@ -5,7 +5,6 @@ import Markdown from 'react-markdown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import CodeBlock from '../components/CodeBlock';
-import Hero from '../components/Hero';
 import Sidebar from '../components/Sidebar';
 
 export default class Posts extends React.Component {
@@ -94,54 +93,49 @@ export default class Posts extends React.Component {
     const { title, subtitle, content, menu, path, cont } = this.props;
     return (
       <div>
-        <Hero
-          title={title}
-          subtitle={subtitle}
-          typed={false}
-        />
-        <section className="section">
-          <div className="container">
-            <div className="columns">
-              <div className="column is-one-quarter">
-                <Sidebar menu={menu} active={path} prefix="/guides" label="Guides" />
-              </div>
-              <div className="column">
-                <div className="content is-medium">
-                  <Markdown
-                    source={content}
-                    linkTarget="_blank"
-                    renderers={{
-                      code: CodeBlock,
-                    }}
-                  />
+        <div className="w-full max-w-screen-xl relative py-12 bg-gray-100 text-center">
+          <h1 className="text-4xl font-semibold uppercase text-center">{ title }</h1>
+          <h2 className="text-xl font-semibold uppercase">{ subtitle }</h2>
+        </div>
+        <div className="pt-12 container mx-auto">
+          <div className="flex flex-col-reverse md:flex-row flex-wrap">
+            <div className="flex flex-row w-full px-4 md:px-0 md:w-1/4">
+              <Sidebar menu={menu} active={path} prefix="/guides" label="Guides" />
+            </div>
+            <div className="flex flex-col content px-4 w-full md:w-3/4 pb-12 md:pb-0">
+              <Markdown
+                source={content}
+                linkTarget="_blank"
+                renderers={{
+                  code: CodeBlock,
+                }}
+              />
+              <div className="flex">
+                <div className="w-5/12 md:w-1/4">
+                  { cont.previous ? (
+                    <a href={`/guides/${cont.previous.path}`} className="inline-block text-center rounded p-2 bg-pink-500 w-full">
+                      <span className="pr-4 text-white">
+                        <FontAwesomeIcon icon="caret-left" />
+                      </span>
+                      <span className="text-white">{ cont.previous.name }</span>
+                    </a>
+                  ) : null }
                 </div>
-                <div className="columns">
-                  <div className="column">
-                    { cont.previous ? (
-                      <a href={`/guides/${cont.previous.path}`} class="button is-fullwidth is-outlined is-info">
-                        <span class="icon">
-                          <FontAwesomeIcon icon="caret-left" />
-                        </span>
-                        <span>{ cont.previous.name }</span>
-                      </a>
-                    ) : null }
-                  </div>
-                  <div className="column is-6" />
-                  <div className="column">
-                    { cont.next ? (
-                      <a href={`/guides/${cont.next.path}`} class="button is-fullwidth is-outlined is-info">
-                        <span>{ cont.next.name }</span>
-                        <span class="icon">
-                          <FontAwesomeIcon icon="caret-right" />
-                        </span>
-                      </a>
-                    ) : null }
-                  </div>
+                <div className="flex-1"></div>
+                <div className="w-5/12 md:w-1/4">
+                  { cont.next ? (
+                    <a href={`/guides/${cont.next.path}`} className="inline-block text-center rounded p-2 bg-pink-500 w-full">
+                      <span className="text-white">{ cont.next.name }</span>
+                      <span className="pl-4 text-white">
+                        <FontAwesomeIcon icon="caret-right" />
+                      </span>
+                    </a>
+                  ) : null }
                 </div>
               </div>
             </div>
           </div>
-        </section>
+        </div>
       </div>
     );
   }

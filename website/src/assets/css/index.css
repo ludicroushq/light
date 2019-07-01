@@ -1,0 +1,90 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+.shadow-3xl {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5)
+}
+
+.content {
+  @apply text-lg text-gray-800 leading-normal;
+  & > * + *,  & li + li, & li > p + p {
+    @apply my-2;
+  }
+
+  & strong {
+    @apply text-black font-bold;
+  }
+
+  & a {
+    @apply text-black font-semibold;
+  }
+
+  & strong a {
+    @apply font-bold;
+  }
+
+  & h2 {
+    @apply text-3xl font-semibold;
+  }
+
+  & h3 {
+    @apply text-2xl font-semibold;
+  }
+
+  & h4 {
+    @apply text-xl font-semibold;
+  }
+
+  & h5 {
+    @apply text-lg font-semibold;
+  }
+
+  & h6 {
+    @apply text-base font-semibold;
+  }
+
+  & code {
+    @apply font-mono bg-gray-200 py-1 px-2 rounded;
+  }
+
+  & pre code {
+    @apply px-0;
+  }
+
+  & blockquote {
+    @apply border-l-4 border-gray-100 pl-4 italic;
+  }
+
+  & ul {
+    @apply pl-5 list-disc;
+    @screen sm {
+      @apply pl-10;
+    }
+  }
+
+  & ol {
+    @apply pl-5 list-decimal;
+    @screen sm {
+      @apply pl-10;
+    }
+  }
+
+  & table thead tr {
+    @apply border-b border-t bg-gray-100 text-left;
+  }
+
+  & th {
+    @apply px-2;
+  }
+
+  & td {
+    @apply px-2;
+  }
+
+  & table tbody tr {
+    @apply border-b;
+  }
+}
