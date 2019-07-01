@@ -71,4 +71,20 @@
       @apply pl-10;
     }
   }
+
+  & table thead tr {
+    @apply border-b border-t bg-gray-100 text-left;
+  }
+
+  & th {
+    @apply px-2;
+  }
+
+  & td {
+    @apply px-2;
+  }
+
+  & table tbody tr {
+    @apply border-b;
+  }
 }

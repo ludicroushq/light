@@ -41,7 +41,6 @@ Serverless has its own benefits and drawbacks and you should only use it if it i
 | Generally cheaper                        | Cold starts will result in slow responses |
 | Instant scaling                          | No control over deployments               |
 | Fault tolerant (one crash has no affect) | No web-sockets support                    |
-|                                          |                                           |
 
 ## Why Should I Use Light Instead of the Serverless Framework
 
