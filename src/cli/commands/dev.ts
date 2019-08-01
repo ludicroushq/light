@@ -2,8 +2,9 @@ import { CommandBuilder } from 'yargs'; // eslint-disable-line
 import { join, relative } from 'path';
 import emojic from 'emojic';
 import chalk from 'chalk';
-import logger from '../../utils/logger';
+import decache from 'decache';
 
+import logger from '../../utils/logger';
 import Route from '../../types/route';
 import { server } from '../../index';
 import findRoutes from '../../utils/find-routes';
@@ -69,14 +70,31 @@ const handle = async (argv: Args): Promise<void> => {
     logger.hmr('starting the hot reloader');
     const chokidar = require('chokidar'); // eslint-disable-line
     const watcher = chokidar.watch(cwd);
-    watcher.on('ready', (): void => logger.hmr('watching for changes'));
+    watcher.on('ready', (): void => {
+      // TODO: if the following `decache` solution doesn't work, this does
+      // let absolute = '';
+      // Module.prototype.require = new Proxy(Module.prototype.require,{
+      //   apply(target, thisArg, argumentsList){
+      //     let name = argumentsList[0];
+      //     if (path.isAbsolute(name)) {
+      //       absolute = path.dirname(name);
+      //       name = '';
+      //     }
+      //     if (!name.endsWith('.js')) {
+      //       name += '.js';
+      //     }
+      //     delete require.cache[path.join(absolute, name)];
+      //     return Reflect.apply(target, thisArg, argumentsList)
+      //   }
+      // });
+      logger.hmr('watching for changes');
+    });
     watcher.on('change', (p: string): void => {
       logger.hmr(`swapping out ${chalk.yellow(relative(cwd, p))}`);
-      delete require.cache[p];
       app.router.reset();
       const routes = findRoutes(routesPath);
       routes.forEach((route: Route): void => {
-        delete require.cache[route.path];
+        decache(route.path);
         importRoute(app.router, route, {
           log: argv.log,
         });
