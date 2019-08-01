@@ -87,7 +87,7 @@ const handle = async (argv: Args): Promise<void> => {
       //     return Reflect.apply(target, thisArg, argumentsList)
       //   }
       // });
-      logger.hmr('watching for changes')
+      logger.hmr('watching for changes');
     });
     watcher.on('change', (p: string): void => {
       logger.hmr(`swapping out ${chalk.yellow(relative(cwd, p))}`);
