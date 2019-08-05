@@ -1,8 +1,11 @@
 import { run } from 'micro';
 import { IncomingMessage, ServerResponse } from 'http';
 import AWSServerlessMicro from 'aws-serverless-micro';
-
+import path from 'path';
 import { handleErrors } from 'micro-boom';
+
+import log from './utils/logger';
+import { existsSync } from 'fs';
 
 const { LIGHT_ENVIRONMENT } = process.env;
 
@@ -23,6 +26,30 @@ interface Route {
   method?: string[] | string;
   handler: Handler;
 }
+
+let cwd = process.cwd();
+const requirePaths = []
+while (cwd !== '/') {
+  requirePaths.push(cwd);
+  cwd = path.join(cwd, '../');
+}
+const configPaths = requirePaths.map((p) => path.join(p, 'light.config.js'));
+
+const config = configPaths.reduce((acc, val) => {
+  let conf = {};
+  if (existsSync(val)) {
+    try {
+      conf = require(val);
+    } catch (err) {
+      log.error(`unable to import light.config.js: ${err}`);
+    }
+  }
+  return {
+    ...acc,
+    ...conf,
+  };
+}, {});
+console.log(config);
 
 export default (route: Route): Handler => {
   const proxy = async (Req: IM, Res: SR): AP => {
