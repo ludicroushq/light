@@ -34,12 +34,15 @@ while (cwd !== '/') {
   cwd = path.join(cwd, '../');
 }
 const configPaths = requirePaths.map((p) => path.join(p, 'light.config.js'));
+console.log(configPaths)
 
 const config = configPaths.reduce((acc, val) => {
   let conf = {};
   if (existsSync(val)) {
     try {
+      console.log('requiring')
       conf = require(val);
+      console.log(conf)
     } catch (err) {
       log.error(`unable to import light.config.js: ${err}`);
     }
