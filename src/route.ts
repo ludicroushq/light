@@ -69,6 +69,8 @@ export default (route: Route): Handler => {
 
       console.log(config)
 
+      return config;
+
       return route.handler(req, res);
     };
 
