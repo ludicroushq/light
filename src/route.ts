@@ -95,6 +95,8 @@ export default (route: Route): Handler => {
   (fn as any).log = true;
   (fn as any).module = __dirname;
 
+  console.log(config)
+
   /* istanbul ignore if */
   if (isNetlify || isAWS) {
     return {
