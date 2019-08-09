@@ -34,7 +34,6 @@ while (cwd !== '/') {
   cwd = path.join(cwd, '../');
 }
 const configPaths = requirePaths.map((p) => path.join(p, 'light.config.js'));
-console.log(configPaths)
 
 const config = configPaths.reduce((acc, val) => {
   let conf = {};
@@ -42,7 +41,6 @@ const config = configPaths.reduce((acc, val) => {
     try {
       console.log('requiring')
       conf = require(val);
-      console.log(conf)
     } catch (err) {
       log.error(`unable to import light.config.js: ${err}`);
     }
@@ -52,10 +50,11 @@ const config = configPaths.reduce((acc, val) => {
     ...conf,
   };
 }, {});
-console.log(config);
 
 export default (route: Route): Handler => {
+  console.log('handler config is', config);
   const proxy = async (Req: IM, Res: SR): AP => {
+    console.log('proxy config is', config)
     let exec = async (req: IM, res: SR): AP => {
       const middleware: any[] = route.middleware || [];
 
@@ -67,9 +66,7 @@ export default (route: Route): Handler => {
         }
       }
 
-      console.log(config)
-
-      return config;
+      console.log('config is', config)
 
       return route.handler(req, res);
     };
@@ -102,7 +99,7 @@ export default (route: Route): Handler => {
   (fn as any).log = true;
   (fn as any).module = __dirname;
 
-  console.log(config)
+  console.log('final config is', config)
 
   /* istanbul ignore if */
   if (isNetlify || isAWS) {
