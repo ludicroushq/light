@@ -1,7 +1,7 @@
 import { IncomingMessage, ServerResponse } from 'http';
-import pino from 'pino-http';
 import bytes from 'bytes';
 
+import pinoHandler from '../../pino';
 import isProd from '../is-prod';
 
 type IM = IncomingMessage;
@@ -9,7 +9,6 @@ type SR = ServerResponse;
 
 /* istanbul ignore next */
 if (isProd) {
-  const pinoHandler = pino();
   module.exports = (fn: any): any => async (req: IM, res: SR): Promise<any> => {
     pinoHandler(req, res);
     return fn(req, res);
