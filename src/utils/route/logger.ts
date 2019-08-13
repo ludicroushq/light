@@ -10,7 +10,7 @@ type SR = ServerResponse;
 /* istanbul ignore next */
 if (isProd) {
   module.exports = (fn: any): any => async (req: IM, res: SR): Promise<any> => {
-    pinoHandler(req, res);
+    // pinoHandler(req, res);
     return fn(req, res);
   };
 } else {

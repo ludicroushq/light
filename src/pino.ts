@@ -1,6 +1,6 @@
 import path from 'path';
 import { existsSync } from 'fs';
-import pino from 'pino-http';
+import pino from 'pino';
 
 import log from './utils/logger';
 
@@ -29,10 +29,10 @@ const config: any = configPaths.reduce((acc, val) => {
 }, {});
 
 let logger: any;
-if (config.logger) {
-  logger = config.logger(pino);
-} else {
-  logger = pino();
-}
+// if (config.logger) {
+//   logger = config.logger(pino);
+// } else {
+// }
+logger = pino();
 
 export default logger;
