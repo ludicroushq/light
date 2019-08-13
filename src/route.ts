@@ -1,11 +1,7 @@
 import { run } from 'micro';
 import { IncomingMessage, ServerResponse } from 'http';
 import AWSServerlessMicro from 'aws-serverless-micro';
-import path from 'path';
 import { handleErrors } from 'micro-boom';
-
-import log from './utils/logger';
-import { existsSync } from 'fs';
 
 const { LIGHT_ENVIRONMENT } = process.env;
 
@@ -27,34 +23,8 @@ interface Route {
   handler: Handler;
 }
 
-let cwd = process.cwd();
-const requirePaths = []
-while (cwd !== '/') {
-  requirePaths.push(cwd);
-  cwd = path.join(cwd, '../');
-}
-const configPaths = requirePaths.map((p) => path.join(p, 'light.config.js'));
-
-const config = configPaths.reduce((acc, val) => {
-  let conf = {};
-  if (existsSync(val)) {
-    try {
-      console.log('requiring')
-      conf = require(val);
-    } catch (err) {
-      log.error(`unable to import light.config.js: ${err}`);
-    }
-  }
-  return {
-    ...acc,
-    ...conf,
-  };
-}, {});
-
 export default (route: Route): Handler => {
-  console.log('handler config is', config);
   const proxy = async (Req: IM, Res: SR): AP => {
-    console.log('proxy config is', config)
     let exec = async (req: IM, res: SR): AP => {
       const middleware: any[] = route.middleware || [];
 
@@ -65,8 +35,6 @@ export default (route: Route): Handler => {
           return null;
         }
       }
-
-      console.log('config is', config)
 
       return route.handler(req, res);
     };
@@ -98,8 +66,6 @@ export default (route: Route): Handler => {
 
   (fn as any).log = true;
   (fn as any).module = __dirname;
-
-  console.log('final config is', config)
 
   /* istanbul ignore if */
   if (isNetlify || isAWS) {
