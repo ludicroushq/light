@@ -5,7 +5,7 @@ import isFunction from 'lodash.isfunction';
 import { IncomingMessage, ServerResponse } from 'http';
 
 import logger from './logger';
-import { light } from '../index'
+import { light } from '../index';
 import Route from '../types/route';
 
 interface Options {
@@ -26,7 +26,7 @@ export default (router: any, routeData: Route, opts: Options): void => {
       return;
     }
   } else {
-    handler = routeData.handler;
+    ({ handler } = routeData);
     if (!isFunction(routeData.handler)) {
       handler = light(routeData.handler);
     }

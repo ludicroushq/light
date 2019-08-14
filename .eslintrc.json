@@ -23,7 +23,8 @@
   },
   "rules": {
     "@typescript-eslint/indent": ["error", 2],
-    "@typescript-eslint/no-explicit-any": "off"
+    "@typescript-eslint/no-explicit-any": "off",
+    "jest/no-disabled-tests": "off"
   },
   "settings": {
     "import/resolver": {

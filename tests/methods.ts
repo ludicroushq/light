@@ -1,5 +1,5 @@
 import { resolve } from 'url';
-import fetch from 'node-fetch'
+import fetch from 'node-fetch';
 
 import { test } from '../src/index';
 
@@ -7,9 +7,9 @@ describe('methods', () => {
   it('should work with POST', async () => {
     const server = await test({
       path: '/method',
-    
+
       method: 'POST',
-    
+
       handler(req: any) {
         return {
           hello: req.method,
@@ -27,15 +27,15 @@ describe('methods', () => {
   it('should work with GET and POST', async () => {
     const server = await test({
       path: '/methods',
-    
+
       method: ['GET', 'POST'],
-    
+
       handler(req: any) {
         return {
           hello: req.method,
         };
       },
-    })
+    });
     expect.assertions(4);
     const req = await fetch(resolve(server.url, '/methods'));
     const res = await req.json();

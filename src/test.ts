@@ -1,10 +1,15 @@
 import listen from 'test-listen';
 import { server } from './index';
 
-type Options = {
+interface Options {
+  log?: boolean;
 }
 
 export default async (routes: string | any[] | any, opts?: Options): Promise<any> => {
+  const options = Object.assign({}, opts, {
+    log: false,
+  });
+
   let handlers = [];
   if (typeof routes === 'string') {
     handlers.push(routes);
@@ -13,7 +18,7 @@ export default async (routes: string | any[] | any, opts?: Options): Promise<any
   }
   const app = server({
     routes: handlers,
-    log: false,
+    log: options.log,
   });
 
   const url = await listen(app.server);
@@ -22,8 +27,8 @@ export default async (routes: string | any[] | any, opts?: Options): Promise<any
     url,
     app,
     server: app.server,
-    close: function () {
+    close(): void {
       this.server.close();
-    }
+    },
   };
 };

@@ -9,11 +9,11 @@ let middleware: any;
 beforeEach(async () => {
   server = await test({
     path: '/middleware',
-  
+
     middleware: [
       middleware,
     ],
-  
+
     handler(req: any) {
       return {
         hello: req.hello,
@@ -46,8 +46,8 @@ describe('middleware', () => {
       middleware = (req: IncomingMessage, res: ServerResponse): void => {
         send(res, 200, { hello: 'middleware' });
       };
-    })
-  
+    });
+
     it('should work', async () => {
       expect.assertions(2);
       const req = await fetch(resolve(server.url, '/middleware'));

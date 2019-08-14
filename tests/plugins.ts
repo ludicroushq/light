@@ -1,4 +1,3 @@
-import listen from 'test-listen';
 import { resolve } from 'url';
 import fetch from 'node-fetch';
 
@@ -13,11 +12,11 @@ const plugin = (fn: any): any => async (req: any, res: any): Promise<any> => {
 beforeEach(async () => {
   server = await test({
     path: '/plugin',
-  
+
     plugins: [
       plugin,
     ],
-  
+
     handler(req: any) {
       return {
         hello: req.hello,

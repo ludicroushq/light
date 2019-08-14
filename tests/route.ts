@@ -3,12 +3,12 @@ import fetch from 'node-fetch';
 import { test } from '../src/index';
 
 let server: any;
-let path: string = '/';
-let response: string = 'world';
+let path = '/';
+let response = 'world';
 beforeEach(async () => {
   server = await test({
     path,
-  
+
     handler() {
       return {
         hello: response,
