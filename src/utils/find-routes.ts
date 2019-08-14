@@ -5,10 +5,16 @@ import { lstatSync } from 'fs';
 import Route from '../types/route';
 import glob from './glob';
 
-export default (routesPath: string | string[]): Route[] => {
+export default (routesPath: string | any[] | any): Route[] => {
   const routes: Route[] = [];
 
-  const addRoutes = (path: string): number => {
+  const addRoutes = (path: any): number => {
+    if (typeof path !== 'string') {
+      return routes.push({
+        handler: path,
+      });
+    }
+
     if (lstatSync(path).isFile()) {
       return routes.push({
         path,

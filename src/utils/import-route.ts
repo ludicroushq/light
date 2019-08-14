@@ -3,8 +3,9 @@ import {
 } from 'path';
 import isFunction from 'lodash.isfunction';
 import { IncomingMessage, ServerResponse } from 'http';
-import logger from './logger';
 
+import logger from './logger';
+import { light } from '../index'
 import Route from '../types/route';
 
 interface Options {
@@ -13,18 +14,25 @@ interface Options {
 
 export default (router: any, routeData: Route, opts: Options): void => {
   let handler: ((req: IncomingMessage, res: ServerResponse) => {}) | any;
-  try {
-    handler = require(routeData.path); // eslint-disable-line
-    if (handler.default) {
-      handler = handler.default;
+  if (typeof routeData.path === 'string') {
+    try {
+      handler = require(routeData.path); // eslint-disable-line
+      if (handler.default) {
+        handler = handler.default;
+      }
+    } catch (err) {
+      logger.error(`unable to import route ${routeData.path}`);
+      logger.fatal(err);
+      return;
     }
-  } catch (err) {
-    logger.error(`unable to import route ${routeData.path}`);
-    logger.fatal(err);
-    return;
+  } else {
+    handler = routeData.handler;
+    if (!isFunction(routeData.handler)) {
+      handler = light(routeData.handler);
+    }
   }
 
-  if (isFunction(handler) && !(handler as any).path) {
+  if (isFunction(handler) && !(handler as any).path && routeData.name) {
     const { name, dir } = parse(routeData.name);
     const path = join('/', dir, name === 'index' ? '/' : name);
     (handler as any).log = opts.log;
@@ -42,7 +50,7 @@ export default (router: any, routeData: Route, opts: Options): void => {
     };
   }
 
-  if (!route.path) {
+  if (!route.path && routeData.name) {
     const { name, dir } = parse(routeData.name);
     route.path = join(dir, name);
   }

@@ -94,7 +94,9 @@ const handle = async (argv: Args): Promise<void> => {
       app.router.reset();
       const routes = findRoutes(routesPath);
       routes.forEach((route: Route): void => {
-        decache(route.path);
+        if (route.path) {
+          decache(route.path);
+        }
         importRoute(app.router, route, {
           log: argv.log,
         });

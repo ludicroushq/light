@@ -1,42 +1,50 @@
-import { join } from 'path';
-import listen from 'test-listen';
 import { resolve } from 'url';
-import fetch from 'node-fetch';
-import { server } from '../src/index';
+import fetch from 'node-fetch'
 
-const app = server({
-  routes: [
-    join(__dirname, 'seeds/routes/method.ts'),
-    join(__dirname, 'seeds/routes/methods.ts'),
-  ],
-  log: false,
-});
-let url: string;
-
-beforeAll(async () => {
-  url = await listen(app.server);
-});
-
-afterAll(() => app.server.close());
+import { test } from '../src/index';
 
 describe('methods', () => {
   it('should work with POST', async () => {
+    const server = await test({
+      path: '/method',
+    
+      method: 'POST',
+    
+      handler(req: any) {
+        return {
+          hello: req.method,
+        };
+      },
+    });
     expect.assertions(2);
-    const req = await fetch(resolve(url, '/method'), { method: 'POST' });
+    const req = await fetch(resolve(server.url, '/method'), { method: 'POST' });
     const res = await req.json();
     expect(req.status).toStrictEqual(200);
     expect(res).toMatchObject({ hello: 'POST' });
+    server.close();
   });
 
   it('should work with GET and POST', async () => {
+    const server = await test({
+      path: '/methods',
+    
+      method: ['GET', 'POST'],
+    
+      handler(req: any) {
+        return {
+          hello: req.method,
+        };
+      },
+    })
     expect.assertions(4);
-    const req = await fetch(resolve(url, '/methods'));
+    const req = await fetch(resolve(server.url, '/methods'));
     const res = await req.json();
-    const reqPost = await fetch(resolve(url, '/methods'), { method: 'POST' });
+    const reqPost = await fetch(resolve(server.url, '/methods'), { method: 'POST' });
     const resPost = await reqPost.json();
     expect(req.status).toStrictEqual(200);
     expect(res).toMatchObject({ hello: 'GET' });
     expect(reqPost.status).toStrictEqual(200);
     expect(resPost).toMatchObject({ hello: 'POST' });
+    server.close();
   });
 });
