@@ -9,10 +9,9 @@ type SR = ServerResponse;
 
 /* istanbul ignore next */
 if (isProd) {
-  module.exports = (fn: any): any => async (req: IM, res: SR): Promise<any> => {
+  module.exports = (fn: any): any => async (req: IM, res: SR): Promise<any> =>
     // pinoHandler(req, res);
-    return fn(req, res);
-  };
+    fn(req, res);
 } else {
   const signale = require('../logger'); // eslint-disable-line
 

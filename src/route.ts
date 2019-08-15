@@ -46,8 +46,8 @@ export default (route: Route): Handler => {
       (proxy as any).log = false;
     }
 
-    plugins.unshift(youchErrors);
-    plugins.unshift(handleErrors);
+    // plugins.unshift(youchErrors);
+    // plugins.unshift(handleErrors);
 
     if (plugins.length) {
       exec = plugins.reverse().reduce((acc, val): any => val(acc), exec);
