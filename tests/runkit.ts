@@ -1,11 +1,19 @@
-process.env.LIGHT_ENVIRONMENT = 'runkit';
-import * as runkit from './seeds/routes/runkit'; // eslint-disable-line
+import { light } from '../src/index';
 
-describe('runkit', () => {
-  describe('handler', () => {
-    it('should export endpoint', () => {
-      expect.assertions(1);
-      expect((runkit as any).endpoint).toBeTruthy();
-    });
+process.env.LIGHT_ENVIRONMENT = 'runkit';
+
+const route = light({
+  path: '/runkit',
+  handler() {
+    return {
+      hello: 'runkit world',
+    };
+  },
+});
+
+describe('with runkit environment', () => {
+  test('the route exports an endpoit', () => {
+    expect.assertions(1);
+    expect(route.endpoint).toBeTruthy();
   });
 });
