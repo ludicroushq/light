@@ -2,6 +2,9 @@ import { run } from 'micro';
 import { IncomingMessage, ServerResponse } from 'http';
 import AWSServerlessMicro from 'aws-serverless-micro';
 import { handleErrors } from 'micro-boom';
+import pino from 'pino';
+
+const loggy = pino();
 
 const { LIGHT_ENVIRONMENT } = process.env;
 
@@ -36,6 +39,8 @@ export default (route: Route): Handler => {
         }
       }
 
+      loggy.info('hi')
+
       return route.handler(req, res);
     };
 
@@ -53,8 +58,12 @@ export default (route: Route): Handler => {
       exec = plugins.reverse().reduce((acc, val): any => val(acc), exec);
     }
 
+    loggy.info('hello')
+
     return exec(Req, Res);
   };
+
+  loggy.info('wassup')
 
   const { env } = process;
   const isNetlify = LIGHT_ENVIRONMENT === 'netlify' || env.LIGHT_ENVIRONMENT === 'netlify';
