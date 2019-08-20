@@ -1,18 +1,18 @@
 import { IncomingMessage, ServerResponse } from 'http';
 
-import isProd from '../is-prod';
-
 type IM = IncomingMessage;
 type SR = ServerResponse;
 
 let Youch: any;
 let forTerminal: any;
 
-/* istanbul ignore next */
-if (!isProd) {
+export default (isProd: boolean) => {
+  if (isProd) {
+    return (fun: any): any => async (req: IM, res: SR): Promise<any> => fun(req, res);
+  }
   Youch = require('youch'); // eslint-disable-line
   forTerminal = require('youch-terminal'); // eslint-disable-line
-  module.exports = (fun: any): any => async (req: IM, res: SR): Promise<void> => {
+  return (fun: any): any => async (req: IM, res: SR): Promise<void> => {
     try {
       return await fun(req, res);
     } catch (err) {
@@ -22,6 +22,4 @@ if (!isProd) {
       throw err;
     }
   };
-} else {
-  module.exports = (fun: any): any => async (req: IM, res: SR): Promise<any> => fun(req, res);
 }

@@ -2,14 +2,12 @@ import { run } from 'micro';
 import { IncomingMessage, ServerResponse } from 'http';
 import AWSServerlessMicro from 'aws-serverless-micro';
 import { handleErrors } from 'micro-boom';
-import pino from 'pino';
-
-const loggy = pino();
+import isProd from './utils/is-prod';
+import youchErrors from './utils/plugins/youch';
 
 const { LIGHT_ENVIRONMENT } = process.env;
 
-const youchErrors = require('./utils/route/youch'); // eslint-disable-line @typescript-eslint/no-var-requires
-const logger = require('./utils/route/logger'); // eslint-disable-line @typescript-eslint/no-var-requires
+const logger = require('./utils/plugins/logger'); // eslint-disable-line @typescript-eslint/no-var-requires
 
 // TODO: Define types for micro and aws
 // TODO: Add test for POST/other methods
@@ -48,7 +46,7 @@ export default (route: Route): Handler => {
       plugins.unshift(logger);
     }
 
-    plugins.unshift(youchErrors);
+    plugins.unshift(youchErrors(isProd));
     plugins.unshift(handleErrors);
 
     if (plugins.length) {
@@ -57,8 +55,6 @@ export default (route: Route): Handler => {
 
     return exec(Req, Res);
   };
-
-  loggy.info('wassup')
 
   const { env } = process;
   const isNetlify = LIGHT_ENVIRONMENT === 'netlify' || env.LIGHT_ENVIRONMENT === 'netlify';
