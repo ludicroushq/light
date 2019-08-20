@@ -33,6 +33,11 @@ let logger: any;
 //   logger = config.logger(pino);
 // } else {
 // }
-logger = pino();
+const asdf = config.logger;
+
+logger = (msg: any) => {
+  console.log('asdf is', asdf);
+  console.log(msg);
+}
 
 export default logger;
