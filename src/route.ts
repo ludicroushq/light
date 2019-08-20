@@ -39,8 +39,6 @@ export default (route: Route): Handler => {
         }
       }
 
-      loggy.info('hi')
-
       return route.handler(req, res);
     };
 
@@ -48,17 +46,14 @@ export default (route: Route): Handler => {
 
     if ((proxy as any).log !== false) {
       plugins.unshift(logger);
-      (proxy as any).log = false;
     }
 
-    // plugins.unshift(youchErrors);
-    // plugins.unshift(handleErrors);
+    plugins.unshift(youchErrors);
+    plugins.unshift(handleErrors);
 
     if (plugins.length) {
       exec = plugins.reverse().reduce((acc, val): any => val(acc), exec);
     }
-
-    loggy.info('hello')
 
     return exec(Req, Res);
   };
