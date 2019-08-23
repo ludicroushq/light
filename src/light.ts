@@ -6,25 +6,13 @@ import { handleErrors } from 'micro-boom';
 
 // import isProd from './utils/is-prod';
 // import youchErrors from './utils/plugins/youch';
-
-// const { LIGHT_ENVIRONMENT } = process.env;
-
 // const logger = require('./utils/plugins/logger'); // eslint-disable-line @typescript-eslint/no-var-requires
 
-// TODO: Define types for micro and aws
-// TODO: Add test for POST/other methods
-// type Handler = any;
+const { LIGHT_ENVIRONMENT } = process.env;
+
 type IM = IncomingMessage;
 type SR = ServerResponse;
-// type AP = Promise<any>;
-
-// interface Route {
-//   path?: string;
-//   middleware?: any[];
-//   plugins?: any[];
-//   method?: string[] | string;
-//   handler: Handler;
-// }
+type AP = Promise<any>;
 
 /**
  * @param {Route} route - a class with a handler function or a regular function
@@ -82,35 +70,33 @@ export default (route: any): any => {
     return fn(req, res);
   }
 
+  // detect if serverless environment
+  const { env } = process;
+  const isNetlify = LIGHT_ENVIRONMENT === 'netlify' || env.LIGHT_ENVIRONMENT === 'netlify';
+  const isAWS = LIGHT_ENVIRONMENT === 'aws' || env.LIGHT_ENVIRONMENT === 'aws';
+  const isRunKit = LIGHT_ENVIRONMENT === 'runkit' || env.LIGHT_ENVIRONMENT === 'runkit';
+  const isNow = LIGHT_ENVIRONMENT === 'now' || env.LIGHT_ENVIRONMENT === 'now';
+
+  const isServerless = isNetlify || isAWS || isRunKit || isNow;
+
   // transform exports
-  let fn = proxy;
-  // if now return run()
-  // const fn =  async (req: IM, res: SR): Promise<any> => run(req, res, proxy);
+  let fn: any = proxy;
+  if (isServerless) {
+    if (isRunKit || isNow) {
+      // TODO: test this in runkit and now tests
+      /* istanbul ignore next */
+      fn = async (req: IM, res: SR): AP => run(req, res, (proxy as any));
+    }
+    if (isNetlify || isAWS) {
+      fn = {
+        handler: AWSServerlessMicro(proxy),
+      };
+    }
+    if (isRunKit) {
+      fn = {
+        endpoint: fn,
+      };
+    }
+  }
   return fn;
 }
-
-// export default (route: Route): Handler => {
-
-//   const { env } = process;
-//   const isNetlify = LIGHT_ENVIRONMENT === 'netlify' || env.LIGHT_ENVIRONMENT === 'netlify';
-//   const isAWS = LIGHT_ENVIRONMENT === 'aws' || env.LIGHT_ENVIRONMENT === 'aws';
-//   const isRunKit = LIGHT_ENVIRONMENT === 'runkit' || env.LIGHT_ENVIRONMENT === 'runkit';
-
-//   const fn = (isNetlify || isAWS) ? proxy : async (req: IM, res: SR): AP => run(req, res, proxy);
-//   Object.assign(fn, route, { handler: fn });
-
-//   /* istanbul ignore if */
-//   if (isNetlify || isAWS) {
-//     return {
-//       handler: AWSServerlessMicro(fn),
-//     };
-//   }
-
-//   if (isRunKit) {
-//     return {
-//       endpoint: fn,
-//     };
-//   }
-
-//   return fn;
-// };
