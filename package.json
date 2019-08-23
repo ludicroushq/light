@@ -42,6 +42,7 @@
     "decache": "^4.5.1",
     "emojic": "^1.1.15",
     "find-my-way": "^2.0.1",
+    "is-class": "0.0.8",
     "lodash.isfunction": "^3.0.9",
     "micro": "^9.3.4",
     "micro-boom": "^1.2.0",

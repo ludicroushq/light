@@ -14,11 +14,9 @@ type IM = IncomingMessage;
 type SR = ServerResponse;
 
 const light = ({
-  routes: routesPath,
-  log = true,
+  routes,
 }: {
-  routes: string | string[];
-  log?: boolean;
+  routes: string[] | any[];
 }): Light => {
   const router = Router({
     ignoreTrailingSlash: true,
@@ -26,12 +24,13 @@ const light = ({
 
   const server = micro(async (req: IM, res: SR): Promise<any> => router.lookup(req, res));
 
-  const routes = findRoutes(routesPath);
+  // const routes = findRoutes(routesPath);
 
-  routes.forEach((route: Route): void => {
-    importRoute(router, route, {
-      log,
-    });
+  routes.forEach((route: any): void => {
+    // importRoute(router, route, {
+    //   log: true,
+    // });
+    router.on(route.method, route.path, route.handler);
   });
 
   return {

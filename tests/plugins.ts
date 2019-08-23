@@ -1,28 +1,20 @@
-import { resolve } from 'url';
 import fetch from 'node-fetch';
 
-import { test } from '../src/index';
+import { test, light, Route } from '../src/index';
 
+let plugin: any = () => {};
 let server: any;
-const plugin = (fn: any): any => async (req: any, res: any): Promise<any> => {
-  req.hello = 'plugin';
-  return fn(req, res);
-};
 
 beforeEach(async () => {
-  server = await test({
-    path: '/plugin',
+  server = await test(light(class index extends Route {
+    plugins = [plugin];
 
-    plugins: [
-      plugin,
-    ],
-
-    handler(req: any) {
+    async handler() {
       return {
-        hello: req.hello,
+        hello: (this.req as any).message,
       };
-    },
-  });
+    }
+  }));
 });
 
 afterEach(async () => {
@@ -30,11 +22,18 @@ afterEach(async () => {
 });
 
 describe('plugins', () => {
-  it('should work', async () => {
+  beforeAll(() => {
+    plugin = (fn: any): any => async (req: any, res: any): Promise<any> => {
+      req.message = 'plugin!!!';
+      return fn(req, res);
+    };
+  });
+
+  it('returns data from a plugin', async () => {
     expect.assertions(2);
-    const req = await fetch(resolve(server.url, '/plugin'));
+    const req = await fetch(server.url);
     const res = await req.json();
     expect(req.status).toStrictEqual(200);
-    expect(res).toMatchObject({ hello: 'plugin' });
+    expect(res).toMatchObject({ hello: 'plugin!!!' });
   });
 });
