@@ -2,7 +2,6 @@ import { run } from 'micro';
 import { IncomingMessage, ServerResponse } from 'http';
 import isClass from 'is-class';
 import AWSServerlessMicro from 'aws-serverless-micro';
-import { handleErrors } from 'micro-boom';
 
 // import isProd from './utils/is-prod';
 // import youchErrors from './utils/plugins/youch';
@@ -56,14 +55,13 @@ export default (route: any): any => {
     }
 
     // process plugins
-    const plugins = instance.plugins || [];
+    const plugins = [...instance._getInternalPlugins(), ...(instance.plugins || [])];
 
     // if ((proxy as any).log !== false) {
     //   plugins.unshift(logger);
     // }
 
     // plugins.unshift(youchErrors(isProd));
-    // plugins.unshift(handleErrors);
 
     fn = plugins.reverse().reduce((acc: any, val: any): any => val(acc), fn);
 
