@@ -3,7 +3,6 @@ import { IncomingMessage, ServerResponse } from 'http';
 import isClass from 'is-class';
 import AWSServerlessMicro from 'aws-serverless-micro';
 
-// import isProd from './utils/is-prod';
 // import youchErrors from './utils/plugins/youch';
 // const logger = require('./utils/plugins/logger'); // eslint-disable-line @typescript-eslint/no-var-requires
 
