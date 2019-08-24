@@ -3,9 +3,6 @@ import { IncomingMessage, ServerResponse } from 'http';
 import isClass from 'is-class';
 import AWSServerlessMicro from 'aws-serverless-micro';
 
-// import youchErrors from './utils/plugins/youch';
-// const logger = require('./utils/plugins/logger'); // eslint-disable-line @typescript-eslint/no-var-requires
-
 const { LIGHT_ENVIRONMENT } = process.env;
 
 type IM = IncomingMessage;
@@ -28,14 +25,14 @@ export default (route: any): any => {
   }
 
   // minimize work inside here as it is executed in every run
-  const proxy = async (req: IM, res: SR, opts: any) => {
-    const instance = new endpoint({
-      req,
-      res,
+  const proxy = async (Req: IM, Res: SR, opts: any): AP => {
+    const instance = new endpoint({ // eslint-disable-line
+      Req,
+      Res,
       opts,
     });
 
-    let fn = async (req: IM, res: SR) => {
+    let fn = async (req: IM, res: SR): AP => {
       // process middleware
       const middleware: any[] = instance.middleware || [];
 
@@ -51,21 +48,15 @@ export default (route: any): any => {
         req,
         res,
       });
-    }
+    };
 
     // process plugins
     const plugins = [...instance._getInternalPlugins(), ...(instance.plugins || [])];
 
-    // if ((proxy as any).log !== false) {
-    //   plugins.unshift(logger);
-    // }
-
-    // plugins.unshift(youchErrors(isProd));
-
     fn = plugins.reverse().reduce((acc: any, val: any): any => val(acc), fn);
 
-    return fn(req, res);
-  }
+    return fn(Req, Res);
+  };
 
   // detect if serverless environment
   const { env } = process;
@@ -96,4 +87,4 @@ export default (route: any): any => {
     }
   }
   return fn;
-}
+};

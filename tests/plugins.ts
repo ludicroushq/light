@@ -6,10 +6,10 @@ let plugin: any = () => {};
 let server: any;
 
 beforeEach(async () => {
-  server = await test(light(class index extends Route {
-    plugins = [plugin];
+  server = await test(light(class Index extends Route {
+    public plugins = [plugin];
 
-    async handler() {
+    public async handler() {
       return {
         hello: (this.req as any).message,
       };

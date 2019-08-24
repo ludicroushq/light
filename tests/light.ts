@@ -2,8 +2,8 @@ import fetch from 'node-fetch';
 
 import { test, light, Route } from '../src/index';
 
-let handler: any = class index extends Route {
-  async handler() {
+let handler: any = class Index extends Route {
+  public async handler() {
     return {
       hello: 'world',
     };
@@ -51,7 +51,7 @@ describe('light', () => {
     describe('with non-class', () => {
       it('throws exception', async () => {
         expect.assertions(1);
-        expect(() => light({ default: () => {} })).toThrowError('route is not a class');
+        expect(() => light({ default: () => {} })).toThrow('route is not a class');
       });
     });
   });
@@ -59,14 +59,14 @@ describe('light', () => {
   describe('with null', () => {
     it('throws exception', async () => {
       expect.assertions(1);
-      expect(() => light(null)).toThrowError('route is missing');
+      expect(() => light(null)).toThrow('route is missing');
     });
   });
 
   describe('with non-class', () => {
     it('throws exception', async () => {
       expect.assertions(1);
-      expect(() => light(() => {})).toThrowError('route is not a class');
+      expect(() => light(() => {})).toThrow('route is not a class');
     });
-  })
+  });
 });

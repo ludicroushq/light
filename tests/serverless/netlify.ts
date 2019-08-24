@@ -3,8 +3,8 @@ import { light, Route } from '../../src/index';
 describe('netlify', () => {
   process.env.LIGHT_ENVIRONMENT = 'netlify';
 
-  const server: any = light(class index extends Route {
-    async handler() {
+  const server: any = light(class Index extends Route {
+    public async handler() {
       return {
         hello: 'world',
       };

@@ -10,7 +10,7 @@ export default (router: any, route: Route): void => {
   }
 
   endpoint.path = endpoint.path.map((p: string): string => {
-    const { name } = parse(p)
+    const { name } = parse(p);
     return join('/', name);
   });
 
@@ -29,7 +29,7 @@ export default (router: any, route: Route): void => {
 
   endpoint.method = endpoint.method.map((m: string): string => m.toUpperCase());
 
-  endpoint.path.forEach((path: string) => {
+  endpoint.path.forEach((path: string): void => {
     router.on(endpoint.method, path, endpoint.handler);
-  })
+  });
 };

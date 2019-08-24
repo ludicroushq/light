@@ -7,15 +7,15 @@ export default async (route: any, opts?: any): Promise<any> => {
   const options = {
     disableRequestLogger: true,
     ...(opts || {}),
-  }
+  };
 
   const app = server({
     routes: [
       {
-        handler: (req: any, res: any) => route(req, res, options),
+        handler: (req: any, res: any): any => route(req, res, options),
         method: 'GET',
         path: '/',
-      }
+      },
     ],
   });
 

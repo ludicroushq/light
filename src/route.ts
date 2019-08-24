@@ -3,16 +3,22 @@ import { handleErrors } from 'micro-boom';
 import pino from 'pino';
 import pinoHTTP from 'pino-http';
 
+type IM = IncomingMessage;
+type SR = ServerResponse;
+type AP = Promise<any>;
+
 export default class Route {
-  disableRequestLogger: boolean = false;
-  disableErrorHandler: boolean = false;
+  public disableRequestLogger: boolean = false;
 
-  req: IncomingMessage;
-  res: ServerResponse;
+  public disableErrorHandler: boolean = false;
 
-  logger: any;
+  public req: IM;
 
-  public constructor({ req, res, opts }: { req: IncomingMessage, res: ServerResponse, opts: any }) {
+  public res: SR;
+
+  public logger: any;
+
+  public constructor({ req, res, opts }: { req: IM; res: SR; opts: any }) {
     this.req = req;
     this.res = res;
 
@@ -24,14 +30,14 @@ export default class Route {
     }
   }
 
-  public _getInternalPlugins() {
+  public _getInternalPlugins(): any[] {
     const plugins = [];
     if (!this.disableRequestLogger) {
       this.logger = pino();
       const pinoHandler = pinoHTTP({
         logger: this.logger,
       });
-      plugins.push((fn: any): any => async (req: IncomingMessage, res: ServerResponse): Promise<any> => {
+      plugins.push((fn: any): any => async (req: IM, res: SR): AP => {
         pinoHandler(req, res);
         return fn(req, res);
       });
@@ -43,4 +49,4 @@ export default class Route {
 
     return plugins;
   }
-};
+}

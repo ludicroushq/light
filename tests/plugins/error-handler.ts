@@ -1,14 +1,16 @@
 import fetch from 'node-fetch';
 
-import { test, light, Route, createError } from '../../src/index';
+import {
+  test, light, Route, createError,
+} from '../../src/index';
 
 let server: any;
 let disableErrorHandler = false;
 let error: any = () => {};
 
 beforeEach(async () => {
-  server = await test(light(class index extends Route {
-    async handler() {
+  server = await test(light(class Index extends Route {
+    public async handler() {
       error();
     }
   }), { disableErrorHandler });
@@ -21,7 +23,7 @@ afterEach(async () => {
 describe('error handler', () => {
   describe('with standard error', () => {
     beforeAll(() => {
-      error = () => { throw new Error('message') };
+      error = () => { throw new Error('message'); };
     });
 
     it('returns a 500 error', async () => {
@@ -39,7 +41,7 @@ describe('error handler', () => {
 
   describe('with a custom error created with createError', () => {
     beforeAll(() => {
-      error = () => { throw createError(400, 'custom error message') };
+      error = () => { throw createError(400, 'custom error message'); };
     });
 
     it('returns a 500 error', async () => {
@@ -58,7 +60,7 @@ describe('error handler', () => {
   describe('with error handler disabled', () => {
     beforeAll(() => {
       disableErrorHandler = true;
-      error = () => { throw new Error('message') };
+      error = () => { throw new Error('message'); };
     });
 
     it('returns an internal server error in text', async () => {

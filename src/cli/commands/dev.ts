@@ -93,9 +93,9 @@ const handle = async (argv: Args): Promise<void> => {
       logger.hmr(`swapping out ${chalk.yellow(relative(cwd, p))}`);
       app.router.reset();
       const files: string[] = findRoutes(routesPath);
-      files.forEach((f) => {
+      files.forEach((f): void => {
         decache(f);
-      })
+      });
       const routeObjs = importRoutes(files, routesPath);
       routeObjs.forEach((route: Route): void => {
         addRoute(app.router, route);
