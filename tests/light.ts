@@ -21,9 +21,6 @@ afterEach(async () => {
 });
 
 describe('light', () => {
-  it('temp', () => {
-    expect(true).toBe(false);
-  });
   describe('with regular class that extends Route', () => {
     it('returns object properly', async () => {
       expect.assertions(2);
