@@ -18,15 +18,17 @@ export default class Route {
 
   public logger: any;
 
-  public constructor({ req, res, opts }: { req: IM; res: SR; opts: any }) {
+  public constructor({ req, res, opts }: { req: IM; res: SR; opts?: any }) {
     this.req = req;
     this.res = res;
 
-    if (!this.disableRequestLogger && opts.disableRequestLogger) {
-      this.disableRequestLogger = opts.disableRequestLogger;
+    const options = opts || {};
+
+    if (!this.disableRequestLogger && options.disableRequestLogger) {
+      this.disableRequestLogger = options.disableRequestLogger;
     }
-    if (!this.disableErrorHandler && opts.disableErrorHandler) {
-      this.disableErrorHandler = opts.disableErrorHandler;
+    if (!this.disableErrorHandler && options.disableErrorHandler) {
+      this.disableErrorHandler = options.disableErrorHandler;
     }
   }
 
