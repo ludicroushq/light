@@ -27,6 +27,8 @@ const light = ({
   if (typeof routes === 'string') {
     const files: string[] = findRoutes(routes);
     routeObjs = importRoutes(files, routes);
+  } else {
+    routeObjs = routes;
   }
 
   const server = micro(async (req: IM, res: SR): Promise<any> => router.lookup(req, res));

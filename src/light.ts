@@ -25,28 +25,28 @@ export default (route: any): any => {
   }
 
   // minimize work inside here as it is executed in every run
-  const proxy = async (Req: IM, Res: SR, opts: any): AP => {
+  const proxy = async (req: IM, res: SR, opts: any): AP => {
     const instance = new endpoint({ // eslint-disable-line
-      Req,
-      Res,
+      req,
+      res,
       opts,
     });
 
-    let fn = async (req: IM, res: SR): AP => {
+    let fn = async (Req: IM, Res: SR): AP => {
       // process middleware
       const middleware: any[] = instance.middleware || [];
 
       for (const mw of middleware) { // eslint-disable-line
-        await mw(req, res); // eslint-disable-line
+        await mw(Req, Res); // eslint-disable-line
 
-        if (res.headersSent) {
+        if (Res.headersSent) {
           return null;
         }
       }
 
       return instance.handler({
-        req,
-        res,
+        Req,
+        Res,
       });
     };
 
@@ -55,7 +55,7 @@ export default (route: any): any => {
 
     fn = plugins.reverse().reduce((acc: any, val: any): any => val(acc), fn);
 
-    return fn(Req, Res);
+    return fn(req, res);
   };
 
   // detect if serverless environment

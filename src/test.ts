@@ -12,7 +12,7 @@ export default async (route: any, opts?: any): Promise<any> => {
   const app = server({
     routes: [
       {
-        handler: (req: any, res: any): any => route(req, res, options),
+        handler: async (req: any, res: any): Promise<any> => route(req, res, options),
         method: 'GET',
         path: '/',
       },
