@@ -3,7 +3,7 @@ import { IncomingMessage, ServerResponse } from 'http';
 import isClass from 'is-class';
 import AWSServerlessMicro from 'aws-serverless-micro';
 
-const { LIGHT_ENVIRONMENT } = process.env;
+const { LIGHT_ENV } = process.env;
 
 type IM = IncomingMessage;
 type SR = ServerResponse;
@@ -60,10 +60,10 @@ export default (route: any): any => {
 
   // detect if serverless environment
   const { env } = process;
-  const isNetlify = LIGHT_ENVIRONMENT === 'netlify' || env.LIGHT_ENVIRONMENT === 'netlify';
-  const isAWS = LIGHT_ENVIRONMENT === 'aws' || env.LIGHT_ENVIRONMENT === 'aws';
-  const isRunKit = LIGHT_ENVIRONMENT === 'runkit' || env.LIGHT_ENVIRONMENT === 'runkit';
-  const isNow = LIGHT_ENVIRONMENT === 'now' || env.LIGHT_ENVIRONMENT === 'now';
+  const isNetlify = LIGHT_ENV === 'netlify' || env.LIGHT_ENV === 'netlify';
+  const isAWS = LIGHT_ENV === 'aws' || env.LIGHT_ENV === 'aws';
+  const isRunKit = LIGHT_ENV === 'runkit' || env.LIGHT_ENV === 'runkit';
+  const isNow = LIGHT_ENV === 'now' || env.LIGHT_ENV === 'now';
 
   const isServerless = isNetlify || isAWS || isRunKit || isNow;
 

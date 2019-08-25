@@ -2,7 +2,7 @@ import { light, Route } from '../../src/index';
 
 describe('serverless', () => {
   describe('netlify', () => {
-    process.env.LIGHT_ENVIRONMENT = 'netlify';
+    process.env.LIGHT_ENV = 'netlify';
 
     const server: any = light(class Index extends Route {
       public async handler() {

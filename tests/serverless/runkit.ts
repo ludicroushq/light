@@ -2,7 +2,7 @@ import { light, Route } from '../../src/index';
 
 describe('serverless', () => {
   describe('runkit', () => {
-    process.env.LIGHT_ENVIRONMENT = 'runkit';
+    process.env.LIGHT_ENV = 'runkit';
 
     const server: any = light(class Index extends Route {
       public async handler() {
