@@ -9,6 +9,7 @@ const ls: (dir: string, filelist: string[]) => any = (dir, filelist = []): any[]
     ? ls(path.join(dir, file), filelist)
     : filelist.concat(path.join(dir, file))[0]));
 
+/* istanbul ignore next */
 const flatten = (arr: any[]): any[] => arr.reduce((acc: any, val: any): any[] => (Array.isArray(val) ? acc.concat(flatten(val)) : acc.concat(val)), []);
 
 export default (url: string, glob: string): string[] => {
