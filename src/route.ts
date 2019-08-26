@@ -12,7 +12,7 @@ const youchPlugin = (fun: any): any => async (req: IM, res: SR): Promise<void> =
     const youch = new Youch(err, req);
     const json = await youch.toJSON();
     console.log(forTerminal(json)); // eslint-disable-line
-    return await youch.toHTML();
+    return youch.toHTML();
   }
 };
 

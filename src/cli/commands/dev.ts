@@ -49,7 +49,7 @@ const handle = async (argv: Args): Promise<void> => {
     routes: routesPath,
     opts: {
       isDev: true,
-    }
+    },
   });
 
   interface ProcessEnv {

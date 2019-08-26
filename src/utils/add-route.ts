@@ -1,11 +1,11 @@
 import { join, parse } from 'path';
 import { IncomingMessage, ServerResponse } from 'http';
 
+import Route from '../types/route';
+
 type IM = IncomingMessage;
 type SR = ServerResponse;
 type AP = Promise<any>;
-
-import Route from '../types/route';
 
 export default (router: any, route: Route, opts?: any): void => {
   const endpoint = route;

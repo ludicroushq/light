@@ -6,7 +6,8 @@ let server: any;
 
 beforeEach(async () => {
   server = await test(light(class Index extends Route {
-    disableRequestLogger = true;
+    public disableRequestLogger = true;
+
     public async handler() {
       throw new Error('hi');
     }
