@@ -2,6 +2,19 @@ import { IncomingMessage, ServerResponse } from 'http';
 import { handleErrors } from 'micro-boom';
 import pino from 'pino';
 import pinoHTTP from 'pino-http';
+import Youch from 'youch';
+import forTerminal from 'youch-terminal';
+
+const youchPlugin = (fun: any): any => async (req: IM, res: SR): Promise<void> => {
+  try {
+    return await fun(req, res);
+  } catch (err) {
+    const youch = new Youch(err, req);
+    const json = await youch.toJSON();
+    console.log(forTerminal(json)); // eslint-disable-line
+    return await youch.toHTML();
+  }
+};
 
 type IM = IncomingMessage;
 type SR = ServerResponse;
@@ -11,6 +24,8 @@ export default class Route {
   public disableRequestLogger: boolean = false;
 
   public disableErrorHandler: boolean = false;
+
+  public isDev: boolean = false;
 
   public req: IM;
 
@@ -30,6 +45,10 @@ export default class Route {
     if (!this.disableErrorHandler && options.disableErrorHandler) {
       this.disableErrorHandler = options.disableErrorHandler;
     }
+
+    if (options.isDev) {
+      this.isDev = true;
+    }
   }
 
   public _getInternalPlugins(): any[] {
@@ -47,6 +66,10 @@ export default class Route {
 
     if (!this.disableErrorHandler) {
       plugins.push(handleErrors);
+    }
+
+    if (this.isDev) {
+      plugins.push(youchPlugin);
     }
 
     return plugins;

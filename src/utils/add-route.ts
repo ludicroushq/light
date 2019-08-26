@@ -1,8 +1,13 @@
 import { join, parse } from 'path';
+import { IncomingMessage, ServerResponse } from 'http';
+
+type IM = IncomingMessage;
+type SR = ServerResponse;
+type AP = Promise<any>;
 
 import Route from '../types/route';
 
-export default (router: any, route: Route): void => {
+export default (router: any, route: Route, opts?: any): void => {
   const endpoint = route;
 
   if (typeof endpoint.path === 'string') {
@@ -30,6 +35,10 @@ export default (router: any, route: Route): void => {
   endpoint.method = endpoint.method.map((m: string): string => m.toUpperCase());
 
   endpoint.path.forEach((path: string): void => {
-    router.on(endpoint.method, path, endpoint.handler);
+    router.on(
+      endpoint.method,
+      path,
+      (req: IM, res: SR): AP => endpoint.handler(req, res, opts),
+    );
   });
 };

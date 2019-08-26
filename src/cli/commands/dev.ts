@@ -47,6 +47,9 @@ const handle = async (argv: Args): Promise<void> => {
 
   const app = server({
     routes: routesPath,
+    opts: {
+      isDev: true,
+    }
   });
 
   interface ProcessEnv {

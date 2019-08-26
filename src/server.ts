@@ -16,8 +16,10 @@ type SR = ServerResponse;
 
 const light = ({
   routes,
+  opts,
 }: {
   routes: string | Route[];
+  opts?: any;
 }): Light => {
   const router = Router({
     ignoreTrailingSlash: true,
@@ -34,7 +36,7 @@ const light = ({
   const server = micro(async (req: IM, res: SR): Promise<any> => router.lookup(req, res));
 
   routeObjs.forEach((route: Route): void => {
-    addRoute(router, route);
+    addRoute(router, route, opts);
   });
 
   return {

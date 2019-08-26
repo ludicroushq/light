@@ -17,7 +17,7 @@ describe('utils', () => {
         expect.assertions(2);
         addRoute(router, route);
         expect(router.on.mock.calls.length).toBe(1);
-        expect(router.on).toHaveBeenCalledWith(['GET'], '/', route.handler);
+        expect(router.on).toHaveBeenCalledWith(['GET'], '/', expect.any(Function));
       });
     });
 
@@ -36,7 +36,7 @@ describe('utils', () => {
         expect.assertions(2);
         addRoute(router, route);
         expect(router.on.mock.calls.length).toBe(1);
-        expect(router.on).toHaveBeenCalledWith(['GET', 'POST', 'PUT', 'PATCH', 'OPTIONS'], '/', route.handler);
+        expect(router.on).toHaveBeenCalledWith(['GET', 'POST', 'PUT', 'PATCH', 'OPTIONS'], '/', expect.any(Function));
       });
     });
 
@@ -54,7 +54,7 @@ describe('utils', () => {
         expect.assertions(2);
         addRoute(router, (route as any));
         expect(router.on.mock.calls.length).toBe(1);
-        expect(router.on).toHaveBeenCalledWith(['GET'], '/', route.handler);
+        expect(router.on).toHaveBeenCalledWith(['GET'], '/', expect.any(Function));
       });
     });
 
@@ -73,9 +73,9 @@ describe('utils', () => {
         expect.assertions(4);
         addRoute(router, route);
         expect(router.on.mock.calls.length).toBe(3);
-        expect(router.on).toHaveBeenCalledWith(['GET'], '/', route.handler);
-        expect(router.on).toHaveBeenCalledWith(['GET'], '/a', route.handler);
-        expect(router.on).toHaveBeenCalledWith(['GET'], '/b', route.handler);
+        expect(router.on).toHaveBeenCalledWith(['GET'], '/', expect.any(Function));
+        expect(router.on).toHaveBeenCalledWith(['GET'], '/a', expect.any(Function));
+        expect(router.on).toHaveBeenCalledWith(['GET'], '/b', expect.any(Function));
       });
     });
 
@@ -94,8 +94,8 @@ describe('utils', () => {
         expect.assertions(3);
         addRoute(router, route);
         expect(router.on.mock.calls.length).toBe(2);
-        expect(router.on).toHaveBeenCalledWith(['GET'], '/index', route.handler);
-        expect(router.on).toHaveBeenCalledWith(['GET'], '/', route.handler);
+        expect(router.on).toHaveBeenCalledWith(['GET'], '/index', expect.any(Function));
+        expect(router.on).toHaveBeenCalledWith(['GET'], '/', expect.any(Function));
       });
     });
   });
