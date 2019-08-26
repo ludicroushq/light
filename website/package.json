@@ -26,29 +26,29 @@
   },
   "homepage": "https://github.com/ludicrousxyz/light#readme",
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.18",
-    "@fortawesome/free-solid-svg-icons": "^5.8.2",
+    "@fortawesome/fontawesome-svg-core": "^1.2.22",
+    "@fortawesome/free-solid-svg-icons": "^5.10.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
     "@glorious/demo": "^0.8.1",
     "@zeit/next-css": "^1.0.1",
-    "autoprefixer": "^9.6.0",
+    "autoprefixer": "^9.6.1",
     "classnames": "^2.2.6",
     "isomorphic-unfetch": "^3.0.0",
     "next": "^8.1.0",
-    "postcss-nesting": "^7.0.0",
-    "prismjs": "^1.16.0",
+    "postcss-nesting": "^7.0.1",
+    "prismjs": "^1.17.1",
     "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-markdown": "^4.0.8",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-markdown": "^4.1.0",
     "react-runkit": "^0.9.0",
-    "react-syntax-highlighter": "^11.0.1",
+    "react-syntax-highlighter": "^11.0.2",
     "react-text-loop": "^2.0.2",
-    "tailwindcss": "^1.0.4",
-    "url-join": "^4.0.0"
+    "tailwindcss": "^1.1.2",
+    "url-join": "^4.0.1"
   },
   "devDependencies": {
-    "concurrently": "^4.1.0",
+    "concurrently": "^4.1.2",
     "http-server": "^0.11.1"
   }
 }
