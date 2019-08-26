@@ -24,7 +24,8 @@
   "rules": {
     "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/no-explicit-any": "off",
-    "jest/no-disabled-tests": "off"
+    "jest/no-disabled-tests": "off",
+    "no-underscore-dangle": "off"
   },
   "settings": {
     "import/resolver": {

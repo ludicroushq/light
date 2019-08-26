@@ -1,24 +1,22 @@
 import listen from 'test-listen';
 import { server } from './index';
 
-interface Options {
-  log?: boolean;
-}
+// TODO: support multiple routes with a given route object
+export default async (route: any, opts?: any): Promise<any> => {
+  // generate a server with only the route provided
+  const options = {
+    disableRequestLogger: true,
+    ...(opts || {}),
+  };
 
-export default async (routes: string | any[] | any, opts?: Options): Promise<any> => {
-  const options = Object.assign({}, opts, {
-    log: false,
-  });
-
-  let handlers = [];
-  if (typeof routes === 'string') {
-    handlers.push(routes);
-  } else {
-    handlers = routes;
-  }
   const app = server({
-    routes: handlers,
-    log: options.log,
+    routes: [
+      {
+        handler: async (req: any, res: any): Promise<any> => route(req, res, options),
+        method: 'GET',
+        path: '/',
+      },
+    ],
   });
 
   const url = await listen(app.server);

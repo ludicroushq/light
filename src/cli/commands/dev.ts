@@ -8,7 +8,8 @@ import logger from '../../utils/logger';
 import Route from '../../types/route';
 import { server } from '../../index';
 import findRoutes from '../../utils/find-routes';
-import importRoute from '../../utils/import-route';
+import addRoute from '../../utils/add-route';
+import importRoutes from '../../utils/import-routes';
 
 export const command = 'dev [dir]';
 export const aliases: string[] = ['d'];
@@ -46,7 +47,9 @@ const handle = async (argv: Args): Promise<void> => {
 
   const app = server({
     routes: routesPath,
-    log: argv.log,
+    opts: {
+      isDev: true,
+    },
   });
 
   interface ProcessEnv {
@@ -92,14 +95,13 @@ const handle = async (argv: Args): Promise<void> => {
     watcher.on('change', (p: string): void => {
       logger.hmr(`swapping out ${chalk.yellow(relative(cwd, p))}`);
       app.router.reset();
-      const routes = findRoutes(routesPath);
-      routes.forEach((route: Route): void => {
-        if (route.path) {
-          decache(route.path);
-        }
-        importRoute(app.router, route, {
-          log: argv.log,
-        });
+      const files: string[] = findRoutes(routesPath);
+      files.forEach((f): void => {
+        decache(f);
+      });
+      const routeObjs = importRoutes(files, routesPath);
+      routeObjs.forEach((route: Route): void => {
+        addRoute(app.router, route);
       });
     });
   });

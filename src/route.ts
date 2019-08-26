@@ -1,85 +1,77 @@
-import { run } from 'micro';
 import { IncomingMessage, ServerResponse } from 'http';
-import AWSServerlessMicro from 'aws-serverless-micro';
-
 import { handleErrors } from 'micro-boom';
+import pino from 'pino';
+import pinoHTTP from 'pino-http';
+import Youch from 'youch';
+import forTerminal from 'youch-terminal';
 
-const { LIGHT_ENVIRONMENT } = process.env;
+const youchPlugin = (fun: any): any => async (req: IM, res: SR): Promise<void> => {
+  try {
+    return await fun(req, res);
+  } catch (err) {
+    const youch = new Youch(err, req);
+    const json = await youch.toJSON();
+    console.log(forTerminal(json)); // eslint-disable-line
+    return youch.toHTML();
+  }
+};
 
-const youchErrors = require('./utils/route/youch'); // eslint-disable-line @typescript-eslint/no-var-requires
-const logger = require('./utils/route/logger'); // eslint-disable-line @typescript-eslint/no-var-requires
-
-// TODO: Define types for micro and aws
-// TODO: Add test for POST/other methods
-type Handler = any;
 type IM = IncomingMessage;
 type SR = ServerResponse;
 type AP = Promise<any>;
 
-interface Route {
-  path?: string;
-  middleware?: any[];
-  plugins?: any[];
-  method?: string[] | string;
-  handler: Handler;
+export default class Route {
+  public disableRequestLogger: boolean = false;
+
+  public disableErrorHandler: boolean = false;
+
+  public isDev: boolean = false;
+
+  public req: IM;
+
+  public res: SR;
+
+  public logger: any;
+
+  public constructor({ req, res, opts }: { req: IM; res: SR; opts?: any }) {
+    this.req = req;
+    this.res = res;
+    this.logger = pino();
+
+    const options = opts || {};
+
+    if (!this.disableRequestLogger && options.disableRequestLogger) {
+      this.disableRequestLogger = options.disableRequestLogger;
+    }
+    if (!this.disableErrorHandler && options.disableErrorHandler) {
+      this.disableErrorHandler = options.disableErrorHandler;
+    }
+
+    if (options.isDev) {
+      this.isDev = true;
+    }
+  }
+
+  public _getInternalPlugins(): any[] {
+    const plugins = [];
+    if (!this.disableRequestLogger) {
+      const pinoHandler = pinoHTTP({
+        logger: this.logger,
+      });
+      plugins.push((fn: any): any => async (req: IM, res: SR): AP => {
+        pinoHandler(req, res);
+        return fn(req, res);
+      });
+    }
+
+    if (!this.disableErrorHandler) {
+      plugins.push(handleErrors);
+    }
+
+    if (this.isDev) {
+      plugins.push(youchPlugin);
+    }
+
+    return plugins;
+  }
 }
-
-export default (route: Route): Handler => {
-  const proxy = async (Req: IM, Res: SR): AP => {
-    let exec = async (req: IM, res: SR): AP => {
-      const middleware: any[] = route.middleware || [];
-
-      for (const mw of middleware) { // eslint-disable-line
-        await mw(req, res); // eslint-disable-line
-
-        if (res.headersSent) {
-          return null;
-        }
-      }
-
-      return route.handler(req, res);
-    };
-
-    const plugins = route.plugins || [];
-
-    if ((proxy as any).log !== false) {
-      plugins.unshift(logger);
-      (proxy as any).log = false;
-    }
-
-    plugins.unshift(youchErrors);
-    plugins.unshift(handleErrors);
-
-    if (plugins.length) {
-      exec = plugins.reverse().reduce((acc, val): any => val(acc), exec);
-    }
-
-    return exec(Req, Res);
-  };
-
-  const { env } = process;
-  const isNetlify = LIGHT_ENVIRONMENT === 'netlify' || env.LIGHT_ENVIRONMENT === 'netlify';
-  const isAWS = LIGHT_ENVIRONMENT === 'aws' || env.LIGHT_ENVIRONMENT === 'aws';
-  const isRunKit = LIGHT_ENVIRONMENT === 'runkit' || env.LIGHT_ENVIRONMENT === 'runkit';
-
-  const fn = (isNetlify || isAWS) ? proxy : async (req: IM, res: SR): AP => run(req, res, proxy);
-  Object.assign(fn, route, { handler: fn });
-
-  (fn as any).log = true;
-  (fn as any).module = __dirname;
-
-  /* istanbul ignore if */
-  if (isNetlify || isAWS) {
-    return {
-      handler: AWSServerlessMicro(fn),
-    };
-  }
-
-  if (isRunKit) {
-    return {
-      endpoint: fn,
-    };
-  }
-
-  return fn;
-};

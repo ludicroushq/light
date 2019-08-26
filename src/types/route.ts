@@ -1,5 +1,6 @@
 export default interface Route {
-  path?: string;
-  name?: string;
-  handler?: any;
+  path: string | string[];
+  handler: any;
+  method: string[] | string;
+  file?: string;
 }; // eslint-disable-line

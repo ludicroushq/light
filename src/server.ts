@@ -3,7 +3,8 @@ import Router from 'find-my-way';
 import { IncomingMessage, ServerResponse, Server } from 'http';
 import findRoutes from './utils/find-routes';
 import Route from './types/route';
-import importRoute from './utils/import-route';
+import importRoutes from './utils/import-routes';
+import addRoute from './utils/add-route';
 
 interface Light {
   server: Server;
@@ -14,24 +15,28 @@ type IM = IncomingMessage;
 type SR = ServerResponse;
 
 const light = ({
-  routes: routesPath,
-  log = true,
+  routes,
+  opts,
 }: {
-  routes: string | string[];
-  log?: boolean;
+  routes: string | Route[];
+  opts?: any;
 }): Light => {
   const router = Router({
     ignoreTrailingSlash: true,
   });
 
+  let routeObjs: Route[] = [];
+  if (typeof routes === 'string') {
+    const files: string[] = findRoutes(routes);
+    routeObjs = importRoutes(files, routes);
+  } else {
+    routeObjs = routes;
+  }
+
   const server = micro(async (req: IM, res: SR): Promise<any> => router.lookup(req, res));
 
-  const routes = findRoutes(routesPath);
-
-  routes.forEach((route: Route): void => {
-    importRoute(router, route, {
-      log,
-    });
+  routeObjs.forEach((route: Route): void => {
+    addRoute(router, route, opts);
   });
 
   return {
