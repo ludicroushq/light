@@ -26,7 +26,7 @@ describe('plugins', () => {
     describe('in dev mode', () => {
       it('youches the error', async () => {
         expect.assertions(3);
-        const spy = jest.spyOn(process.stdout, 'write').mockImplementation();
+        const spy = jest.spyOn(console, 'log').mockImplementation();
         const req = await fetch(server.url);
         const res = await req.text();
         expect(req.status).toStrictEqual(200);

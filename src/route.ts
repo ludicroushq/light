@@ -36,6 +36,7 @@ export default class Route {
   public constructor({ req, res, opts }: { req: IM; res: SR; opts?: any }) {
     this.req = req;
     this.res = res;
+    this.logger = pino();
 
     const options = opts || {};
 
@@ -54,7 +55,6 @@ export default class Route {
   public _getInternalPlugins(): any[] {
     const plugins = [];
     if (!this.disableRequestLogger) {
-      this.logger = pino();
       const pinoHandler = pinoHTTP({
         logger: this.logger,
       });
