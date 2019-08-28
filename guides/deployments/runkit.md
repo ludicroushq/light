@@ -12,20 +12,21 @@ RunKit is a fun and dynamic website which lets you prototype your applications. 
 Simply create a new notebook and add the following code.
 
 ```js
-const light = require('light');
+const { light, Route } = require('light');
 
-process.env.LIGHT_ENVIRONMENT = 'runkit';
+process.env.LIGHT_ENV = 'runkit';
 
-module.exports = light({
-  path: '/',
-  async handler(req, res) {
+class Index extends Route {
+  async handler() {
     return {
       hello: 'world',
     };
-  },
-});
+  }
+}
+
+module.exports = light(Index);
 ```
 
-Then click the "run" button. It should print something like `Object {endpoint: function()}`. If you get that, then you are all set. Press the little "endpoint" button underneath the notebook title to see your project live.
+Then click the "run" button. It should print `Object {endpoint: function()}`. If you get that, then you are all set. Press the little "endpoint" button underneath the notebook title to see your project live.
 
 A demo of this functionality can be seen on the [home page](/).

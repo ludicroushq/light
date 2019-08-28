@@ -10,7 +10,6 @@ import CodeBlock from '../components/CodeBlock';
 export default class Index extends React.Component {
   state = {
     selectedDeploy: {},
-    featureTab: 'deploy',
     deployments: [
       {
         name: 'ZEIT Now',
@@ -75,7 +74,7 @@ export default class Index extends React.Component {
   }
 
   render() {
-    const { deployments, selectedDeploy, featureTab, selectedHeroText, heroText } = this.state;
+    const { deployments, selectedDeploy } = this.state;
     return (
       <div>
         <div className="w-full max-w-screen-xl relative mx-auto container pb-6 text-center">

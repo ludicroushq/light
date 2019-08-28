@@ -1,5 +1,5 @@
 ---
-title: Params
+title: params
 subtitle: use the params function to fetch information from the url
 ---
 
@@ -7,7 +7,9 @@ subtitle: use the params function to fetch information from the url
 
 The params function is a helper function to help extract parameters from URLs. While most frameworks such as express extract this on your behalf, it needs to be done explicitly since each environment has different way of getting the URL and the normalization step needs to happen first. Additionally, most of the time you do not need to have this step done so it is better to only have it done when needed. Finally, light's principle is to not assume anything and so this step needs to be explicit.
 
-**NOTE: some serverless providers (such as Netlify) do not support this feature.**
+**NOTE: some serverless providers (such as Netlify) do not support this feature as one file means one route.**
+
+## THIS DOC IS INCOMPLETE. IT WILL BE UPDATED WHEN ROUTING IS UPDATED
 
 ## Setup
 
