@@ -4,7 +4,6 @@ module.exports = light.default;
 exports = light.default;
 
 export { default as server } from './server';
-export { default as query } from './query';
 export { default as params } from './params';
 export { default as test } from './test';
 export { default as Route, default as route } from './route';
