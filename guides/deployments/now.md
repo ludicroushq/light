@@ -23,7 +23,8 @@ All data required to host on the now platform is stored in a `now.json` file.
     { "src": "/(.*)", "dest": "routes/$1.js" }
   ],
   "env": {
-    "NODE_ENV": "production"
+    "NODE_ENV": "production",
+    "LIGHT_ENV": "now"
   }
 }
 ```

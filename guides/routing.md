@@ -15,18 +15,7 @@ When in server mode, if a `path` is not specified, light will try to guess the r
 
 ## Declarative Routing
 
-When in server mode, you can define custom paths which will override the automatic routing.
-
-```js
-const light = require('light');
-
-module.exports = light({
-  path: '/posts', // your route here
-  async handler() {
-    // ...
-  },
-});
-```
+Coming soon! Please watch this [GitHub issue](https://github.com/ludicrousxyz/light/issues/25) for updates!
 
 ## Params
 

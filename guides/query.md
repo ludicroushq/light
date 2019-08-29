@@ -14,20 +14,20 @@ If there are multiple query parameters with the same name, it will return an arr
 Simply import the `query` function and pass it the url of the request.
 
 ```javascript
-const { light, query } = require('light');
+const { light, Route, query } = require('light');
 
-module.exports = light({
-  path: '/',
-
-  async handler(req) {
-    const { id, name } = await query(req.url);
+class Index extends Route {
+  async handler() {
+    const { id, name } = await query(this.req.url);
 
     return {
       id,
       name,
     };
-  },
-});
+  }
+}
+
+module.exports = light(Index);
 ```
 
 After starting the dev server, you can make a request to [localhost:3000/?id=123&name=light](http://localhost:3000/?id=123&name=light) and expect a response of
@@ -39,4 +39,4 @@ After starting the dev server, you can make a request to [localhost:3000/?id=123
 }
 ```
 
-Note that by default all query parameters are strings, and you will need to convert them as necessary.
+Note that by default all query parameters are strings, and you will need to cast them as necessary.

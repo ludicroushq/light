@@ -15,7 +15,7 @@ This guide assumes that you have already set up a Netlify account, and a GitHub 
 
 Before you can deploy, you must first populate your git repository. Follow the [getting started](/guides/getting-started) guide to build you initial app, and verify everything is working with `npm run dev`. Once you have that set up, add a `netlify.toml` file that contains the path to the routes directory.
 
-```toml
+```txt
 [build]
   command = "npm install"
   functions = "routes"

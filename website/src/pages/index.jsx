@@ -10,27 +10,26 @@ import CodeBlock from '../components/CodeBlock';
 export default class Index extends React.Component {
   state = {
     selectedDeploy: {},
-    featureTab: 'deploy',
     deployments: [
       {
         name: 'ZEIT Now',
-        code: 'process.env.LIGHT_ENVIRONMENT = \'now\';',
+        code: 'process.env.LIGHT_ENV = \'now\';',
       },
       {
         name: 'RunKit',
-        code: 'process.env.LIGHT_ENVIRONMENT = \'runkit\';',
+        code: 'process.env.LIGHT_ENV = \'runkit\';',
       },
       {
         name: 'AWS',
-        code: 'process.env.LIGHT_ENVIRONMENT = \'aws\';',
+        code: 'process.env.LIGHT_ENV = \'aws\';',
       },
       {
         name: 'Google Cloud',
-        code: 'process.env.LIGHT_ENVIRONMENT = \'gcloud\';',
+        code: 'process.env.LIGHT_ENV = \'gcloud\';',
       },
       {
         name: 'Netlify',
-        code: 'process.env.LIGHT_ENVIRONMENT = \'netlify\';',
+        code: 'process.env.LIGHT_ENV = \'netlify\';',
       },
       {
         name: 'Server',
@@ -75,7 +74,7 @@ export default class Index extends React.Component {
   }
 
   render() {
-    const { deployments, selectedDeploy, featureTab, selectedHeroText, heroText } = this.state;
+    const { deployments, selectedDeploy } = this.state;
     return (
       <div>
         <div className="w-full max-w-screen-xl relative mx-auto container pb-6 text-center">
@@ -133,16 +132,17 @@ export default class Index extends React.Component {
               </div>
             </div>
             <div className="w-full md:w-1/2 shadow-xl text-center m-4 md:m-0 rounded overflow-x-auto">
-            <CodeBlock language="javascript" value={`const light = require('light');
+            <CodeBlock language="javascript" value={`const { light, Route } = require('light');
 
-module.exports = light({
-  path: '/',
-  async handler(req, res) {
+class Index extends Route {
+  async handler() {
     return {
       hello: 'world',
     };
-  },
-});`} />
+  }
+}
+
+module.exports = light(Index);`} />
             </div>
           </div>
         </div>
@@ -199,36 +199,38 @@ module.exports = light({
               <span className="flex-1" />
             </div>
             <div className="w-full md:w-1/2 shadow-xl text-center m-4 md:m-0 rounded overflow-x-auto">
-              <CodeBlock language="javascript" value={`const light = require('light');
+              <CodeBlock language="javascript" value={`const { light, Route } = require('light');
 
 ${selectedDeploy.code ? `${selectedDeploy.code}` : ''}
 
-module.exports = light({
-  path: '/',
-  async handler(req, res) {
+class Index extends Route {
+  async handler() {
     return {
       hello: 'world',
     };
-  },
-});`} />
+  }
+}
+
+module.exports = light(Index);`} />
             </div>
           </div>
         </div>
         <div className="pt-12 md:block md:m-0 hidden">
           <div className="container mx-auto flex-col-reverse md:flex-row flex-wrap md:flex">
             <div className="w-full md:w-2/3 text-center px-2 m-4 md:m-0">
-              <Embed source={ `const light = require('light');
+              <Embed source={ `const { light, Route } = require('light');
 
-process.env.LIGHT_ENVIRONMENT = 'runkit';
+process.env.LIGHT_ENV = 'runkit';
 
-module.exports = light({
-  path: '/',
-  async handler(req, res) {
+class Index extends Route {
+  async handler() {
     return {
       hello: 'world',
     };
-  },
-});` } mode='endpoint' />
+  }
+}
+
+module.exports = light(Index);` } mode='endpoint' />
             </div>
             <div className="flex flex-col w-full md:w-1/3 text-center p-4 pb-0">
               <span className="flex-1" />

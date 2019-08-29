@@ -32,7 +32,7 @@ Serverless is a new term that many companies such as Zeit and AWS are pushing. T
 
 Some of the downsides include no websocket support, per execution costs (which may be very expensive if you handle millions of requests), and cold starts. Due to the sheer number of functions websites like AWS store, your function will be "cold" most of the time, and when a request is made, there is additional overhead involved in fetching the function from a datastore and running it. This can result in anywhere from 10ms-500ms of additional overhead. In addition, when you are using databases, every time your function is run, it has to reconnect to the external database.
 
-The point of light is to allow you to write code that works in both environment. That way you do not have to worry about switching around when required. If one day you can't handle the number of requests you are getting, you can switch to serverless in just minutes instead of days. Or if one day Serverless is becoming too expensive, you can spin up your own servers in minutes instead of days.
+The point of light is to allow you to write code that works in both environments. That way you do not have to worry about switching around when required. If one day you can't handle the number of requests you are getting, you can switch to serverless in just minutes instead of days. Or if one day Serverless is becomes too expensive, you can spin up your own servers in minutes instead of days.
 
 Serverless has its own benefits and drawbacks and you should only use it if it is right for your application.
 
