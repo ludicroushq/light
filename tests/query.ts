@@ -5,21 +5,21 @@ import { Route, light, test } from '../src/index';
 
 describe('query', () => {
   describe('with route\'s static method', () => {
-    it('should work', async () => {
+    it('works', async () => {
       expect.assertions(1);
       const url = '/test?hello=world';
       const { hello } = await Route.query(url);
       expect(hello).toStrictEqual('world');
     });
 
-    it('should work with an empty url', async () => {
+    it('works with an empty url', async () => {
       expect.assertions(1);
       const url = '';
       const res = await Route.query(url);
       expect(res).toMatchObject({});
     });
 
-    it('should work with multiple params', async () => {
+    it('works with multiple params', async () => {
       expect.assertions(2);
       const url = '/test?hello=world&foo=bar';
       const { hello, foo } = await Route.query(url);
@@ -27,7 +27,7 @@ describe('query', () => {
       expect(foo).toStrictEqual('bar');
     });
 
-    it('should work with multiple params with the same name', async () => {
+    it('works with multiple params with the same name', async () => {
       expect.assertions(2);
       const url = '/test?hello=world&foo=bar&hello=test';
       const { hello, foo } = await Route.query(url);
@@ -52,7 +52,7 @@ describe('query', () => {
       server.close();
     });
 
-    it('should work', async () => {
+    it('work', async () => {
       expect.assertions(2);
       const url = join(server.url, '?hello=world');
       const req = await fetch(url);
@@ -61,16 +61,16 @@ describe('query', () => {
       expect(res).toMatchObject({ hello: 'world' });
     });
 
-    it('should work with an empty url', async () => {
+    it('works with an empty url', async () => {
       expect.assertions(2);
-      const url = server.url;
+      const { url } = server;
       const req = await fetch(url);
       const res = await req.json();
       expect(req.status).toStrictEqual(200);
       expect(res).toMatchObject({});
     });
 
-    it('should work with multiple params', async () => {
+    it('works with multiple params', async () => {
       expect.assertions(2);
       const url = join(server.url, '?hello=world&foo=bar');
       const req = await fetch(url);
@@ -82,7 +82,7 @@ describe('query', () => {
       });
     });
 
-    it('should work with multiple params with the same name', async () => {
+    it('works with multiple params with the same name', async () => {
       expect.assertions(2);
       const url = join(server.url, '?hello=world&foo=bar&hello=test');
       const req = await fetch(url);
@@ -92,6 +92,18 @@ describe('query', () => {
         hello: ['world', 'test'],
         foo: 'bar',
       });
+    });
+
+    it('works with undefined req and res objects', async () => {
+      const index = class Index extends Route {
+        public async handler() {
+          return this.query()
+        }
+      }
+      const route = new index(({ req: {}, res: {} } as any));
+      const res = await route.handler();
+      expect.assertions(1);
+      expect(res).toMatchObject({});
     });
   });
 });
