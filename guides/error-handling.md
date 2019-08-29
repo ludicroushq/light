@@ -17,9 +17,7 @@ const { light, Route, createError } = require('light');
 class Index extends Route {
   async handler() {
     throw createError(401, 'sorry, you cannot access this route');
-    return {
-      hello: 'world',
-    };
+    return 'it will not get to me :(';
   }
 }
 

@@ -5,6 +5,8 @@ subtitle: respond to custom methods when in server mode
 
 **Please note that methods are environment specific. The details documented below only apply to [server mode](/guides/server-vs-serverless#server) since serverless environment will have their own method handling**
 
+## THIS DOC IS INCOMPLETE. IT WILL BE UPDATED WHEN ROUTING IS UPDATED
+
 ## Introduction
 
 Under the hood, light uses [find-my-way](https://github.com/delvedor/find-my-way) to route in server mode. find-my-way supports the following HTTP methods:

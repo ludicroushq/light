@@ -42,10 +42,9 @@ const { light, Route, send } = require('light');
 
 class Index extends Route {
   async handler() {
-    send(res, 200, { hello: 'world' });
+    send(this.res, 200, { hello: 'world' });
   }
 }
 
 module.exports = light(Index);
-const { light, send } = require('light');
 ```
