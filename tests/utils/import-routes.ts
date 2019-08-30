@@ -32,7 +32,7 @@ describe('utils', () => {
       });
     });
 
-    // created another file youch as the previous "throw" test causes issues if you use the same file
+    // using a different file as the previous "throw" test causes issues if you use the same file
     describe('with safe mode', () => {
       it('returns a single route containing the youch error page', async () => {
         expect.assertions(5);
