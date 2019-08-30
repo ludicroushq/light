@@ -1,8 +1,9 @@
 import micro from 'micro';
 import Router from 'find-my-way';
 import { IncomingMessage, ServerResponse, Server } from 'http';
+
 import findRoutes from './utils/find-routes';
-import Route from './types/route';
+import RouteType from './types/route';
 import importRoutes from './utils/import-routes';
 import addRoute from './utils/add-route';
 
@@ -14,18 +15,22 @@ interface Light {
 type IM = IncomingMessage;
 type SR = ServerResponse;
 
-const light = ({
+const app = ({
   routes,
   opts,
 }: {
-  routes: string | Route[];
+  routes: string | RouteType[];
   opts?: any;
 }): Light => {
   const router = Router({
     ignoreTrailingSlash: true,
+    defaultRoute: (req: IncomingMessage, res: ServerResponse): void => {
+      res.statusCode = 404;
+      res.end('Not Found');
+    },
   });
 
-  let routeObjs: Route[] = [];
+  let routeObjs: RouteType[] = [];
   if (typeof routes === 'string') {
     const files: string[] = findRoutes(routes);
     routeObjs = importRoutes(files, routes);
@@ -35,7 +40,7 @@ const light = ({
 
   const server = micro(async (req: IM, res: SR): Promise<any> => router.lookup(req, res));
 
-  routeObjs.forEach((route: Route): void => {
+  routeObjs.forEach((route: RouteType): void => {
     addRoute(router, route, opts);
   });
 
@@ -45,4 +50,4 @@ const light = ({
   };
 };
 
-export default light;
+export default app;
