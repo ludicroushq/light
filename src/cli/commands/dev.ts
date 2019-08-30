@@ -74,22 +74,6 @@ const handle = async (argv: Args): Promise<void> => {
     const chokidar = require('chokidar'); // eslint-disable-line
     const watcher = chokidar.watch(cwd);
     watcher.on('ready', (): void => {
-      // TODO: if the following `decache` solution doesn't work, this does
-      // let absolute = '';
-      // Module.prototype.require = new Proxy(Module.prototype.require,{
-      //   apply(target, thisArg, argumentsList){
-      //     let name = argumentsList[0];
-      //     if (path.isAbsolute(name)) {
-      //       absolute = path.dirname(name);
-      //       name = '';
-      //     }
-      //     if (!name.endsWith('.js')) {
-      //       name += '.js';
-      //     }
-      //     delete require.cache[path.join(absolute, name)];
-      //     return Reflect.apply(target, thisArg, argumentsList)
-      //   }
-      // });
       logger.hmr('watching for changes');
     });
     watcher.on('change', (p: string): void => {
@@ -99,7 +83,7 @@ const handle = async (argv: Args): Promise<void> => {
       files.forEach((f): void => {
         decache(f);
       });
-      const routeObjs = importRoutes(files, routesPath);
+      const routeObjs = importRoutes(files, routesPath, true);
       routeObjs.forEach((route: Route): void => {
         addRoute(app.router, route);
       });
