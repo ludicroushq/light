@@ -95,12 +95,12 @@ describe('query', () => {
     });
 
     it('works with undefined req and res objects', async () => {
-      const index = class Index extends Route {
+      const Index = class extends Route {
         public async handler() {
-          return this.query()
+          return this.query();
         }
-      }
-      const route = new index(({ req: {}, res: {} } as any));
+      };
+      const route = new Index(({ req: {}, res: {} } as any));
       const res = await route.handler();
       expect.assertions(1);
       expect(res).toMatchObject({});
