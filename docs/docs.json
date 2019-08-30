@@ -1,6 +1,5 @@
 {
   "server": "server",
-  "query": "query",
   "params": "params",
   "route/light": "light",
   "micro": {

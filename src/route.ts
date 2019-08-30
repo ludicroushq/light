@@ -5,6 +5,8 @@ import pinoHTTP from 'pino-http';
 import Youch from 'youch';
 import forTerminal from 'youch-terminal';
 
+import query from './helpers/query';
+
 const youchPlugin = (fun: any): any => async (req: IM, res: SR): Promise<void> => {
   try {
     return await fun(req, res);
@@ -50,6 +52,14 @@ export default class Route {
     if (options.isDev) {
       this.isDev = true;
     }
+  }
+
+  public async query(): Promise<any> {
+    return query(this.req.url || '');
+  }
+
+  public static async query(url: string): Promise<any> {
+    return query(url);
   }
 
   public _getInternalPlugins(): any[] {
