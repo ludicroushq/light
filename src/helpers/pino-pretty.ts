@@ -21,6 +21,7 @@ export default (): any => (inputData: any): any => {
   } else if (isObject(inputData) && isPinoLog(inputData)) {
     logObject = inputData;
   }
+  // istanbul ignore if
   if (!logObject) return inputData;
 
   const {
@@ -79,5 +80,5 @@ export default (): any => (inputData: any): any => {
     }
   }
   output.push('\n');
-  return output.join(' ');
+  return output.join(' ').trim();
 };
