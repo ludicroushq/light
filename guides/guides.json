@@ -20,6 +20,10 @@
     "Google Cloud": "deployments/google-cloud",
     "Azure": "deployments/azure"
   },
+  "Testing": {
+    "Jest": "testing/jest",
+    "Ava": "testing/ava"
+  },
   "Databases": {
     "Knex/Objection": "databases/objection",
     "Mongo/Mongoose": "databases/mongoose"
