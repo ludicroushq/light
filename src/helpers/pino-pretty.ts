@@ -50,7 +50,14 @@ export default (options: any): any => {
 
       if (res) {
         if (res.statusCode) {
-          output.push(chalk.green(res.statusCode))
+          const code = res.statusCode;
+          if (code >= 500) {
+            output.push(chalk.red(res.statusCode))
+          } else if (code >= 400) {
+            output.push(chalk.yellow(res.statusCode))
+          } else {
+            output.push(chalk.green(res.statusCode))
+          }
         }
       }
 
