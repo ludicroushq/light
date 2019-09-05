@@ -81,7 +81,18 @@ export default class Route {
     }
 
     if (!this.disableErrorHandler) {
+      const errorHandler = (fun: any): any => async (req: IM, res: SR): Promise<void> => {
+        try {
+          return await fun(req, res);
+        } catch (err) {
+          this.logger.error(err);
+          throw err;
+        }
+      };
+
+      // log the error first and then push it to `micro-boom`
       plugins.push(handleErrors);
+      plugins.push(errorHandler);
     }
 
     if (this.isDev) {
