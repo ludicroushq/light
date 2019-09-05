@@ -6,6 +6,7 @@ import Youch from 'youch';
 import forTerminal from 'youch-terminal';
 
 import query from './helpers/query';
+import pinoPretty from './helpers/pino-pretty';
 
 const youchPlugin = (fun: any): any => async (req: IM, res: SR): Promise<void> => {
   try {
@@ -36,21 +37,26 @@ export default class Route {
   public logger: any;
 
   public constructor({ req, res, opts }: { req: IM; res: SR; opts?: any }) {
+    const options = opts || {};
+    if (options.isDev) {
+      this.isDev = true;
+    }
+
     this.req = req;
     this.res = res;
-    this.logger = pino();
 
-    const options = opts || {};
+    const pinoOptions = this.isDev ? {
+      prettyPrint: true,
+      prettifier: pinoPretty,
+      level: 'trace',
+    } : {};
+    this.logger = pino((pinoOptions as any));
 
     if (!this.disableRequestLogger && options.disableRequestLogger) {
       this.disableRequestLogger = options.disableRequestLogger;
     }
     if (!this.disableErrorHandler && options.disableErrorHandler) {
       this.disableErrorHandler = options.disableErrorHandler;
-    }
-
-    if (options.isDev) {
-      this.isDev = true;
     }
   }
 

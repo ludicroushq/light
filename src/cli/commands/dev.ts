@@ -45,11 +45,13 @@ const handle = async (argv: Args): Promise<void> => {
   const cwd = join(process.cwd(), argv.dir);
   const routesPath = join(cwd, './routes');
 
+  const opts = {
+    isDev: true,
+  };
+
   const app = server({
     routes: routesPath,
-    opts: {
-      isDev: true,
-    },
+    opts,
   });
 
   interface ProcessEnv {
@@ -85,7 +87,7 @@ const handle = async (argv: Args): Promise<void> => {
       });
       const routeObjs = importRoutes(files, routesPath, true);
       routeObjs.forEach((route: Route): void => {
-        addRoute(app.router, route);
+        addRoute(app.router, route, opts);
       });
     });
   });
