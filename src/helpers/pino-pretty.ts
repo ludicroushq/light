@@ -15,13 +15,14 @@ const levels: any = {
 
 export default (): any => (inputData: any): any => {
   let logObject;
+  // istanbul ignore next
   if (typeof inputData === 'string') {
     const parsedData = JSON.parse(inputData);
     logObject = (isPinoLog(parsedData)) ? parsedData : undefined;
   } else if (isObject(inputData) && isPinoLog(inputData)) {
     logObject = inputData;
   }
-  // istanbul ignore if
+  // istanbul ignore next
   if (!logObject) return inputData;
 
   const {
@@ -79,6 +80,5 @@ export default (): any => (inputData: any): any => {
       output.push(msg);
     }
   }
-  output.push('\n');
-  return output.join(' ').trim();
+  return `${output.join(' ').trim()}\n`;
 };
