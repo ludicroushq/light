@@ -28,7 +28,8 @@ describe('plugins', () => {
       });
 
       it('returns a 500 error', async () => {
-        expect.assertions(2);
+        expect.assertions(3);
+        const spy = jest.spyOn(process.stdout, 'write').mockImplementation();
         const req = await fetch(server.url);
         const res = await req.json();
         expect(req.status).toStrictEqual(500);
@@ -37,6 +38,8 @@ describe('plugins', () => {
           message: 'An internal server error occurred',
           statusCode: 500,
         });
+        expect(spy).toHaveBeenCalledTimes(1);
+        spy.mockRestore();
       });
     });
 
@@ -46,7 +49,8 @@ describe('plugins', () => {
       });
 
       it('returns a 500 error', async () => {
-        expect.assertions(2);
+        expect.assertions(3);
+        const spy = jest.spyOn(process.stdout, 'write').mockImplementation();
         const req = await fetch(server.url);
         const res = await req.json();
         expect(req.status).toStrictEqual(400);
@@ -55,6 +59,8 @@ describe('plugins', () => {
           message: 'custom error message',
           statusCode: 400,
         });
+        expect(spy).toHaveBeenCalledTimes(1);
+        spy.mockRestore();
       });
     });
 
