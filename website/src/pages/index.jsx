@@ -125,9 +125,11 @@ export default class Index extends React.Component {
               <div className="bg-white shadow-xl text-left p-4 rounded overflow-x-auto">
                 <pre className="items-end">
                   <code className="text-indigo-500">$ light dev</code>{ '\n' }
-                  <code className="text-pink-500">> listening on port 3000</code>{ '\n' }
-                  <code className="text-green-500">> GET        /</code>{ '\n' }
-                  <code className="text-green-500">> { '<' }          200 17b</code>{ '\n' }
+                  <code className="text-pink-500">> start      🔥 igniting the server 🔥</code>{ '\n' }
+                  <code className="text-pink-500">> listening  on port 3000</code>{ '\n' }
+                  <code className="text-blue-500">> hmr        starting the hot reloader</code>{ '\n' }
+                  <code className="text-blue-500">> hmr        watching for changes</code>{ '\n' }
+                  <code className="text-green-500">  GET        200 to /, request completed in 1 ms</code>{ '\n' }
                 </pre>
               </div>
             </div>
