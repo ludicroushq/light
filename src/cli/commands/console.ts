@@ -55,33 +55,25 @@ const importFiles = (path: string): any => {
   return obj;
 };
 
-const initializeContext = (context: any, cwd: string): string[] => {
-  const modelsPath = join(cwd, './models');
-  const jobsPath = join(cwd, './jobs');
-  const Models: any = importFiles(modelsPath);
-  const importedJobs: any = importFiles(jobsPath);
-  const Jobs: any = Object.keys(importedJobs).reduce((acc, val): any => {
+const initializeContext = (context: any, config: any, cwd: string): string[] => {
+  const path = join(cwd, config.path);
+  const importedFolder: any = importFiles(path);
+  const Folder: any = Object.keys(importedFolder).reduce((acc, val): any => {
     let key = val;
-    if (!key.endsWith('Job')) {
-      key = `${key.trim()}Job`;
+    if (!key.endsWith(config.suffix)) {
+      key = `${key.trim()}${config.suffix}`;
     }
-    (acc as any)[key] = importedJobs[val];
+    (acc as any)[key] = importedFolder[val];
     return acc;
   }, {});
 
-  const addedContext = [...Object.keys(Models), ...Object.keys(Jobs)];
+  context[config.name] = importedFolder;
 
-  context.Jobs = importedJobs;
-  context.Models = Models;
-
-  Object.keys(Models).forEach((key: string): void => {
-    context[key] = Models[key];
-  });
-  Object.keys(Jobs).forEach((key: string): void => {
-    context[key] = Jobs[key];
+  Object.keys(Folder).forEach((key: string): void => {
+    context[key] = Folder[key];
   });
 
-  return addedContext;
+  return Object.keys(Folder);
 };
 
 const handle = async (argv: Args): Promise<void> => {
@@ -91,14 +83,35 @@ const handle = async (argv: Args): Promise<void> => {
   replHistory(local, `${process.env.HOME}/.light_history`);
   stubber(local);
 
-  initializeContext(local.context, cwd);
+  const defaultConfig = [
+    {
+      name: 'Models',
+      suffix: '',
+      path: 'models',
+    },
+    {
+      name: 'Jobs',
+      suffix: 'Job',
+      path: 'jobs',
+    },
+  ];
+
+  let addedContext = [];
+  defaultConfig.forEach((config: any): void => {
+    addedContext.push(...initializeContext(local.context, config, cwd));
+  });
+
 
   local.on('exit', (): void => {
     process.exit();
   });
 
   local.on('reset', (context): void => {
-    initializeContext(context, cwd);
+    addedContext = [];
+    defaultConfig.forEach((config: any): void => {
+      addedContext.push(...initializeContext(local.context, config, cwd));
+      initializeContext(context, config, cwd);
+    });
   });
 };
 
