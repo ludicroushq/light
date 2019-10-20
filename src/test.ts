@@ -5,7 +5,8 @@ import { server } from './index';
 export default async (route: any, opts?: any): Promise<any> => {
   // generate a server with only the route provided
   const options = {
-    disableRequestLogger: true,
+    requestLogger: false,
+    dev: false,
     ...(opts || {}),
   };
 

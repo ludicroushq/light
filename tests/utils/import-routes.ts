@@ -42,7 +42,7 @@ describe('utils', () => {
 
         const app = server({
           routes,
-          opts: { disableRequestLogger: true },
+          opts: { requestLogger: false },
         });
         const spy = jest.spyOn(console, 'log').mockImplementation();
 

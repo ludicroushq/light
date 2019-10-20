@@ -1,20 +1,16 @@
 import fetch from 'node-fetch';
 
-import { test, light, Route } from '../src/index';
+import { test, route } from '../src/index';
 
-let plugin: any = () => {};
+let plug: any = () => {};
 let server: any;
 
 beforeEach(async () => {
-  server = await test(light(class Index extends Route {
-    public plugins = [plugin];
-
-    public async handler() {
-      return {
-        hello: (this.req as any).message,
-      };
-    }
-  }));
+  const { handler, plugins } = route();
+  plugins(plug);
+  server = await test(handler((req: any) => ({
+    hello: req.message,
+  })));
 });
 
 afterEach(async () => {
@@ -23,7 +19,7 @@ afterEach(async () => {
 
 describe('plugins', () => {
   beforeAll(() => {
-    plugin = (fn: any): any => async (req: any, res: any): Promise<any> => {
+    plug = (fn: any): any => async (req: any, res: any): Promise<any> => {
       req.message = 'plugin!!!';
       return fn(req, res);
     };

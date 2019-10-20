@@ -1,27 +1,27 @@
-import { METHODS } from 'http';
+import { METHODS, IncomingMessage } from 'http';
 import { relative } from 'path';
 
 import Youch from 'youch';
 import forTerminal from 'youch-terminal';
 
 import RouteType from '../types/route';
-import { light, Route } from '../index';
+import { route } from '../index';
 
 export default (routes: string[], routesPath: string, safe: boolean = false): RouteType[] => {
   let results: RouteType[] = [];
 
   try {
-    results = routes.map((route: string): RouteType => {
+    results = routes.map((r: string): RouteType => {
       let handler;
-        handler = require(route); // eslint-disable-line
+        handler = require(r); // eslint-disable-line
       if (handler.default) {
         handler = handler.default;
       }
 
-      const path = relative(routesPath, route);
+      const path = relative(routesPath, r);
 
       return {
-        file: route,
+        file: r,
         method: METHODS,
         handler,
         path,
@@ -32,15 +32,15 @@ export default (routes: string[], routesPath: string, safe: boolean = false): Ro
       throw err;
     }
 
+    const { handler } = route();
+
     results.push({
       method: METHODS,
-      handler: light(class Index extends Route {
-        public async handler(): Promise<any> {
-          const youch = new Youch(err, this.req);
-          const json = await youch.toJSON();
-          console.log(forTerminal(json)); // eslint-disable-line
-          return youch.toHTML();
-        }
+      handler: handler(async (req: IncomingMessage): Promise<any> => {
+        const youch = new Youch(err, req);
+        const json = await youch.toJSON();
+        console.log(forTerminal(json)); // eslint-disable-line
+        return youch.toHTML();
       }),
       path: '*',
     });

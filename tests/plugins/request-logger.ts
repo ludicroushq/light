@@ -1,18 +1,17 @@
 import fetch from 'node-fetch';
 
-import { test, light, Route } from '../../src/index';
+import { test, route } from '../../src/index';
 
 let server: any;
-const disableRequestLogger = false;
 
 beforeEach(async () => {
-  server = await test(light(class Index extends Route {
-    public async handler() {
-      return {
-        hello: 'world',
-      };
-    }
-  }), { disableRequestLogger });
+  const { handler } = route();
+  server = await test(handler(() => ({
+    hello: 'world',
+  })), {
+    dev: false,
+    requestLogger: true,
+  });
 });
 
 afterEach(async () => {

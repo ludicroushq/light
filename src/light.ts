@@ -20,40 +20,34 @@ export default (route: any): any => {
     throw new Error('route is missing');
   }
   if (endpoint.default) endpoint = endpoint.default;
-  if (!isClass(endpoint)) {
-    throw new Error('route is not a class');
-  }
 
   // minimize work inside here as it is executed in every run
   const proxy = async (req: IM, res: SR, opts: any): AP => {
-    const instance = new endpoint({ // eslint-disable-line
-      req,
-      res,
-      opts,
-    });
+    // const instance = new endpoint({ // eslint-disable-line
+    //   req,
+    //   res,
+    //   opts,
+    // });
 
     let fn = async (Req: IM, Res: SR): AP => {
       // process middleware
-      const middleware: any[] = instance.middleware || [];
+      // const middleware: any[] = instance.middleware || [];
 
-      for (const mw of middleware) { // eslint-disable-line
-        await mw(Req, Res); // eslint-disable-line
+      // for (const mw of middleware) { // eslint-disable-line
+      //   await mw(Req, Res); // eslint-disable-line
 
-        if (Res.headersSent) {
-          return null;
-        }
-      }
+      //   if (Res.headersSent) {
+      //     return null;
+      //   }
+      // }
 
-      return instance.handler({
-        Req,
-        Res,
-      });
+      return endpoint(Req, Res);
     };
 
     // process plugins
-    const plugins = [...instance._getInternalPlugins(), ...(instance.plugins || [])];
+    // const plugins = [...instance._getInternalPlugins(), ...(instance.plugins || [])];
 
-    fn = plugins.reverse().reduce((acc: any, val: any): any => val(acc), fn);
+    // fn = plugins.reverse().reduce((acc: any, val: any): any => val(acc), fn);
 
     return fn(req, res);
   };

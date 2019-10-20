@@ -1,13 +1,7 @@
-import { light, Route } from '../../../../src/index';
+import { route } from '../../../../src/index';
 
-class Index extends Route {
-  public disableRequestLogger = true;
+const { handler } = route();
 
-  public async handler() {
-    return {
-      hello: 'server',
-    };
-  }
-}
-
-module.exports = light(Index);
+module.exports = handler(() => ({
+  hello: 'server',
+}));

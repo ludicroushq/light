@@ -4,8 +4,7 @@ import { join } from 'path';
 
 import {
   server,
-  light,
-  Route,
+  route,
 } from '../src/index';
 
 let app: any;
@@ -22,18 +21,13 @@ afterEach(async () => {
 describe('server', () => {
   describe('with functions as routes', () => {
     beforeAll(() => {
+      const { handler } = route({ requestLogger: false });
       app = server({
         routes: [
           {
-            handler: light(class Index extends Route {
-              public disableRequestLogger = true;
-
-              public async handler() {
-                return {
-                  hello: 'server',
-                };
-              }
-            }),
+            handler: handler(() => ({
+              hello: 'server',
+            })),
             method: 'GET',
             path: '/',
           },
@@ -54,6 +48,7 @@ describe('server', () => {
     beforeAll(() => {
       app = server({
         routes: join(__dirname, './seeds/server/routes'),
+        opts: { requestLogger: false },
       });
     });
 

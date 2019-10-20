@@ -1,22 +1,18 @@
 import fetch from 'node-fetch';
 
 import {
-  test, light, Route, send,
+  test, route, send,
 } from '../src/index';
 
-let middleware: any = () => {};
+let mw: any = () => {};
 let server: any;
 
 beforeEach(async () => {
-  server = await test(light(class Index extends Route {
-    public middleware = [middleware];
-
-    public async handler() {
-      return {
-        hello: (this.req as any).message,
-      };
-    }
-  }));
+  const { handler, middleware } = route();
+  middleware(mw);
+  server = await test(handler((req: any): any => ({
+    hello: req.message,
+  })));
 });
 
 afterEach(async () => {
@@ -26,7 +22,7 @@ afterEach(async () => {
 describe('middleware', () => {
   describe('with regular middleware', () => {
     beforeAll(() => {
-      middleware = (req: any) => { req.message = 'middleware!!!'; };
+      mw = (req: any) => { req.message = 'passed a message'; };
     });
 
     it('returns data from a middleware', async () => {
@@ -34,13 +30,13 @@ describe('middleware', () => {
       const req = await fetch(server.url);
       const res = await req.json();
       expect(req.status).toStrictEqual(200);
-      expect(res).toMatchObject({ hello: 'middleware!!!' });
+      expect(res).toMatchObject({ hello: 'passed a message' });
     });
   });
 
   describe('with middleware that returns early', () => {
     beforeAll(() => {
-      middleware = (_: any, res: import('http').ServerResponse) => { send(res, 200, 'middleware!!!'); };
+      mw = (_: any, res: import('http').ServerResponse) => { send(res, 200, 'middleware!!!'); };
     });
 
     it('returns early from a middleware', async () => {
