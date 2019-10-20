@@ -165,7 +165,7 @@ export default (opts?: Options): Route => {
         }
         if (isRunKit) {
           handler = {
-            endpoint: wrapper,
+            endpoint: handler,
           };
         }
       }
