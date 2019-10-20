@@ -103,6 +103,9 @@ export default (opts?: Options): Route => {
     },
 
     handler(fn: ((req: IM, res: SR) => {} | any)): (req: IM, res: SR) => {} {
+      if (!fn) {
+        throw new Error('route is missing');
+      }
       let func: any = fn;
       if (func.default) {
         func = func.default;

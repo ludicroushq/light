@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-import { test, light, route } from '../src/index';
+import { test, route } from '../src/index';
 
 let handler: any = (): any => ({
   hello: 'world',
@@ -17,7 +17,7 @@ afterEach(async () => {
   server.close();
 });
 
-describe('light', () => {
+describe('route', () => {
   describe('with regular function', () => {
     it('returns object properly', async () => {
       expect.assertions(2);
@@ -49,6 +49,8 @@ describe('light', () => {
   describe('with null', () => {
     it('throws exception', async () => {
       expect.assertions(1);
+      const { handler: light } = route();
+      // @ts-ignore
       expect(() => light(null)).toThrow('route is missing');
     });
   });
