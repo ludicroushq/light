@@ -1,7 +1,6 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import AWSServerlessMicro from 'aws-serverless-micro';
 import { run } from 'micro';
-
 import { handleErrors } from 'micro-boom';
 import pino from 'pino';
 import pinoHTTP from 'pino-http';
@@ -9,8 +8,6 @@ import Youch from 'youch';
 import forTerminal from 'youch-terminal';
 
 import pinoPretty from './helpers/pino-pretty';
-
-const { LIGHT_ENV } = process.env;
 
 type IM = IncomingMessage;
 type SR = ServerResponse;
@@ -28,6 +25,9 @@ interface Options {
   errorHandler?: boolean;
 }
 
+const { LIGHT_ENV } = process.env;
+
+// TODO: extra to a different folder
 const youchPlugin = (fun: any): any => async (req: IM, res: SR): Promise<void> => {
   try {
     return await fun(req, res);
@@ -39,7 +39,7 @@ const youchPlugin = (fun: any): any => async (req: IM, res: SR): Promise<void> =
   }
 };
 
-// TODO: Extra logger out of here
+// TODO: remove extra logger out of here
 const loggerPlugin = ({ dev, requestLogger }: Options): any => {
   const pinoOptions = dev ? {
     prettyPrint: true,
@@ -87,19 +87,18 @@ const getOptions = (...opts: Options[]): Options => {
 };
 
 export default (opts?: Options): Route => {
-  // TODO: allow for disabling of all options
+  // closures
   let options = getOptions(opts || {});
-
   const _middleware: any[] = [];
   const _plugins: any[] = [];
 
   return {
     middleware(...fns: any[]): void {
-      _middleware.push(...fns);
+      _middleware.push(...fns.filter((x: any): any => x));
     },
 
     plugins(...fns: any[]): void {
-      _plugins.push(...fns);
+      _plugins.push(...fns.filter((x: any): any => x));
     },
 
     handler(fn: ((req: IM, res: SR) => {} | any)): (req: IM, res: SR) => {} {
