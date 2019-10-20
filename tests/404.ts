@@ -2,19 +2,16 @@ import fetch from 'node-fetch';
 import join from 'url-join';
 
 import {
-  test, light, Route,
+  test, route,
 } from '../src/index';
 
 let server: any;
 
 beforeEach(async () => {
-  server = await test(light(class Index extends Route {
-    public async handler() {
-      return {
-        hello: 'world',
-      };
-    }
-  }));
+  const { handler } = route();
+  server = await test(handler(() => ({
+    hello: 'world',
+  })));
 });
 
 afterEach(async () => {

@@ -1,16 +1,13 @@
-import { light, Route } from '../../src/index';
+import { route } from '../../src/index';
 
 describe('serverless', () => {
   describe('aws', () => {
     process.env.LIGHT_ENV = 'aws';
 
-    const server: any = light(class Index extends Route {
-      public async handler() {
-        return {
-          hello: 'world',
-        };
-      }
-    });
+    const { handler } = route();
+    const server: any = handler(() => ({
+      hello: 'world',
+    }));
 
     it('exports a handler', async () => {
       expect.assertions(3);

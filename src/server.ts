@@ -15,6 +15,7 @@ interface Light {
 type IM = IncomingMessage;
 type SR = ServerResponse;
 
+// TODO: change opts type to the Options type in route.ts
 const app = ({
   routes,
   opts,

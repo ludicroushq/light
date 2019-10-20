@@ -1,7 +1,7 @@
-import { light, Route } from '../../../../../src/index';
+import { route } from '../../../../../src/index';
 
-class Index extends Route {}
+const { handler } = route();
 
 module.exports = {
-  default: light(Index),
+  default: handler(() => {}),
 };

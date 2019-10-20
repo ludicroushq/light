@@ -1,19 +1,16 @@
 import fetch from 'node-fetch';
 
 import {
-  test, light, Route, createError,
+  test, route, createError,
 } from '../../src/index';
 
 let server: any;
-let disableErrorHandler = false;
+let errorHandler = true;
 let error: any = () => {};
 
 beforeEach(async () => {
-  server = await test(light(class Index extends Route {
-    public async handler() {
-      error();
-    }
-  }), { disableErrorHandler });
+  const { handler } = route();
+  server = await test(handler(() => error()), { errorHandler });
 });
 
 afterEach(async () => {
@@ -66,7 +63,7 @@ describe('plugins', () => {
 
     describe('with error handler disabled', () => {
       beforeAll(() => {
-        disableErrorHandler = true;
+        errorHandler = false;
         error = () => { throw new Error('message'); };
       });
 
