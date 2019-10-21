@@ -18,7 +18,7 @@ npm install apollo-server-micro graphql
 Once done, all you need to do is create a `graphql.js` file under the routes folder. Inside this, add the following starter code:
 
 ```js
-const { light, Route } = require('light');
+const { route } = require('light');
 const { ApolloServer, gql } = require('apollo-server-micro');
 
 const typeDefs = gql`
@@ -38,12 +38,8 @@ const resolvers = {
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
 const graphqlHandler = apolloServer.createHandler();
 
-class graphql extends Route {
-  async handler() {
-    return graphqlHandler(this.req, this.res);
-  }
-}
-module.exports = light(graphql);
+const { handler } = route();
+module.exports = handler((req, res) => graphqlHandler(req, res));
 ```
 
-Most of the code that is provided is the starter code for Apollo. The only light related code is the `module.exports` at the bottom which simply tells light to run the following graphql handler when the route is `/graphql` with either GET (for the graphical interface) or POST (for the actual queries). *As always, if you are hosting on a serverless platform, you will need to point the route `/graphql` to this file.*
+Most of the code that is provided is the starter code for Apollo. The only light related code is the `module.exports` at the bottom (and the line above) which simply tells light to run the following graphql handler when the route is `/graphql` with either GET (for the graphical interface) or POST (for the actual queries). *As always, if you are hosting on a serverless platform, you will need to point the route `/graphql` to this file.*

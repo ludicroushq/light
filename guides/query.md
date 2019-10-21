@@ -14,20 +14,18 @@ If there are multiple query parameters with the same name, it will return an arr
 Simply call the query function inside of your handler.
 
 ```javascript
-const { light, Route } = require('light');
+const { route, query } = require('light');
 
-class Index extends Route {
-  async handler() {
-    const { id, name } = await this.query();
+const { handler } = route();
 
-    return {
-      id,
-      name,
-    };
-  }
-}
+module.exports = handler(((req, res) => {
+  const { id, name } = await query(req.url);
 
-module.exports = light(Index);
+  return {
+    id,
+    name,
+  };
+});
 ```
 
 After starting the dev server, you can make a request to [localhost:3000/?id=123&name=light](http://localhost:3000/?id=123&name=light) and expect a response of
@@ -40,9 +38,3 @@ After starting the dev server, you can make a request to [localhost:3000/?id=123
 ```
 
 Note that by default all query parameters are strings, and you will need to cast them as necessary.
-
-If you need to use the query function outside of the route such as a middleware or plugin, you can also call query on the route class directly.
-
-```javascript
-const { id, name } = await Route.query(someURL);
-```

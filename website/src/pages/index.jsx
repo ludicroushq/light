@@ -134,17 +134,16 @@ export default class Index extends React.Component {
               </div>
             </div>
             <div className="w-full md:w-1/2 shadow-xl text-center m-4 md:m-0 rounded overflow-x-auto">
-            <CodeBlock language="javascript" value={`const { light, Route } = require('light');
+            <CodeBlock language="javascript" value={`const { route } = require('light');
+const { handler, middleware, plugin } = route();
 
-class Index extends Route {
-  async handler() {
-    return {
-      hello: 'world',
-    };
-  }
-}
-
-module.exports = light(Index);`} />
+middleware(auth, cors);
+plugin(errorHandling);
+module.exports = handler((req, res) => {
+  return {
+    hello: 'world',
+  };
+});`} />
             </div>
           </div>
         </div>
@@ -201,38 +200,48 @@ module.exports = light(Index);`} />
               <span className="flex-1" />
             </div>
             <div className="w-full md:w-1/2 shadow-xl text-center m-4 md:m-0 rounded overflow-x-auto">
-              <CodeBlock language="javascript" value={`const { light, Route } = require('light');
+              <CodeBlock language="javascript" value={`const { route } = require('light');
+const { handler, middleware, plugin } = route();
 
 ${selectedDeploy.code ? `${selectedDeploy.code}` : ''}
 
-class Index extends Route {
-  async handler() {
-    return {
-      hello: 'world',
-    };
-  }
-}
-
-module.exports = light(Index);`} />
+middleware(auth, cors);
+plugin(errorHandling);
+module.exports = handler((req, res) => {
+  return {
+    hello: 'world',
+  };
+});`} />
             </div>
           </div>
         </div>
         <div className="pt-12 md:block md:m-0 hidden">
           <div className="container mx-auto flex-col-reverse md:flex-row flex-wrap md:flex">
             <div className="w-full md:w-2/3 text-center px-2 m-4 md:m-0">
-              <Embed source={ `const { light, Route } = require('light');
+              <Embed source={ `const { route } = require('light');
+const { handler, middleware, plugin } = route();
+process.env.LIGHT_ENV='runkit';
 
-process.env.LIGHT_ENV = 'runkit';
-
-class Index extends Route {
-  async handler() {
-    return {
-      hello: 'world',
-    };
-  }
-}
-
-module.exports = light(Index);` } mode='endpoint' />
+/*
+// middleware is run before your handler
+middleware(
+  (req, res) => console.log(req.url),
+);
+// plugins wrap your handlers (and middleware)
+plugin(
+  (fn) => async (req, res) => {
+    const before = Date.now();
+    await fn(req, res)
+    const after = Date.now();
+    console.log('the request took', after - before, 'ms');
+  },
+);
+*/
+module.exports = handler((req, res) => {
+  return {
+    hello: 'world',
+  };
+});` } mode='endpoint' />
             </div>
             <div className="flex flex-col w-full md:w-1/3 text-center p-4 pb-0">
               <span className="flex-1" />

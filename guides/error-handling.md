@@ -12,16 +12,14 @@ Error handling is done mostly by throwing a new Error. Each route is wrapped wit
 Simply import [`createError`](/docs/boom/create-error) and throw it at any point. createError will create a boom error resulting in a pretty JSON output.
 
 ```js
-const { light, Route, createError } = require('light');
+const { route, createError } = require('light');
 
-class Index extends Route {
-  async handler() {
-    throw createError(401, 'sorry, you cannot access this route');
-    return 'it will not get to me :(';
-  }
-}
+const { handler } = route();
 
-module.exports = light(Index);
+module.exports = handler(() => {
+  throw createError(401, 'sorry, you cannot access this route');
+  return 'it will not get to me :(';
+});
 ```
 
 This will result in JSON which looks like this:
