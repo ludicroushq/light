@@ -38,17 +38,15 @@ Once you've installed light, all `.js` files under the `routes` folder will be u
 To get started, populate `routes/index.js`.
 
 ```js
-const { light, Route } = require('light');
+const { route } = require('light');
 
-class Index extends Route {
-  async handler() {
-    return {
-      hello: 'world',
-    };
-  }
-}
+const { handler } = route();
 
-module.exports = light(Index);
+module.exports = handler(() => {
+  return {
+    hello: 'world',
+  };
+});
 ```
 
 Run `npm run dev` to start the development server. You should see an output in your terminal similar to the one below.

@@ -22,24 +22,21 @@ const checkAuth = async (req, res) => {
 }
 ```
 
-To include middleware in your route, simply add it as a property array.
+To include middleware in your route, simply call the `middleware` function.
 
 ```js
-const { light, Route } = require('light');
+const { route } = require('light');
 
-class Index extends Route {
-  get middleware() {
-  return [ checkAuth ]; // you can have multiple middleware
-  }
+const { handler, middleware } = route();
 
-  async handler() {
-    return {
-      isAuthenticated: this.req.isAuthenticated,
-    };
-  }
-}
+middleware(checkAuth, someOtherMiddleare);
+middleware(whoopsForgotOne);
 
-module.exports = light(Index);
+module.exports = handler((req) => {
+  return {
+    isAuthenticated: req.isAuthenticated,
+  };
+});
 ```
 
 ## Express and Koa Support
