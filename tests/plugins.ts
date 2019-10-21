@@ -6,8 +6,8 @@ let plug: any = () => {};
 let server: any;
 
 beforeEach(async () => {
-  const { handler, plugins } = route();
-  plugins(plug);
+  const { handler, plugin } = route();
+  plugin(plug);
   server = await test(handler((req: any) => ({
     hello: req.message,
   })));
