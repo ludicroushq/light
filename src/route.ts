@@ -16,7 +16,7 @@ type AP = Promise<any>;
 interface Route {
   handler: (fn: (req: IM, res: SR) => {} | any) => (req: IM, res: SR) => {};
   middleware: (fn: any) => void;
-  plugins: (fn: any) => void;
+  plugin: (fn: any) => void;
 }
 
 interface Options {
@@ -97,7 +97,7 @@ export default (opts?: Options): Route => {
       _middleware.push(...fns.filter((x: any): any => x));
     },
 
-    plugins(...fns: any[]): void {
+    plugin(...fns: any[]): void {
       _plugins.push(...fns.filter((x: any): any => x));
     },
 
