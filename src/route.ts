@@ -152,12 +152,8 @@ export default (opts?: Options): Route => {
 
       // transform exports
       let handler: any = wrapper;
+      handler = async (req: IM, res: SR): AP => run(req, res, (wrapper as any));
       if (isServerless) {
-        if (isRunKit || isNow) {
-          // TODO: test this in runkit and now tests
-          /* istanbul ignore next */
-          handler = async (req: IM, res: SR): AP => run(req, res, (wrapper as any));
-        }
         if (isNetlify || isAWS) {
           handler = {
             handler: AWSServerlessMicro(wrapper),
