@@ -82,7 +82,7 @@ export default class Index extends React.Component {
           <h1 className="text-xl font-bold uppercase pb-8 pt-2">light.js</h1>
           <h2 className="text-xl font-semibold uppercase">a</h2>
           <h2 className="text-4xl font-semibold uppercase">
-            <TextLoop springConfig={{ stiffness: 200, damping: 25 }}>
+            <TextLoop className="center-hero" springConfig={{ stiffness: 200, damping: 25 }}>
               <div style={{ width: '350px' }}>serverless</div>
               <div style={{ width: '350px' }}>lightweight</div>
               <div style={{ width: '350px' }}>testable</div>
