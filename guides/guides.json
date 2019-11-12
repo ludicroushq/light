@@ -5,6 +5,7 @@
   "Routing": "routing",
   "Methods": "methods",
   "Params": "params",
+  "Global": "global",
   "Query": "query",
   "Error Handling": "error-handling",
   "Hot Module Reloading": "hot-module-reloading",
