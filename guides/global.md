@@ -35,5 +35,19 @@ module.exports = handler(() => {
     hello: 'world',
   };
 });
+```
 
+**Additionally, if you are using `light dev` or `light server`, the global variables get injected into the server under the `light` variable.** This is controversial because many people are against global variables and they are right, BUT if you do atomic actions such as logging or incrementing a counter, it shouldn't really matter.
+
+```javascript
+const { route } = require('light');
+
+const { handler } = route();
+
+module.exports = handler(() => {
+  light.logger.log('hello world!'); // no need to import anything
+  return {
+    hello: 'world',
+  };
+});
 ```
