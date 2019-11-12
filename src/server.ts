@@ -6,6 +6,7 @@ import findRoutes from './utils/find-routes';
 import RouteType from './types/route';
 import importRoutes from './utils/import-routes';
 import addRoute from './utils/add-route';
+import glob from './global';
 
 interface Light {
   server: Server;
@@ -23,6 +24,8 @@ const app = ({
   routes: string | RouteType[];
   opts?: any;
 }): Light => {
+  const g = glob();
+  (global as any).light = g;
   const router = Router({
     ignoreTrailingSlash: true,
     defaultRoute: (req: IncomingMessage, res: ServerResponse): void => {
