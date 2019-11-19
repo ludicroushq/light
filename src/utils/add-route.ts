@@ -15,8 +15,8 @@ export default (router: any, route: Route, opts?: any): void => {
   }
 
   endpoint.path = endpoint.path.map((p: string): string => {
-    const { name } = parse(p);
-    return join('/', name);
+    const { name, dir } = parse(p);
+    return join('/', dir, name);
   });
 
   // if the path is /index, map it to the root route as well

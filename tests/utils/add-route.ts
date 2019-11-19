@@ -98,5 +98,24 @@ describe('utils', () => {
         expect(router.on).toHaveBeenCalledWith(['GET'], '/', expect.any(Function));
       });
     });
+
+    describe('with nested route', () => {
+      const router = {
+        on: jest.fn(),
+      };
+
+      const route = {
+        path: '/multi/level',
+        method: 'GET',
+        handler: jest.fn(),
+      };
+
+      it('adds the nested route', async () => {
+        expect.assertions(2);
+        addRoute(router, route);
+        expect(router.on.mock.calls.length).toBe(1);
+        expect(router.on).toHaveBeenCalledWith(['GET'], '/multi/level', expect.any(Function));
+      });
+    });
   });
 });
