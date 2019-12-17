@@ -12,7 +12,7 @@ describe('utils', () => {
     describe('with regular route', () => {
       it('returns a route', async () => {
         expect.assertions(1);
-        const route = importRoutes([join(routesPath, './index.ts')], routesPath);
+        const route = importRoutes([{ handler: join(routesPath, './index.ts') }], routesPath);
         expect(route.length).toBe(1);
       });
     });
@@ -20,7 +20,7 @@ describe('utils', () => {
     describe('with default route', () => {
       it('returns a route', async () => {
         expect.assertions(1);
-        const route = importRoutes([join(routesPath, './default.ts')], routesPath);
+        const route = importRoutes([{ handler: join(routesPath, './default.ts') }], routesPath);
         expect(route.length).toBe(1);
       });
     });
@@ -28,7 +28,7 @@ describe('utils', () => {
     describe('with an invalid route', () => {
       it('throws', async () => {
         expect.assertions(1);
-        expect(() => importRoutes([join(routesPath, './throw.ts')], routesPath)).toThrow('error');
+        expect(() => importRoutes([{ handler: join(routesPath, './throw.ts') }], routesPath)).toThrow('error');
       });
     });
 
@@ -36,7 +36,7 @@ describe('utils', () => {
     describe('with safe mode', () => {
       it('returns a single route containing the youch error page', async () => {
         expect.assertions(5);
-        const routes = importRoutes([join(routesPath, './youch.ts')], routesPath, true);
+        const routes = importRoutes([{ handler: join(routesPath, './youch.ts') }], routesPath, true);
         expect(routes.length).toBe(1);
         expect(Object.keys(routes[0]).sort()).toEqual(['handler', 'method', 'path'].sort());
 

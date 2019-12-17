@@ -81,9 +81,10 @@ const handle = async (argv: Args): Promise<void> => {
     watcher.on('change', (p: string): void => {
       logger.hmr(`swapping out ${chalk.yellow(relative(cwd, p))}`);
       app.router.reset();
-      const files: string[] = findRoutes(routesPath);
+      decache(join(routesPath, '../', 'routes.js'));
+      const files: any[] = findRoutes(routesPath);
       files.forEach((f): void => {
-        decache(f);
+        decache(f.handler);
       });
       const routeObjs = importRoutes(files, routesPath, true);
       routeObjs.forEach((route: Route): void => {

@@ -7,22 +7,23 @@ import forTerminal from 'youch-terminal';
 import RouteType from '../types/route';
 import { route } from '../index';
 
-export default (routes: string[], routesPath: string, safe: boolean = false): RouteType[] => {
+export default (routes: any[], routesPath: string, safe: boolean = false): RouteType[] => {
   let results: RouteType[] = [];
 
   try {
-    results = routes.map((r: string): RouteType => {
+    results = routes.map((r: any): RouteType => {
       let handler;
-        handler = require(r); // eslint-disable-line
+      handler = require(r.handler); // eslint-disable-line
       if (handler.default) {
         handler = handler.default;
       }
 
-      const path = relative(routesPath, r);
+      const path = r.path || relative(routesPath, r.handler);
+      const method = r.method || METHODS;
 
       return {
-        file: r,
-        method: METHODS,
+        file: r.handler,
+        method,
         handler,
         path,
       };
