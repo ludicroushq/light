@@ -35,8 +35,9 @@ const app = ({
   });
 
   let routeObjs: RouteType[] = [];
+
   if (typeof routes === 'string') {
-    const files: string[] = findRoutes(routes);
+    const files: any[] = findRoutes(routes);
     routeObjs = importRoutes(files, routes);
   } else {
     routeObjs = routes;

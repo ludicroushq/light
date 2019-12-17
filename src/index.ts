@@ -9,6 +9,7 @@ export { default as params } from './params';
 export { default as query } from './query';
 export { default as test } from './test';
 export { default as route } from './route';
+export { default as router } from './router';
 export { default as global } from './global';
 export {
   buffer,
