@@ -21,8 +21,12 @@ export default (): any => {
 
     METHODS.forEach((method: string): void => {
       const name = camelCase(method);
-      obj[name] = (rawPath: string, handler: string): void => {
-        const path = join('/', namespace, rawPath);
+      obj[name] = (rawPath: string | string[], handler: string): void => {
+        let path: any = rawPath;
+        if (typeof rawPath === 'string') {
+          path = [path];
+        }
+        path = path.map((r: string): string => join('/', namespace, r));
         _routes.push({
           method,
           path,
