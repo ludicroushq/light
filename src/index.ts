@@ -4,7 +4,6 @@
 // exports = light.default;
 // export { default, default as light } from './light';
 
-// TODO: Ensure micro and micro boom are updated
 export { default as server } from './server';
 export { default as params } from './params';
 export { default as query } from './query';
