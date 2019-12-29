@@ -1,3 +1,4 @@
+// TODO: properly take into account the routes folder
 import { existsSync } from 'fs';
 import { join } from 'path';
 

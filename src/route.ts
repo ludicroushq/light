@@ -9,6 +9,9 @@ import forTerminal from 'youch-terminal';
 
 import pinoPretty from './helpers/pino-pretty';
 
+// TODO: clean up interfaces
+// TODO: abstract out more stuff
+
 type IM = IncomingMessage;
 type SR = ServerResponse;
 type AP = Promise<any>;

@@ -1,6 +1,7 @@
 import listen from 'test-listen';
 import { server } from './index';
 
+// TODO: redo with hooks
 // TODO: support multiple routes with a given route object
 export default async (route: any, opts?: any): Promise<any> => {
   // generate a server with only the route provided

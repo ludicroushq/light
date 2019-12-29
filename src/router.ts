@@ -2,6 +2,8 @@ import { METHODS } from 'http';
 import join from 'url-join';
 import camelCase from 'lodash.camelcase';
 
+// TODO: clean up interfaces
+// TODO: write tests
 interface RouterRouteType {
   method: string;
   path: string;

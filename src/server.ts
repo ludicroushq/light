@@ -8,6 +8,8 @@ import importRoutes from './utils/import-routes';
 import addRoute from './utils/add-route';
 import glob from './global';
 
+// TODO: move interfaces to global file
+// TODO: clean up
 interface Light {
   server: Server;
   router: any;
