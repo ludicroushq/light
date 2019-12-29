@@ -4,14 +4,18 @@ import { relative } from 'path';
 import Youch from 'youch';
 import forTerminal from 'youch-terminal';
 
-import RouteType from '../types/route';
+import { RouteObject } from '../types/route';
 import { route } from '../index';
 
-export default (routes: any[], routesPath: string, safe: boolean = false): RouteType[] => {
-  let results: RouteType[] = [];
+export default (
+  routes: RouteObject[],
+  routesPath: string,
+  safe: boolean = false,
+): RouteObject[] => {
+  let results: RouteObject[] = [];
 
   try {
-    results = routes.map((r: any): RouteType => {
+    results = routes.map((r: any): RouteObject => {
       let handler;
       handler = require(r.handler); // eslint-disable-line
       if (handler.default) {

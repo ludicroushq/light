@@ -1,45 +1,41 @@
 import micro from 'micro';
 import Router from 'find-my-way';
-import { IncomingMessage, ServerResponse, Server } from 'http';
+
+import { IM, SR } from './types/http';
+import { LightServer } from './types/server';
+import { RouteObject, Options } from './types/route';
 
 import findRoutes from './utils/find-routes';
-import RouteType from './types/route';
 import importRoutes from './utils/import-routes';
 import addRoute from './utils/add-route';
-import glob from './global';
-
-// TODO: move interfaces to global file
-// TODO: clean up
-interface Light {
-  server: Server;
-  router: any;
-}
-
-type IM = IncomingMessage;
-type SR = ServerResponse;
+import globalRegister from './global';
 
 // TODO: change opts type to the Options type in route.ts
-const app = ({
+
+export default ({
   routes,
   opts,
 }: {
-  routes: string | RouteType[];
-  opts?: any;
-}): Light => {
-  const g = glob();
+  routes: string | RouteObject[]; // TODO: check this
+  opts?: Options;
+}): LightServer => {
+  // register global variables
+  const g = globalRegister();
   (global as any).light = g;
+
+  // create find-my-way router with default 404 handler
   const router = Router({
     ignoreTrailingSlash: true,
-    defaultRoute: (req: IncomingMessage, res: ServerResponse): void => {
+    defaultRoute: (_: IM, res: SR): void => {
       res.statusCode = 404;
       res.end('Not Found');
     },
   });
 
-  let routeObjs: RouteType[] = [];
+  let routeObjs: RouteObject[] = [];
 
   if (typeof routes === 'string') {
-    const files: any[] = findRoutes(routes);
+    const files: RouteObject[] = findRoutes(routes);
     routeObjs = importRoutes(files, routes);
   } else {
     routeObjs = routes;
@@ -47,7 +43,7 @@ const app = ({
 
   const server = micro(async (req: IM, res: SR): Promise<any> => router.lookup(req, res));
 
-  routeObjs.forEach((route: RouteType): void => {
+  routeObjs.forEach((route: RouteObject): void => {
     addRoute(router, route, opts);
   });
 
@@ -56,5 +52,3 @@ const app = ({
     server,
   };
 };
-
-export default app;

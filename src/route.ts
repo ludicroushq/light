@@ -1,4 +1,3 @@
-import { IncomingMessage, ServerResponse } from 'http';
 import AWSServerlessMicro from 'aws-serverless-micro';
 import { run } from 'micro';
 import { handleErrors } from 'micro-boom';
@@ -7,26 +6,12 @@ import pinoHTTP from 'pino-http';
 import Youch from 'youch';
 import forTerminal from 'youch-terminal';
 
+import { IM, SR, AP } from './types/http';
+import { Options, Route } from './types/route';
+
 import pinoPretty from './helpers/pino-pretty';
 
-// TODO: clean up interfaces
 // TODO: abstract out more stuff
-
-type IM = IncomingMessage;
-type SR = ServerResponse;
-type AP = Promise<any>;
-
-interface Route {
-  handler: (fn: (req: IM, res: SR) => {} | any) => (req: IM, res: SR) => {};
-  middleware: (fn: any) => void;
-  plugin: (fn: any) => void;
-}
-
-interface Options {
-  dev?: boolean;
-  requestLogger?: boolean;
-  errorHandler?: boolean;
-}
 
 const { LIGHT_ENV } = process.env;
 
