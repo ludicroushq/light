@@ -15,6 +15,14 @@ interface Options {
   errorHandler?: boolean;
 }
 
+interface TestOptions {
+  dev?: boolean;
+  requestLogger?: boolean;
+  errorHandler?: boolean;
+  method?: string | string[];
+  path?: string | string[];
+}
+
 interface Route {
   handler: (fn: (req: IM, res: SR) => {} | any) => (req: IM, res: SR) => {};
   middleware: (fn: any) => void;
@@ -24,5 +32,6 @@ interface Route {
 export {
   RouteObject,
   Options,
+  TestOptions,
   Route
 };

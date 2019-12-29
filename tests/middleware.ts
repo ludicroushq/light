@@ -5,14 +5,16 @@ import {
 } from '../src/index';
 
 let mw: any = () => {};
-let server: any;
 
+let server: any;
+let url: string;
 beforeEach(async () => {
   const { handler, middleware } = route();
   middleware(mw);
-  server = await test(handler((req: any): any => ({
+  server = test(handler((req: any): any => ({
     hello: req.message,
   })));
+  url = await server.listen();
 });
 
 afterEach(async () => {
@@ -27,7 +29,7 @@ describe('middleware', () => {
 
     it('returns data from a middleware', async () => {
       expect.assertions(2);
-      const req = await fetch(server.url);
+      const req = await fetch(url);
       const res = await req.json();
       expect(req.status).toStrictEqual(200);
       expect(res).toMatchObject({ hello: 'passed a message' });
@@ -41,7 +43,7 @@ describe('middleware', () => {
 
     it('returns early from a middleware', async () => {
       expect.assertions(2);
-      const req = await fetch(server.url);
+      const req = await fetch(url);
       const res = await req.text();
       expect(req.status).toStrictEqual(200);
       expect(res).toBe('middleware!!!');

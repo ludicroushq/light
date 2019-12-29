@@ -7,10 +7,12 @@ import {
 let server: any;
 let errorHandler = true;
 let error: any = () => {};
+let url: string;
 
 beforeEach(async () => {
   const { handler } = route();
-  server = await test(handler(() => error()), { errorHandler });
+  server = test(handler(() => error()), { errorHandler });
+  url = await server.listen();
 });
 
 afterEach(async () => {
@@ -27,7 +29,7 @@ describe('plugins', () => {
       it('returns a 500 error', async () => {
         expect.assertions(3);
         const spy = jest.spyOn(process.stdout, 'write').mockImplementation();
-        const req = await fetch(server.url);
+        const req = await fetch(url);
         const res = await req.json();
         expect(req.status).toStrictEqual(500);
         expect(res).toMatchObject({
@@ -48,7 +50,7 @@ describe('plugins', () => {
       it('returns a 500 error', async () => {
         expect.assertions(3);
         const spy = jest.spyOn(process.stdout, 'write').mockImplementation();
-        const req = await fetch(server.url);
+        const req = await fetch(url);
         const res = await req.json();
         expect(req.status).toStrictEqual(400);
         expect(res).toMatchObject({
@@ -70,7 +72,7 @@ describe('plugins', () => {
       it('returns an internal server error in text', async () => {
         expect.assertions(2);
         const spy = jest.spyOn(console, 'error').mockImplementation();
-        const req = await fetch(server.url);
+        const req = await fetch(url);
         const res = await req.text();
         expect(req.status).toStrictEqual(500);
         expect(res).toBe('Internal Server Error');

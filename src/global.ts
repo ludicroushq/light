@@ -1,4 +1,4 @@
-// TODO: properly take into account the routes folder
+// TODO: properly take into account the src folder
 import { existsSync } from 'fs';
 import { join } from 'path';
 

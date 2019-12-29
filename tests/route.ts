@@ -5,23 +5,23 @@ import { test, route } from '../src/index';
 let handler: any = (): any => ({
   hello: 'world',
 });
+const { handler: fn } = route();
+const { listen, close } = test(fn(handler));
 
-let server: any;
-
+let url: any;
 beforeEach(async () => {
-  const { handler: fn } = route();
-  server = await test(fn(handler));
+  url = await listen();
 });
 
 afterEach(async () => {
-  server.close();
+  close();
 });
 
 describe('route', () => {
   describe('with regular function', () => {
     it('returns object properly', async () => {
       expect.assertions(2);
-      const req = await fetch(server.url);
+      const req = await fetch(url);
       const res = await req.json();
       expect(req.status).toStrictEqual(200);
       expect(res).toMatchObject({ hello: 'world' });
@@ -38,7 +38,7 @@ describe('route', () => {
 
       it('returns object properly', async () => {
         expect.assertions(2);
-        const req = await fetch(server.url);
+        const req = await fetch(url);
         const res = await req.json();
         expect(req.status).toStrictEqual(200);
         expect(res).toMatchObject({ hello: 'world' });

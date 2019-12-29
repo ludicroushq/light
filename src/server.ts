@@ -10,13 +10,11 @@ import importRoutes from './utils/import-routes';
 import addRoute from './utils/add-route';
 import globalRegister from './global';
 
-// TODO: change opts type to the Options type in route.ts
-
 export default ({
   routes,
   opts,
 }: {
-  routes: string | RouteObject[]; // TODO: check this
+  routes: string | RouteObject[];
   opts?: Options;
 }): LightServer => {
   // register global variables

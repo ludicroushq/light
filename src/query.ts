@@ -1,6 +1,5 @@
 import { URL } from 'url';
 
-// TODO: ensure tests cover this
 export default async (url: string): Promise<any> => {
   const { searchParams } = new URL(url, 'http://localhost');
 

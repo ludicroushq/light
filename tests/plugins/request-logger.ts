@@ -2,20 +2,21 @@ import fetch from 'node-fetch';
 
 import { test, route } from '../../src/index';
 
-let server: any;
+const { handler } = route();
+const { listen, close } = test(handler(() => ({
+  hello: 'world',
+})), {
+  dev: false,
+  requestLogger: true,
+});
+let url: string;
 
 beforeEach(async () => {
-  const { handler } = route();
-  server = await test(handler(() => ({
-    hello: 'world',
-  })), {
-    dev: false,
-    requestLogger: true,
-  });
+  url = await listen();
 });
 
 afterEach(async () => {
-  server.close();
+  close();
 });
 
 describe('plugins', () => {
@@ -24,7 +25,7 @@ describe('plugins', () => {
       it('logs', async () => {
         expect.assertions(6);
         const spy = jest.spyOn(process.stdout, 'write').mockImplementation();
-        const req = await fetch(server.url);
+        const req = await fetch(url);
         const res = await req.json();
         expect(req.status).toStrictEqual(200);
         expect(res).toMatchObject({ hello: 'world' });
