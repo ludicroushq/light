@@ -26,7 +26,9 @@ export default (routesPath: string): RouteObject[] => {
   const routes: string[] = [];
   const addRoutes = (path: any): number => {
     const files: string[] = glob(join('/', path), '**/*.{js,ts}');
-    return routes.push(...files);
+    const filteredFiles = files.filter((x: string): boolean => !x.includes('__tests__'));
+    console.log(filteredFiles)
+    return routes.push(...filteredFiles);
   };
 
   addRoutes(routesPath);
