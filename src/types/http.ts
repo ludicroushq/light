@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { IncomingMessage, ServerResponse, Server } from 'http';
 
 type IM = IncomingMessage;

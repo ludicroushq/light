@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { IM, SR } from './http';
 
 // the route definition that will be ingested
@@ -33,5 +34,5 @@ export {
   RouteObject,
   Options,
   TestOptions,
-  Route
+  Route,
 };

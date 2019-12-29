@@ -8,7 +8,7 @@ import {
 const { handler } = route();
 const { listen, close } = test(handler(() => ({
   hello: 'world',
-})))
+})));
 
 let url: any;
 beforeEach(async () => {
