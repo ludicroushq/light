@@ -13,6 +13,7 @@ export default (router: any, route: RouteObject, opts?: Options): void => {
     endpoint.path = [endpoint.path];
   }
 
+  /* istanbul ignore next */
   endpoint.path = (endpoint.path || []).map((p: string): string => {
     const { name, dir } = parse(p);
     return join('/', dir, name);

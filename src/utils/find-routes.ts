@@ -12,11 +12,18 @@ import glob from './glob';
  */
 export default (routesPath: string): RouteObject[] => {
   // try to find the routes file
-  const routesFilePath = join(routesPath, '../', 'routes.js');
+  const routesFilePathJS = join(routesPath, '../', 'routes.js');
+  const routesFilePathTS = join(routesPath, '../', 'routes.ts');
 
   // if it exists then use the routes from there
-  if (existsSync(routesFilePath)) {
-    const routerRoutes = require(routesFilePath) || []; // eslint-disable-line
+  if (existsSync(routesFilePathJS) || existsSync(routesFilePathTS)) {
+    let routerRoutes;
+    /* istanbul ignore next */
+    if (existsSync(routesFilePathJS)) {
+      routerRoutes = require(routesFilePathJS) || []; // eslint-disable-line
+    } else {
+      routerRoutes = require(routesFilePathTS) || []; // eslint-disable-line
+    }
     const mappedRoutes = routerRoutes.map((r: any): any => ({
       ...r,
       handler: join(routesPath, r.handler),

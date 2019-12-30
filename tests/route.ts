@@ -5,16 +5,17 @@ import { test, route } from '../src/index';
 let handler: any = (): any => ({
   hello: 'world',
 });
-const { handler: fn } = route();
-const { listen, close } = test(fn(handler));
 
 let url: any;
+let server: any;
 beforeEach(async () => {
-  url = await listen();
+  const { handler: fn } = route();
+  server = test(fn(handler));
+  url = await server.listen();
 });
 
 afterEach(async () => {
-  close();
+  server.close();
 });
 
 describe('route', () => {
