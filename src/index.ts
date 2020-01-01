@@ -5,6 +5,7 @@
 // export { default, default as light } from './light';
 
 export { default as server } from './server';
+export { default as model } from './model';
 export { default as params } from './params';
 export { default as query } from './query';
 export { default as test } from './test';
