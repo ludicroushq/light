@@ -34,19 +34,19 @@
   * [Coming soon](guides/deployments/azure.md)
   * [netlify](guides/deployments/netlify.md)
 
-## docs
+## api
 
-* [boom](docs/boom/README.md)
-  * [Coming soon](docs/boom/create-error.md)
-* [server\({ routes, opts }\): object](docs/server.md)
-* [params\(path, url\): Promise&lt;object&gt;](docs/params.md)
-* [micro](docs/micro/README.md)
-  * [Coming soon](docs/micro/send-error.md)
-  * [Coming soon](docs/micro/buffer.md)
-  * [Coming soon](docs/micro/text.md)
-  * [Coming soon](docs/micro/run.md)
-  * [Coming soon](docs/micro/send.md)
-  * [Coming soon](docs/micro/json.md)
-* [Coming soon](docs/light.md)
-* [Untitled](docs/untitled.md)
+* [boom](api/boom/README.md)
+  * [Coming soon](api/boom/create-error.md)
+* [server\({ routes, opts }\): object](api/server.md)
+* [params\(path, url\): Promise&lt;object&gt;](api/params.md)
+* [micro](api/micro/README.md)
+  * [Coming soon](api/micro/send-error.md)
+  * [Coming soon](api/micro/buffer.md)
+  * [Coming soon](api/micro/text.md)
+  * [Coming soon](api/micro/run.md)
+  * [Coming soon](api/micro/send.md)
+  * [Coming soon](api/micro/json.md)
+* [Coming soon](api/light.md)
+* [Untitled](api/untitled.md)
 
