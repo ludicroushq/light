@@ -1,0 +1,52 @@
+# Table of contents
+
+* [light](README.md)
+
+## guides <a id="guides-1"></a>
+
+* [plugins](guides-1/plugins.md)
+* [middleware](guides-1/middleware.md)
+* [routing](guides-1/routing.md)
+* [query](guides-1/query.md)
+* [testing](guides-1/testing/README.md)
+  * [ava](guides-1/testing/ava.md)
+  * [jest](guides-1/testing/jest.md)
+* [server-vs-serverless](guides-1/server-vs-serverless.md)
+* [misc](guides-1/misc/README.md)
+  * [apollo](guides-1/misc/apollo.md)
+* [global](guides-1/global.md)
+* [methods](guides-1/methods.md)
+* [databases](guides-1/databases/README.md)
+  * [Coming soon](guides-1/databases/mongoose.md)
+  * [objection](guides-1/databases/objection.md)
+* [params](guides-1/params.md)
+* [hot-module-reloading](guides-1/hot-module-reloading.md)
+* [Setup](guides-1/getting-started.md)
+* [error-handling](guides-1/error-handling.md)
+* [routes](guides-1/routes.md)
+* [deployments](guides-1/deployments/README.md)
+  * [runkit](guides-1/deployments/runkit.md)
+  * [Coming soon](guides-1/deployments/aws.md)
+  * [now](guides-1/deployments/now.md)
+  * [heroku](guides-1/deployments/heroku.md)
+  * [server](guides-1/deployments/server.md)
+  * [Coming soon](guides-1/deployments/google-cloud.md)
+  * [Coming soon](guides-1/deployments/azure.md)
+  * [netlify](guides-1/deployments/netlify.md)
+
+## docs <a id="docs-1"></a>
+
+* [boom](docs-1/boom/README.md)
+  * [Coming soon](docs-1/boom/create-error.md)
+* [server\({ routes, opts }\): object](docs-1/server.md)
+* [params\(path, url\): Promise&lt;object&gt;](docs-1/params.md)
+* [micro](docs-1/micro/README.md)
+  * [Coming soon](docs-1/micro/send-error.md)
+  * [Coming soon](docs-1/micro/buffer.md)
+  * [Coming soon](docs-1/micro/text.md)
+  * [Coming soon](docs-1/micro/run.md)
+  * [Coming soon](docs-1/micro/send.md)
+  * [Coming soon](docs-1/micro/json.md)
+* [Coming soon](docs-1/light.md)
+* [Untitled](docs-1/untitled.md)
+
