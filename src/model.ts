@@ -1,22 +1,22 @@
-interface ModelOptions {
-  name?: string;
-}
-
 interface Model {
   _name?: string;
   model: any;
   [key: string]: any;
 }
 
-export default (fn: any, opts: ModelOptions = {}): Model => {
-  const model = fn();
-  const { name } = opts;
+export default (name: string): any => {
+  return {
+    handler(modelFn: any): Model {
+      const model = modelFn();
 
-  const returnOBJ: Model = {
-    _name: name,
-    model,
+      const returnOBJ: Model = {
+        _name: name,
+        model,
+      };
+
+      if (name) returnOBJ[name] = model;
+
+      return returnOBJ;
+    },
   };
-  if (name) returnOBJ[name] = model;
-
-  return returnOBJ;
 };
