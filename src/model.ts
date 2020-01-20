@@ -4,19 +4,17 @@ interface Model {
   [key: string]: any;
 }
 
-export default (name: string): any => {
-  return {
-    handler(modelFn: any): Model {
-      const model = modelFn();
+export default (name: string): any => ({
+  handler(modelFn: any): Model {
+    const model = modelFn();
 
-      const returnOBJ: Model = {
-        _name: name,
-        model,
-      };
+    const returnOBJ: Model = {
+      _name: name,
+      model,
+    };
 
-      if (name) returnOBJ[name] = model;
+    if (name) returnOBJ[name] = model;
 
-      return returnOBJ;
-    },
-  };
-};
+    return returnOBJ;
+  },
+});
