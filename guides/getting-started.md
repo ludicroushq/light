@@ -3,7 +3,7 @@ title: getting started
 subtitle: a quick guide on how to start with light
 ---
 
-# Setup
+# getting started
 
 ## Prerequisites
 
