@@ -2,15 +2,14 @@ import { METHODS } from 'http';
 import join from 'url-join';
 import camelCase from 'lodash.camelcase';
 
-interface RouterRouteType {
-  method: string;
-  path: string;
-  handler: string;
-}
+import { RouteObject } from './types/route';
+
+// TODO: clean up interfaces
+// TODO: write tests
 
 export default (): any => {
   // closures
-  const _routes: RouterRouteType[] = [];
+  const _routes: RouteObject[] = [];
 
   const getRouterObj = (namespace: string): any => {
     const obj: any = {
@@ -19,7 +18,7 @@ export default (): any => {
       },
     };
 
-    METHODS.forEach((method: string): void => {
+    [...METHODS, 'all'].forEach((method: string): void => {
       const name = camelCase(method);
       obj[name] = (rawPath: string | string[], handler: string): void => {
         let path: any = rawPath;
@@ -28,7 +27,7 @@ export default (): any => {
         }
         path = path.map((r: string): string => join('/', namespace, r));
         _routes.push({
-          method,
+          method: (method === 'all') ? METHODS : method,
           path,
           handler: join('/', handler),
         });

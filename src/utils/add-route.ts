@@ -1,20 +1,20 @@
 import { join, parse } from 'path';
-import { IncomingMessage, ServerResponse } from 'http';
+import { IM, SR, AP } from '../types/http';
 
-import Route from '../types/route';
+import { RouteObject, Options } from '../types/route';
 
-type IM = IncomingMessage;
-type SR = ServerResponse;
-type AP = Promise<any>;
-
-export default (router: any, route: Route, opts?: any): void => {
+/**
+ * adds route to the router
+ */
+export default (router: any, route: RouteObject, opts?: Options): void => {
   const endpoint = route;
 
   if (typeof endpoint.path === 'string') {
     endpoint.path = [endpoint.path];
   }
 
-  endpoint.path = endpoint.path.map((p: string): string => {
+  /* istanbul ignore next */
+  endpoint.path = (endpoint.path || []).map((p: string): string => {
     const { name, dir } = parse(p);
     return join('/', dir, name);
   });

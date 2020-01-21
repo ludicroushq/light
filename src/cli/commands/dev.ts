@@ -5,7 +5,7 @@ import chalk from 'chalk';
 import decache from 'decache';
 
 import logger from '../../utils/logger';
-import Route from '../../types/route';
+import { RouteObject } from '../../types/route';
 import { server } from '../../index';
 import findRoutes from '../../utils/find-routes';
 import addRoute from '../../utils/add-route';
@@ -46,7 +46,7 @@ const handle = async (argv: Args): Promise<void> => {
   const routesPath = join(cwd, './routes');
 
   const opts = {
-    isDev: true,
+    dev: true,
   };
 
   const app = server({
@@ -87,7 +87,7 @@ const handle = async (argv: Args): Promise<void> => {
         decache(f.handler);
       });
       const routeObjs = importRoutes(files, routesPath, true);
-      routeObjs.forEach((route: Route): void => {
+      routeObjs.forEach((route: RouteObject): void => {
         addRoute(app.router, route, opts);
       });
     });

@@ -1,8 +1,11 @@
 import listen from 'test-listen';
+import { METHODS } from 'http';
+
+import { TestOptions } from './types/route';
+
 import { server } from './index';
 
-// TODO: support multiple routes with a given route object
-export default async (route: any, opts?: any): Promise<any> => {
+export default (route: any, opts?: TestOptions): any => {
   // generate a server with only the route provided
   const options = {
     requestLogger: false,
@@ -14,20 +17,20 @@ export default async (route: any, opts?: any): Promise<any> => {
     routes: [
       {
         handler: async (req: any, res: any): Promise<any> => route(req, res, options),
-        method: 'GET',
-        path: '/',
+        method: options.method || METHODS,
+        path: options.path || '/',
       },
     ],
   });
-
-  const url = await listen(app.server);
+  const srvr = app.server;
 
   return {
-    url,
-    app,
-    server: app.server,
-    close(): void {
-      this.server.close();
+    async listen(): Promise<string> {
+      return listen(srvr);
+    },
+
+    close(): any {
+      srvr.close();
     },
   };
 };

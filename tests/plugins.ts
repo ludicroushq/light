@@ -4,13 +4,15 @@ import { test, route } from '../src/index';
 
 let plug: any = () => {};
 let server: any;
+let url: string;
 
 beforeEach(async () => {
   const { handler, plugin } = route();
   plugin(plug);
-  server = await test(handler((req: any) => ({
+  server = test(handler((req: any) => ({
     hello: req.message,
   })));
+  url = await server.listen();
 });
 
 afterEach(async () => {
@@ -27,7 +29,7 @@ describe('plugins', () => {
 
   it('returns data from a plugin', async () => {
     expect.assertions(2);
-    const req = await fetch(server.url);
+    const req = await fetch(url);
     const res = await req.json();
     expect(req.status).toStrictEqual(200);
     expect(res).toMatchObject({ hello: 'plugin!!!' });

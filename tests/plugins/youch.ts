@@ -2,19 +2,20 @@ import fetch from 'node-fetch';
 
 import { test, route } from '../../src/index';
 
-let server: any;
+const { handler } = route();
+const { listen, close } = test(handler(() => {
+  throw new Error('hi');
+}), {
+  dev: true,
+});
+let url: any;
 
 beforeEach(async () => {
-  const { handler } = route();
-  server = await test(handler(() => {
-    throw new Error('hi');
-  }), {
-    dev: true,
-  });
+  url = await listen();
 });
 
 afterEach(async () => {
-  server.close();
+  close();
 });
 
 describe('plugins', () => {
@@ -23,7 +24,7 @@ describe('plugins', () => {
       it('youches the error', async () => {
         expect.assertions(3);
         const spy = jest.spyOn(console, 'log').mockImplementation();
-        const req = await fetch(server.url);
+        const req = await fetch(url);
         const res = await req.text();
         expect(req.status).toStrictEqual(200);
         expect(res).toContain('html');
