@@ -19,5 +19,5 @@ export default (name: string): any => {
 
       return returnOBJ;
     },
-  }
+  };
 };

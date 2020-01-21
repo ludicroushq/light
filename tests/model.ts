@@ -7,12 +7,12 @@ describe('model', () => {
 
     it('exports model', async () => {
       expect.assertions(1);
-      expect(test.model).toMatchObject({ hello: 'world' })
+      expect(test.model).toMatchObject({ hello: 'world' });
     });
 
     it('exports named model', async () => {
       expect.assertions(1);
-      expect(test.Test).toMatchObject({ hello: 'world' })
+      expect(test.Test).toMatchObject({ hello: 'world' });
     });
 
     it('has a name', async () => {
