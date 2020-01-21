@@ -3,6 +3,8 @@ title: jest
 subtitle: use one of the most popular testing frameworks with light
 ---
 
+# jest
+
 ## Introduction
 
 Jest is now one of the most popular testing frameworks out there. Light has a built in `test` function that can be used to build and test individual routes very easily.
@@ -40,3 +42,4 @@ describe('index', () => {
 ```
 
 You will need the `node-fetch` dependency to actually make the requests to the server, but you may swap it out with any other similar library. The `test` function takes in a route and boots up a server, returning an object with a `url` property and a `close` function. The `beforeAll` and `afterAll` functions will boot up the server for the tests and if you need to reset the server between every test, you can change them to `beforeEach` and `afterEach`. Finally, inside the test you can do anything you will like with the `server.url`. Keep in mind that whatever route is passed becomes mapped to `/` and does not follow the routes defined in `routes.js`.
+

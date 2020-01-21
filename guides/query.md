@@ -3,6 +3,8 @@ title: query
 subtitle: use the query function to parse query parameters
 ---
 
+# query
+
 ## Introduction
 
 The query function is just a helper function to help extract query parameters from URLs. It uses the WHATWG URL API under the hood to extract the query parameters and convert it from a [URLSearchParams](https://nodejs.org/api/url.html#url_class_urlsearchparams) to a JSON object.
@@ -30,7 +32,7 @@ module.exports = handler(((req, res) => {
 
 After starting the dev server, you can make a request to [localhost:3000/?id=123&name=light](http://localhost:3000/?id=123&name=light) and expect a response of
 
-```json
+```javascript
 {
   "id": "123",
   "name": "light"
@@ -38,3 +40,4 @@ After starting the dev server, you can make a request to [localhost:3000/?id=123
 ```
 
 Note that by default all query parameters are strings, and you will need to cast them as necessary.
+

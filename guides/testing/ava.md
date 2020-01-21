@@ -1,7 +1,9 @@
 ---
 title: ava
-subtitle: use ava, a fast and async testing framework with light
+subtitle: 'use ava, a fast and async testing framework with light'
 ---
+
+# ava
 
 ## Introduction
 
@@ -38,3 +40,4 @@ test('index responds with JSON', async t => {
 ```
 
 You will need the `node-fetch` dependency to actually make the requests to the server, but you may swap it out with any other similar library. The `test` function takes in a route and boots up a server, returning an object with a `url` property and a `close` function. The `before` and `after` functions will boot up the server for the tests. Finally, inside the test you can do anything you will like with the `server.url`. Keep in mind that whatever route is passed becomes mapped to `/` and does not follow the routes defined in `routes.js`. Additionally, destructuring `test` from the `light` variable will not work.
+

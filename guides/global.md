@@ -3,6 +3,8 @@ title: global
 subtitle: use the global function to share global values such as a logger
 ---
 
+# global
+
 ## Introduction
 
 The global function is a way to share global values such as a logger, metrics, or even middleware and access them in all of your files without having to manually import them.
@@ -51,3 +53,4 @@ module.exports = handler(() => {
   };
 });
 ```
+

@@ -3,15 +3,17 @@ title: hot module reloading
 subtitle: the benefits and drawbacks of hot module reloading
 ---
 
+# hot-module-reloading
+
 ## Introduction
 
-Hot Module Reloading (HMR) is not a new concept for JavaScript! However, it is almost exclusively done in the front-end with React and Vue. Using similar techniques, we can finally update our server without having to restart the whole program (like in Ruby on Rails, Phoenix, etc).
+Hot Module Reloading \(HMR\) is not a new concept for JavaScript! However, it is almost exclusively done in the front-end with React and Vue. Using similar techniques, we can finally update our server without having to restart the whole program \(like in Ruby on Rails, Phoenix, etc\).
 
 ## Why?
 
 HMR is extremely useful when working with big programs. If you use tools like nodemon, anytime you make a change, your server will restart. This means that your server will re-connect to the database, re-connect to key-value stores, re-compile templates, and re-load every single route... This can take up to 3-5 seconds, every single time you make a change, so you will probably be very familiar with this page:
 
-![connection refused](/static/images/screenshots/hmr/connection-refused.png)
+![connection refused](https://github.com/ludicrousxyz/light/tree/207804d2e826e1f45ff0c63ba7b17f61c563bd82/static/images/screenshots/hmr/connection-refused.png)
 
 With HMR all of those problems will go away. Some times you will have restart manually but it is very rare.
 
@@ -22,3 +24,4 @@ The reason many avoid HMR in node is because it is known to cause memory leaks. 
 ## Usage
 
 Simply run `light dev` to start a server with HMR. Any time you change a file, it will be hot swapped.
+

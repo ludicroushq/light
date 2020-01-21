@@ -3,9 +3,11 @@ title: setting up knex and objection
 subtitle: easily connect and use your postgres database with knex and objection
 ---
 
+# objection/knex
+
 ## Installation
 
-To get started, install knex and objection and the database driver of your choice (in our case, Postgres)
+To get started, install knex and objection and the database driver of your choice \(in our case, Postgres\)
 
 ```bash
 $ npm install knex objection pg
@@ -15,7 +17,7 @@ $ npm install knex objection pg
 
 Then, initialize knex.js by running `./node_modules/.bin/knex init`. Here is what we recommend but you can do whatever you would like since light doesn't enforce any sort of configuration. **Be sure to replace `my-project` with your local database name**
 
-```js
+```javascript
 module.exports = {
   development: {
     client: 'postgresql',
@@ -71,13 +73,13 @@ module.exports = {
 };
 ```
 
-Then, you want to make sure to create the following folders so that knex is able to find them (assuming you use the config above): `db/migrations`, `db/seeds`.
+Then, you want to make sure to create the following folders so that knex is able to find them \(assuming you use the config above\): `db/migrations`, `db/seeds`.
 
 ## Starting a connection
 
 Once you have the connection set up, we want to make sure to connect to the database on start-up. Create a `models/index.js` file and populate it with the following.
 
-```js
+```javascript
 const { Model } = require('objection');
 const Knex = require('knex');
 const config = require('../../knexfile');
@@ -105,7 +107,7 @@ $ knex migrate:make create_users
 
 It should create a file in the `db/migrations` folder. Populate that with something like the following:
 
-```js
+```javascript
 exports.up = async (knex) => {
   await knex.raw('create extension if not exists "uuid-ossp"');
   return knex.schema.createTable('users', (table) => {
@@ -137,7 +139,7 @@ $ knex migrate:latest
 
 In your `models` folder, create a new `User.js` file and populate it with the following.
 
-```js
+```javascript
 const Model = require('./index');
 
 class User extends Model {
@@ -169,3 +171,4 @@ light> await User.query()
 ```
 
 To learn more, please take a look at the [Knex.js](http://knexjs.org/) and [Objection.js](https://vincit.github.io/objection.js/) docs!
+

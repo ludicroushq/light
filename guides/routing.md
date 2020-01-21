@@ -3,7 +3,9 @@ title: routing
 subtitle: how to set up routing (for development and server deployment)
 ---
 
-**Please note that routing is environment specific. The details documented below only apply to [server mode](/guides/server-vs-serverless#server) since serverless environments will have their own custom routing**
+# routing
+
+**Please note that routing is environment specific. The details documented below only apply to** [**server mode**](https://github.com/ludicrousxyz/light/tree/207804d2e826e1f45ff0c63ba7b17f61c563bd82/guides/server-vs-serverless/README.md#server) **since serverless environments will have their own custom routing**
 
 ## Introduction
 
@@ -19,4 +21,5 @@ Coming soon! Please watch this [GitHub issue](https://github.com/ludicrousxyz/li
 
 ## Params
 
-If you want to handle urls with params such as `/posts/:id`, check out the [params guide](/guides/params).
+If you want to handle urls with params such as `/posts/:id`, check out the [params guide](https://github.com/ludicrousxyz/light/tree/207804d2e826e1f45ff0c63ba7b17f61c563bd82/guides/params/README.md).
+

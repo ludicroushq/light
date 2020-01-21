@@ -3,6 +3,8 @@ title: middleware
 subtitle: inject common middleware to share logic between routes
 ---
 
+# middleware
+
 ## Introduction
 
 Middleware is code that is run before a route. It can add things onto the `req` and `res` objects to pass to the main handler or simply return the request early. The idea is very similar to how Express and Koa middleware work **but they are not compatible by default.**
@@ -11,7 +13,7 @@ Middleware is code that is run before a route. It can add things onto the `req` 
 
 A middleware is an async function which accepts the `req`, and `res` objects.
 
-```js
+```javascript
 const { send } = require('light');
 
 const checkAuth = async (req, res) => {
@@ -24,7 +26,7 @@ const checkAuth = async (req, res) => {
 
 To include middleware in your route, simply call the `middleware` function.
 
-```js
+```javascript
 const { route } = require('light');
 
 const { handler, middleware } = route();
@@ -42,3 +44,4 @@ module.exports = handler((req) => {
 ## Express and Koa Support
 
 We are experimenting with adding wrappers to add partial support for Express and Koa! See this [GitHub issue](https://github.com/ludicrousxyz/light/issues/16) for more information.
+
