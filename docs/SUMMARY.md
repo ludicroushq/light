@@ -7,6 +7,7 @@
 * [getting started](guides/getting-started.md)
 * [server-vs-serverless](guides/server-vs-serverless.md)
 * [routes](guides/routes.md)
+* [models](guides/models.md)
 * [routing](guides/routing.md)
 * [plugins](guides/plugins.md)
 * [middleware](guides/middleware.md)
