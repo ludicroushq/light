@@ -7,7 +7,7 @@ subtitle: the differences and pros/cons between the two
 
 ## Introduction
 
-You've probably heard of both of these terms, but what exactly do they mean? And why would I use one over the other? The point of this guide isn't to convince you to use one or the other but just to help you pick. Light supports both methods really well and has been battle tested in both environments.
+You've probably heard of both of these terms, but what exactly do they mean? And why would I use one over the other? The point of this guide isn't to convince you to use one or the other but just to help you pick. **Light supports both methods** really well and has been battle tested in both environments.
 
 ## Server
 

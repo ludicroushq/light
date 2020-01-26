@@ -10,7 +10,6 @@
 * [routing](guides/routing.md)
 * [plugins](guides/plugins.md)
 * [middleware](guides/middleware.md)
-* [methods](guides/methods.md)
 * [query](guides/query.md)
 * [params](guides/params.md)
 * [global](guides/global.md)

@@ -17,7 +17,25 @@ When in server mode, if a `path` is not specified, light will try to guess the r
 
 ## Declarative Routing
 
-Coming soon! Please watch this [GitHub issue](https://github.com/ludicrousxyz/light/issues/25) for updates!
+You may also define a `routes.js` file in the parent directory of `routes` which defines which routes point to which files. Note that if a routes file is found then automatic routing will be completely disabled.
+
+Routes supports all HTTP methods, as well as `namespace` as detailed below. Under the hood we use [find-my-way](https://github.com/delvedor/find-my-way) so you can use dynamic routing in the same way.
+
+```javascript
+const { router } = require('light');
+
+const { route, routes } = router();
+
+route.get('/', 'index');
+route.get('/testing', 'index');
+
+route.namespace('/api', (route) => {
+  // creates a route which points http://localhost:3000/api/index to routes/api/index.js
+  route.get('/index', 'api/index');
+});
+
+module.exports = routes;
+```
 
 ## Params
 
