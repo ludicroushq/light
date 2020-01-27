@@ -8,6 +8,7 @@
 * [server-vs-serverless](guides/server-vs-serverless.md)
 * [routes](guides/routes.md)
 * [models](guides/models.md)
+* [factories](guides/factories.md)
 * [routing](guides/routing.md)
 * [plugins](guides/plugins.md)
 * [middleware](guides/middleware.md)
