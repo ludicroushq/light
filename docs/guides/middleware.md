@@ -43,5 +43,5 @@ module.exports = handler((req) => {
 
 ## Express and Koa Support
 
-We are experimenting with adding wrappers to add partial support for Express and Koa! See this [GitHub issue](https://github.com/ludicrousxyz/light/issues/16) for more information.
+We are experimenting with adding wrappers to add partial support for Express and Koa! See this [GitHub issue](https://github.com/ludicroushq/light/issues/16) for more information.
 

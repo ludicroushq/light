@@ -11,7 +11,7 @@ Error handling is done mostly by throwing a new Error. Each route is wrapped wit
 
 ## Usage
 
-Simply import [`createError`](https://github.com/ludicrousxyz/light/tree/207804d2e826e1f45ff0c63ba7b17f61c563bd82/docs/boom/create-error/README.md) and throw it at any point. createError will create a boom error resulting in a pretty JSON output.
+Simply import [`createError`](https://github.com/ludicroushq/light/tree/207804d2e826e1f45ff0c63ba7b17f61c563bd82/docs/boom/create-error/README.md) and throw it at any point. createError will create a boom error resulting in a pretty JSON output.
 
 ```javascript
 const { route, createError } = require('light');

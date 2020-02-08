@@ -9,7 +9,7 @@ subtitle: easily deploy to zeit's now serverless platform
 
 Now is a new serverless platform provided by ZEIT. Their aim is to make serverless deployments easy and hassle free. Fortunately light works well with Now to make it even easier!
 
-Note that this guide targets their V2 platform and will not work with their older docker system \(see [server](https://github.com/ludicrousxyz/light/tree/207804d2e826e1f45ff0c63ba7b17f61c563bd82/guides/deployments/server/README.md) on how to use server mode\)
+Note that this guide targets their V2 platform and will not work with their older docker system \(see [server](https://github.com/ludicroushq/light/tree/207804d2e826e1f45ff0c63ba7b17f61c563bd82/guides/deployments/server/README.md) on how to use server mode\)
 
 ## Setup
 

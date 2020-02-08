@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ludicrousxyz/light.git"
+    "url": "git+https://github.com/ludicroushq/light.git"
   },
   "keywords": [
     "light",
@@ -22,9 +22,9 @@
   "author": "Manthan Mallikarjun",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ludicrousxyz/light/issues"
+    "url": "https://github.com/ludicroushq/light/issues"
   },
-  "homepage": "https://github.com/ludicrousxyz/light#readme",
+  "homepage": "https://github.com/ludicroushq/light#readme",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.22",
     "@fortawesome/free-solid-svg-icons": "^5.10.2",

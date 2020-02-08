@@ -94,8 +94,8 @@ export default class Index extends React.Component {
           </h2>
           <h2 className="text-xl font-semibold uppercase">framework</h2>
           <div className="pt-12">
-            <a href="https://circleci.com/gh/ludicrousxyz/light" className="inline-block" target="_blank" rel="noopener noreferrer">
-              <img alt="CircleCI" src="https://img.shields.io/circleci/project/github/ludicrousxyz/light.svg?label=ci%20status&style=for-the-badge" />
+            <a href="https://circleci.com/gh/ludicroushq/light" className="inline-block" target="_blank" rel="noopener noreferrer">
+              <img alt="CircleCI" src="https://img.shields.io/circleci/project/github/ludicroushq/light.svg?label=ci%20status&style=for-the-badge" />
             </a>
             &nbsp;&nbsp;
             <a href="https://www.npmjs.com/package/light" className="inline-block" target="_blank" rel="noopener noreferrer">
@@ -106,12 +106,12 @@ export default class Index extends React.Component {
               <img alt="Downloads" src="https://img.shields.io/npm/dm/light.svg?label=downloads&style=for-the-badge" />
             </a>
             &nbsp;&nbsp;
-            <a href="https://github.com/ludicrousxyz/light" className="inline-block" target="_blank" rel="noopener noreferrer">
-              <img alt="Stars" src="https://img.shields.io/github/stars/ludicrousxyz/light.svg?style=for-the-badge" />
+            <a href="https://github.com/ludicroushq/light" className="inline-block" target="_blank" rel="noopener noreferrer">
+              <img alt="Stars" src="https://img.shields.io/github/stars/ludicroushq/light.svg?style=for-the-badge" />
             </a>
             &nbsp;&nbsp;
-            <a href="https://coveralls.io/github/ludicrousxyz/light" className="inline-block" target="_blank" rel="noopener noreferrer">
-              <img alt="Coveralls" src="https://img.shields.io/coveralls/github/ludicrousxyz/light.svg?label=code%20coverage&style=for-the-badge" />
+            <a href="https://coveralls.io/github/ludicroushq/light" className="inline-block" target="_blank" rel="noopener noreferrer">
+              <img alt="Coveralls" src="https://img.shields.io/coveralls/github/ludicroushq/light.svg?label=code%20coverage&style=for-the-badge" />
             </a>
           </div>
         </div>

@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ludicrousxyz/light.git"
+    "url": "https://github.com/ludicroushq/light.git"
   },
   "keywords": [
     "light",
@@ -32,9 +32,9 @@
   "author": "Manthan Mallikarjun",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ludicrousxyz/light/issues"
+    "url": "https://github.com/ludicroushq/light/issues"
   },
-  "homepage": "https://github.com/ludicrousxyz/light#readme",
+  "homepage": "https://github.com/ludicroushq/light#readme",
   "dependencies": {
     "async-repl": "^0.4.0",
     "aws-serverless-micro": "^1.0.3",

@@ -13,7 +13,7 @@ Hot Module Reloading \(HMR\) is not a new concept for JavaScript! However, it is
 
 HMR is extremely useful when working with big programs. If you use tools like nodemon, anytime you make a change, your server will restart. This means that your server will re-connect to the database, re-connect to key-value stores, re-compile templates, and re-load every single route... This can take up to 3-5 seconds, every single time you make a change, so you will probably be very familiar with this page:
 
-![connection refused](https://github.com/ludicrousxyz/light/tree/207804d2e826e1f45ff0c63ba7b17f61c563bd82/static/images/screenshots/hmr/connection-refused.png)
+![connection refused](https://github.com/ludicroushq/light/tree/207804d2e826e1f45ff0c63ba7b17f61c563bd82/static/images/screenshots/hmr/connection-refused.png)
 
 With HMR all of those problems will go away. Some times you will have restart manually but it is very rare.
 

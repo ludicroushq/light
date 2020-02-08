@@ -15,7 +15,7 @@ Netlify is an extremely popular static website host, following the JAM stack pri
 
 This guide assumes that you have already set up a Netlify account, and a GitHub repository.
 
-Before you can deploy, you must first populate your git repository. Follow the [getting started](https://github.com/ludicrousxyz/light/tree/207804d2e826e1f45ff0c63ba7b17f61c563bd82/guides/getting-started/README.md) guide to build you initial app, and verify everything is working with `npm run dev`. Once you have that set up, add a `netlify.toml` file that contains the path to the routes directory.
+Before you can deploy, you must first populate your git repository. Follow the [getting started](https://github.com/ludicroushq/light/tree/207804d2e826e1f45ff0c63ba7b17f61c563bd82/guides/getting-started/README.md) guide to build you initial app, and verify everything is working with `npm run dev`. Once you have that set up, add a `netlify.toml` file that contains the path to the routes directory.
 
 ```text
 [build]
@@ -25,11 +25,11 @@ Before you can deploy, you must first populate your git repository. Follow the [
 
 That's all you need in terms of code! Now head over to Netlify's website and click the "New Site From Git" button. Follow the steps to connect your GitHub account to Netlify and add your GitHub repo. Once you get to the final step, just leave the pre-filled data as is and press deploy. **This will deploy successfully, BUT your endpoints will not work.** Why is that? Well, light does not know which environment it neeeds to transform to. To set this up, open the settings page \(on the top\), go to the "Build and Deploy" section in the sidebar, and click "Environments" in the sidebar. Click "Edit Variables", and add a new environment variable which sets `LIGHT_ENVIRONMENT` to `netlify`. The end result should look like this.
 
-![environment settings in netlify](https://github.com/ludicrousxyz/light/tree/207804d2e826e1f45ff0c63ba7b17f61c563bd82/static/images/screenshots/netlify/environment.png)
+![environment settings in netlify](https://github.com/ludicroushq/light/tree/207804d2e826e1f45ff0c63ba7b17f61c563bd82/static/images/screenshots/netlify/environment.png)
 
 Press save to save your changes. Finally, to update your function to use this environment variable, you must go to the "Deploys" page at the top, and press "Trigger Deploy", and "Deploy Site".
 
-![trigger deploy](https://github.com/ludicrousxyz/light/tree/207804d2e826e1f45ff0c63ba7b17f61c563bd82/static/images/screenshots/netlify/trigger-deploy.png)
+![trigger deploy](https://github.com/ludicroushq/light/tree/207804d2e826e1f45ff0c63ba7b17f61c563bd82/static/images/screenshots/netlify/trigger-deploy.png)
 
 That's it! Your functions will now be deployed and ready to use. To see an example of a hosted endpoint, visit [light-example.netlify.com/.netlify/functions/index](https://light-example.netlify.com/.netlify/functions/index). The source code is available on [GitHub](https://github.com/light-examples/netlify).
 
