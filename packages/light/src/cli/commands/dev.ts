@@ -27,7 +27,6 @@ export const builder: CommandBuilder = {
 };
 
 interface Args {
-  log: boolean;
   dir: string;
   port?: string;
 }
@@ -36,14 +35,14 @@ const handle = async (argv: Args): Promise<void> => {
   logger.start(`${emojic.fire} igniting the server ${emojic.fire}`);
 
   const cwd = join(process.cwd(), argv.dir);
-  // TODO: here
-  // const opts = {
-  //   dev: true,
-  // };
+
+  const opts = {
+    dev: true,
+  };
 
   const routePaths = await findRoutes(cwd);
   const routes = await genRoutes(routePaths, cwd);
-  const app = server({ routes });
+  const app = server({ routes, opts });
 
   interface ProcessEnv {
     [key: string]: string | number | undefined;

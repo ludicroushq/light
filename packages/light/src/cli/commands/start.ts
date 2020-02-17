@@ -1,21 +1,18 @@
 import { CommandBuilder } from 'yargs'; // eslint-disable-line
 import { join } from 'path';
 import emojic from 'emojic';
-import logger from '../../utils/logger';
 
+import logger from '../../utils/logger';
 import { server } from '../../index';
+
+import findRoutes from '../../utils/find-routes';
+import genRoutes from '../../utils/gen-routes';
 
 export const command = 'start [dir]';
 export const aliases: string[] = ['s'];
 export const desc = 'start a production server';
 
 export const builder: CommandBuilder = {
-  log: {
-    alias: 'l',
-    description: 'enable or disable logs',
-    boolean: true,
-    default: true,
-  },
   port: {
     alias: 'p',
     description: 'specify which port the server should run on',
@@ -28,7 +25,6 @@ export const builder: CommandBuilder = {
 };
 
 interface Args {
-  log: boolean;
   dir: string;
   port?: string;
 }
@@ -37,11 +33,10 @@ const handle = async (argv: Args): Promise<void> => {
   logger.start(`${emojic.fire} igniting the server ${emojic.fire}`);
 
   const cwd = join(process.cwd(), argv.dir);
-  const routesPath = join(cwd, './routes');
 
-  const app = server({
-    routes: routesPath,
-  });
+  const routePaths = await findRoutes(cwd);
+  const routes = await genRoutes(routePaths, cwd);
+  const app = server({ routes });
 
   interface ProcessEnv {
     [key: string]: string | number | undefined;

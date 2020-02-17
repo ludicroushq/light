@@ -6,6 +6,13 @@ interface Route {
   location?: string;
 }
 
+interface RouteObject {
+  path?: string | string[];
+  handler: any;
+  method?: string[] | string;
+  file?: string;
+}
+
 interface Options {
   dev?: boolean;
   requestLogger?: boolean;
@@ -19,4 +26,9 @@ interface TestOptions {
   path?: string;
 }
 
-export { Route, Options, TestOptions };
+export {
+  Route,
+  Options,
+  TestOptions,
+  RouteObject,
+};
