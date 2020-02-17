@@ -1,6 +1,5 @@
 import fetch from 'node-fetch';
 import listen from 'test-listen';
-import { join } from 'path';
 
 import {
   server,
