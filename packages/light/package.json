@@ -1,6 +1,6 @@
 {
   "name": "light",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "a modern framework",
   "scripts": {
     "dev": "tsc -w",
