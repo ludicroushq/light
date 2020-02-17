@@ -3,7 +3,7 @@ import { IM, SR, AP } from './types/http';
 type Middleware = (req: IM, res: SR) => any;
 type Plugin = (fn: (req: IM, res: SR) => any) => (req: IM, res: SR) => any;
 
-const { LIGHT_ENV } = process.env;
+// const { LIGHT_ENV } = process.env;
 
 export default (name: string): any => {
   if (!name) throw new Error('route must have a unique name');
@@ -22,7 +22,7 @@ export default (name: string): any => {
       }
 
       // apply middleware to the route
-      let wrappedFunction = async (req: IM, res: SR, opts: any): AP => { // TODO: opts
+      let wrappedFunction = async (req: IM, res: SR): AP => { // TODO: opts
         for (const mw of _middleware) { // eslint-disable-line
           await mw(req, res); // eslint-disable-line
 
@@ -46,13 +46,13 @@ export default (name: string): any => {
       (wrappedFunction as any)._name = _name;
 
       // detect if serverless environment
-      const { env } = process;
-      const isNetlify = LIGHT_ENV === 'netlify' || env.LIGHT_ENV === 'netlify';
-      const isAWS = LIGHT_ENV === 'aws' || env.LIGHT_ENV === 'aws';
-      const isRunKit = LIGHT_ENV === 'runkit' || env.LIGHT_ENV === 'runkit';
-      const isNow = LIGHT_ENV === 'now' || env.LIGHT_ENV === 'now';
+      // const { env } = process;
+      // const isNetlify = LIGHT_ENV === 'netlify' || env.LIGHT_ENV === 'netlify';
+      // const isAWS = LIGHT_ENV === 'aws' || env.LIGHT_ENV === 'aws';
+      // const isRunKit = LIGHT_ENV === 'runkit' || env.LIGHT_ENV === 'runkit';
+      // const isNow = LIGHT_ENV === 'now' || env.LIGHT_ENV === 'now';
 
-      const isServerless = isNetlify || isAWS || isRunKit || isNow;
+      // const isServerless = isNetlify || isAWS || isRunKit || isNow;
 
       return wrappedFunction;
     },
@@ -62,5 +62,5 @@ export default (name: string): any => {
     addPlugin(...fns: Plugin[]): void {
       _plugins.push(...fns.filter((x: any): any => x));
     },
-  }
+  };
 };
