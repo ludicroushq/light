@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 
 import {
   test, route, send,
-} from '../src/index';
+} from '../../packages/light/src/index';
 
 let mw: any = () => {};
 

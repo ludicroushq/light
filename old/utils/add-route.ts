@@ -1,7 +1,7 @@
 import { join, parse } from 'path';
-import { IM, SR, AP } from '../types/http';
+import { IM, SR, AP } from '../../src/types/http';
 
-import { RouteObject, Options } from '../types/route';
+import { RouteObject, Options } from '../../src/types/route';
 
 /**
  * adds route to the router

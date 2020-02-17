@@ -1,7 +1,7 @@
 import listen from 'test-listen';
 import { METHODS } from 'http';
 
-import { TestOptions } from './types/route';
+import { TestOptions } from '../src/types/route';
 
 import { server } from './index';
 

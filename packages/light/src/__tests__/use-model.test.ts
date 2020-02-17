@@ -1,9 +1,9 @@
-import model from '../src/model';
+import useModel from '../use-model';
 
 describe('model', () => {
   describe('with name', () => {
-    const { handler } = model('Test');
-    const test = handler(() => ({ hello: 'world' }));
+    const { setHandler } = useModel('Test');
+    const test = setHandler(() => ({ hello: 'world' }));
 
     it('exports model', async () => {
       expect.assertions(1);
@@ -24,7 +24,7 @@ describe('model', () => {
   describe('without name', () => {
     it('throws an error', async () => {
       expect.assertions(1);
-      expect(() => model('')).toThrow('model must have a name');
+      expect(() => useModel('')).toThrow('model must have a unique name');
     });
   });
 });

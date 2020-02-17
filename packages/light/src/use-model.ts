@@ -5,9 +5,9 @@ interface Model {
 }
 
 export default (name: string): any => {
-  if (!name) throw new Error('model must have a name');
+  if (!name) throw new Error('model must have a unique name');
   return {
-    handler(modelFn: any): Model {
+    setHandler(modelFn: any): Model {
       const model = modelFn();
 
       const returnOBJ: Model = {

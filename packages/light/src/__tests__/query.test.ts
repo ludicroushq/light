@@ -1,4 +1,4 @@
-import { query } from '../src/index';
+import { query } from '../index';
 
 describe('query', () => {
   describe('with route\'s static method', () => {

@@ -2,7 +2,7 @@ import { METHODS } from 'http';
 import join from 'url-join';
 import camelCase from 'lodash.camelcase';
 
-import { RouteObject } from './types/route';
+import { RouteObject } from '../src/types/route';
 
 // TODO: clean up interfaces
 // TODO: write tests

@@ -4,7 +4,7 @@ import { relative } from 'path';
 import Youch from 'youch';
 import forTerminal from 'youch-terminal';
 
-import { RouteObject } from '../types/route';
+import { RouteObject } from '../../src/types/route';
 import { route } from '../index';
 
 export default (

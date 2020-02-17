@@ -1,0 +1,9 @@
+{
+  "name": "basic",
+  "scripts": {
+    "dev": "light dev"
+  },
+  "dependencies": {
+    "light": "../../packages/light"
+  }
+}

@@ -1,22 +1,14 @@
 import micro from 'micro';
 import Router from 'find-my-way';
 
-import { IM, SR } from './types/http';
-import { LightServer } from './types/server';
-import { RouteObject, Options } from './types/route';
-
-import findRoutes from './utils/find-routes';
-import importRoutes from './utils/import-routes';
-import addRoute from './utils/add-route';
+import injectRoutes from './utils/inject-routes';
 import globalRegister from './global';
 
-export default ({
-  routes,
-  opts,
-}: {
-  routes: string | RouteObject[];
-  opts?: Options;
-}): LightServer => {
+import { Route } from './types/route';
+import { IM, SR } from './types/http';
+import { LightServer } from './types/server';
+
+export default async (routes: Route[]): Promise<LightServer> => {
   // register global variables
   const g = globalRegister();
   (global as any).light = g;
@@ -30,20 +22,10 @@ export default ({
     },
   });
 
-  let routeObjs: RouteObject[] = [];
+  injectRoutes(router, routes);
 
-  if (typeof routes === 'string') {
-    const files: RouteObject[] = findRoutes(routes);
-    routeObjs = importRoutes(files, routes);
-  } else {
-    routeObjs = routes;
-  }
-
+  // create the http server
   const server = micro(async (req: IM, res: SR): Promise<any> => router.lookup(req, res));
-
-  routeObjs.forEach((route: RouteObject): void => {
-    addRoute(router, route, opts);
-  });
 
   return {
     router,

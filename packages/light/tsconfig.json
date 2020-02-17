@@ -40,7 +40,7 @@
 
     /* Module Resolution Options */
     // "moduleResolution": "node",            /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
-    "baseUrl": "./src",                       /* Base directory to resolve non-absolute module names. */
+    "baseUrl": "src",                       /* Base directory to resolve non-absolute module names. */
     "paths": {
       "*" : ["types/*"]
     },                                        /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
@@ -62,6 +62,6 @@
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
   },
   "include": [
-    "./src/**/*"
+    "src/**/*"
   ]
 }

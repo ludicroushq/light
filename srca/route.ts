@@ -1,13 +1,13 @@
-import AWSServerlessMicro from 'aws-serverless-micro';
-import { run } from 'micro';
-import { handleErrors } from 'micro-boom';
-import pino from 'pino';
-import pinoHTTP from 'pino-http';
-import Youch from 'youch';
-import forTerminal from 'youch-terminal';
+import AWSServerlessMicro from './node_modules/aws-serverless-micro';
+import { run } from './node_modules/micro';
+import { handleErrors } from './node_modules/micro-boom';
+import pino from './node_modules/pino';
+import pinoHTTP from './node_modules/pino-http';
+import Youch from './node_modules/youch';
+import forTerminal from './node_modules/youch-terminal';
 
-import { IM, SR, AP } from './types/http';
-import { Options, Route } from './types/route';
+import { IM, SR, AP } from '../src/types/http';
+import { Options, Route } from '../src/types/route';
 
 import pinoPretty from './helpers/pino-pretty';
 
@@ -81,23 +81,7 @@ export default (opts?: Options): Route => {
   const _plugins: any[] = [];
 
   return {
-    middleware(...fns: any[]): void {
-      _middleware.push(...fns.filter((x: any): any => x));
-    },
-
-    plugin(...fns: any[]): void {
-      _plugins.push(...fns.filter((x: any): any => x));
-    },
-
     handler(fn: ((req: IM, res: SR) => {} | any)): (req: IM, res: SR) => {} {
-      if (!fn) {
-        throw new Error('route is missing');
-      }
-      let func: any = fn;
-      if (func.default) {
-        func = func.default;
-      }
-
       const wrapper = async (Req: IM, Res: SR, reqOpts?: Options): AP => {
         options = getOptions(options, (reqOpts || {}));
 
