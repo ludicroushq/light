@@ -2,8 +2,8 @@ import useFactory from '../use-factory';
 
 describe('factory', () => {
   describe('with name', () => {
-    const { setHandler } = useFactory('Test');
-    const test = setHandler(() => ({ hello: 'world' }));
+    const { withHandler } = useFactory('Test');
+    const test = withHandler(() => ({ hello: 'world' }));
 
     it('exports factory', async () => {
       expect.assertions(1);

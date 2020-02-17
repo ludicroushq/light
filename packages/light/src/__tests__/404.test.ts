@@ -2,11 +2,11 @@ import fetch from 'node-fetch';
 import join from 'url-join';
 
 import {
-  test, route,
-} from '../src/index';
+  useTest, useRoute,
+} from '../index';
 
-const { handler } = route();
-const { listen, close } = test(handler(() => ({
+const { withHandler } = useRoute('test');
+const { listen, close } = useTest(withHandler(() => ({
   hello: 'world',
 })));
 

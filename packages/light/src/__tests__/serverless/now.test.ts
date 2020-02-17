@@ -1,11 +1,11 @@
-import { route } from '../../src/index';
+import { useRoute } from '../../index';
 
 describe('serverless', () => {
   describe('now', () => {
     process.env.LIGHT_ENV = 'now';
 
-    const { handler } = route();
-    const server: any = handler(() => ({
+    const { withHandler } = useRoute('now');
+    const server: any = withHandler(() => ({
       hello: 'world',
     }));
 

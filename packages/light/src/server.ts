@@ -8,7 +8,11 @@ import { Route } from './types/route';
 import { IM, SR } from './types/http';
 import { LightServer } from './types/server';
 
-export default async (routes: Route[]): Promise<LightServer> => {
+export default ({
+  routes,
+}: {
+  routes: Route[];
+}): LightServer => {
   // register global variables
   const g = globalRegister();
   (global as any).light = g;

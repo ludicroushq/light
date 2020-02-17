@@ -1,11 +1,10 @@
 import listen from 'test-listen';
-import { METHODS } from 'http';
 
-import { TestOptions } from '../src/types/route';
+// import { TestOptions } from '../src/types/route';
 
 import { server } from './index';
 
-export default (route: any, opts?: TestOptions): any => {
+export default (route: any, opts?: any): any => {
   // generate a server with only the route provided
   const options = {
     requestLogger: false,
@@ -16,9 +15,8 @@ export default (route: any, opts?: TestOptions): any => {
   const app = server({
     routes: [
       {
-        handler: async (req: any, res: any): Promise<any> => route(req, res, options),
-        method: options.method || METHODS,
         path: options.path || '/',
+        handler: async (req: any, res: any): Promise<any> => route(req, res, options),
       },
     ],
   });

@@ -43,7 +43,7 @@ const handle = async (argv: Args): Promise<void> => {
 
   const routePaths = await findRoutes(cwd);
   const routes = await genRoutes(routePaths, cwd);
-  const app = await server(routes);
+  const app = server({ routes });
 
   interface ProcessEnv {
     [key: string]: string | number | undefined;

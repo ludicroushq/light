@@ -1,17 +1,17 @@
 import fetch from 'node-fetch';
 
 import {
-  test, route, send,
-} from '../../packages/light/src/index';
+  useTest, useRoute, send,
+} from '../index';
 
 let mw: any = () => {};
 
 let server: any;
 let url: string;
 beforeEach(async () => {
-  const { handler, middleware } = route();
-  middleware(mw);
-  server = test(handler((req: any): any => ({
+  const { withHandler, addMiddleware } = useRoute('test');
+  addMiddleware(mw);
+  server = useTest(withHandler((req: any): any => ({
     hello: req.message,
   })));
   url = await server.listen();

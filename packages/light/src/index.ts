@@ -9,7 +9,7 @@ export { default as model } from './use-model';
 export { default as useFactory } from './use-factory';
 export { default as params } from './params';
 export { default as query } from './query';
-// export { default as test } from './test';
+export { default as useTest } from './use-test';
 export { default as useRoute } from './use-route';
 // export { default as router } from './router';
 export { default as global } from './global';

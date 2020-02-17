@@ -2,8 +2,8 @@ import useModel from '../use-model';
 
 describe('model', () => {
   describe('with name', () => {
-    const { setHandler } = useModel('Test');
-    const test = setHandler(() => ({ hello: 'world' }));
+    const { withHandler } = useModel('Test');
+    const test = withHandler(() => ({ hello: 'world' }));
 
     it('exports model', async () => {
       expect.assertions(1);

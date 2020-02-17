@@ -1,9 +1,12 @@
+import AWSServerlessMicro from 'aws-serverless-micro';
+import { run } from 'micro';
+
 import { IM, SR, AP } from './types/http';
 
 type Middleware = (req: IM, res: SR) => any;
 type Plugin = (fn: (req: IM, res: SR) => any) => (req: IM, res: SR) => any;
 
-// const { LIGHT_ENV } = process.env;
+const { LIGHT_ENV } = process.env;
 
 export default (name: string): any => {
   if (!name) throw new Error('route must have a unique name');
@@ -12,8 +15,8 @@ export default (name: string): any => {
   const _plugins: Plugin[] = [];
 
   return {
-    setHandler(fn: (req: IM, res: SR) => any): (req: IM, res: SR, opts: any) => AP {
-      if (!fn) throw new Error('please provide a function to setHandler');
+    withHandler(fn: (req: IM, res: SR) => any): (req: IM, res: SR, opts: any) => AP {
+      if (!fn) throw new Error('please provide a function to withHandler');
 
       // get default if using import/export syntax
       let func: any = fn;
@@ -46,15 +49,35 @@ export default (name: string): any => {
       (wrappedFunction as any)._name = _name;
 
       // detect if serverless environment
-      // const { env } = process;
-      // const isNetlify = LIGHT_ENV === 'netlify' || env.LIGHT_ENV === 'netlify';
-      // const isAWS = LIGHT_ENV === 'aws' || env.LIGHT_ENV === 'aws';
-      // const isRunKit = LIGHT_ENV === 'runkit' || env.LIGHT_ENV === 'runkit';
-      // const isNow = LIGHT_ENV === 'now' || env.LIGHT_ENV === 'now';
+      const { env } = process;
+      const isNetlify = LIGHT_ENV === 'netlify' || env.LIGHT_ENV === 'netlify';
+      const isAWS = LIGHT_ENV === 'aws' || env.LIGHT_ENV === 'aws';
+      const isRunKit = LIGHT_ENV === 'runkit' || env.LIGHT_ENV === 'runkit';
+      const isNow = LIGHT_ENV === 'now' || env.LIGHT_ENV === 'now';
 
-      // const isServerless = isNetlify || isAWS || isRunKit || isNow;
+      const isServerless = isNetlify || isAWS || isRunKit || isNow;
 
-      return wrappedFunction;
+      // transform exports
+      let handler: any = wrappedFunction;
+      if (isServerless) {
+        if (isRunKit || isNow) {
+          // TODO: test this in runkit and now tests
+          /* istanbul ignore next */
+          handler = async (req: IM, res: SR): AP => run(req, res, (wrappedFunction as any));
+        }
+        if (isNetlify || isAWS) {
+          handler = {
+            handler: AWSServerlessMicro(wrappedFunction),
+          };
+        }
+        if (isRunKit) {
+          handler = {
+            endpoint: handler,
+          };
+        }
+      }
+
+      return handler;
     },
     addMiddleware(...fns: Middleware[]): void {
       _middleware.push(...fns.filter((x: any): any => x));
