@@ -1,8 +1,8 @@
 import fetch from 'node-fetch';
 
 import {
-  test, route, createError,
-} from '../../src/index';
+  useTest, useRoute, createError,
+} from '../../index';
 
 let server: any;
 let errorHandler = true;
@@ -10,8 +10,8 @@ let error: any = () => {};
 let url: string;
 
 beforeEach(async () => {
-  const { handler } = route();
-  server = test(handler(() => error()), { errorHandler });
+  const { withHandler } = useRoute('test');
+  server = useTest(withHandler(() => error()), { errorHandler });
   url = await server.listen();
 });
 

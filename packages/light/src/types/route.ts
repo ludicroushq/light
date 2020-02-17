@@ -6,4 +6,17 @@ interface Route {
   location?: string;
 }
 
-export { Route };
+interface Options {
+  dev?: boolean;
+  requestLogger?: boolean;
+  errorHandler?: boolean;
+}
+
+interface TestOptions {
+  dev?: boolean;
+  requestLogger?: boolean;
+  errorHandler?: boolean;
+  path?: string;
+}
+
+export { Route, Options, TestOptions };

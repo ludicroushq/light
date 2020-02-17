@@ -4,7 +4,10 @@ import { join } from 'path';
 
 import {
   server,
-} from '../src/index';
+  useRoute,
+} from '../index';
+
+declare const light: any;
 
 describe('global', () => {
   beforeEach(() => {
@@ -17,8 +20,16 @@ describe('global', () => {
       const spy = jest.spyOn(process, 'cwd');
       spy.mockReturnValue('/');
 
+      const { withHandler } = useRoute('test');
+      const handler = withHandler(() => ({
+        hello: light,
+      }));
+
       const app = server({
-        routes: join(__dirname, './seeds/global/with/routes'),
+        routes: [{
+          path: '/',
+          handler,
+        }],
         opts: { requestLogger: false },
       });
       const url = await listen(app.server);
@@ -39,8 +50,16 @@ describe('global', () => {
       const spy = jest.spyOn(process, 'cwd');
       spy.mockReturnValue(join(__dirname, './seeds/global/with'));
 
+      const { withHandler } = useRoute('test');
+      const handler = withHandler(() => ({
+        hello: light,
+      }));
+
       const app = server({
-        routes: join(__dirname, './seeds/global/with/routes'),
+        routes: [{
+          path: '/',
+          handler,
+        }],
         opts: { requestLogger: false },
       });
       const url = await listen(app.server);
@@ -59,8 +78,16 @@ describe('global', () => {
       const spy = jest.spyOn(process, 'cwd');
       spy.mockReturnValue(join(__dirname, './seeds/global/with/routes'));
 
+      const { withHandler } = useRoute('test');
+      const handler = withHandler(() => ({
+        hello: light,
+      }));
+
       const app = server({
-        routes: join(__dirname, './seeds/global/with/routes'),
+        routes: [{
+          path: '/',
+          handler,
+        }],
         opts: { requestLogger: false },
       });
       const url = await listen(app.server);
@@ -81,8 +108,16 @@ describe('global', () => {
       const spy = jest.spyOn(process, 'cwd');
       spy.mockReturnValue(join(__dirname, './seeds/global/without'));
 
+      const { withHandler } = useRoute('test');
+      const handler = withHandler(() => ({
+        hello: light,
+      }));
+
       const app = server({
-        routes: join(__dirname, './seeds/global/without/routes'),
+        routes: [{
+          path: '/',
+          handler,
+        }],
         opts: { requestLogger: false },
       });
       const url = await listen(app.server);

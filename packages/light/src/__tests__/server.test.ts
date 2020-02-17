@@ -4,8 +4,8 @@ import { join } from 'path';
 
 import {
   server,
-  route,
-} from '../src/index';
+  useRoute,
+} from '../index';
 
 let app: any;
 let url: any;
@@ -21,33 +21,16 @@ afterEach(async () => {
 describe('server', () => {
   describe('with functions as routes', () => {
     beforeAll(() => {
-      const { handler } = route({ requestLogger: false });
+      const { withHandler } = useRoute('test');
       app = server({
         routes: [
           {
-            handler: handler(() => ({
+            handler: withHandler(() => ({
               hello: 'server',
             })),
-            method: 'GET',
             path: '/',
           },
         ],
-      });
-    });
-
-    it('returns an object', async () => {
-      expect.assertions(2);
-      const req = await fetch(url);
-      const res = await req.json();
-      expect(req.status).toStrictEqual(200);
-      expect(res).toMatchObject({ hello: 'server' });
-    });
-  });
-
-  describe('with string as routes', () => {
-    beforeAll(() => {
-      app = server({
-        routes: join(__dirname, './seeds/server/routes'),
         opts: { requestLogger: false },
       });
     });

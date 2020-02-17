@@ -1,9 +1,13 @@
 import Router from 'find-my-way';
 
-import { Route } from '../types/route';
+import { Route, Options } from '../types/route';
 
-export default (router: Router.Instance<Router.HTTPVersion.V1>, routes: Route[]): void => {
+export default (
+  router: Router.Instance<Router.HTTPVersion.V1>,
+  routes: Route[],
+  opts?: Options,
+): void => {
   routes.forEach((route): void => {
-    router.all(route.path, route.handler);
+    router.all(route.path, (req, res): any => route.handler(req, res, opts));
   });
 };

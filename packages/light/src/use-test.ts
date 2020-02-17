@@ -1,10 +1,10 @@
 import listen from 'test-listen';
 
-// import { TestOptions } from '../src/types/route';
+import { TestOptions } from './types/route';
 
 import { server } from './index';
 
-export default (route: any, opts?: any): any => {
+export default (route: any, opts?: TestOptions): any => {
   // generate a server with only the route provided
   const options = {
     requestLogger: false,

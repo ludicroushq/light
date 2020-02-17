@@ -4,14 +4,16 @@ import Router from 'find-my-way';
 import injectRoutes from './utils/inject-routes';
 import globalRegister from './global';
 
-import { Route } from './types/route';
+import { Route, Options } from './types/route';
 import { IM, SR } from './types/http';
 import { LightServer } from './types/server';
 
 export default ({
   routes,
+  opts,
 }: {
   routes: Route[];
+  opts?: Options;
 }): LightServer => {
   // register global variables
   const g = globalRegister();
@@ -26,7 +28,7 @@ export default ({
     },
   });
 
-  injectRoutes(router, routes);
+  injectRoutes(router, routes, opts);
 
   // create the http server
   const server = micro(async (req: IM, res: SR): Promise<any> => router.lookup(req, res));

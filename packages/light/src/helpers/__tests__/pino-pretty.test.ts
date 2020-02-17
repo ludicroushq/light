@@ -1,5 +1,5 @@
 import stripAnsi from 'strip-ansi';
-import pinoPretty from '../../src/helpers/pino-pretty';
+import pinoPretty from '../pino-pretty';
 
 const logger = pinoPretty();
 
