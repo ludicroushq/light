@@ -5,7 +5,7 @@ import chalk from 'chalk';
 import decache from 'decache';
 
 import logger from '../../utils/logger';
-import { server } from '../../index';
+import { createServer } from '../../index';
 import findRoutes from '../../utils/find-routes';
 import genRoutes from '../../utils/gen-routes';
 import injectRoutes from '../../utils/inject-routes';
@@ -42,7 +42,7 @@ const handle = async (argv: Args): Promise<void> => {
 
   const routePaths = await findRoutes(cwd);
   const routes = await genRoutes(routePaths, cwd);
-  const app = server({ routes, opts });
+  const app = createServer({ routes, opts });
 
   interface ProcessEnv {
     [key: string]: string | number | undefined;

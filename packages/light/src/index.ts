@@ -4,7 +4,7 @@
 // exports = light.default;
 // export { default, default as light } from './light';
 
-export { default as server } from './server';
+export { default as createServer } from './create-server';
 export { default as createModel } from './create-model';
 export { default as createFactory } from './create-factory';
 export { default as params } from './params';

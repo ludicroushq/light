@@ -2,7 +2,7 @@ import listen from 'test-listen';
 
 import { TestOptions } from './types/route';
 
-import { server } from './index';
+import { createServer } from './index';
 
 export default (route: any, opts?: TestOptions): any => {
   // generate a server with only the route provided
@@ -12,7 +12,7 @@ export default (route: any, opts?: TestOptions): any => {
     ...(opts || {}),
   };
 
-  const app = server({
+  const app = createServer({
     routes: [
       {
         path: options.path || '/',
