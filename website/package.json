@@ -4,9 +4,7 @@
   "description": "website for light",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"npm:dev:*\"",
-    "dev:server": "next src",
-    "dev:static": "http-server ../ -s",
+    "dev": "next src",
     "build": "next build src",
     "start": "next start src",
     "export": "next export src"
@@ -29,25 +27,21 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.22",
     "@fortawesome/free-solid-svg-icons": "^5.10.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
-    "@glorious/demo": "^0.8.1",
     "@zeit/next-css": "^1.0.1",
-    "autoprefixer": "^9.6.1",
+    "@zeit/next-sass": "^1.0.1",
+    "bulma": "^0.8.0",
     "classnames": "^2.2.6",
     "isomorphic-unfetch": "^3.0.0",
-    "next": "^8.1.0",
-    "postcss-nesting": "^7.0.1",
+    "next": "^9.2.1",
+    "node-sass": "^4.13.1",
     "prismjs": "^1.17.1",
     "prop-types": "^15.7.2",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
     "react-markdown": "^4.1.0",
     "react-runkit": "^0.9.0",
     "react-syntax-highlighter": "^11.0.2",
-    "react-text-loop": "^2.0.2",
-    "tailwindcss": "^1.1.2"
+    "react-typed": "^1.2.0"
   },
-  "devDependencies": {
-    "concurrently": "^4.1.2",
-    "http-server": "^0.11.1"
-  }
+  "devDependencies": {}
 }

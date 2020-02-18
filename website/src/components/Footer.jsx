@@ -1,28 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-export default class extends React.Component {
-  state = {
-    year: (new Date()).getFullYear(),
-  };
+function Footer({ text, href, targetBlank }) {
+  const [year] = useState((new Date()).getFullYear());
 
-  render() {
-    const { year } = this.state;
-    return (
-      <div>
-        <footer className="footer bg-gray-100 mt-12">
-          <div className="text-center">
-            <p>
-              <a href="https://www.ludicrous.io" className="text-black">&copy; { year } ludicrous.</a>
-            </p>
-          </div>
-        </footer>
-        <style jsx>{`
-          .footer {
-            padding: 3rem 1.5rem;
-          }
-        `}
-        </style>
+  return (
+    <footer className="footer">
+      <div className="content has-text-centered">
+        <p>
+          <a href="https://www.ludicrous.io" className="has-text-grey-dark" target="_blank">
+            &copy;
+            {' '}
+            { year }
+            {' '}
+            ludicrous
+          </a>
+        </p>
       </div>
-    );
-  }
+    </footer>
+  );
 }
+
+export default Footer;
