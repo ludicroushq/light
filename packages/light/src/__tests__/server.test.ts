@@ -3,7 +3,7 @@ import listen from 'test-listen';
 
 import {
   server,
-  useRoute,
+  createRoute,
 } from '../index';
 
 let app: any;
@@ -20,7 +20,7 @@ afterEach(async () => {
 describe('server', () => {
   describe('with functions as routes', () => {
     beforeAll(() => {
-      const { withHandler } = useRoute('test');
+      const { withHandler } = createRoute('test');
       app = server({
         routes: [
           {

@@ -1,15 +1,15 @@
 import fetch from 'node-fetch';
 
-import { useTest, useRoute } from '../index';
+import { createTest, createRoute } from '../index';
 
 let plug: any = () => {};
 let server: any;
 let url: string;
 
 beforeEach(async () => {
-  const { withHandler, addPlugin } = useRoute('test');
+  const { withHandler, addPlugin } = createRoute('test');
   addPlugin(plug);
-  server = useTest(withHandler((req: any) => ({
+  server = createTest(withHandler((req: any) => ({
     hello: req.message,
   })));
   url = await server.listen();

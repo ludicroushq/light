@@ -4,7 +4,7 @@ import { join } from 'path';
 
 import {
   server,
-  useRoute,
+  createRoute,
 } from '../index';
 
 declare const light: any;
@@ -20,7 +20,7 @@ describe('global', () => {
       const spy = jest.spyOn(process, 'cwd');
       spy.mockReturnValue('/');
 
-      const { withHandler } = useRoute('test');
+      const { withHandler } = createRoute('test');
       const handler = withHandler(() => ({
         hello: light,
       }));
@@ -50,7 +50,7 @@ describe('global', () => {
       const spy = jest.spyOn(process, 'cwd');
       spy.mockReturnValue(join(__dirname, './seeds/global/with'));
 
-      const { withHandler } = useRoute('test');
+      const { withHandler } = createRoute('test');
       const handler = withHandler(() => ({
         hello: light,
       }));
@@ -78,7 +78,7 @@ describe('global', () => {
       const spy = jest.spyOn(process, 'cwd');
       spy.mockReturnValue(join(__dirname, './seeds/global/with/routes'));
 
-      const { withHandler } = useRoute('test');
+      const { withHandler } = createRoute('test');
       const handler = withHandler(() => ({
         hello: light,
       }));
@@ -108,7 +108,7 @@ describe('global', () => {
       const spy = jest.spyOn(process, 'cwd');
       spy.mockReturnValue(join(__dirname, './seeds/global/without'));
 
-      const { withHandler } = useRoute('test');
+      const { withHandler } = createRoute('test');
       const handler = withHandler(() => ({
         hello: light,
       }));

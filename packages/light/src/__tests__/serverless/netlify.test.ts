@@ -1,10 +1,10 @@
-import { useRoute } from '../../index';
+import { createRoute } from '../../index';
 
 describe('serverless', () => {
   describe('netlify', () => {
     process.env.LIGHT_ENV = 'netlify';
 
-    const { withHandler } = useRoute('netlify');
+    const { withHandler } = createRoute('netlify');
     const server: any = withHandler(() => ({
       hello: 'world',
     }));

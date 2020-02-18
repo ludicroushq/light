@@ -1,8 +1,8 @@
-import useFactory from '../use-factory';
+import createFactory from '../create-factory';
 
 describe('factory', () => {
   describe('with name', () => {
-    const { withHandler } = useFactory('Test');
+    const { withHandler } = createFactory('Test');
     const test = withHandler(() => ({ hello: 'world' }));
 
     it('exports factory', async () => {
@@ -24,7 +24,7 @@ describe('factory', () => {
   describe('without name', () => {
     it('throws an error', async () => {
       expect.assertions(1);
-      expect(() => useFactory('')).toThrow('factory must have a unique name');
+      expect(() => createFactory('')).toThrow('factory must have a unique name');
     });
   });
 });
