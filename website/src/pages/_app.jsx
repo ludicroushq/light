@@ -8,8 +8,8 @@ import '../../node_modules/@fortawesome/fontawesome-svg-core/styles.css';
 
 import '../assets/css/index.scss';
 
-import Navigation from '../components/navigation';
-import Footer from '../components/footer';
+import Navigation from '../components/Navigation';
+import Footer from '../components/Footer';
 
 library.add(
   faBolt,
