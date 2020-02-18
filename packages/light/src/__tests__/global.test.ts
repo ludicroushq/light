@@ -3,7 +3,7 @@ import listen from 'test-listen';
 import { join } from 'path';
 
 import {
-  server,
+  createServer,
   createRoute,
 } from '../index';
 
@@ -25,7 +25,7 @@ describe('global', () => {
         hello: light,
       }));
 
-      const app = server({
+      const app = createServer({
         routes: [{
           path: '/',
           handler,
@@ -55,7 +55,7 @@ describe('global', () => {
         hello: light,
       }));
 
-      const app = server({
+      const app = createServer({
         routes: [{
           path: '/',
           handler,
@@ -83,7 +83,7 @@ describe('global', () => {
         hello: light,
       }));
 
-      const app = server({
+      const app = createServer({
         routes: [{
           path: '/',
           handler,
@@ -113,7 +113,7 @@ describe('global', () => {
         hello: light,
       }));
 
-      const app = server({
+      const app = createServer({
         routes: [{
           path: '/',
           handler,

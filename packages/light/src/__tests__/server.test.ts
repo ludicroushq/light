@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 import listen from 'test-listen';
 
 import {
-  server,
+  createServer,
   createRoute,
 } from '../index';
 
@@ -21,7 +21,7 @@ describe('server', () => {
   describe('with functions as routes', () => {
     beforeAll(() => {
       const { withHandler } = createRoute('test');
-      app = server({
+      app = createServer({
         routes: [
           {
             handler: withHandler(() => ({
