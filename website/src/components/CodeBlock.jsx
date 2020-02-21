@@ -17,7 +17,8 @@ export default class CodeBlock extends React.PureComponent {
 
     return (
       <div>
-        <SyntaxHighlighter className="shadow-xl m-0 rounded" language={language} customStyle={{ backgroundColor: '#ffffff', border: 'auto', borderRadius: 'auto', margin: 'auto', boxShadow: 'auto' }}>
+        {/* <SyntaxHighlighter language={language} className="shadow-xl m-0 rounded" customStyle={{ backgroundColor: '#ffffff', border: 'auto', borderRadius: 'auto', margin: 'auto', boxShadow: 'auto' }}> */}
+        <SyntaxHighlighter language={language} className="box" customStyle={{ backgroundColor: '#ffffff' }}>
           { value }
         </SyntaxHighlighter>
       </div>

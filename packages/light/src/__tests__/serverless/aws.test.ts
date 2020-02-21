@@ -1,11 +1,11 @@
-import { useRoute } from '../../index';
+import { createRoute } from '../../index';
 
 describe('serverless', () => {
   describe('aws', () => {
     process.env.LIGHT_ENV = 'aws';
 
-    const { withHandler } = useRoute('aws');
-    const server: any = withHandler(() => ({
+    const { route } = createRoute('aws');
+    const server: any = route(() => ({
       hello: 'world',
     }));
 

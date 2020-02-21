@@ -1,11 +1,11 @@
-import { useRoute } from '../../index';
+import { createRoute } from '../../index';
 
 describe('serverless', () => {
   describe('runkit', () => {
     process.env.LIGHT_ENV = 'runkit';
 
-    const { withHandler } = useRoute('runkit');
-    const server: any = withHandler(() => ({
+    const { route } = createRoute('runkit');
+    const server: any = route(() => ({
       hello: 'world',
     }));
 

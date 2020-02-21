@@ -3,7 +3,7 @@ import { join } from 'path';
 import emojic from 'emojic';
 
 import logger from '../../utils/logger';
-import { server } from '../../index';
+import { createServer } from '../../index';
 
 import findRoutes from '../../utils/find-routes';
 import genRoutes from '../../utils/gen-routes';
@@ -36,7 +36,7 @@ const handle = async (argv: Args): Promise<void> => {
 
   const routePaths = await findRoutes(cwd);
   const routes = await genRoutes(routePaths, cwd);
-  const app = server({ routes });
+  const app = createServer({ routes });
 
   interface ProcessEnv {
     [key: string]: string | number | undefined;

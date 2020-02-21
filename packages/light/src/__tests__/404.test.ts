@@ -2,11 +2,11 @@ import fetch from 'node-fetch';
 import join from 'url-join';
 
 import {
-  useTest, useRoute,
+  createTest, createRoute,
 } from '../index';
 
-const { withHandler } = useRoute('test');
-const { listen, close } = useTest(withHandler(() => ({
+const { route } = createRoute('test');
+const { listen, close } = createTest(route(() => ({
   hello: 'world',
 })));
 

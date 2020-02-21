@@ -31,8 +31,8 @@ export default (name: string, opts?: Options): any => {
   const _plugins: Plugin[] = [];
 
   return {
-    withHandler(fn: (req: IM, res: SR) => any): (req: IM, res: SR, opts: any) => AP {
-      if (!fn) throw new Error('please provide a function to withHandler');
+    route(fn: (req: IM, res: SR) => any): (req: IM, res: SR, opts: any) => AP {
+      if (!fn) throw new Error('please provide a function to route');
 
       // get default if using import/export syntax
       let func: any = fn;

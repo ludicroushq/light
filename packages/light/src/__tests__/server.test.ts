@@ -2,8 +2,8 @@ import fetch from 'node-fetch';
 import listen from 'test-listen';
 
 import {
-  server,
-  useRoute,
+  createServer,
+  createRoute,
 } from '../index';
 
 let app: any;
@@ -20,11 +20,11 @@ afterEach(async () => {
 describe('server', () => {
   describe('with functions as routes', () => {
     beforeAll(() => {
-      const { withHandler } = useRoute('test');
-      app = server({
+      const { route } = createRoute('test');
+      app = createServer({
         routes: [
           {
-            handler: withHandler(() => ({
+            handler: route(() => ({
               hello: 'server',
             })),
             path: '/',

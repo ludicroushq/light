@@ -3,8 +3,8 @@ import listen from 'test-listen';
 import { join } from 'path';
 
 import {
-  server,
-  useRoute,
+  createServer,
+  createRoute,
 } from '../index';
 
 declare const light: any;
@@ -20,12 +20,12 @@ describe('global', () => {
       const spy = jest.spyOn(process, 'cwd');
       spy.mockReturnValue('/');
 
-      const { withHandler } = useRoute('test');
-      const handler = withHandler(() => ({
+      const { route } = createRoute('test');
+      const handler = route(() => ({
         hello: light,
       }));
 
-      const app = server({
+      const app = createServer({
         routes: [{
           path: '/',
           handler,
@@ -50,12 +50,12 @@ describe('global', () => {
       const spy = jest.spyOn(process, 'cwd');
       spy.mockReturnValue(join(__dirname, './seeds/global/with'));
 
-      const { withHandler } = useRoute('test');
-      const handler = withHandler(() => ({
+      const { route } = createRoute('test');
+      const handler = route(() => ({
         hello: light,
       }));
 
-      const app = server({
+      const app = createServer({
         routes: [{
           path: '/',
           handler,
@@ -78,12 +78,12 @@ describe('global', () => {
       const spy = jest.spyOn(process, 'cwd');
       spy.mockReturnValue(join(__dirname, './seeds/global/with/routes'));
 
-      const { withHandler } = useRoute('test');
-      const handler = withHandler(() => ({
+      const { route } = createRoute('test');
+      const handler = route(() => ({
         hello: light,
       }));
 
-      const app = server({
+      const app = createServer({
         routes: [{
           path: '/',
           handler,
@@ -108,12 +108,12 @@ describe('global', () => {
       const spy = jest.spyOn(process, 'cwd');
       spy.mockReturnValue(join(__dirname, './seeds/global/without'));
 
-      const { withHandler } = useRoute('test');
-      const handler = withHandler(() => ({
+      const { route } = createRoute('test');
+      const handler = route(() => ({
         hello: light,
       }));
 
-      const app = server({
+      const app = createServer({
         routes: [{
           path: '/',
           handler,

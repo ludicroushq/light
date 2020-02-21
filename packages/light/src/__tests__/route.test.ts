@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-import { useTest, useRoute } from '../index';
+import { createTest, createRoute } from '../index';
 
 let handler: any = (): any => ({
   hello: 'world',
@@ -9,8 +9,8 @@ let handler: any = (): any => ({
 let url: any;
 let server: any;
 beforeEach(async () => {
-  const { withHandler: fn } = useRoute('test');
-  server = useTest(fn(handler));
+  const { route: fn } = createRoute('test');
+  server = createTest(fn(handler));
   url = await server.listen();
 });
 
@@ -50,9 +50,9 @@ describe('route', () => {
   describe('with null', () => {
     it('throws exception', async () => {
       expect.assertions(1);
-      const { withHandler: light } = useRoute('test');
+      const { route: light } = createRoute('test');
       // @ts-ignore
-      expect(() => light(null)).toThrow('please provide a function to withHandler');
+      expect(() => light(null)).toThrow('please provide a function to route');
     });
   });
 
@@ -60,7 +60,7 @@ describe('route', () => {
     it('throws exception', async () => {
       expect.assertions(1);
       // @ts-ignore
-      expect(() => useRoute(null)).toThrow('route must have a unique name');
+      expect(() => createRoute(null)).toThrow('route must have a unique name');
     });
   });
 });

@@ -4,13 +4,13 @@
 // exports = light.default;
 // export { default, default as light } from './light';
 
-export { default as server } from './server';
-export { default as useModel } from './use-model';
-export { default as useFactory } from './use-factory';
+export { default as createServer } from './create-server';
+export { default as createModel } from './create-model';
+export { default as createFactory } from './create-factory';
 export { default as params } from './params';
 export { default as query } from './query';
-export { default as useTest } from './use-test';
-export { default as useRoute } from './use-route';
+export { default as createTest } from './create-test';
+export { default as createRoute } from './create-route';
 export { default as global } from './global';
 export {
   buffer,

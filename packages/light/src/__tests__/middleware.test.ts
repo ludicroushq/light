@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 
 import {
-  useTest, useRoute, send,
+  createTest, createRoute, send,
 } from '../index';
 
 let mw: any = () => {};
@@ -9,9 +9,9 @@ let mw: any = () => {};
 let server: any;
 let url: string;
 beforeEach(async () => {
-  const { withHandler, addMiddleware } = useRoute('test');
+  const { route, addMiddleware } = createRoute('test');
   addMiddleware(mw);
-  server = useTest(withHandler((req: any): any => ({
+  server = createTest(route((req: any): any => ({
     hello: req.message,
   })));
   url = await server.listen();

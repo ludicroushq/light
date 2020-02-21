@@ -1,9 +1,9 @@
 import fetch from 'node-fetch';
 
-import { useTest, useRoute } from '../../index';
+import { createTest, createRoute } from '../../index';
 
-const { withHandler } = useRoute('test');
-const { listen, close } = useTest(withHandler(() => ({
+const { route } = createRoute('test');
+const { listen, close } = createTest(route(() => ({
   hello: 'world',
 })), {
   dev: false,
