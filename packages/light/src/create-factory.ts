@@ -6,7 +6,7 @@ interface Factory {
 export default (name: string): any => {
   if (!name) throw new Error('factory must have a unique name');
   return {
-    withHandler(factoryFn: any): Factory {
+    factory(factoryFn: any): Factory {
       const factory = factoryFn();
       const returnOBJ: Factory = {
         _name: name,

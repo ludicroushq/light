@@ -4,8 +4,8 @@ describe('serverless', () => {
   describe('aws', () => {
     process.env.LIGHT_ENV = 'aws';
 
-    const { withHandler } = createRoute('aws');
-    const server: any = withHandler(() => ({
+    const { route } = createRoute('aws');
+    const server: any = route(() => ({
       hello: 'world',
     }));
 

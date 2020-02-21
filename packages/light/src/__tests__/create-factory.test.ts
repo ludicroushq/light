@@ -2,8 +2,8 @@ import createFactory from '../create-factory';
 
 describe('factory', () => {
   describe('with name', () => {
-    const { withHandler } = createFactory('Test');
-    const test = withHandler(() => ({ hello: 'world' }));
+    const { factory } = createFactory('Test');
+    const test = factory(() => ({ hello: 'world' }));
 
     it('exports factory', async () => {
       expect.assertions(1);

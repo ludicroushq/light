@@ -10,8 +10,8 @@ let error: any = () => {};
 let url: string;
 
 beforeEach(async () => {
-  const { withHandler } = createRoute('test');
-  server = createTest(withHandler(() => error()), { errorHandler });
+  const { route } = createRoute('test');
+  server = createTest(route(() => error()), { errorHandler });
   url = await server.listen();
 });
 

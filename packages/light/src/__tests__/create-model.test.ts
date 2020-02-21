@@ -2,8 +2,8 @@ import createModel from '../create-model';
 
 describe('model', () => {
   describe('with name', () => {
-    const { withHandler } = createModel('Test');
-    const test = withHandler(() => ({ hello: 'world' }));
+    const { model } = createModel('Test');
+    const test = model(() => ({ hello: 'world' }));
 
     it('exports model', async () => {
       expect.assertions(1);

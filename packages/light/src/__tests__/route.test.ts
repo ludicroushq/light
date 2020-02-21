@@ -9,7 +9,7 @@ let handler: any = (): any => ({
 let url: any;
 let server: any;
 beforeEach(async () => {
-  const { withHandler: fn } = createRoute('test');
+  const { route: fn } = createRoute('test');
   server = createTest(fn(handler));
   url = await server.listen();
 });
@@ -50,9 +50,9 @@ describe('route', () => {
   describe('with null', () => {
     it('throws exception', async () => {
       expect.assertions(1);
-      const { withHandler: light } = createRoute('test');
+      const { route: light } = createRoute('test');
       // @ts-ignore
-      expect(() => light(null)).toThrow('please provide a function to withHandler');
+      expect(() => light(null)).toThrow('please provide a function to route');
     });
   });
 

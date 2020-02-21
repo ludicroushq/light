@@ -4,8 +4,8 @@ describe('serverless', () => {
   describe('runkit', () => {
     process.env.LIGHT_ENV = 'runkit';
 
-    const { withHandler } = createRoute('runkit');
-    const server: any = withHandler(() => ({
+    const { route } = createRoute('runkit');
+    const server: any = route(() => ({
       hello: 'world',
     }));
 

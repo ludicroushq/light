@@ -9,9 +9,9 @@ let mw: any = () => {};
 let server: any;
 let url: string;
 beforeEach(async () => {
-  const { withHandler, addMiddleware } = createRoute('test');
+  const { route, addMiddleware } = createRoute('test');
   addMiddleware(mw);
-  server = createTest(withHandler((req: any): any => ({
+  server = createTest(route((req: any): any => ({
     hello: req.message,
   })));
   url = await server.listen();

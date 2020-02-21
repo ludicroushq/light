@@ -20,11 +20,11 @@ afterEach(async () => {
 describe('server', () => {
   describe('with functions as routes', () => {
     beforeAll(() => {
-      const { withHandler } = createRoute('test');
+      const { route } = createRoute('test');
       app = createServer({
         routes: [
           {
-            handler: withHandler(() => ({
+            handler: route(() => ({
               hello: 'server',
             })),
             path: '/',

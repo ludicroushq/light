@@ -4,8 +4,8 @@ describe('serverless', () => {
   describe('netlify', () => {
     process.env.LIGHT_ENV = 'netlify';
 
-    const { withHandler } = createRoute('netlify');
-    const server: any = withHandler(() => ({
+    const { route } = createRoute('netlify');
+    const server: any = route(() => ({
       hello: 'world',
     }));
 

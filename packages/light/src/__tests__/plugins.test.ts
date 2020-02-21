@@ -7,9 +7,9 @@ let server: any;
 let url: string;
 
 beforeEach(async () => {
-  const { withHandler, addPlugin } = createRoute('test');
+  const { route, addPlugin } = createRoute('test');
   addPlugin(plug);
-  server = createTest(withHandler((req: any) => ({
+  server = createTest(route((req: any) => ({
     hello: req.message,
   })));
   url = await server.listen();

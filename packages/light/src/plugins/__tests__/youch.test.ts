@@ -2,8 +2,8 @@ import fetch from 'node-fetch';
 
 import { createTest, createRoute } from '../../index';
 
-const { withHandler } = createRoute('test');
-const { listen, close } = createTest(withHandler(() => {
+const { route } = createRoute('test');
+const { listen, close } = createTest(route(() => {
   throw new Error('hi');
 }), {
   dev: true,
