@@ -3,7 +3,7 @@ title: global
 subtitle: use the global function to share global values such as a logger
 ---
 
-# global
+# global \(TODO\)
 
 ## Introduction
 

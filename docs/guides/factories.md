@@ -8,12 +8,12 @@ Factories are simple helpers to allow you to create records in your database in 
 
 {% code title="factories/user.js" %}
 ```javascript
-const { factory } = require('light');
+const { createFactory } = require('light');
 const { User } = require('../models/user'); // see `models` documentation
 
-const { handler } = factory('User'); // name of the factory
+const { factory } = createFactory('User'); // name of the factory
 
-module.exports = handler(() => ({
+module.exports = factory(() => ({
   async create(opts = {}) {
     const options = {
       ...opts,

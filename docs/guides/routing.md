@@ -3,9 +3,9 @@ title: routing
 subtitle: how to set up routing (for development and server deployment)
 ---
 
-# routing
+# routing \(TODO\)
 
-**Please note that routing is environment specific. The details documented below only apply to** [**server mode**](https://github.com/ludicroushq/light/tree/207804d2e826e1f45ff0c63ba7b17f61c563bd82/guides/server-vs-serverless/README.md#server) **since serverless environments will have their own custom routing**
+**Please note that routing is environment specific. The details documented below only apply to** [**server mode**](https://github.com/ludicrousxyz/light/tree/207804d2e826e1f45ff0c63ba7b17f61c563bd82/guides/server-vs-serverless/README.md#server) **since serverless environments will have their own custom routing**
 
 ## Introduction
 
@@ -39,5 +39,5 @@ module.exports = routes;
 
 ## Params
 
-If you want to handle urls with params such as `/posts/:id`, check out the [params guide](https://github.com/ludicroushq/light/tree/207804d2e826e1f45ff0c63ba7b17f61c563bd82/guides/params/README.md).
+If you want to handle urls with params such as `/posts/:id`, check out the [params guide](https://github.com/ludicrousxyz/light/tree/207804d2e826e1f45ff0c63ba7b17f61c563bd82/guides/params/README.md).
 
