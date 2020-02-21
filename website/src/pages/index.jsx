@@ -141,7 +141,7 @@ module.exports = route((req, res) => {
                 <code className="has-text-success">> done [1 ms]</code>{ '\n' }
               </pre>
             </div>
-            <div class="is-divider-vertical" data-content="VS" />
+            <div className="is-divider-vertical" data-content="VS" />
             <div className="column is-half">
               <pre className="box has-text-left has-background-black">
                 <code className="has-text-primary">$ node express.js</code>{ '\n' }
@@ -168,11 +168,11 @@ module.exports = route((req, res) => {
               <div className="subtitle is-uppercase">deploy anywhere</div>
             </div>
             <div className="column is-2">
-              <aside class="menu">
-                <p class="menu-label has-text-centered">
+              <aside className="menu">
+                <p className="menu-label has-text-centered">
                   deployments
                 </p>
-                <ul class="menu-list has-text-centered">
+                <ul className="menu-list has-text-centered">
                   { deployments.map((deployment) => (
                     <li key={deployment.name} onClick={() => selectDeploy(deployment)}>
                       <a className={classnames(deployment.name === selectedDeploy.name ? 'is-active' : null)}>
@@ -200,8 +200,8 @@ module.exports = route((req, res) => {
           </div>
         </div>
       </section>
-      <hr />
-      <section className="section">
+      <hr className="is-hidden-mobile" />
+      <section className="section is-hidden-mobile">
         <div className="container">
           <div className="columns is-vcentered">
             <div className="column is-two-thirds">
