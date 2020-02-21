@@ -5,8 +5,9 @@ $indigo: #667eea;
 $pink: #ed64a6;
 $primary: $indigo;
 $info: $pink;
-$link: $indigo;
 $family-primary: 'Karla', $family-sans-serif;
 $family-secondary: 'Roboto', $family-sans-serif;
 
 @import '~bulma/bulma.sass';
+
+@import '~bulma-divider/src/sass/index.sass'

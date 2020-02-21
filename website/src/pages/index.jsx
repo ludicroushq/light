@@ -1,239 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Typed from 'react-typed';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import Prism from 'prismjs';
-// import classnames from 'classnames';
-// import Embed from 'react-runkit';
-// import TextLoop from "react-text-loop";
+import Embed from 'react-runkit';
+import classnames from 'classnames';
 
-// import CodeBlock from '../components/CodeBlock';
-
-// export default class Index extends React.Component {
-//   state = {
-//     selectedDeploy: {},
-//     deployments: [
-//       {
-//         name: 'ZEIT Now',
-//         code: 'process.env.LIGHT_ENV = \'now\';',
-//       },
-//       {
-//         name: 'RunKit',
-//         code: 'process.env.LIGHT_ENV = \'runkit\';',
-//       },
-//       {
-//         name: 'AWS',
-//         code: 'process.env.LIGHT_ENV = \'aws\';',
-//       },
-//       {
-//         name: 'Google Cloud',
-//         code: 'process.env.LIGHT_ENV = \'gcloud\';',
-//       },
-//       {
-//         name: 'Netlify',
-//         code: 'process.env.LIGHT_ENV = \'netlify\';',
-//       },
-//       {
-//         name: 'Server',
-//         code: '// no configuration needed',
-//       },
-//       {
-//         name: 'Heroku',
-//         code: '// no configuration needed',
-//       },
-//     ]
-//   }
-
-//   componentDidMount() {
-//     this.setState(prevState => ({
-//       selectedDeploy: prevState.deployments[0],
-//     }));
-
-//     const code = `
-//     const light = require('light');
-
-//     module.exports = light({
-//       path: '/',
-//       async handler() {
-//         return {
-//           hello: 'world',
-//         };
-//       },
-//     });
-//     `
-
-//     const highlightedCode = Prism.highlight(
-//       code,
-//       Prism.languages.javascript,
-//       'javascript',
-//     );
-//   }
-
-//   changeDeployment(obj) {
-//     this.setState({
-//       selectedDeploy: obj,
-//     });
-//   }
-
-//   render() {
-//     const { deployments, selectedDeploy } = this.state;
-//     return (
-//       <div>
-//         <div className="w-full max-w-screen-xl relative mx-auto container pb-6 text-center">
-//           <h1 className="font-bold uppercase text-yellow-400 pt-16"></h1>
-//           <h1 className="text-xl font-bold uppercase pb-8 pt-2">light.js</h1>
-//           <h2 className="text-xl font-semibold uppercase">a</h2>
-//           <h2 className="text-4xl font-semibold uppercase">
-//             <TextLoop className="center-hero" springConfig={{ stiffness: 200, damping: 25 }}>
-
-//             </TextLoop>
-//           </h2>
-//           <h2 className="text-xl font-semibold uppercase">framework</h2>
-//           <div className="pt-12">
-
-//           </div>
-//         </div>
-//         <div className="bg-gray-100 py-12">
-//           <div className="flex container mx-auto flex-row flex-wrap">
-//             <div className="flex flex-col w-full md:w-1/2 text-center p-4 pb-0">
-//               <span className="flex-1" />
-//               <h2 className="text-lg pb-1 px-3">as simple as</h2>
-//               <h1 className="text-3xl font-mono pb-4 md:pb-0 px-3">light dev</h1>
-//               <span className="flex-1" />
-//               <div className="bg-white shadow-xl text-left p-4 rounded overflow-x-auto">
-//                 <pre className="items-end">
-//                   <code className="text-indigo-500">$ light dev</code>{ '\n' }
-//                   <code className="text-pink-500">> start      🔥 igniting the server 🔥</code>{ '\n' }
-//                   <code className="text-pink-500">> listening  on port 3000</code>{ '\n' }
-//                   <code className="text-blue-500">> hmr        starting the hot reloader</code>{ '\n' }
-//                   <code className="text-blue-500">> hmr        watching for changes</code>{ '\n' }
-//                   <code className="text-green-500">  GET        200 to /, request completed in 1 ms</code>{ '\n' }
-//                 </pre>
-//               </div>
-//             </div>
-//             <div className="w-full md:w-1/2 shadow-xl text-center m-4 md:m-0 rounded overflow-x-auto">
-//             <CodeBlock language="javascript" value={`const { route } = require('light');
-// const { handler, middleware, plugin } = route();
-
-// middleware(auth, cors);
-// plugin(errorHandling);
-// module.exports = handler((req, res) => {
-//   return {
-//     hello: 'world',
-//   };
-// });`} />
-//             </div>
-//           </div>
-//         </div>
-//         <div className="py-12 container mx-auto">
-//           <h1 className="text-3xl text-center px-3">reload without actually reloading</h1>
-//           <h2 className="text-lg text-center pb-4 px-3">dont waste your time waiting for your server to restart</h2>
-//           <div className="flex flex-row flex-wrap">
-//             <div className="flex flex-row flex-1 text-center p-4 md:pb-0">
-//               <div className="self-center w-full bg-gray-900 shadow-3xl text-left p-4 rounded">
-//                 <pre className="items-end">
-//                   <code className="text-indigo-400">$ light dev</code>{ '\n' }
-//                   <code className="text-pink-400">> listening on port 3000</code>{ '\n' }
-//                   <code className="text-pink-400">> routes/index.js changed</code>{ '\n' }
-//                   <code className="text-gray-400">hot-swapping file</code>{ '\n' }
-//                   <code className="text-green-400">> done [1 ms]</code>{ '\n' }
-//                 </pre>
-//               </div>
-//             </div>
-//             <div className="flex flex-col self-center text-center text-md uppercase text-gray-500 tracking-wider p-2 w-full md:w-auto">
-//               vs
-//             </div>
-//             <div className="flex flex-row flex-1 text-center p-4 pb-0">
-//               <div className="self-center w-full bg-gray-900 shadow-3xl text-left p-4 rounded">
-//                 <pre className="items-end">
-//                   <code className="text-indigo-400">$ node express.js</code>{ '\n' }
-//                   <code className="text-pink-400">> listening on port 3000</code>{ '\n' }
-//                   <code className="text-pink-400">> routes/index.js changed</code>{ '\n' }
-//                   <code className="text-gray-400">restarting server</code>{ '\n' }
-//                   <code className="text-gray-400">reimporting all routes</code>{ '\n' }
-//                   <code className="text-gray-400">reconnecting to database</code>{ '\n' }
-//                   <code className="text-gray-400">reconnecting to cache</code>{ '\n' }
-//                   <code className="text-gray-400">recompiling templates</code>{ '\n' }
-//                   <code className="text-pink-400">> listening on port 3000</code>{ '\n' }
-//                   <code className="text-green-400">> done [1-5 s]</code>{ '\n' }
-//                 </pre>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//         <div className="bg-gray-100 py-12 -mb-12 md:m-0">
-//           <div className="flex container mx-auto flex-row flex-wrap">
-//             <div className="flex flex-col w-full md:w-1/3 text-center p-4 md:pb-0">
-//               <span className="flex-1" />
-//               <h1 className="text-3xl px-3">write once</h1>
-//               <h2 className="text-lg px-3">deploy anywhere</h2>
-//               <span className="flex-1" />
-//             </div>
-//             <div className="flex flex-col w-full md:w-1/6 px-4">
-//               <span className="flex-1" />
-//               <h1 className="uppercase text-gray-700 tracking-wider pb-2">Deployments</h1>
-//               { deployments.map((deployment) => (
-//                 <a key={deployment.name} onClick={() => this.changeDeployment(deployment)} className={classnames('w-full text-left rounded py-2 px-4 cursor-pointer', deployment.name === selectedDeploy.name ? 'bg-indigo-500 text-white' : 'hover:bg-gray-200')}>{ deployment.name }</a>
-//               )) }
-//               <span className="flex-1" />
-//             </div>
-//             <div className="w-full md:w-1/2 shadow-xl text-center m-4 md:m-0 rounded overflow-x-auto">
-//               <CodeBlock language="javascript" value={`const { route } = require('light');
-// const { handler, middleware, plugin } = route();
-
-// ${selectedDeploy.code ? `${selectedDeploy.code}` : ''}
-
-// middleware(auth, cors);
-// plugin(errorHandling);
-// module.exports = handler((req, res) => {
-//   return {
-//     hello: 'world',
-//   };
-// });`} />
-//             </div>
-//           </div>
-//         </div>
-//         <div className="pt-12 md:block md:m-0 hidden">
-//           <div className="container mx-auto flex-col-reverse md:flex-row flex-wrap md:flex">
-//             <div className="w-full md:w-2/3 text-center px-2 m-4 md:m-0">
-//               <Embed source={ `const { route } = require('light');
-// const { handler, middleware, plugin } = route();
-// process.env.LIGHT_ENV='runkit';
-
-// /*
-// // middleware is run before your handler
-// middleware(
-//   (req, res) => console.log(req.url),
-// );
-// // plugins wrap your handlers (and middleware)
-// plugin(
-//   (fn) => async (req, res) => {
-//     const before = Date.now();
-//     await fn(req, res)
-//     const after = Date.now();
-//     console.log('the request took', after - before, 'ms');
-//   },
-// );
-// */
-// module.exports = handler((req, res) => {
-//   return {
-//     hello: 'world',
-//   };
-// });` } mode='endpoint' />
-//             </div>
-//             <div className="flex flex-col w-full md:w-1/3 text-center p-4 pb-0">
-//               <span className="flex-1" />
-//               <h1 className="text-3xl">try it yourself</h1>
-//               <h2 className="text-lg">on RunKit</h2>
-//               <span className="flex-1" />
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
-// }
+import CodeBlock from '../components/CodeBlock';
 
 export default function Index() {
+  const deployments = [
+    {
+      name: 'ZEIT Now',
+      code: 'process.env.LIGHT_ENV = \'now\';',
+    },
+    {
+      name: 'RunKit',
+      code: 'process.env.LIGHT_ENV = \'runkit\';',
+    },
+    {
+      name: 'AWS',
+      code: 'process.env.LIGHT_ENV = \'aws\';',
+    },
+    {
+      name: 'Google Cloud',
+      code: 'process.env.LIGHT_ENV = \'gcloud\';',
+    },
+    {
+      name: 'Netlify',
+      code: 'process.env.LIGHT_ENV = \'netlify\';',
+    },
+    {
+      name: 'Server',
+      code: '// no configuration needed',
+    },
+    {
+      name: 'Heroku',
+      code: '// no configuration needed',
+    },
+  ];
+
+  const [selectedDeploy, selectDeploy] = useState(deployments[0]);
   return (
     <>
       <section className="hero is-black">
@@ -269,7 +74,7 @@ export default function Index() {
             </h2>
           </div>
         </div>
-        <div class="hero-foot has-text-centered">
+        <div className="hero-foot has-text-centered">
           <a href="https://circleci.com/gh/ludicroushq/light" className="inline-block" target="_blank" rel="noopener noreferrer">
             <img alt="CircleCI" src="https://img.shields.io/circleci/project/github/ludicroushq/light.svg?label=ci%20status&style=for-the-badge&labelColor=0a0a0a" />
           </a>
@@ -289,6 +94,147 @@ export default function Index() {
           <a href="https://coveralls.io/github/ludicroushq/light" className="inline-block" target="_blank" rel="noopener noreferrer">
             <img alt="Coveralls" src="https://img.shields.io/coveralls/github/ludicroushq/light.svg?label=code%20coverage&style=for-the-badge&labelColor=0a0a0a" />
           </a>
+        </div>
+      </section>
+      <section className="section">
+        <div className="container">
+          <div className="columns">
+            <div className="column is-half has-text-centered">
+              <div className="subtitle is-uppercase">as simple as</div>
+              <div className="title is-is-family-monospace" style={{ marginBottom: '0.85rem' }}>light dev</div>
+              <pre className="box has-text-left">
+                <code className="has-text-primary">$ light dev</code>{ '\n' }
+                <code className="has-text-info">> start      🔥 igniting the server 🔥</code>{ '\n' }
+                <code className="has-text-info">> listening  on port 3000</code>{ '\n' }
+                <code className="has-text-link">> hmr        starting the hot reloader</code>{ '\n' }
+                <code className="has-text-link">> hmr        watching for changes</code>{ '\n' }
+                <code className="has-text-success">  GET        200 to /, request completed in 1 ms</code>{ '\n' }
+              </pre>
+            </div>
+            <div className="column is-half">
+              <CodeBlock language="javascript" value={`const { createRoute } = require('light');
+const { route, addMiddleware, addPlugin } = createRoute('index');
+
+addMiddleware(auth, cors);
+addPlugin(errorHandling);
+module.exports = route((req, res) => {
+  return {
+    hello: 'world',
+  };
+});`} />
+            </div>
+          </div>
+        </div>
+      </section>
+      <hr />
+      <section className="section">
+        <div className="container has-text-centered">
+          <div className="title">reload without actually reloading</div>
+          <div className="subtitle is-uppercase">don't waste your time waiting for your server to restart</div>
+          <div className="columns is-vcentered">
+            <div className="column is-half">
+              <pre className="box has-text-left has-background-black">
+                <code className="has-text-primary">$ light dev</code>{ '\n' }
+                <code className="has-text-info">> listening on port 3000</code>{ '\n' }
+                <code className="has-text-info">> routes/index.js changed</code>{ '\n' }
+                <code className="has-text-grey-light">hot-swapping file</code>{ '\n' }
+                <code className="has-text-success">> done [1 ms]</code>{ '\n' }
+              </pre>
+            </div>
+            <div class="is-divider-vertical" data-content="VS" />
+            <div className="column is-half">
+              <pre className="box has-text-left has-background-black">
+                <code className="has-text-primary">$ node express.js</code>{ '\n' }
+                <code className="has-text-info">> listening on port 3000</code>{ '\n' }
+                <code className="has-text-info">> routes/index.js changed</code>{ '\n' }
+                <code className="has-text-grey-light">restarting server</code>{ '\n' }
+                <code className="has-text-grey-light">reimporting all routes</code>{ '\n' }
+                <code className="has-text-grey-light">reconnecting to database</code>{ '\n' }
+                <code className="has-text-grey-light">reconnecting to cache</code>{ '\n' }
+                <code className="has-text-grey-light">recompiling templates</code>{ '\n' }
+                <code className="has-text-info">> listening on port 3000</code>{ '\n' }
+                <code className="has-text-success">> done [1-5 s]</code>{ '\n' }
+              </pre>
+            </div>
+          </div>
+        </div>
+      </section>
+      <hr />
+      <section className="section">
+        <div className="container">
+          <div className="columns is-vcentered">
+            <div className="column is-one-third has-text-centered">
+              <div className="title">write once</div>
+              <div className="subtitle is-uppercase">deploy anywhere</div>
+            </div>
+            <div className="column is-2">
+              <aside class="menu">
+                <p class="menu-label has-text-centered">
+                  deployments
+                </p>
+                <ul class="menu-list has-text-centered">
+                  { deployments.map((deployment) => (
+                    <li key={deployment.name} onClick={() => selectDeploy(deployment)}>
+                      <a className={classnames(deployment.name === selectedDeploy.name ? 'is-active' : null)}>
+                        { deployment.name }
+                      </a>
+                    </li>
+                  )) }
+                </ul>
+              </aside>
+            </div>
+            <div className="column is-6">
+              <CodeBlock language="javascript" value={`const { createRoute } = require('light');
+const { route, addMiddleware, addPlugin } = createRoute('index');
+
+${selectedDeploy.code ? `${selectedDeploy.code}` : ''}
+
+addMiddleware(auth, cors);
+addPlugin(errorHandling);
+module.exports = route((req, res) => {
+  return {
+    hello: 'world',
+  };
+});`} />
+            </div>
+          </div>
+        </div>
+      </section>
+      <hr />
+      <section className="section">
+        <div className="container">
+          <div className="columns is-vcentered">
+            <div className="column is-two-thirds">
+              <Embed source={ `const { createRoute } = require('light');
+const { route, addMiddleware, addPlugin } = createRoute('runkit');
+process.env.LIGHT_ENV='runkit';
+
+/*
+// middleware is run before your handler
+addMiddleware(
+  (req, res) => console.log(req.url),
+);
+// plugins wrap your handlers (and middleware)
+addPlugin(
+  (fn) => async (req, res) => {
+    const before = Date.now();
+    await fn(req, res)
+    const after = Date.now();
+    console.log('the request took', after - before, 'ms');
+  },
+);
+*/
+module.exports = route((req, res) => {
+  return {
+    hello: 'world',
+  };
+});` } mode='endpoint' />
+            </div>
+            <div className="column is-one-third has-text-centered">
+              <div className="title">try it yourself</div>
+              <div className="subtitle is-uppercase">on RunKit</div>
+            </div>
+          </div>
         </div>
       </section>
     </>

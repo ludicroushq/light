@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
+import Head from 'next/head';
 
 import { library, config } from '@fortawesome/fontawesome-svg-core';
 import { faCaretLeft, faCaretRight, faBolt } from '@fortawesome/free-solid-svg-icons';
@@ -19,16 +20,25 @@ library.add(
 
 function App({ Component, pageProps, flashMessages }) {
   return (
-    <div className="app">
-      <Navigation />
-      <div className="notification has-text-centered is-info is-size-7" style={{ marginBottom: '0px', borderRadius: '0px', padding: '0.75rem 1.5rem 0.75rem 1.5rem' }}>
-        NOTICE: Since <strong>light</strong> is a work in progress, breaking changes will be made every MINOR patch until 2.0
+    <>
+      <Head>
+        <title>light</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" hid="description" content="a lightining fast web server" />
+        <script src="https://embed.runkit.com"></script>
+      </Head>
+      <div className="app">
+        <Navigation />
+        <div className="notification has-text-centered is-info is-size-7" style={{ marginBottom: '0px', borderRadius: '0px', padding: '0.75rem 1.5rem 0.75rem 1.5rem' }}>
+          NOTICE: Since <strong>light</strong> is a work in progress, breaking changes will be made every MINOR patch until 2.0
+        </div>
+        <main className="main">
+          <Component {...pageProps} />
+        </main>
+        <Footer text="ludicrous" href="https://www.ludicrous.io" />
       </div>
-      <main className="main">
-        <Component {...pageProps} />
-      </main>
-      <Footer text="ludicrous" href="https://www.ludicrous.io" />
-    </div>
+    </>
   );
 }
 
@@ -49,7 +59,6 @@ App.getInitialProps = async ({ Component, ctx }) => {
 export default App;
 // import React from 'react';
 // import App, { Container } from 'next/app';
-// import Head from 'next/head';
 
 
 
