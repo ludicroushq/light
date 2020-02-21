@@ -27,14 +27,14 @@ const checkAuth = async (req, res) => {
 To include middleware in your route, simply call the `middleware` function.
 
 ```javascript
-const { route } = require('light');
+const { createRoute } = require('light');
 
-const { handler, middleware } = route();
+const { route, addMiddleware } = route('middleware');
 
-middleware(checkAuth, someOtherMiddleare);
-middleware(whoopsForgotOne);
+addMiddleware(checkAuth, someOtherMiddleare);
+addMiddleware(whoopsForgotOne);
 
-module.exports = handler((req) => {
+module.exports = route((req) => {
   return {
     isAuthenticated: req.isAuthenticated,
   };
@@ -43,5 +43,5 @@ module.exports = handler((req) => {
 
 ## Express and Koa Support
 
-We are experimenting with adding wrappers to add partial support for Express and Koa! See this [GitHub issue](https://github.com/ludicroushq/light/issues/16) for more information.
+We are experimenting with adding wrappers to add partial support for Express and Koa! See this [GitHub issue](https://github.com/ludicrousxyz/light/issues/16) for more information.
 

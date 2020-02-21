@@ -16,11 +16,11 @@ If there are multiple query parameters with the same name, it will return an arr
 Simply call the query function inside of your handler.
 
 ```javascript
-const { route, query } = require('light');
+const { createRoute, query } = require('light');
 
-const { handler } = route();
+const { route } = createRoute('query');
 
-module.exports = handler(((req, res) => {
+module.exports = route(async (req, res) => {
   const { id, name } = await query(req.url);
 
   return {

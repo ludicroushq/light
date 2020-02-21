@@ -30,12 +30,12 @@ As you can see, unlike middleware, with plugins we can run code both before and 
 Finally, we simply list the logger as plugin in the route.
 
 ```javascript
-const { route } = require('light');
-const { handler, plugin } = route();
+const { createRoute } = require('light');
+const { route, addPlugin } = createRoute('plugins');
 
-plugin(logger);
+addPlugin(logger);
 
-module.exports = handler(() => {
+module.exports = route(() => {
   return {
     hello: 'world',
   };

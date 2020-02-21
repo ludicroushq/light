@@ -10,16 +10,16 @@ Create a `models` folder at the same level as the `routes` folder and inside pop
 
 {% code title="models/user.js" %}
 ```javascript
-const { model } = require('light');
+const { createModel } = require('light');
 
 // model definition
 class User extends Model {
   /// ...
 };
 
-const { handler } = model('User');
+const { model } = createModel('User');
 
-module.exports = handler(() => User);
+module.exports = model(() => User);
 ```
 {% endcode %}
 
@@ -31,7 +31,7 @@ Importing is relatively simple.
 
 {% code title="routes/index.js" %}
 ```javascript
-const { User, model } = require('../models/user.js');
+const { User, model } = require('../models/user.js'); // User and model are the same here
 ```
 {% endcode %}
 

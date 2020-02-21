@@ -38,11 +38,11 @@ Once you've installed light, all `.js` files under the `routes` folder will be u
 To get started, populate `routes/index.js`.
 
 ```javascript
-const { route } = require('light');
+const { createRoute } = require('light');
 
-const { handler } = route();
+const { route } = createRoute('index');
 
-module.exports = handler(() => {
+module.exports = route(() => {
   return {
     hello: 'world',
   };
