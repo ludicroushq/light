@@ -1,8 +1,6 @@
-const { useRoute } = require('light');
+const { createRoute } = require('light');
 
-const { setHandler, addMiddleware, addPlugin } = useRoute('index');
-
-console.log('required')
+const { route, addMiddleware, addPlugin } = createRoute('index');
 
 addMiddleware(() => console.log('hi'));
 addPlugin((fn) => async (req, res) => {
@@ -12,11 +10,8 @@ addPlugin((fn) => async (req, res) => {
   return result;
 });
 
-const a = setHandler(async () => {
+module.exports = route(async () => {
   return {
-    hello: 'worldssdfa',
+    hello: 'world',
   };
 });
-console.log(a)
-
-module.exports = a;

@@ -4,6 +4,7 @@
     "dev": "light dev"
   },
   "dependencies": {
-    "light": "../../packages/light"
+    "light": "../../packages/light",
+    "supertest": "^4.0.2"
   }
 }

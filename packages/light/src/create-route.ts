@@ -86,14 +86,14 @@ export default (name: string, opts?: Options): any => {
 
       const isServerless = isNetlify || isAWS || isRunKit || isNow;
 
+      // TODO: test this in runkit and now tests
+      let handler: any = async (req: IM, res: SR, ops: Options): AP => run(
+        req,
+        res,
+        (a, b): AP => proxy(a, b, ops),
+      );
       // transform exports
-      let handler: any = proxy;
       if (isServerless) {
-        if (isRunKit || isNow) {
-          // TODO: test this in runkit and now tests
-          /* istanbul ignore next */
-          handler = async (req: IM, res: SR): AP => run(req, res, (proxy as any));
-        }
         if (isNetlify || isAWS) {
           handler = {
             handler: AWSServerlessMicro(proxy),
