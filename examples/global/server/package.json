@@ -1,0 +1,15 @@
+{
+  "name": "global-server",
+  "scripts": {
+    "dev": "light dev",
+    "start": "light start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "light": "../../../packages/light"
+  },
+  "devDependencies": {
+    "jest": "^25.1.0",
+    "supertest": "^4.0.2"
+  }
+}

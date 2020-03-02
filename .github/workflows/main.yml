@@ -27,3 +27,54 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: ./packages/light/coverage/lcov.info
+
+  basic-example:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - run: npm ci
+    - run: npx lerna bootstrap
+    - run: npm ci
+      working-directory: ./examples/basic
+    - run: npm test
+      working-directory: ./examples/basic
+      env:
+        CI: true
+
+  global-server-example:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - run: npm ci
+    - run: npx lerna bootstrap
+    - run: npm ci
+      working-directory: ./examples/global/server
+    - run: npm test
+      working-directory: ./examples/global/server
+      env:
+        CI: true
+
+  global-serverless-example:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - run: npm ci
+    - run: npx lerna bootstrap
+    - run: npm ci
+      working-directory: ./examples/global/serverless
+    - run: npm test
+      working-directory: ./examples/global/serverless
+      env:
+        CI: true

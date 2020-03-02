@@ -7,11 +7,11 @@
 export { default as createServer } from './create-server';
 export { default as createModel } from './create-model';
 export { default as createFactory } from './create-factory';
-export { default as params } from './params';
-export { default as query } from './query';
 export { default as createTest } from './create-test';
 export { default as createRoute } from './create-route';
-export { default as global } from './global';
+export { default as useParams } from './use-params';
+export { default as useQuery } from './use-query';
+export { default as useGlobal } from './use-global';
 export {
   buffer,
   text,

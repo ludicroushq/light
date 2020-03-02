@@ -1,4 +1,4 @@
-import createModel from '../create-model';
+import { createModel } from '../index';
 
 describe('model', () => {
   describe('with name', () => {

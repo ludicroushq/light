@@ -1,22 +1,24 @@
-import fetch from 'node-fetch';
+import request from 'supertest';
 
 import {
-  createTest, createRoute, createError,
+  createServer, createRoute, createError,
 } from '../../index';
 
 let server: any;
 let errorHandler = true;
 let error: any = () => {};
-let url: string;
 
 beforeEach(async () => {
   const { route } = createRoute('test');
-  server = createTest(route(() => error()), { errorHandler });
-  url = await server.listen();
-});
-
-afterEach(async () => {
-  server.close();
+  ({ server } = createServer({
+    routes: [
+      {
+        handler: route(() => error()),
+        path: '/',
+      },
+    ],
+    opts: { requestLogger: false, errorHandler },
+  }));
 });
 
 describe('plugins', () => {
@@ -29,10 +31,9 @@ describe('plugins', () => {
       it('returns a 500 error', async () => {
         expect.assertions(3);
         const spy = jest.spyOn(process.stdout, 'write').mockImplementation();
-        const req = await fetch(url);
-        const res = await req.json();
-        expect(req.status).toStrictEqual(500);
-        expect(res).toMatchObject({
+        const response = await request(server).get('/');
+        expect(response.status).toStrictEqual(500);
+        expect(response.body).toMatchObject({
           error: 'Internal Server Error',
           message: 'An internal server error occurred',
           statusCode: 500,
@@ -50,10 +51,9 @@ describe('plugins', () => {
       it('returns a 500 error', async () => {
         expect.assertions(3);
         const spy = jest.spyOn(process.stdout, 'write').mockImplementation();
-        const req = await fetch(url);
-        const res = await req.json();
-        expect(req.status).toStrictEqual(400);
-        expect(res).toMatchObject({
+        const response = await request(server).get('/');
+        expect(response.status).toStrictEqual(400);
+        expect(response.body).toMatchObject({
           error: 'Bad Request',
           message: 'custom error message',
           statusCode: 400,
@@ -72,10 +72,9 @@ describe('plugins', () => {
       it('returns an internal server error in text', async () => {
         expect.assertions(2);
         const spy = jest.spyOn(console, 'error').mockImplementation();
-        const req = await fetch(url);
-        const res = await req.text();
-        expect(req.status).toStrictEqual(500);
-        expect(res).toBe('Internal Server Error');
+        const response = await request(server).get('/');
+        expect(response.status).toStrictEqual(500);
+        expect(response.text).toBe('Internal Server Error');
         spy.mockRestore();
       });
     });

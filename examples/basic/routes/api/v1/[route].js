@@ -1,20 +1,10 @@
-const { createRoute, params } = require('light');
+const { createRoute, useParams } = require('light');
 
-const { route, addMiddleware, addPlugin } = createRoute('index');
+const { route } = createRoute('index');
 
-addMiddleware(() => console.log('hi'));
-addPlugin((fn) => async (req, res) => {
-  console.log('before');
-  const result = await fn(req, res);
-  console.log('after');
-  return result;
-});
-
-const a = route(async (req, res) => {
-  const { route } = await params('/api/v1/:route', req.url);
+module.exports = route(async (req, res) => {
+  const { route } = await useParams('/api/v1/:route', req.url);
   return {
     route: route,
   };
 });
-
-module.exports = a;

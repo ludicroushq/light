@@ -4,7 +4,7 @@
   "description": "a modern framework",
   "scripts": {
     "dev": "tsc -w",
-    "test": "npm run jest",
+    "test": "npm run lint && npm run jest",
     "jest": "jest --verbose --coverage",
     "lint": "eslint src *.js --ext js,ts,tsx",
     "ci:jest": "jest --verbose --coverage --maxWorkers=4",
@@ -54,7 +54,6 @@
     "pino-http": "^4.3.0",
     "repl.history": "^0.1.4",
     "signale": "^1.4.0",
-    "test-listen": "^1.1.0",
     "url-join": "^4.0.1",
     "yargs": "^13.3.0",
     "youch": "^2.0.10",
@@ -70,6 +69,7 @@
     "@types/node-fetch": "^2.5.4",
     "@types/pino-http": "^4.3.2",
     "@types/signale": "^1.2.1",
+    "@types/supertest": "^2.0.8",
     "@types/test-listen": "^1.1.0",
     "@types/url-join": "^4.0.0",
     "@types/yargs": "^13.0.4",
@@ -83,6 +83,8 @@
     "jest": "^24.9.0",
     "node-fetch": "^2.6.0",
     "strip-ansi": "^5.2.0",
+    "supertest": "^4.0.2",
+    "test-listen": "^1.1.0",
     "ts-jest": "^24.2.0",
     "typescript": "^3.7.4"
   }

@@ -3,7 +3,7 @@ import { join, parse } from 'path';
 
 import { Route } from '../types/route';
 
-export default async (routes: string[], rootPath: string): Promise<Route[]> => {
+export default (routes: string[], rootPath: string): Route[] => {
   const routesDir = join(rootPath, './routes');
 
   const routeObjects: Route[] = [];

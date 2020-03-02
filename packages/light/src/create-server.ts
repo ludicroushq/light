@@ -2,23 +2,21 @@ import micro from 'micro';
 import Router from 'find-my-way';
 
 import injectRoutes from './utils/inject-routes';
-import globalRegister from './global';
 
 import { Route, Options } from './types/route';
 import { IM, SR } from './types/http';
 import { LightServer } from './types/server';
+// import { Config } from './types/config';
 
 export default ({
   routes,
   opts,
+  // config,
 }: {
   routes: Route[];
   opts?: Options;
+  // config?: Config;
 }): LightServer => {
-  // register global variables
-  const g = globalRegister();
-  (global as any).light = g;
-
   // create find-my-way router with default 404 handler
   const router = Router({
     ignoreTrailingSlash: true,
