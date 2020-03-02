@@ -1,5 +1,6 @@
-const index = require('../index');
 const request = require('supertest');
+
+const index = require('../index');
 
 it('works with global middleware and plugin', async (done) => {
   console.log = jest.fn();
