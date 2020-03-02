@@ -16,7 +16,7 @@ const { LIGHT_ENV } = process.env;
 
 const getOptions = (...opts: Options[]): Options => {
   const defaultOptions = {
-    dev: !(process.env.NODE_ENV === 'production'),
+    dev: !(process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'test'),
     requestLogger: true,
     errorHandler: true,
   };

@@ -1,21 +1,18 @@
-import fetch from 'node-fetch';
+import request from 'supertest';
 
-import { createTest, createRoute } from '../../index';
+import { createServer, createRoute } from '../../index';
 
 const { route } = createRoute('test');
-const { listen, close } = createTest(route(() => {
-  throw new Error('hi');
-}), {
-  dev: true,
-});
-let url: any;
-
-beforeEach(async () => {
-  url = await listen();
-});
-
-afterEach(async () => {
-  close();
+const { server } = createServer({
+  routes: [
+    {
+      handler: route(() => {
+        throw new Error('hi');
+      }),
+      path: '/',
+    },
+  ],
+  opts: { requestLogger: false, dev: true },
 });
 
 describe('plugins', () => {
@@ -24,10 +21,9 @@ describe('plugins', () => {
       it('youches the error', async () => {
         expect.assertions(3);
         const spy = jest.spyOn(console, 'log').mockImplementation();
-        const req = await fetch(url);
-        const res = await req.text();
-        expect(req.status).toStrictEqual(200);
-        expect(res).toContain('html');
+        const response = await request(server).get('/');
+        expect(response.status).toStrictEqual(200);
+        expect(response.text).toContain('html');
         expect(spy).toHaveBeenCalledTimes(1);
         spy.mockRestore();
       });

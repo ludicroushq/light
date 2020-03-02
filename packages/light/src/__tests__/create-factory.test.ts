@@ -1,4 +1,4 @@
-import createFactory from '../create-factory';
+import { createFactory } from '../index';
 
 describe('factory', () => {
   describe('with name', () => {

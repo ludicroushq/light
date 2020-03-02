@@ -1,24 +1,26 @@
-import fetch from 'node-fetch';
+import request from 'supertest';
 
 import {
-  createTest, createRoute, send,
+  createServer, createRoute, send,
 } from '../index';
 
 let mw: any = () => {};
 
 let server: any;
-let url: string;
 beforeEach(async () => {
   const { route, addMiddleware } = createRoute('test');
   addMiddleware(mw);
-  server = createTest(route((req: any): any => ({
-    hello: req.message,
-  })));
-  url = await server.listen();
-});
-
-afterEach(async () => {
-  server.close();
+  ({ server } = createServer({
+    routes: [
+      {
+        handler: route((req: any): any => ({
+          hello: req.message,
+        })),
+        path: '/',
+      },
+    ],
+    opts: { requestLogger: false },
+  }));
 });
 
 describe('middleware', () => {
@@ -29,10 +31,9 @@ describe('middleware', () => {
 
     it('returns data from a middleware', async () => {
       expect.assertions(2);
-      const req = await fetch(url);
-      const res = await req.json();
-      expect(req.status).toStrictEqual(200);
-      expect(res).toMatchObject({ hello: 'passed a message' });
+      const response = await request(server).get('/');
+      expect(response.status).toStrictEqual(200);
+      expect(response.body).toMatchObject({ hello: 'passed a message' });
     });
   });
 
@@ -43,10 +44,9 @@ describe('middleware', () => {
 
     it('returns early from a middleware', async () => {
       expect.assertions(2);
-      const req = await fetch(url);
-      const res = await req.text();
-      expect(req.status).toStrictEqual(200);
-      expect(res).toBe('middleware!!!');
+      const response = await request(server).get('/');
+      expect(response.status).toStrictEqual(200);
+      expect(response.text).toBe('middleware!!!');
     });
   });
 });

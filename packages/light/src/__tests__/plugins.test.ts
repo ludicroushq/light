@@ -1,22 +1,24 @@
-import fetch from 'node-fetch';
+import request from 'supertest';
 
-import { createTest, createRoute } from '../index';
+import { createServer, createRoute } from '../index';
 
 let plug: any = () => {};
 let server: any;
-let url: string;
 
 beforeEach(async () => {
   const { route, addPlugin } = createRoute('test');
   addPlugin(plug);
-  server = createTest(route((req: any) => ({
-    hello: req.message,
-  })));
-  url = await server.listen();
-});
-
-afterEach(async () => {
-  server.close();
+  ({ server } = createServer({
+    routes: [
+      {
+        handler: route((req: any) => ({
+          hello: req.message,
+        })),
+        path: '/',
+      },
+    ],
+    opts: { requestLogger: false },
+  }));
 });
 
 describe('plugins', () => {
@@ -29,9 +31,8 @@ describe('plugins', () => {
 
   it('returns data from a plugin', async () => {
     expect.assertions(2);
-    const req = await fetch(url);
-    const res = await req.json();
-    expect(req.status).toStrictEqual(200);
-    expect(res).toMatchObject({ hello: 'plugin!!!' });
+    const response = await request(server).get('/');
+    expect(response.status).toStrictEqual(200);
+    expect(response.body).toMatchObject({ hello: 'plugin!!!' });
   });
 });

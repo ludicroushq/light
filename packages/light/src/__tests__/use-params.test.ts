@@ -1,4 +1,4 @@
-import params from '../use-params';
+import { useParams } from '../index';
 
 describe('params', () => {
   describe('parsing', () => {
@@ -6,7 +6,7 @@ describe('params', () => {
       expect.assertions(1);
       const path = '/users/:id';
       const url = '/users/light';
-      const obj = await params(path, url);
+      const obj = await useParams(path, url);
       expect(obj).toMatchObject({ id: 'light' });
     });
 
@@ -14,7 +14,7 @@ describe('params', () => {
       expect.assertions(1);
       const path = 'users/:id';
       const url = 'users/light';
-      const obj = await params(path, url);
+      const obj = await useParams(path, url);
       expect(obj).toMatchObject({ id: 'light' });
     });
 
@@ -22,7 +22,7 @@ describe('params', () => {
       expect.assertions(1);
       const path = '/users/:id/:password';
       const url = '/users/light/hello';
-      const obj = await params(path, url);
+      const obj = await useParams(path, url);
       expect(obj).toMatchObject({ id: 'light', password: 'hello' });
     });
 
@@ -30,7 +30,7 @@ describe('params', () => {
       expect.assertions(1);
       const path = '/users/:id/:id';
       const url = '/users/light/server';
-      const obj = await params(path, url);
+      const obj = await useParams(path, url);
       // will resolve the right most value
       expect(obj).toMatchObject({ id: 'server' });
     });

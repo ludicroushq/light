@@ -1,31 +1,32 @@
-import fetch from 'node-fetch';
+import request from 'supertest';
 
-import { createTest, createRoute } from '../index';
+import { createServer, createRoute } from '../index';
 
 let handler: any = (): any => ({
   hello: 'world',
 });
 
-let url: any;
 let server: any;
 beforeEach(async () => {
   const { route: fn } = createRoute('test');
-  server = createTest(fn(handler));
-  url = await server.listen();
-});
-
-afterEach(async () => {
-  server.close();
+  ({ server } = createServer({
+    routes: [
+      {
+        handler: fn(handler),
+        path: '/',
+      },
+    ],
+    opts: { requestLogger: false },
+  }));
 });
 
 describe('route', () => {
   describe('with regular function', () => {
     it('returns object properly', async () => {
       expect.assertions(2);
-      const req = await fetch(url);
-      const res = await req.json();
-      expect(req.status).toStrictEqual(200);
-      expect(res).toMatchObject({ hello: 'world' });
+      const response = await request(server).get('/');
+      expect(response.status).toStrictEqual(200);
+      expect(response.body).toMatchObject({ hello: 'world' });
     });
   });
 
@@ -39,10 +40,9 @@ describe('route', () => {
 
       it('returns object properly', async () => {
         expect.assertions(2);
-        const req = await fetch(url);
-        const res = await req.json();
-        expect(req.status).toStrictEqual(200);
-        expect(res).toMatchObject({ hello: 'world' });
+        const response = await request(server).get('/');
+        expect(response.status).toStrictEqual(200);
+        expect(response.body).toMatchObject({ hello: 'world' });
       });
     });
   });

@@ -1,22 +1,18 @@
-import fetch from 'node-fetch';
+import request from 'supertest';
 
-import { createTest, createRoute } from '../../index';
+import { createServer, createRoute } from '../../index';
 
 const { route } = createRoute('test');
-const { listen, close } = createTest(route(() => ({
-  hello: 'world',
-})), {
-  dev: false,
-  requestLogger: true,
-});
-let url: string;
-
-beforeEach(async () => {
-  url = await listen();
-});
-
-afterEach(async () => {
-  close();
+const { server } = createServer({
+  routes: [
+    {
+      handler: route(() => ({
+        hello: 'world',
+      })),
+      path: '/',
+    },
+  ],
+  opts: { requestLogger: true, dev: false },
 });
 
 describe('plugins', () => {
@@ -25,10 +21,9 @@ describe('plugins', () => {
       it('logs', async () => {
         expect.assertions(6);
         const spy = jest.spyOn(process.stdout, 'write').mockImplementation();
-        const req = await fetch(url);
-        const res = await req.json();
-        expect(req.status).toStrictEqual(200);
-        expect(res).toMatchObject({ hello: 'world' });
+        const response = await request(server).get('/');
+        expect(response.status).toStrictEqual(200);
+        expect(response.body).toMatchObject({ hello: 'world' });
         expect(spy).toHaveBeenCalledTimes(1);
         const log = JSON.parse(spy.mock.calls[0][0]);
         expect(log.req).toHaveProperty('method', 'GET');
