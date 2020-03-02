@@ -36,6 +36,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
+    - run: cd examples/basic
     - run: npm ci
     - run: npm test
       env:
@@ -49,6 +50,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
+    - run: cd examples/global/server
     - run: npm ci
     - run: npm test
       env:
@@ -62,6 +64,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
+    - run: cd examples/global/serverless
     - run: npm ci
     - run: npm test
       env:
