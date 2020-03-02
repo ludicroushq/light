@@ -9,7 +9,7 @@ export default (path?: string, opts?: TestOptions): any => {
   const cwd = path || process.cwd();
 
   const config = importConfig(cwd);
-  (global as any).light = (config || {}).global || {};
+  (global as any).light = config.global || {};
 
   const options = {
     requestLogger: false,

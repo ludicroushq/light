@@ -4,8 +4,6 @@ import {
   useGlobal,
 } from '../index';
 
-declare const light: any;
-
 describe('useGlobal', () => {
   beforeEach(() => {
     jest.resetModules();
@@ -22,6 +20,7 @@ describe('useGlobal', () => {
         spy.mockRestore();
       });
     });
+
     describe('without global property', () => {
       it('finds and returns the config', async () => {
         expect.assertions(1);
