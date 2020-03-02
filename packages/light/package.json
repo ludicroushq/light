@@ -54,7 +54,6 @@
     "pino-http": "^4.3.0",
     "repl.history": "^0.1.4",
     "signale": "^1.4.0",
-    "test-listen": "^1.1.0",
     "url-join": "^4.0.1",
     "yargs": "^13.3.0",
     "youch": "^2.0.10",
@@ -83,6 +82,7 @@
     "jest": "^24.9.0",
     "node-fetch": "^2.6.0",
     "strip-ansi": "^5.2.0",
+    "test-listen": "^1.1.0",
     "ts-jest": "^24.2.0",
     "typescript": "^3.7.4"
   }

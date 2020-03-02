@@ -1,11 +1,10 @@
-const { createTest } = require('light');
+const index = require('../index');
 const request = require('supertest');
 
-const { server } = createTest();
 it('works with global middleware and plugin', async (done) => {
   console.log = jest.fn();
   expect.assertions(5);
-  const response = await request(server).get('/');
+  const response = await request(index).get('/');
   expect(response.status).toBe(200);
   expect(response.body).toMatchObject({
     hello: 'world',

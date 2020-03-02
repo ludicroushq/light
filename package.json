@@ -2,8 +2,6 @@
   "name": "core",
   "private": true,
   "devDependencies": {
-    "lerna": "^3.20.2",
-    "test-listen": "^1.1.0"
-  },
-  "dependencies": {}
+    "lerna": "^3.20.2"
+  }
 }
