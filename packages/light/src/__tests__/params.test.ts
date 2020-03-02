@@ -1,4 +1,4 @@
-import params from '../params';
+import params from '../use-params';
 
 describe('params', () => {
   describe('parsing', () => {

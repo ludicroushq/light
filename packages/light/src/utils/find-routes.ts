@@ -1,12 +1,9 @@
 import { join } from 'path';
-import glob from 'glob';
-import { promisify } from 'util';
+import { sync as globSync } from 'glob';
 
-const globAsync = promisify(glob);
-
-export default async (rootPath: string): Promise<string[]> => {
+export default (rootPath: string): string[] => {
   const routesDir = join(rootPath, './routes');
-  const routes = await globAsync('**/*.js', {
+  const routes = globSync('**/*.js', {
     cwd: routesDir,
     ignore: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
   });

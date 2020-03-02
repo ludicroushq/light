@@ -1,12 +1,12 @@
 {
-  "name": "basic",
+  "name": "global-server",
   "scripts": {
     "dev": "light dev",
     "start": "light start",
     "test": "jest"
   },
   "dependencies": {
-    "light": "../../packages/light"
+    "light": "../../../packages/light"
   },
   "devDependencies": {
     "jest": "^25.1.0",

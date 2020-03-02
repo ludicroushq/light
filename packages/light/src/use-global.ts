@@ -14,4 +14,4 @@ const findGlobal = (path: string): any => {
   return findGlobal(join(path, '../'));
 };
 
-export default (): any => findGlobal(process.cwd());
+export default (path?: string): any => findGlobal(path || process.cwd());

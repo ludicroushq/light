@@ -9,6 +9,7 @@ import { createServer } from '../../index';
 import findRoutes from '../../utils/find-routes';
 import genRoutes from '../../utils/gen-routes';
 import injectRoutes from '../../utils/inject-routes';
+import importConfig from '../../utils/import-config';
 
 export const command = 'dev [dir]';
 export const aliases: string[] = ['d'];
@@ -35,13 +36,15 @@ const handle = async (argv: Args): Promise<void> => {
   logger.start(`${emojic.fire} igniting the server ${emojic.fire}`);
 
   const cwd = join(process.cwd(), argv.dir);
+  const config = importConfig(cwd);
+  (global as any).light = (config || {}).global || {};
 
   const opts = {
     dev: true,
   };
 
-  const routePaths = await findRoutes(cwd);
-  const routes = await genRoutes(routePaths, cwd);
+  const routePaths = findRoutes(cwd);
+  const routes = genRoutes(routePaths, cwd);
   const app = createServer({ routes, opts });
 
   interface ProcessEnv {
