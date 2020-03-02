@@ -36,9 +36,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
-    - run: cd examples/basic
     - run: npm ci
+      working-directory: ./examples/basic
     - run: npm test
+      working-directory: ./examples/basic
       env:
         CI: true
 
@@ -50,9 +51,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
-    - run: cd examples/global/server
     - run: npm ci
+      working-directory: ./examples/global/server
     - run: npm test
+      working-directory: ./examples/global/server
       env:
         CI: true
 
@@ -64,8 +66,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
-    - run: cd examples/global/serverless
     - run: npm ci
+      working-directory: ./examples/global/serverless
     - run: npm test
+      working-directory: ./examples/global/serverless
       env:
         CI: true
