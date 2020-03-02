@@ -36,6 +36,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
+    - run: npm ci
     - run: npx lerna bootstrap
     - run: npm ci
       working-directory: ./examples/basic
@@ -52,6 +53,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
+    - run: npm ci
     - run: npx lerna bootstrap
     - run: npm ci
       working-directory: ./examples/global/server
@@ -68,6 +70,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
+    - run: npm ci
     - run: npx lerna bootstrap
     - run: npm ci
       working-directory: ./examples/global/serverless
