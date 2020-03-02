@@ -212,15 +212,16 @@ process.env.LIGHT_ENV='runkit';
 /*
 // middleware is run before your handler
 addMiddleware(
-  (req, res) => console.log(req.url),
+  (req, res) => console.log('user visited', req.url),
 );
 // plugins wrap your handlers (and middleware)
 addPlugin(
   (fn) => async (req, res) => {
     const before = Date.now();
-    await fn(req, res)
+    const result = await fn(req, res);
     const after = Date.now();
     console.log('the request took', after - before, 'ms');
+    return result;
   },
 );
 */
