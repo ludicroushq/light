@@ -37,6 +37,7 @@ Once you've installed light, all `.js` files under the `routes` folder will be u
 
 To get started, populate `routes/index.js`.
 
+{% code title="routes/index.js" %}
 ```javascript
 const { createRoute } = require('light');
 
@@ -48,6 +49,7 @@ module.exports = route(() => {
   };
 });
 ```
+{% endcode %}
 
 Run `npm run dev` to start the development server. You should see an output in your terminal similar to the one below.
 

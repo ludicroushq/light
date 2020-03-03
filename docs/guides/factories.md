@@ -39,7 +39,7 @@ Inside of tests, you can then import the factory and create the database records
 
 {% code title="routes/\_\_tests\_\_/index.js" %}
 ```javascript
-const { create, createDeleted, createUser, createDeletedUser } = require('../../factories/user');
+const { create, createUser, createDeleted, createDeletedUser } = require('../../factories/user');
 
 let user;
 let deletedUser;

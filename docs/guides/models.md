@@ -18,7 +18,6 @@ class User extends Model {
 };
 
 const { model } = createModel('User');
-
 module.exports = model(() => User);
 ```
 {% endcode %}
