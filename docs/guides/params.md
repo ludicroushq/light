@@ -3,7 +3,7 @@ title: params
 subtitle: use the params function to fetch information from the url
 ---
 
-# params \(TODO\)
+# params
 
 ## Introduction
 
@@ -11,45 +11,28 @@ The params function is a helper function to help extract parameters from URLs. W
 
 **NOTE: some serverless providers \(such as Netlify\) do not support this feature as one file means one route.**
 
-## THIS DOC IS INCOMPLETE. IT WILL BE UPDATED WHEN ROUTING IS UPDATED
-
-## Setup
-
-For development purposes, you should define the route params defined in the [find-my-way](https://github.com/delvedor/find-my-way) documentation.
-
-```javascript
-const { light } = require('light');
-
-module.exports = light({
-  path: '/posts/:id',
-
-  // ...
-});
-```
-
-**Additionally, you need to configure your serverless's hosting provider to forward the routes correctly \(i.e. `/posts/123` -&gt; `routes/posts.js`.** You don't need to do anything if you plan on hosting your application in server mode \(i.e Heroku or Docker\).
-
 ## Usage
 
-Simply import the `params` function and pass it the `path` string \(the template\) and the current `url` \(the string containing the value\).
+The majority of the use cases for params is with dynamic routes. Here, we will take the following route as an example: `/users/:username`. Simply create a file in `routes/users/[username].js`.
 
+{% code title="users/\[username\].js" %}
 ```javascript
-const { light, params } = require('light');
+const { createRoute, useParams } = require('light');
 
-module.exports = light({
-  path: '/posts/:id',
+const { route } = createRoute('users');
 
-  async handler(req) {
-    const { id } = await params(this.path, req.url);
-
-    return {
-      id,
-    };
-  },
+module.exports = route(async (req, res) => {
+  const { username } = await useParams('/users/:username', req.url);
+  return {
+    username,
+  };
 });
 ```
+{% endcode %}
 
-After starting the dev server, you can make a request to [localhost:3000/posts/123](http://localhost:3000/posts/123) and expect a response of
+**Additionally, you need to configure your serverless's hosting provider to forward the routes correctly \(i.e. `/users/ludicrous` -&gt; `routes/users/[username].js`.** You don't need to do anything if you plan on hosting your application in server mode \(i.e Heroku or Docker\).
+
+After starting the dev server, you can make a request to [localhost:3000/users/nahtnam](http://localhost:3000/users/nahtnam) and expect a response of
 
 ```javascript
 {
