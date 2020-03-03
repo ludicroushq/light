@@ -79,7 +79,7 @@ jobs:
       env:
         CI: true
 
-  global-serverless-example:
+  zeit-now-example:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
