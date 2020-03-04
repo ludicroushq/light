@@ -78,3 +78,37 @@ jobs:
       working-directory: ./examples/global/serverless
       env:
         CI: true
+
+  zeit-now-example:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - run: npm ci
+    - run: npx lerna bootstrap
+    - run: npm ci
+      working-directory: ./examples/zeit-now
+    - run: npm test
+      working-directory: ./examples/zeit-now
+      env:
+        CI: true
+
+  netlify-example:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - run: npm ci
+    - run: npx lerna bootstrap
+    - run: npm ci
+      working-directory: ./examples/netlify
+    - run: npm test
+      working-directory: ./examples/netlify
+      env:
+        CI: true
