@@ -96,7 +96,7 @@ export default (name: string, opts?: Options): any => {
       if (isServerless) {
         if (isNetlify || isAWS) {
           handler = {
-            handler: AWSServerlessMicro(proxy),
+            handler: AWSServerlessMicro(handler),
           };
         }
         if (isRunKit) {
