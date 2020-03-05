@@ -7,7 +7,9 @@ it('works with global values', async (done) => {
   const response = await request(index).get('/');
   expect(response.status).toBe(200);
   expect(response.body).toMatchObject({
-    hello: 'global works in serverless!',
+    hello: 'netlify!',
+    global: 'does not work :(',
+    serverless: 'this will not show up once you deploy',
   });
   done();
 });

@@ -5,7 +5,8 @@ const { route } = createRoute('index');
 
 module.exports = route(async () => {
   return {
-    hello: serverless,
+    hello: 'netlify!',
     global: 'does not work :(',
+    serverless,
   };
 });
