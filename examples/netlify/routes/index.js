@@ -6,5 +6,6 @@ const { route } = createRoute('index');
 module.exports = route(async () => {
   return {
     hello: serverless,
+    global: 'does not work :(',
   };
 });

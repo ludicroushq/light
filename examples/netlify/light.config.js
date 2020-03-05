@@ -1,5 +1,5 @@
 module.exports = {
   global: {
-    serverless: 'global works in serverless!',
+    serverless: 'global doesn\'t work in netlify :(',
   },
 };
