@@ -18,6 +18,11 @@ export const builder: CommandBuilder = {
     alias: 'p',
     description: 'specify which port the server should run on',
   },
+  typescript: {
+    alias: 't',
+    boolean: true,
+    description: 'enable typescript in the project',
+  },
   dir: {
     default: './',
     description: 'base directory for the light server',
@@ -28,9 +33,14 @@ export const builder: CommandBuilder = {
 interface Args {
   dir: string;
   port?: string;
+  typescript?: boolean;
 }
 
 const handle = async (argv: Args): Promise<void> => {
+  if (argv.typescript) {
+    require('ts-node').register(); // eslint-disable-line
+  }
+
   logger.start(`${emojic.fire} igniting the server ${emojic.fire}`);
 
   const cwd = join(process.cwd(), argv.dir);

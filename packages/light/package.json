@@ -14,6 +14,7 @@
     "semantic-release": "npx semantic-release"
   },
   "main": "lib",
+  "types": "lib/index.d.ts",
   "files": [
     "lib"
   ],
@@ -54,6 +55,7 @@
     "pino-http": "^4.3.0",
     "repl.history": "^0.1.4",
     "signale": "^1.4.0",
+    "ts-node": "^8.9.1",
     "url-join": "^4.0.1",
     "yargs": "^13.3.0",
     "youch": "^2.0.10",
