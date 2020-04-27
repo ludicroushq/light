@@ -7,8 +7,13 @@ const findGlobal = (path: string): any => {
     return {};
   }
   const file = join(path, 'light.config.js');
+  const fileTS = join(path, 'light.config.ts');
   if (existsSync(file)) {
     const conf = require(file); // eslint-disable-line
+    return conf.global || {};
+  }
+  if (existsSync(fileTS)) {
+    const conf = require(fileTS); // eslint-disable-line
     return conf.global || {};
   }
   return findGlobal(join(path, '../'));
