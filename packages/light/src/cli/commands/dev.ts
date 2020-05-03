@@ -46,7 +46,7 @@ const handle = async (argv: Args): Promise<void> => {
   logger.start(`${emojic.fire} igniting the server ${emojic.fire}`);
 
   const cwd = join(process.cwd(), argv.dir);
-  const config = importConfig(cwd);
+  const config = importConfig(process.cwd());
   (global as any).light = (config || {}).global || {};
 
   const opts = {
