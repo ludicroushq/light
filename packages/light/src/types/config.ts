@@ -1,10 +1,6 @@
 /* eslint-disable no-undef, import/prefer-default-export */
 
-interface Config {
+export interface LightConfig {
   root?: string;
   logger?: any;
 }
-
-export {
-  Config,
-};

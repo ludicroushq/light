@@ -5,8 +5,8 @@ import youch from './plugins/youch';
 import genRoutes from './utils/gen-routes';
 import findRoutes from './utils/find-routes';
 
-import { IM, SR } from './types/http';
 import { LightServer } from './types/server';
+import { Request, Response } from './types/route';
 import importConfig from './utils/import-config';
 import injectRoutes from './utils/inject-routes';
 import errorHandler from './plugins/error-handler';
@@ -19,7 +19,7 @@ export default ({ dev }: CreateServerOptions): LightServer => {
   // create find-my-way router with default 404 handler
   const router = Router({
     ignoreTrailingSlash: true,
-    defaultRoute: (_: IM, res: SR): void => {
+    defaultRoute: (_: Request, res: Response): void => {
       res.statusCode = 404;
       res.end('Not Found');
     },
@@ -39,7 +39,9 @@ export default ({ dev }: CreateServerOptions): LightServer => {
   fillRouter();
 
   // create the http server
-  const server = micro(async (req: IM, res: SR): Promise<any> => router.lookup(req, res));
+  const server = micro(
+    async (req: Request, res: Response): Promise<any> => router.lookup(req, res),
+  );
 
   return {
     router,

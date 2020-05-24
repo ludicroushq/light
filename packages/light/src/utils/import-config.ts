@@ -1,8 +1,8 @@
 import { existsSync } from 'fs';
 import { join } from 'path';
-import { Config } from '../types/config';
+import { LightConfig } from '../types/config';
 
-export default (): Config => {
+export default (): LightConfig => {
   const path = process.cwd();
   const file = join(path, 'light.config.js');
   const fileTS = join(path, 'light.config.ts');

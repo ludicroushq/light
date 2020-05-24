@@ -1,5 +1,4 @@
 import AWSServerlessMicro from 'aws-serverless-micro';
-import { IncomingMessage, ServerResponse } from 'http';
 import {
   buffer,
   text,
@@ -10,6 +9,21 @@ import {
   createError,
   RequestHandler,
 } from 'micro';
+import {
+  CreateRoute,
+  MiddlewareObject,
+  PluginObject,
+  Handlers,
+  HTTPMethod,
+  Methods,
+  AnyRoute,
+  Middleware,
+  Plugin,
+  HandlerFunction,
+  HandlerMethod,
+  Request,
+  Response,
+} from './types/route';
 
 // detect if serverless environment
 const { LIGHT_ENV } = process.env;
@@ -20,46 +34,7 @@ const isNow = LIGHT_ENV === 'now';
 const isServerless = isNetlify || isAWS || isRunKit || isNow;
 
 
-type Request = IncomingMessage;
-type Response = ServerResponse;
-
-type HTTPMethod = 'connect' | 'delete' | 'get' | 'head' | 'options' | 'patch' | 'post' | 'put' | 'trace';
-
-interface RouteParams {
-  req: Request;
-  res: Response;
-  buffer: typeof buffer;
-  text: typeof text;
-  json: typeof json;
-  run: typeof run;
-  send: typeof send;
-  sendError: typeof sendError;
-  createError: typeof createError;
-}
-type RouteFunction = (params: RouteParams) => {};
-type RouteWrapper = (fn: RouteFunction) => void
-type NormalRoute = (req: Request, res: Response) => {};
-interface RunkitRoute {
-  endpoint: NormalRoute;
-}
-interface AWSRoute {
-  handler: NormalRoute;
-}
-type ReturnedRoute = NormalRoute | RunkitRoute | AWSRoute;
-type RouteReturn = Partial<Record<HTTPMethod, RouteWrapper>> & {
-  route: ReturnedRoute;
-  useMiddleware: (middleware: Middleware, methods?: HTTPMethod[]) => void;
-  usePlugin: (plugin: Plugin, methods?: HTTPMethod[]) => void;
-}
-
-type Handlers = Partial<Record<HTTPMethod | 'all', RouteFunction>>;
-
-type Middleware = any;
-type MiddlewareObject = Partial<Record<HTTPMethod | 'global', Middleware[]>>;
-type Plugin = any;
-type PluginObject = Partial<Record<HTTPMethod | 'global', Plugin[]>>;
-
-export default (): RouteReturn => {
+export default (): CreateRoute => {
   const _middleware: MiddlewareObject = JSON.parse('{}');
   const _plugins: PluginObject = JSON.parse('{}');
   const handlers: Handlers = JSON.parse('{}');
@@ -90,7 +65,7 @@ export default (): RouteReturn => {
    * The route that is exposed in every file
    * Essentially a self contained server (allows it to work in serverless environments)
    */
-  let route: ReturnedRoute = async (Req: Request, Res: Response): Promise<any> => {
+  let route: AnyRoute = async (Req: Request, Res: Response): Promise<any> => {
     const method = Req.method?.toLowerCase() as HTTPMethod;
 
     let wrappedFunction = async (req: Request, res: Response): Promise<any> => {
@@ -106,7 +81,7 @@ export default (): RouteReturn => {
       await applyMiddleware(_middleware.global);
       await applyMiddleware(_middleware[method]);
 
-      const methodNotSupported: RouteFunction = ({ createError: createError405 }): {} => {
+      const methodNotSupported: HandlerFunction = ({ createError: createError405 }): {} => {
         throw createError405(405, 'Method Not Allowed');
       };
 
@@ -118,7 +93,6 @@ export default (): RouteReturn => {
         buffer,
         text,
         json,
-        run,
         send,
         sendError,
         createError,
@@ -144,15 +118,14 @@ export default (): RouteReturn => {
   /**
    * Generate wrapper functions for all http methods
    */
-  const genFunction = (key: HTTPMethod): RouteWrapper => (fn: RouteFunction): void => {
+  const genFunction = (key: HTTPMethod): HandlerMethod => (fn: HandlerFunction): void => {
     if (!fn) throw new Error('please provide a function to method');
     handlers[key] = fn;
   };
 
-  const methods: HTTPMethod[] = ['connect', 'delete', 'get', 'head', 'options', 'patch', 'post', 'put', 'trace'];
 
   const wrappers = JSON.parse('{}');
-  methods.forEach((method): void => {
+  Methods.forEach((method): void => {
     wrappers[method] = genFunction(method);
   });
 
@@ -174,6 +147,7 @@ export default (): RouteReturn => {
     route,
     useMiddleware,
     usePlugin,
+    run,
     ...wrappers,
   };
 };
