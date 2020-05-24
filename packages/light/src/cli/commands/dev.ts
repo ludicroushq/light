@@ -49,6 +49,9 @@ const handle = async (argv: Args): Promise<void> => {
   const config = importConfig(process.cwd());
   (global as any).light = (config || {}).global || {};
 
+
+  await config?.hooks?.beforeStart();
+
   const opts = {
     dev: true,
   };
