@@ -1,30 +1,16 @@
-import { join } from 'path';
-import { TestOptions } from './types/route';
 import { createServer } from './index';
-import findRoutes from './utils/find-routes';
-import genRoutes from './utils/gen-routes';
-import importConfig from './utils/import-config';
 
-export default (path?: string, opts?: TestOptions): any => {
+export default (): any => {
   // generate a server with only the route provided
-  let cwd = path || process.cwd();
+  // const cwd = process.cwd();
 
-  const config = importConfig(cwd);
-  (global as any).light = config.global || {};
+  // const options = {
+  //   requestLogger: false,
+  //   dev: false,
+  //   ...(opts || {}),
+  // };
 
-  const options = {
-    requestLogger: false,
-    dev: false,
-    ...(opts || {}),
-  };
+  const app = createServer({});
 
-  if (config.root) {
-    cwd = join(cwd, config.root);
-  }
-
-  const routePaths = findRoutes(cwd);
-  const routes = genRoutes(routePaths, cwd);
-  const app = createServer({ routes, opts: options });
-
-  return app;
+  return app.server;
 };

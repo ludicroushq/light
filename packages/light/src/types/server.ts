@@ -2,11 +2,8 @@
 
 import { Server } from './http';
 
-interface LightServer {
+export interface LightServer {
   server: Server;
   router: any;
+  reload: () => void;
 }
-
-export {
-  LightServer,
-};

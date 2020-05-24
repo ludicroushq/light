@@ -13,12 +13,6 @@ interface RouteObject {
   file?: string;
 }
 
-interface Options {
-  dev?: boolean;
-  requestLogger?: boolean;
-  errorHandler?: boolean;
-}
-
 interface TestOptions {
   dev?: boolean;
   requestLogger?: boolean;
@@ -28,7 +22,6 @@ interface TestOptions {
 
 export {
   Route,
-  Options,
   TestOptions,
   RouteObject,
 };

@@ -1,15 +1,11 @@
 import { CommandBuilder } from 'yargs'; // eslint-disable-line
-import { join, relative } from 'path';
+import { relative } from 'path';
 import emojic from 'emojic';
 import chalk from 'chalk';
 import decache from 'decache';
 
 import logger from '../../utils/logger';
 import { createServer } from '../../index';
-import findRoutes from '../../utils/find-routes';
-import genRoutes from '../../utils/gen-routes';
-import injectRoutes from '../../utils/inject-routes';
-import importConfig from '../../utils/import-config';
 
 export const command = 'dev [dir]';
 export const aliases: string[] = ['d'];
@@ -45,20 +41,8 @@ const handle = async (argv: Args): Promise<void> => {
 
   logger.start(`${emojic.fire} igniting the server ${emojic.fire}`);
 
-  const cwd = join(process.cwd(), argv.dir);
-  const config = importConfig(process.cwd());
-  (global as any).light = (config || {}).global || {};
-
-
-  await config?.hooks?.beforeStart();
-
-  const opts = {
-    dev: true,
-  };
-
-  const routePaths = findRoutes(cwd);
-  const routes = genRoutes(routePaths, cwd);
-  const app = createServer({ routes, opts });
+  const cwd = process.cwd();
+  const app = createServer({ dev: true });
 
   interface ProcessEnv {
     [key: string]: string | number | undefined;
@@ -80,7 +64,9 @@ const handle = async (argv: Args): Promise<void> => {
 
     logger.hmr('starting the hot reloader');
     const chokidar = require('chokidar'); // eslint-disable-line
-    const watcher = chokidar.watch(cwd);
+    const watcher = chokidar.watch(cwd, {
+      ignored: '**/node_modules/**/*',
+    });
 
     watcher.on('ready', (): void => {
       logger.hmr('watching for changes');
@@ -88,19 +74,10 @@ const handle = async (argv: Args): Promise<void> => {
 
     watcher.on('change', async (p: string): Promise<void> => {
       logger.hmr(`swapping out ${chalk.yellow(relative(cwd, p))}`);
-      // reset the router
-      app.router.reset();
       // remove edited file from cache
       decache(p);
-      // remove every route from the cache
-      const newRoutePaths = await findRoutes(cwd);
-      newRoutePaths.forEach((routePath): void => {
-        const f = join(cwd, 'routes', routePath);
-        decache(f);
-      });
-      // add the new routes to the router again
-      const newRoutes = await genRoutes(newRoutePaths, cwd);
-      injectRoutes(app.router, newRoutes);
+      // reload the server
+      app.reload();
     });
   });
 };

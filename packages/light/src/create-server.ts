@@ -1,22 +1,21 @@
 import micro from 'micro';
 import Router from 'find-my-way';
+import { join } from 'path';
+import youch from './plugins/youch';
+import genRoutes from './utils/gen-routes';
+import findRoutes from './utils/find-routes';
 
-import injectRoutes from './utils/inject-routes';
-
-import { Route, Options } from './types/route';
 import { IM, SR } from './types/http';
 import { LightServer } from './types/server';
-// import { Config } from './types/config';
+import importConfig from './utils/import-config';
+import injectRoutes from './utils/inject-routes';
+import errorHandler from './plugins/error-handler';
 
-export default ({
-  routes,
-  opts,
-  // config,
-}: {
-  routes: Route[];
-  opts?: Options;
-  // config?: Config;
-}): LightServer => {
+interface CreateServerOptions {
+  dev?: boolean;
+}
+
+export default ({ dev }: CreateServerOptions): LightServer => {
   // create find-my-way router with default 404 handler
   const router = Router({
     ignoreTrailingSlash: true,
@@ -26,13 +25,30 @@ export default ({
     },
   });
 
-  injectRoutes(router, routes, opts);
+  const cwd = process.cwd();
+  const config = importConfig();
+  const rootPath = join(cwd, config.root ? config.root : './');
+
+  const fillRouter = (): void => {
+    const routeFiles = findRoutes(rootPath);
+    const generatedRoutes = genRoutes(routeFiles, rootPath);
+    injectRoutes(router, generatedRoutes, [
+      dev ? youch : errorHandler({ dev: true, errH: false }),
+    ].filter((x?: any): any => x));
+  };
+  fillRouter();
 
   // create the http server
   const server = micro(async (req: IM, res: SR): Promise<any> => router.lookup(req, res));
 
   return {
     router,
+    reload: (): void => {
+      // reset the router
+      router.reset();
+      // reimport routes
+      fillRouter();
+    },
     server,
   };
 };

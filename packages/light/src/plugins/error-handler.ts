@@ -1,10 +1,10 @@
 import pino from 'pino';
 
 import pinoPretty from '../helpers/pino-pretty';
-import { Options } from '../types/route';
+// import { Options } from '../types/route';
 import { IM, SR } from '../types/http';
 
-export default ({ errorHandler: errH, dev }: Options): any => {
+export default ({ errorHandler: errH, dev }: any): any => {
   const pinoOptions = dev ? {
     prettyPrint: true,
     prettifier: pinoPretty,

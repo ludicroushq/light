@@ -2,10 +2,7 @@
 
 interface Config {
   root?: string;
-  global?: any;
-  hooks?: {
-    beforeStart: () => void;
-  };
+  logger?: any;
 }
 
 export {

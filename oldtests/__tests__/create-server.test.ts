@@ -3,7 +3,7 @@ import request from 'supertest';
 
 import {
   createTest,
-} from '../index';
+} from '../../packages/light/src/index';
 
 describe('createRoute', () => {
   beforeEach(() => {

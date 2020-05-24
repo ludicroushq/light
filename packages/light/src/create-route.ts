@@ -1,46 +1,18 @@
 // import AWSServerlessMicro from 'aws-serverless-micro';
-// import { run } from 'micro';
-// import { handleErrors } from 'micro-boom';
-
 import { IncomingMessage, ServerResponse } from 'http';
-
-// import loggerPlugin from './plugins/logger';
-// import errorHandlerPlugin from './plugins/error-handler';
-// import youchPlugin from './plugins/youch';
-
-// import { IM, SR, AP } from './types/http';
-// import { Options } from './types/route';
-
-// type Middleware = (req: IM, res: SR) => any;
-// type Plugin = (fn: (req: IM, res: SR) => any) => (req: IM, res: SR) => any;
-
-// const { LIGHT_ENV } = process.env;
-
-// const getOptions = (...opts: Options[]): Options => {
-//   const defaultOptions = {
-//     dev: !(process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'test'),
-//     requestLogger: true,
-//     errorHandler: true,
-//   };
-//   return Object.assign({}, defaultOptions, ...opts);
-// };
+import {
+  buffer,
+  text,
+  json,
+  run,
+  send,
+  sendError,
+  createError,
+} from 'micro';
 
 // export default (name: string, opts?: Options): any => {
-//   if (!name) throw new Error('route must have a unique name');
-//   const _name = name;
-//   let options = getOptions(opts || {});
-//   const _middleware: Middleware[] = [];
-//   const _plugins: Plugin[] = [];
-
 //   return {
 //     route(fn: (req: IM, res: SR) => any): (req: IM, res: SR, opts: any) => AP {
-//       if (!fn) throw new Error('please provide a function to route');
-
-//       // get default if using import/export syntax
-//       let func: any = fn;
-//       if (func.default) {
-//         func = func.default;
-//       }
 
 //       // apply middleware to the route
 //       /* istanbul ignore next */
@@ -69,9 +41,9 @@ import { IncomingMessage, ServerResponse } from 'http';
 //         if (options.dev) {
 //           plugins.push(youchPlugin);
 //         }
-//         wrappedFunction = plugins
-//           .reverse()
-//           .reduce((acc: any, val: any): any => val(acc), wrappedFunction);
+// wrappedFunction = plugins
+//   .reverse()
+//   .reduce((acc: any, val: any): any => val(acc), wrappedFunction);
 
 //         return wrappedFunction(Req, Res);
 //       };
@@ -110,12 +82,6 @@ import { IncomingMessage, ServerResponse } from 'http';
 
 //       return handler;
 //     },
-//     addMiddleware(...fns: Middleware[]): void {
-//       _middleware.push(...fns.filter((x: any): any => x));
-//     },
-//     addPlugin(...fns: Plugin[]): void {
-//       _plugins.push(...fns.filter((x: any): any => x));
-//     },
 //   };
 // };
 
@@ -127,6 +93,13 @@ type HTTPMethod = 'connect' | 'delete' | 'get' | 'head' | 'options' | 'patch' | 
 interface RouteParams {
   req: Request;
   res: Response;
+  buffer: typeof buffer;
+  text: typeof text;
+  json: typeof json;
+  run: typeof run;
+  send: typeof send;
+  sendError: typeof sendError;
+  createError: typeof createError;
 }
 type RouteFunction = (params: RouteParams) => {};
 type RouteWrapper = (fn: RouteFunction) => void
@@ -174,28 +147,62 @@ export default (): RouteReturn => {
    * The route that is exposed in every file
    * Essentially a self contained server (allows it to work in serverless environments)
    */
-  const route = async (req: Request, res: Response): Promise<any> => {
-    const method = req.method as HTTPMethod;
+  const route = async (Req: Request, Res: Response): Promise<any> => {
+    const method = Req.method?.toLowerCase() as HTTPMethod;
 
-    const applyMiddleware = async (mw?: Middleware[]): Promise<void> => {
-      if (!mw) return;
-      // eslint-disable-next-line no-restricted-syntax
-      for (const middleware of mw) {
-        // eslint-disable-next-line no-await-in-loop
-        await middleware(req, res);
-      }
+    let wrappedFunction = async (req: Request, res: Response): Promise<any> => {
+      const applyMiddleware = async (mw?: Middleware[]): Promise<void> => {
+        if (!mw) return;
+        // eslint-disable-next-line no-restricted-syntax
+        for (const middleware of mw) {
+          // eslint-disable-next-line no-await-in-loop
+          await middleware(req, res);
+        }
+      };
+
+      await applyMiddleware(_middleware.global);
+      await applyMiddleware(_middleware[method]);
+
+      const methodNotSupported: RouteFunction = ({ createError: createError405 }): {} => {
+        throw createError405(405, 'Method Not Allowed');
+      };
+
+      const handler = handlers[method] || methodNotSupported;
+
+      return handler({
+        req,
+        res,
+        buffer,
+        text,
+        json,
+        run,
+        send,
+        sendError,
+        createError,
+      });
     };
 
-    await applyMiddleware(_middleware.global);
-    await applyMiddleware(_middleware[method]);
+    const applyPlugins = (p?: Plugin): void => {
+      if (!p) return;
 
-    return handlers.get?.({ req, res });
+      wrappedFunction = p
+        .reverse()
+        .reduce((acc: any, val: any): any => val(acc), wrappedFunction);
+    };
+
+    // applyPlugins(run);
+    applyPlugins(_plugins.global);
+    applyPlugins(_plugins[method]);
+
+
+    return wrappedFunction(Req, Res);
   };
 
   /**
    * Generate wrapper functions for all http methods
    */
   const genFunction = (key: HTTPMethod): RouteWrapper => (fn: RouteFunction): void => {
+    if (!fn) throw new Error('please provide a function to method');
     handlers[key] = fn;
   };
 

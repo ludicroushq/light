@@ -2,10 +2,8 @@ import { existsSync } from 'fs';
 import { join } from 'path';
 import { Config } from '../types/config';
 
-export default (path: string): Config => {
-  if (!path) {
-    return {};
-  }
+export default (): Config => {
+  const path = process.cwd();
   const file = join(path, 'light.config.js');
   const fileTS = join(path, 'light.config.ts');
   if (existsSync(file)) {

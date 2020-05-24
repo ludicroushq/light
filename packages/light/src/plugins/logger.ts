@@ -2,11 +2,11 @@ import pino from 'pino';
 import pinoHTTP from 'pino-http';
 
 import pinoPretty from '../helpers/pino-pretty';
-import { Options } from '../types/route';
+// import { Options } from '../types/route';
 import { IM, SR, AP } from '../types/http';
 
 // TODO: remove extra logger out of here
-export default ({ dev, requestLogger }: Options): any => {
+export default ({ dev, requestLogger }: any): any => {
   const pinoOptions = dev ? {
     prettyPrint: true,
     prettifier: pinoPretty,

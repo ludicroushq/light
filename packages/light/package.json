@@ -89,5 +89,6 @@
     "test-listen": "^1.1.0",
     "ts-jest": "^24.2.0",
     "typescript": "^3.7.4"
-  }
+  },
+  "gitHead": "02a1b1b44696ac0c343dc0bf7ea2285b5f1301ef"
 }
