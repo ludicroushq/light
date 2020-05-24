@@ -1,4 +1,4 @@
-// import AWSServerlessMicro from 'aws-serverless-micro';
+import AWSServerlessMicro from 'aws-serverless-micro';
 import { IncomingMessage, ServerResponse } from 'http';
 import {
   buffer,
@@ -8,82 +8,17 @@ import {
   send,
   sendError,
   createError,
+  RequestHandler,
 } from 'micro';
 
-// export default (name: string, opts?: Options): any => {
-//   return {
-//     route(fn: (req: IM, res: SR) => any): (req: IM, res: SR, opts: any) => AP {
+// detect if serverless environment
+const { LIGHT_ENV } = process.env;
+const isNetlify = LIGHT_ENV === 'netlify';
+const isAWS = LIGHT_ENV === 'aws';
+const isRunKit = LIGHT_ENV === 'runkit';
+const isNow = LIGHT_ENV === 'now';
+const isServerless = isNetlify || isAWS || isRunKit || isNow;
 
-//       // apply middleware to the route
-//       /* istanbul ignore next */
-//       const proxy = async (Req: IM, Res: SR, reqOpts: Options = {}): AP => {
-//         options = getOptions(options, reqOpts);
-
-//         let wrappedFunction = async (req: IM, res: SR): AP => {
-//           for (const mw of _middleware) { // eslint-disable-line
-//             await mw(req, res); // eslint-disable-line
-
-//             if (res.headersSent) {
-//               return null;
-//             }
-//           }
-
-//           return func(req, res);
-//         };
-
-//         // apply plugins to the route
-//         const plugins = [
-//           loggerPlugin(options),
-//           options.errorHandler ? handleErrors : null,
-//           errorHandlerPlugin(options),
-//           ..._plugins,
-//         ].filter((x: any): any => x);
-//         if (options.dev) {
-//           plugins.push(youchPlugin);
-//         }
-// wrappedFunction = plugins
-//   .reverse()
-//   .reduce((acc: any, val: any): any => val(acc), wrappedFunction);
-
-//         return wrappedFunction(Req, Res);
-//       };
-
-//       // set the name for cli
-//       (proxy as any)._name = _name;
-
-//       // detect if serverless environment
-//       const { env } = process;
-//       const isNetlify = LIGHT_ENV === 'netlify' || env.LIGHT_ENV === 'netlify';
-//       const isAWS = LIGHT_ENV === 'aws' || env.LIGHT_ENV === 'aws';
-//       const isRunKit = LIGHT_ENV === 'runkit' || env.LIGHT_ENV === 'runkit';
-//       const isNow = LIGHT_ENV === 'now' || env.LIGHT_ENV === 'now';
-
-//       const isServerless = isNetlify || isAWS || isRunKit || isNow;
-
-//       // TODO: test this in runkit and now tests
-//       let handler: any = async (req: IM, res: SR, ops: Options): AP => run(
-//         req,
-//         res,
-//         (a, b): AP => proxy(a, b, ops),
-//       );
-//       // transform exports
-//       if (isServerless) {
-//         if (isNetlify || isAWS) {
-//           handler = {
-//             handler: AWSServerlessMicro(proxy),
-//           };
-//         }
-//         if (isRunKit) {
-//           handler = {
-//             endpoint: handler,
-//           };
-//         }
-//       }
-
-//       return handler;
-//     },
-//   };
-// };
 
 type Request = IncomingMessage;
 type Response = ServerResponse;
@@ -103,8 +38,16 @@ interface RouteParams {
 }
 type RouteFunction = (params: RouteParams) => {};
 type RouteWrapper = (fn: RouteFunction) => void
+type NormalRoute = (req: Request, res: Response) => {};
+interface RunkitRoute {
+  endpoint: NormalRoute;
+}
+interface AWSRoute {
+  handler: NormalRoute;
+}
+type ReturnedRoute = NormalRoute | RunkitRoute | AWSRoute;
 type RouteReturn = Partial<Record<HTTPMethod, RouteWrapper>> & {
-  route: (req: Request, res: Response) => {};
+  route: ReturnedRoute;
   useMiddleware: (middleware: Middleware, methods?: HTTPMethod[]) => void;
   usePlugin: (plugin: Plugin, methods?: HTTPMethod[]) => void;
 }
@@ -147,7 +90,7 @@ export default (): RouteReturn => {
    * The route that is exposed in every file
    * Essentially a self contained server (allows it to work in serverless environments)
    */
-  const route = async (Req: Request, Res: Response): Promise<any> => {
+  let route: ReturnedRoute = async (Req: Request, Res: Response): Promise<any> => {
     const method = Req.method?.toLowerCase() as HTTPMethod;
 
     let wrappedFunction = async (req: Request, res: Response): Promise<any> => {
@@ -212,6 +155,20 @@ export default (): RouteReturn => {
   methods.forEach((method): void => {
     wrappers[method] = genFunction(method);
   });
+
+  // transform exports
+  if (isServerless) {
+    if (isNetlify || isAWS) {
+      route = {
+        handler: AWSServerlessMicro(route),
+      };
+    }
+    if (isRunKit) {
+      route = {
+        endpoint: (a: Request, b: Response): {} => run(a, b, (route as RequestHandler)),
+      };
+    }
+  }
 
   return {
     route,
