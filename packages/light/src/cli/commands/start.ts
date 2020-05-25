@@ -1,8 +1,9 @@
 import { CommandBuilder } from 'yargs'; // eslint-disable-line
 import emojic from 'emojic';
+import chalk from 'chalk';
 
-import logger from '../../utils/logger';
-import { createServer } from '../../index';
+import { logger, createServer } from '../../index';
+import { isTypescript } from '../../utils/import-config';
 
 export const command = 'start [dir]';
 export const aliases: string[] = ['s'];
@@ -32,11 +33,12 @@ interface Args {
 }
 
 const handle = async (argv: Args): Promise<void> => {
-  if (argv.typescript) {
+  const ts = isTypescript();
+  if (argv.typescript || ts) {
     require('ts-node').register(); // eslint-disable-line
   }
 
-  logger.start(`${emojic.fire} igniting the server ${emojic.fire}`);
+  logger.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
 
   const app = createServer({});
 
@@ -56,13 +58,13 @@ const handle = async (argv: Args): Promise<void> => {
   }
 
   app.server.listen(PORT, (HOST as any), (): void => {
-    logger.listening(`on port ${PORT}`);
+    logger.info(`[ ${chalk.magentaBright('listening')} ] on port ${PORT}`);
   });
 };
 
 export const handler = (argv: Args): void => {
   handle(argv).catch((err: Error): void => {
-    logger.fatal(err);
+    logger.error(err);
     process.exit(1);
   });
 };

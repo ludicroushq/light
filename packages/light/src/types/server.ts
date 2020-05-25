@@ -9,3 +9,9 @@ export interface LightServer {
   router: any;
   reload: () => void;
 }
+
+export interface CreateServerOptions {
+  dev?: boolean;
+  errorHandler?: boolean;
+  requestLogger?: boolean;
+}

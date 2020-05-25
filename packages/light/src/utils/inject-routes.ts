@@ -1,11 +1,11 @@
 import Router from 'find-my-way';
 
-import { RouteObject } from '../types/route';
+import { RouteObject, Plugin } from '../types/route';
 
 export default (
   router: Router.Instance<Router.HTTPVersion.V1>,
   routes: RouteObject[],
-  plugins: any[] = [],
+  plugins: Plugin[] = [],
 ): void => {
   routes.forEach((route): void => {
     let { handler } = route;

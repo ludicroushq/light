@@ -68,7 +68,7 @@ export default (): CreateRoute => {
   let route: AnyRoute = async (Req: Request, Res: Response): Promise<any> => {
     const method = Req.method?.toLowerCase() as HTTPMethod;
 
-    let wrappedFunction = async (req: Request, res: Response): Promise<any> => {
+    let handler = async (req: Request, res: Response): Promise<any> => {
       const applyMiddleware = async (mw?: Middleware[]): Promise<void> => {
         if (!mw) return;
         // eslint-disable-next-line no-restricted-syntax
@@ -85,9 +85,9 @@ export default (): CreateRoute => {
         throw createError405(405, 'Method Not Allowed');
       };
 
-      const handler = handlers[method] || methodNotSupported;
+      const fn = handlers[method] || methodNotSupported;
 
-      return handler({
+      return fn({
         req,
         res,
         buffer,
@@ -102,9 +102,9 @@ export default (): CreateRoute => {
     const applyPlugins = (p?: Plugin): void => {
       if (!p) return;
 
-      wrappedFunction = p
+      handler = p
         .reverse()
-        .reduce((acc: any, val: any): any => val(acc), wrappedFunction);
+        .reduce((acc: any, val: any): any => val(acc), handler);
     };
 
     // applyPlugins(run);
@@ -112,7 +112,7 @@ export default (): CreateRoute => {
     applyPlugins(_plugins[method]);
 
 
-    return wrappedFunction(Req, Res);
+    return handler(Req, Res);
   };
 
   /**

@@ -5,24 +5,24 @@ import youch from './plugins/youch';
 import genRoutes from './utils/gen-routes';
 import findRoutes from './utils/find-routes';
 
-import { LightServer } from './types/server';
-import { Request, Response } from './types/route';
+import { LightServer, CreateServerOptions } from './types/server';
+import { Request, Response, Plugin } from './types/route';
 import importConfig from './utils/import-config';
 import injectRoutes from './utils/inject-routes';
-import errorHandler from './plugins/error-handler';
+import logger from './plugins/logger';
 
-interface CreateServerOptions {
-  dev?: boolean;
-}
-
-export default ({ dev }: CreateServerOptions): LightServer => {
+export default ({
+  dev,
+  errorHandler = true,
+  requestLogger = true,
+}: CreateServerOptions): LightServer => {
   // create find-my-way router with default 404 handler
   const router = Router({
     ignoreTrailingSlash: true,
-    defaultRoute: (_: Request, res: Response): void => {
+    defaultRoute: logger((_: Request, res: Response): void => {
       res.statusCode = 404;
       res.end('Not Found');
-    },
+    }),
   });
 
   const cwd = process.cwd();
@@ -32,9 +32,17 @@ export default ({ dev }: CreateServerOptions): LightServer => {
   const fillRouter = (): void => {
     const routeFiles = findRoutes(rootPath);
     const generatedRoutes = genRoutes(routeFiles, rootPath);
-    injectRoutes(router, generatedRoutes, [
-      dev ? youch : errorHandler({ dev: true, errH: false }),
-    ].filter((x?: any): any => x));
+    const plugins: Plugin[] = [];
+
+    if (errorHandler && dev) {
+      plugins.push(youch);
+    }
+
+    if (requestLogger) {
+      plugins.push(logger);
+    }
+
+    injectRoutes(router, generatedRoutes, plugins);
   };
   fillRouter();
 

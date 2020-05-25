@@ -5,7 +5,7 @@ export default (rootPath: string): string[] => {
   const routesDir = join(rootPath, './routes');
   const routes = globSync('**/*.[jt]s', {
     cwd: routesDir,
-    ignore: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+    ignore: ['**/__tests__/**/*.[jt]s?(x)', '**/?*.+(spec|test).[tj]s?(x)'],
   });
 
   return routes;

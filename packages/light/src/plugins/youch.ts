@@ -1,9 +1,9 @@
 import Youch from 'youch';
 import forTerminal from 'youch-terminal';
 
-import { IM, SR } from '../types/http';
+import { Request, Response } from '../types/route';
 
-export default (fun: any): any => async (req: IM, res: SR): Promise<void> => {
+export default (fun: any): any => async (req: Request, res: Response): Promise<void> => {
   try {
     return await fun(req, res);
   } catch (err) {

@@ -4,8 +4,8 @@ import emojic from 'emojic';
 import chalk from 'chalk';
 import decache from 'decache';
 
-import logger from '../../utils/logger';
-import { createServer } from '../../index';
+import { logger, createServer } from '../../index';
+import { isTypescript } from '../../utils/import-config';
 
 export const command = 'dev [dir]';
 export const aliases: string[] = ['d'];
@@ -35,11 +35,12 @@ interface Args {
 }
 
 const handle = async (argv: Args): Promise<void> => {
-  if (argv.typescript) {
+  const ts = isTypescript();
+  if (argv.typescript || ts) {
     require('ts-node').register(); // eslint-disable-line
   }
 
-  logger.start(`${emojic.fire} igniting the server ${emojic.fire}`);
+  logger.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
 
   const cwd = process.cwd();
   const app = createServer({ dev: true });
@@ -60,20 +61,18 @@ const handle = async (argv: Args): Promise<void> => {
   }
 
   app.server.listen(PORT, (HOST as any), (): void => {
-    logger.listening(`on port ${PORT}`);
+    logger.info(`[ ${chalk.magentaBright('listening')} ] on port ${PORT}`);
 
-    logger.hmr('starting the hot reloader');
+    logger.info(`[ ${chalk.blueBright('hmr')} ] starting the hot reloader`);
     const chokidar = require('chokidar'); // eslint-disable-line
-    const watcher = chokidar.watch(cwd, {
-      ignored: '**/node_modules/**/*',
-    });
+    const watcher = chokidar.watch(cwd);
 
     watcher.on('ready', (): void => {
-      logger.hmr('watching for changes');
+      logger.info(`[ ${chalk.blueBright('hmr')} ] watching for changes`);
     });
 
     watcher.on('change', async (p: string): Promise<void> => {
-      logger.hmr(`swapping out ${chalk.yellow(relative(cwd, p))}`);
+      logger.info(`[ ${chalk.blueBright('hmr')} ] swapping out ${chalk.yellow(relative(cwd, p))}`);
       // remove edited file from cache
       decache(p);
       // reload the server
@@ -84,7 +83,7 @@ const handle = async (argv: Args): Promise<void> => {
 
 export const handler = (argv: Args): void => {
   handle(argv).catch((err: Error): void => {
-    logger.fatal(err);
+    logger.error(err);
     process.exit(1);
   });
 };
