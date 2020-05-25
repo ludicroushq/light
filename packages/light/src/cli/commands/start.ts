@@ -2,7 +2,6 @@ import { CommandBuilder } from 'yargs'; // eslint-disable-line
 import emojic from 'emojic';
 import chalk from 'chalk';
 
-import { logger, createServer } from '../../index';
 import { isTypescript } from '../../utils/import-config';
 
 export const command = 'start [dir]';
@@ -38,7 +37,10 @@ const handle = async (argv: Args): Promise<void> => {
     require('ts-node').register(); // eslint-disable-line
   }
 
-  logger.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
+  // eslint-disable-next-line global-require
+  const { createServer } = require('../../index');
+
+  console.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
 
   const app = createServer({});
 
@@ -58,13 +60,13 @@ const handle = async (argv: Args): Promise<void> => {
   }
 
   app.server.listen(PORT, (HOST as any), (): void => {
-    logger.info(`[ ${chalk.magentaBright('listening')} ] on port ${PORT}`);
+    console.info(`[ ${chalk.magentaBright('listening')} ] on port ${PORT}`);
   });
 };
 
 export const handler = (argv: Args): void => {
   handle(argv).catch((err: Error): void => {
-    logger.error(err);
+    console.error(err);
     process.exit(1);
   });
 };

@@ -46,6 +46,7 @@ export type AnyRoute = ServerRoute | RunkitRoute | AWSRoute;
 
 // createRoute return values
 export type CreateRoute = Record<HTTPMethod, HandlerMethod> & {
+  all: HandlerMethod;
   route: AnyRoute;
   useMiddleware: (middleware: Middleware, methods?: HTTPMethod[]) => void;
   usePlugin: (plugin: Plugin, methods?: HTTPMethod[]) => void;

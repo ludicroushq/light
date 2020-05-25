@@ -4,7 +4,6 @@ import emojic from 'emojic';
 import chalk from 'chalk';
 import decache from 'decache';
 
-import { logger, createServer } from '../../index';
 import { isTypescript } from '../../utils/import-config';
 
 export const command = 'dev [dir]';
@@ -40,7 +39,10 @@ const handle = async (argv: Args): Promise<void> => {
     require('ts-node').register(); // eslint-disable-line
   }
 
-  logger.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
+  // eslint-disable-next-line global-require
+  const { createServer } = require('../../index');
+
+  console.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
 
   const cwd = process.cwd();
   const app = createServer({ youch: true });
@@ -61,18 +63,18 @@ const handle = async (argv: Args): Promise<void> => {
   }
 
   app.server.listen(PORT, (HOST as any), (): void => {
-    logger.info(`[ ${chalk.magentaBright('listening')} ] on port ${PORT}`);
+    console.info(`[ ${chalk.magentaBright('listening')} ] on port ${PORT}`);
 
-    logger.info(`[ ${chalk.blueBright('hmr')} ] starting the hot reloader`);
+    console.info(`[ ${chalk.blueBright('hmr')} ] starting the hot reloader`);
     const chokidar = require('chokidar'); // eslint-disable-line
     const watcher = chokidar.watch(cwd);
 
     watcher.on('ready', (): void => {
-      logger.info(`[ ${chalk.blueBright('hmr')} ] watching for changes`);
+      console.info(`[ ${chalk.blueBright('hmr')} ] watching for changes`);
     });
 
     watcher.on('change', async (p: string): Promise<void> => {
-      logger.info(`[ ${chalk.blueBright('hmr')} ] swapping out ${chalk.yellow(relative(cwd, p))}`);
+      console.info(`[ ${chalk.blueBright('hmr')} ] swapping out ${chalk.yellow(relative(cwd, p))}`);
       // remove edited file from cache
       decache(p);
       // reload the server
@@ -83,7 +85,7 @@ const handle = async (argv: Args): Promise<void> => {
 
 export const handler = (argv: Args): void => {
   handle(argv).catch((err: Error): void => {
-    logger.error(err);
+    console.error(err);
     process.exit(1);
   });
 };

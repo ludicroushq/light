@@ -75,6 +75,7 @@ export default (): CreateRoute => {
         for (const middleware of mw) {
           // eslint-disable-next-line no-await-in-loop
           await middleware(req, res);
+          // TODO: short circuit
         }
       };
 
@@ -85,7 +86,7 @@ export default (): CreateRoute => {
         throw createError405(405, 'Method Not Allowed');
       };
 
-      const fn = handlers[method] || methodNotSupported;
+      const fn = handlers[method] || handlers.all || methodNotSupported;
 
       return fn({
         req,
@@ -118,15 +119,15 @@ export default (): CreateRoute => {
   /**
    * Generate wrapper functions for all http methods
    */
-  const genFunction = (key: HTTPMethod): HandlerMethod => (fn: HandlerFunction): void => {
+  const genFunction = (key: HTTPMethod | 'all'): HandlerMethod => (fn: HandlerFunction): void => {
     if (!fn) throw new Error('please provide a function to method');
     handlers[key] = fn;
   };
 
 
   const wrappers = JSON.parse('{}');
-  Methods.forEach((method): void => {
-    wrappers[method] = genFunction(method);
+  [...Methods, 'all'].forEach((method): void => {
+    wrappers[method] = genFunction(method as HTTPMethod | 'all');
   });
 
   // transform exports

@@ -2,7 +2,6 @@ import pretty from 'pretty-time';
 import { v4 as uuidv4 } from 'uuid';
 import chalk from 'chalk';
 
-import logger from '../logger';
 import importConfig from '../utils/import-config';
 
 const getStatusCode = (s: number): string => {
@@ -25,11 +24,11 @@ const getStatusCode = (s: number): string => {
 const defaultRequestLogger = (fn: any): any => async (req: Request, res: Response): Promise<any> => {
   const requestID = uuidv4().substring(0, 8);
   const time = (new Date()).toLocaleTimeString();
-  logger.info(`[ ${chalk.gray(requestID)} ] > ${chalk.cyanBright(req.method)} ${chalk.whiteBright(req.url)}${chalk.gray(`, at ${time}`)}`);
+  console.info(`[ ${chalk.gray(requestID)} ] > ${chalk.cyanBright(req.method)} ${chalk.whiteBright(req.url)}${chalk.gray(`, at ${time}`)}`);
   const before = process.hrtime();
   const response = await fn(req, res);
   const after = process.hrtime(before);
-  logger.info(`[ ${chalk.gray(requestID)} ] < ${getStatusCode((res as any).statusCode)}${chalk.gray(`, in ${pretty(after)}`)}`);
+  console.info(`[ ${chalk.gray(requestID)} ] < ${getStatusCode((res as any).statusCode)}${chalk.gray(`, in ${pretty(after)}`)}`);
   return response;
 };
 
