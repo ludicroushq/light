@@ -15,12 +15,18 @@ export default ({
   requestLogger = true,
 }: CreateServerOptions): LightServer => {
   // create find-my-way router with default 404 handler
+  let defaultRoute = (_: Request, res: Response): void => {
+    res.statusCode = 404;
+    res.end('Not Found');
+  };
+
+  if (requestLogger) {
+    defaultRoute = requestLoggerPlugin(defaultRoute);
+  }
+
   const router = Router({
     ignoreTrailingSlash: true,
-    defaultRoute: requestLoggerPlugin((_: Request, res: Response): void => {
-      res.statusCode = 404;
-      res.end('Not Found');
-    }),
+    defaultRoute,
   });
 
   const cwd = process.cwd();

@@ -1,36 +1,29 @@
 import request from 'supertest';
 
-import { createServer, createRoute } from '../../index';
-
-const { route } = createRoute('test');
-const { server } = createServer({
-  routes: [
-    {
-      handler: route(() => ({
-        hello: 'world',
-      })),
-      path: '/',
-    },
-  ],
-  opts: { requestLogger: true, dev: false },
-});
+import { join } from 'path';
+import { createTest } from '../../index';
 
 describe('plugins', () => {
-  describe('request logger', () => {
-    describe('with logger enabled', () => {
-      it('logs', async () => {
-        expect.assertions(6);
-        const spy = jest.spyOn(process.stdout, 'write').mockImplementation();
-        const response = await request(server).get('/');
-        expect(response.status).toStrictEqual(200);
-        expect(response.body).toMatchObject({ hello: 'world' });
-        expect(spy).toHaveBeenCalledTimes(1);
-        const log = JSON.parse(spy.mock.calls[0][0]);
-        expect(log.req).toHaveProperty('method', 'GET');
-        expect(log.req).toHaveProperty('url', '/');
-        expect(log.res).toHaveProperty('statusCode', 200);
-        spy.mockRestore();
+  describe('youch', () => {
+    it('youches the error', async () => {
+      const cwd = jest.spyOn(process, 'cwd');
+      cwd.mockReturnValue(join(__dirname, './seeds/logger'));
+      const spy = jest.spyOn(console, 'info').mockImplementation();
+
+      const app = createTest({ youch: false, requestLogger: true });
+
+      const response = await request(app).get('/');
+      expect(response.status).toStrictEqual(200);
+      expect(response.body).toMatchObject({
+        hello: 'world',
       });
+      expect(spy).toHaveBeenCalledTimes(2);
+      expect(spy.mock.calls[0][0]).toContain('GET');
+      expect(spy.mock.calls[0][0]).toContain('/');
+      expect(spy.mock.calls[1][0]).toContain('200');
+
+      spy.mockRestore();
+      cwd.mockRestore();
     });
   });
 });

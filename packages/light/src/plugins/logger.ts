@@ -2,7 +2,7 @@ import pretty from 'pretty-time';
 import { v4 as uuidv4 } from 'uuid';
 import chalk from 'chalk';
 
-import { logger } from '../index';
+import logger from '../logger';
 import importConfig from '../utils/import-config';
 
 const getStatusCode = (s: number): string => {

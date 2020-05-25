@@ -32,7 +32,7 @@ export interface HandlerParams {
 
 // types of get() and the function passed in
 export type HandlerFunction = (params: HandlerParams) => {};
-export type HandlerMethod = (fn: HandlerFunction) => void
+export type HandlerMethod = (fn: HandlerFunction) => void;
 
 // serverless types
 export type ServerRoute = (req: Request, res: Response) => {};
@@ -45,12 +45,12 @@ export interface AWSRoute {
 export type AnyRoute = ServerRoute | RunkitRoute | AWSRoute;
 
 // createRoute return values
-export type CreateRoute = Partial<Record<HTTPMethod, HandlerMethod>> & {
+export type CreateRoute = Record<HTTPMethod, HandlerMethod> & {
   route: AnyRoute;
   useMiddleware: (middleware: Middleware, methods?: HTTPMethod[]) => void;
   usePlugin: (plugin: Plugin, methods?: HTTPMethod[]) => void;
   run: typeof run;
-}
+};
 
 // createRoute inner types
 export type Handlers = Partial<Record<HTTPMethod | 'all', HandlerFunction>>;

@@ -1,17 +1,10 @@
-import { createServer } from './index';
+import createServer from './create-server';
+import { CreateServerOptions } from './types/server';
 
-export default (): any => {
-  // generate a server with only the route provided
-  // const cwd = process.cwd();
-
-  // const options = {
-  //   requestLogger: false,
-  //   dev: false,
-  //   ...(opts || {}),
-  // };
-
+export default (opts?: CreateServerOptions): any => {
   const app = createServer({
     requestLogger: false,
+    ...(opts || {}),
   });
 
   return app.server;

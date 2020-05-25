@@ -43,7 +43,7 @@ const handle = async (argv: Args): Promise<void> => {
   logger.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
 
   const cwd = process.cwd();
-  const app = createServer({ dev: true });
+  const app = createServer({ youch: true });
 
   interface ProcessEnv {
     [key: string]: string | number | undefined;

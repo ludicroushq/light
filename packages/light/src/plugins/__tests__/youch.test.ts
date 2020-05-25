@@ -1,32 +1,24 @@
 import request from 'supertest';
 
-import { createServer, createRoute } from '../../index';
-
-const { route } = createRoute('test');
-const { server } = createServer({
-  routes: [
-    {
-      handler: route(() => {
-        throw new Error('hi');
-      }),
-      path: '/',
-    },
-  ],
-  opts: { requestLogger: false, dev: true },
-});
+import { join } from 'path';
+import { createTest } from '../../index';
 
 describe('plugins', () => {
   describe('youch', () => {
-    describe('in dev mode', () => {
-      it('youches the error', async () => {
-        expect.assertions(3);
-        const spy = jest.spyOn(console, 'log').mockImplementation();
-        const response = await request(server).get('/');
-        expect(response.status).toStrictEqual(200);
-        expect(response.text).toContain('html');
-        expect(spy).toHaveBeenCalledTimes(1);
-        spy.mockRestore();
-      });
+    it('youches the error', async () => {
+      const cwd = jest.spyOn(process, 'cwd');
+      cwd.mockReturnValue(join(__dirname, './seeds/youch'));
+      const spy = jest.spyOn(console, 'log').mockImplementation();
+
+      const app = createTest({ youch: true });
+
+      const response = await request(app).get('/');
+      expect(response.status).toStrictEqual(200);
+      expect(response.text).toContain('html');
+      expect(spy).toHaveBeenCalledTimes(1);
+
+      spy.mockRestore();
+      cwd.mockRestore();
     });
   });
 });
