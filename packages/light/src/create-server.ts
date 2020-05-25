@@ -1,25 +1,23 @@
 import micro from 'micro';
 import Router from 'find-my-way';
 import { join } from 'path';
-import youch from './plugins/youch';
+import youchPlugin from './plugins/youch';
 import genRoutes from './utils/gen-routes';
 import findRoutes from './utils/find-routes';
-
 import { LightServer, CreateServerOptions } from './types/server';
 import { Request, Response, Plugin } from './types/route';
 import importConfig from './utils/import-config';
 import injectRoutes from './utils/inject-routes';
-import logger from './plugins/logger';
+import requestLoggerPlugin from './plugins/logger';
 
 export default ({
-  dev,
-  errorHandler = true,
+  youch = true,
   requestLogger = true,
 }: CreateServerOptions): LightServer => {
   // create find-my-way router with default 404 handler
   const router = Router({
     ignoreTrailingSlash: true,
-    defaultRoute: logger((_: Request, res: Response): void => {
+    defaultRoute: requestLoggerPlugin((_: Request, res: Response): void => {
       res.statusCode = 404;
       res.end('Not Found');
     }),
@@ -34,12 +32,12 @@ export default ({
     const generatedRoutes = genRoutes(routeFiles, rootPath);
     const plugins: Plugin[] = [];
 
-    if (errorHandler && dev) {
-      plugins.push(youch);
+    if (youch) {
+      plugins.push(youchPlugin);
     }
 
     if (requestLogger) {
-      plugins.push(logger);
+      plugins.push(requestLoggerPlugin);
     }
 
     injectRoutes(router, generatedRoutes, plugins);

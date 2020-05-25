@@ -10,7 +10,9 @@ export default (): any => {
   //   ...(opts || {}),
   // };
 
-  const app = createServer({});
+  const app = createServer({
+    requestLogger: false,
+  });
 
   return app.server;
 };

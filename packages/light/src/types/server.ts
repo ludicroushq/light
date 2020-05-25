@@ -11,7 +11,6 @@ export interface LightServer {
 }
 
 export interface CreateServerOptions {
-  dev?: boolean;
-  errorHandler?: boolean;
+  youch?: boolean;
   requestLogger?: boolean;
 }

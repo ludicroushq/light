@@ -1,12 +1,9 @@
 // IMPORTANT NOTE: You will need to set LIGHT_ENV=netlify in the Netlify Environment Variables settings
-const { createRoute, useGlobal } = require('light');
-const { serverless } = useGlobal();
-const { route } = createRoute('index');
+const { createRoute } = require('light');
+const { route, get } = createRoute();
 
-module.exports = route(async () => {
-  return {
-    hello: 'netlify!',
-    global: 'does not work :(',
-    serverless,
-  };
-});
+get(() => ({
+  hello: 'netlify!',
+}));
+
+module.exports = route;
