@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { CommandBuilder } from 'yargs'; // eslint-disable-line
 import emojic from 'emojic';
 import chalk from 'chalk';

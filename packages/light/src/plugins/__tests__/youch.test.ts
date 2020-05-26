@@ -10,9 +10,9 @@ describe('plugins', () => {
       cwd.mockReturnValue(join(__dirname, './seeds/youch'));
       const spy = jest.spyOn(console, 'log').mockImplementation();
 
-      const app = createTest({ youch: true });
+      const { server } = createTest({ youch: true });
 
-      const response = await request(app).get('/');
+      const response = await request(server).get('/');
       expect(response.status).toStrictEqual(200);
       expect(response.text).toContain('html');
       expect(spy).toHaveBeenCalledTimes(1);

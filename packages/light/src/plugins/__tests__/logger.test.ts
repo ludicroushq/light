@@ -10,9 +10,9 @@ describe('plugins', () => {
       cwd.mockReturnValue(join(__dirname, './seeds/logger'));
       const spy = jest.spyOn(console, 'info').mockImplementation();
 
-      const app = createTest({ youch: false, requestLogger: true });
+      const { server } = createTest({ youch: false, requestLogger: true });
 
-      const response = await request(app).get('/');
+      const response = await request(server).get('/');
       expect(response.status).toStrictEqual(200);
       expect(response.body).toMatchObject({
         hello: 'world',

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import pretty from 'pretty-time';
 import { v4 as uuidv4 } from 'uuid';
 import chalk from 'chalk';
@@ -21,7 +22,10 @@ const getStatusCode = (s: number): string => {
   return chalk.white(str);
 };
 
-const defaultRequestLogger = (fn: any): any => async (req: Request, res: Response): Promise<any> => {
+const defaultRequestLogger = (fn: any): any => async (
+  req: Request,
+  res: Response,
+): Promise<any> => {
   const requestID = uuidv4().substring(0, 8);
   const time = (new Date()).toLocaleTimeString();
   console.info(`[ ${chalk.gray(requestID)} ] > ${chalk.cyanBright(req.method)} ${chalk.whiteBright(req.url)}${chalk.gray(`, at ${time}`)}`);

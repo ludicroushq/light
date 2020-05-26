@@ -12,9 +12,9 @@ describe('create-test', () => {
       const spy = jest.spyOn(process, 'cwd');
       spy.mockReturnValue(join(__dirname, './seeds'));
 
-      const app = createTest();
+      const { server } = createTest();
 
-      const response = await request(app).get('/');
+      const response = await request(server).get('/');
       expect(response.status).toBe(200);
       expect(response.body).toMatchObject({
         hello: 'test',
