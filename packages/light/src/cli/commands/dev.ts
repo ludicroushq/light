@@ -41,9 +41,9 @@ const handle = async (argv: Args): Promise<void> => {
   }
 
   // eslint-disable-next-line global-require
-  const { createServer } = require('../../index');
+  const { createServer, logger } = require('../../index');
 
-  console.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
+  logger.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
 
   const cwd = process.cwd();
   const app = createServer({ youch: true });
@@ -64,18 +64,18 @@ const handle = async (argv: Args): Promise<void> => {
   }
 
   app.server.listen(PORT, (HOST as any), (): void => {
-    console.info(`[ ${chalk.magentaBright('listening')} ] on port ${PORT}`);
+    logger.info(`[ ${chalk.magentaBright('listening')} ] on port ${PORT}`);
 
-    console.info(`[ ${chalk.blueBright('hmr')} ] starting the hot reloader`);
+    logger.info(`[ ${chalk.blueBright('hmr')} ] starting the hot reloader`);
     const chokidar = require('chokidar'); // eslint-disable-line
     const watcher = chokidar.watch(cwd);
 
     watcher.on('ready', (): void => {
-      console.info(`[ ${chalk.blueBright('hmr')} ] watching for changes`);
+      logger.info(`[ ${chalk.blueBright('hmr')} ] watching for changes`);
     });
 
     watcher.on('change', async (p: string): Promise<void> => {
-      console.info(`[ ${chalk.blueBright('hmr')} ] swapping out ${chalk.yellow(relative(cwd, p))}`);
+      logger.info(`[ ${chalk.blueBright('hmr')} ] swapping out ${chalk.yellow(relative(cwd, p))}`);
       // remove edited file from cache
       decache(p);
       // reload the server

@@ -11,7 +11,7 @@ import injectRoutes from './utils/inject-routes';
 import requestLoggerPlugin from './plugins/logger';
 
 export default ({
-  youch = true,
+  youch = false,
   requestLogger = true,
 }: CreateServerOptions): LightServer => {
   // create find-my-way router with default 404 handler

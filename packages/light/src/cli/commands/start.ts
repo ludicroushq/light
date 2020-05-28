@@ -39,9 +39,9 @@ const handle = async (argv: Args): Promise<void> => {
   }
 
   // eslint-disable-next-line global-require
-  const { createServer } = require('../../index');
+  const { createServer, logger } = require('../../index');
 
-  console.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
+  logger.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
 
   const app = createServer({});
 
@@ -61,7 +61,7 @@ const handle = async (argv: Args): Promise<void> => {
   }
 
   app.server.listen(PORT, (HOST as any), (): void => {
-    console.info(`[ ${chalk.magentaBright('listening')} ] on port ${PORT}`);
+    logger.info(`[ ${chalk.magentaBright('listening')} ] on port ${PORT}`);
   });
 };
 
