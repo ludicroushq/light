@@ -1,7 +1,7 @@
 [build]
   base = "website"
-  command = "npm run build && npm run export"
-  publish = "website/src/out"
+  command = "npm run build"
+  publish = "website/build"
 
 [[redirects]]
   from = "/guides"
