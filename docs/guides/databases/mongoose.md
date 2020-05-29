@@ -1,4 +1,0 @@
-# mongoose
-
-## coming soon
-

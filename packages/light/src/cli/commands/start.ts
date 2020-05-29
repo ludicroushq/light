@@ -1,13 +1,9 @@
+/* eslint-disable no-console */
 import { CommandBuilder } from 'yargs'; // eslint-disable-line
-import { join } from 'path';
 import emojic from 'emojic';
+import chalk from 'chalk';
 
-import logger from '../../utils/logger';
-import { createServer } from '../../index';
-
-import findRoutes from '../../utils/find-routes';
-import genRoutes from '../../utils/gen-routes';
-import importConfig from '../../utils/import-config';
+import { isTypescript } from '../../utils/import-config';
 
 export const command = 'start [dir]';
 export const aliases: string[] = ['s'];
@@ -37,19 +33,17 @@ interface Args {
 }
 
 const handle = async (argv: Args): Promise<void> => {
-  if (argv.typescript) {
+  const ts = isTypescript();
+  if (argv.typescript || ts) {
     require('ts-node').register(); // eslint-disable-line
   }
 
-  logger.start(`${emojic.fire} igniting the server ${emojic.fire}`);
+  // eslint-disable-next-line global-require
+  const { createServer, logger } = require('../../index');
 
-  const cwd = join(process.cwd(), argv.dir);
-  const config = importConfig(process.cwd());
-  (global as any).light = (config || {}).global || {};
+  logger.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
 
-  const routePaths = findRoutes(cwd);
-  const routes = genRoutes(routePaths, cwd);
-  const app = createServer({ routes });
+  const app = createServer({});
 
   interface ProcessEnv {
     [key: string]: string | number | undefined;
@@ -67,13 +61,13 @@ const handle = async (argv: Args): Promise<void> => {
   }
 
   app.server.listen(PORT, (HOST as any), (): void => {
-    logger.listening(`on port ${PORT}`);
+    logger.info(`[ ${chalk.magentaBright('listening')} ] on port ${PORT}`);
   });
 };
 
 export const handler = (argv: Args): void => {
   handle(argv).catch((err: Error): void => {
-    logger.fatal(err);
+    console.error(err);
     process.exit(1);
   });
 };

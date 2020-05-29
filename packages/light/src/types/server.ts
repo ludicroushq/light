@@ -1,12 +1,16 @@
 /* eslint-disable no-undef, import/prefer-default-export */
 
-import { Server } from './http';
+import { Server } from 'http';
 
-interface LightServer {
+export { Server };
+
+export interface LightServer {
   server: Server;
   router: any;
+  reload: () => void;
 }
 
-export {
-  LightServer,
-};
+export interface CreateServerOptions {
+  youch?: boolean;
+  requestLogger?: boolean;
+}

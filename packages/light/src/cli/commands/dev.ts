@@ -1,15 +1,11 @@
+/* eslint-disable no-console */
 import { CommandBuilder } from 'yargs'; // eslint-disable-line
-import { join, relative } from 'path';
+import { relative } from 'path';
 import emojic from 'emojic';
 import chalk from 'chalk';
 import decache from 'decache';
 
-import logger from '../../utils/logger';
-import { createServer } from '../../index';
-import findRoutes from '../../utils/find-routes';
-import genRoutes from '../../utils/gen-routes';
-import injectRoutes from '../../utils/inject-routes';
-import importConfig from '../../utils/import-config';
+import { isTypescript } from '../../utils/import-config';
 
 export const command = 'dev [dir]';
 export const aliases: string[] = ['d'];
@@ -39,23 +35,18 @@ interface Args {
 }
 
 const handle = async (argv: Args): Promise<void> => {
-  if (argv.typescript) {
+  const ts = isTypescript();
+  if (argv.typescript || ts) {
     require('ts-node').register(); // eslint-disable-line
   }
 
-  logger.start(`${emojic.fire} igniting the server ${emojic.fire}`);
+  // eslint-disable-next-line global-require
+  const { createServer, logger } = require('../../index');
 
-  const cwd = join(process.cwd(), argv.dir);
-  const config = importConfig(process.cwd());
-  (global as any).light = (config || {}).global || {};
+  logger.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
 
-  const opts = {
-    dev: true,
-  };
-
-  const routePaths = findRoutes(cwd);
-  const routes = genRoutes(routePaths, cwd);
-  const app = createServer({ routes, opts });
+  const cwd = process.cwd();
+  const app = createServer({ youch: true });
 
   interface ProcessEnv {
     [key: string]: string | number | undefined;
@@ -73,38 +64,31 @@ const handle = async (argv: Args): Promise<void> => {
   }
 
   app.server.listen(PORT, (HOST as any), (): void => {
-    logger.listening(`on port ${PORT}`);
+    logger.info(`[ ${chalk.magentaBright('listening')} ] on port ${PORT}`);
 
-    logger.hmr('starting the hot reloader');
+    logger.info(`[ ${chalk.blueBright('hmr')} ] starting the hot reloader`);
     const chokidar = require('chokidar'); // eslint-disable-line
-    const watcher = chokidar.watch(cwd);
+    const watcher = chokidar.watch(cwd, {
+      ignored: ['**/node_modules/**/*', '**/node_modules/**/.*', '**/.git/**/*'],
+    });
 
     watcher.on('ready', (): void => {
-      logger.hmr('watching for changes');
+      logger.info(`[ ${chalk.blueBright('hmr')} ] watching for changes`);
     });
 
     watcher.on('change', async (p: string): Promise<void> => {
-      logger.hmr(`swapping out ${chalk.yellow(relative(cwd, p))}`);
-      // reset the router
-      app.router.reset();
+      logger.info(`[ ${chalk.blueBright('hmr')} ] swapping out ${chalk.yellow(relative(cwd, p))}`);
       // remove edited file from cache
       decache(p);
-      // remove every route from the cache
-      const newRoutePaths = await findRoutes(cwd);
-      newRoutePaths.forEach((routePath): void => {
-        const f = join(cwd, 'routes', routePath);
-        decache(f);
-      });
-      // add the new routes to the router again
-      const newRoutes = await genRoutes(newRoutePaths, cwd);
-      injectRoutes(app.router, newRoutes);
+      // reload the server
+      app.reload();
     });
   });
 };
 
 export const handler = (argv: Args): void => {
   handle(argv).catch((err: Error): void => {
-    logger.fatal(err);
+    console.error(err);
     process.exit(1);
   });
 };

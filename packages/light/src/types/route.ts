@@ -1,34 +1,70 @@
-/* eslint-disable no-undef, import/prefer-default-export */
+/* eslint-disable no-undef */
+import { IncomingMessage, ServerResponse } from 'http';
+import {
+  buffer,
+  text,
+  json,
+  run,
+  send,
+  sendError,
+  createError,
+} from 'micro';
+import useParams from '../utils/use-params';
 
-interface Route {
-  path: string;
-  handler: any;
-  location?: string;
+// req/res
+export type Request = IncomingMessage;
+export type Response = ServerResponse;
+
+// HTTP methods
+export type HTTPMethod = 'connect' | 'delete' | 'get' | 'head' | 'options' | 'patch' | 'post' | 'put' | 'trace';
+export const Methods: HTTPMethod[] = ['connect', 'delete', 'get', 'head', 'options', 'patch', 'post', 'put', 'trace'];
+
+// params sent to handlers
+export interface Context {
+  req: Request;
+  res: Response;
+  buffer: typeof buffer;
+  text: typeof text;
+  json: typeof json;
+  send: typeof send;
+  sendError: typeof sendError;
+  createError: typeof createError;
+  useParams: typeof useParams;
 }
 
-interface RouteObject {
-  path?: string | string[];
-  handler: any;
-  method?: string[] | string;
-  file?: string;
-}
+// types of get() and the function passed in
+export type HandlerFunction = (params: Context) => any | Promise<any>;
+export type HandlerMethod = (fn: HandlerFunction) => void;
 
-interface Options {
-  dev?: boolean;
-  requestLogger?: boolean;
-  errorHandler?: boolean;
+// serverless types
+export type ServerRoute = (req: Request, res: Response) => {};
+export interface RunkitRoute {
+  endpoint: ServerRoute;
 }
-
-interface TestOptions {
-  dev?: boolean;
-  requestLogger?: boolean;
-  errorHandler?: boolean;
-  path?: string;
+export interface AWSRoute {
+  handler: ServerRoute;
 }
+export type AnyRoute = ServerRoute | RunkitRoute | AWSRoute;
 
-export {
-  Route,
-  Options,
-  TestOptions,
-  RouteObject,
+// createRoute return values
+export type CreateRoute = Record<HTTPMethod, HandlerMethod> & {
+  all: HandlerMethod;
+  route: AnyRoute;
+  useMiddleware: (middleware: Middleware, methods?: HTTPMethod[]) => void;
+  usePlugin: (plugin: Plugin, methods?: HTTPMethod[]) => void;
+  run: typeof run;
 };
+
+// createRoute inner types
+export type Handlers = Partial<Record<HTTPMethod | 'all', HandlerFunction>>;
+export type Middleware = (params: Context) => any | Promise<any>;
+export type Plugin = (fn: HandlerFunction) => HandlerFunction;
+export type MiddlewareObject = Partial<Record<HTTPMethod | 'global', Middleware[]>>;
+export type PluginObject = Partial<Record<HTTPMethod | 'global', Plugin[]>>;
+
+// route object
+export interface RouteObject {
+  path: string;
+  handler: ServerRoute;
+  location: string;
+}

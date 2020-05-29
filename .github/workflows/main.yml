@@ -9,7 +9,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [8.x, 10.x, 12.x]
+        node-version: [10.x, 12.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -22,13 +22,11 @@ jobs:
     - run: npx lerna run --stream ci
       env:
         CI: true
-    - name: Coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ./packages/light/coverage/lcov.info
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   basic-example:
+    env:
+      CI: true
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -42,11 +40,11 @@ jobs:
       working-directory: ./examples/basic
     - run: npm test
       working-directory: ./examples/basic
-      env:
-        CI: true
 
-  global-server-example:
+  vercel-example:
     runs-on: ubuntu-latest
+    env:
+      CI: true
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js 12.x
@@ -56,45 +54,9 @@ jobs:
     - run: npm ci
     - run: npx lerna bootstrap
     - run: npm ci
-      working-directory: ./examples/global/server
+      working-directory: ./examples/vercel
     - run: npm test
-      working-directory: ./examples/global/server
-      env:
-        CI: true
-
-  global-serverless-example:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 12.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: '12.x'
-    - run: npm ci
-    - run: npx lerna bootstrap
-    - run: npm ci
-      working-directory: ./examples/global/serverless
-    - run: npm test
-      working-directory: ./examples/global/serverless
-      env:
-        CI: true
-
-  zeit-now-example:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 12.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: '12.x'
-    - run: npm ci
-    - run: npx lerna bootstrap
-    - run: npm ci
-      working-directory: ./examples/zeit-now
-    - run: npm test
-      working-directory: ./examples/zeit-now
-      env:
-        CI: true
+      working-directory: ./examples/vercel
 
   netlify-example:
     runs-on: ubuntu-latest

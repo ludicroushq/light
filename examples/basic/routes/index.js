@@ -1,17 +1,18 @@
 const { createRoute } = require('light');
+const { route, get, useMiddleware, usePlugin } = createRoute();
 
-const { route, addMiddleware, addPlugin } = createRoute('index');
-
-addMiddleware(() => console.log('hi'));
-addPlugin((fn) => async (req, res) => {
+useMiddleware(() => console.log('hi'));
+usePlugin((fn) => async (req, res) => {
   console.log('before');
   const result = await fn(req, res);
   console.log('after');
   return result;
 });
 
-module.exports = route(async () => {
+get(async () => {
   return {
     hello: 'world',
   };
 });
+
+module.exports = route;

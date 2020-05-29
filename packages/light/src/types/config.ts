@@ -1,9 +1,8 @@
 /* eslint-disable no-undef, import/prefer-default-export */
 
-interface Config {
-  global?: any;
+export interface LightConfig {
+  root?: string;
+  typescript?: boolean;
+  logger?: () => any;
+  requestLogger?: () => any;
 }
-
-export {
-  Config,
-};

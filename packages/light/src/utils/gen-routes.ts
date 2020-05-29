@@ -1,12 +1,10 @@
-
 import { join, parse } from 'path';
+import { RouteObject } from '../types/route';
 
-import { Route } from '../types/route';
-
-export default (routes: string[], rootPath: string): Route[] => {
+export default (routes: string[], rootPath: string): RouteObject[] => {
   const routesDir = join(rootPath, './routes');
 
-  const routeObjects: Route[] = [];
+  const routeObjects: RouteObject[] = [];
   routes.forEach((route: string): void => {
     const routePath = join(routesDir, route);
 
@@ -28,12 +26,13 @@ export default (routes: string[], rootPath: string): Route[] => {
       return x;
     }).join('/');
 
-    if (path === '/index') {
+    if (path.endsWith('/index')) {
       routeObjects.push({
-        path: '/',
+        path: path.substring(0, path.length - 6) || '/',
         handler,
         location: routePath,
       });
+      return;
     }
 
     routeObjects.push({
