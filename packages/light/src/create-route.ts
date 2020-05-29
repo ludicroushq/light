@@ -132,6 +132,9 @@ export default (): CreateRoute => {
 
   // transform exports
   if (isServerless) {
+    if (isNow) {
+      route = (a: Request, b: Response): {} => run(a, b, (route as RequestHandler));
+    }
     if (isNetlify || isAWS) {
       route = {
         handler: AWSServerlessMicro(route),
