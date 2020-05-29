@@ -2,11 +2,3 @@
   base = "website"
   command = "npm run build"
   publish = "website/build"
-
-[[redirects]]
-  from = "/guides"
-  to = "/guides/getting-started"
-
-[[redirects]]
-  from = "/docs"
-  to = "/docs/server"
