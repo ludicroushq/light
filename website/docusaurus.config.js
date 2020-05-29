@@ -6,6 +6,7 @@ module.exports = {
   favicon: 'img/favicon.ico',
   organizationName: 'ludicroushq', // Usually your GitHub org/user name.
   projectName: 'light', // Usually your repo name.
+  scripts: ['https://embed.runkit.com'],
   themeConfig: {
     navbar: {
       title: 'light',

@@ -61,3 +61,24 @@ TODO: coming soon
 ## `useContext`
 
 TODO: coming soon
+
+
+## Example
+
+import Embed from 'react-runkit';
+
+<Embed mode="endpoint" source={`process.env.LIGHT_ENV = 'runkit';
+const { createRoute } = require('light');\n
+const { route, get, useMiddleware, usePlugin } = createRoute();\n
+useMiddleware(({ req }) => {
+  console.log(req.url);
+});
+usePlugin((fn) => async (ctx) => {
+  const before = Date.now();
+  const result = await fn(ctx);
+  const after = Date.now();
+  console.log('request served in', after-before, 'ms');
+  return result;
+});\n
+get(() => 'hello world!');\n
+module.exports = route;`} />

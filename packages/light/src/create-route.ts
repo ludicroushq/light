@@ -67,30 +67,29 @@ export default (): CreateRoute => {
    * The route that is exposed in every file
    * Essentially a self contained server (allows it to work in serverless environments)
    */
-  const fun = async (Req: Request, Res: Response): Promise<any> => {
-    const method = Req.method?.toLowerCase() as HTTPMethod;
+  const fun = async (req: Request, res: Response): Promise<any> => {
+    const method = req.method?.toLowerCase() as HTTPMethod;
 
-    let handler = async (req: Request, res: Response): Promise<any> => {
-      const context: Context = {
-        req,
-        res,
-        buffer,
-        text,
-        json,
-        send,
-        sendError,
-        createError,
-        useParams,
-      };
-
+    const context: Context = {
+      req,
+      res,
+      buffer,
+      text,
+      json,
+      send,
+      sendError,
+      createError,
+      useParams,
+    };
+    let handler = async (ctx: Context): Promise<any> => {
       const applyMiddleware = async (mw?: Middleware[]): Promise<boolean> => {
         if (!mw) return false;
         // eslint-disable-next-line no-restricted-syntax
         for (const middleware of mw) {
           // eslint-disable-next-line no-await-in-loop
-          await middleware(context);
+          await middleware(ctx);
 
-          if (context.res.headersSent) {
+          if (ctx.res.headersSent) {
             return true;
           }
         }
@@ -106,7 +105,7 @@ export default (): CreateRoute => {
 
       const fn = handlers[method] || handlers.all || methodNotSupported;
 
-      return fn(context);
+      return fn(ctx);
     };
 
     const applyPlugins = (p?: Plugin[]): void => {
@@ -122,7 +121,7 @@ export default (): CreateRoute => {
     applyPlugins(_plugins[method]);
 
 
-    return handler(Req, Res);
+    return handler(context);
   };
 
   /**

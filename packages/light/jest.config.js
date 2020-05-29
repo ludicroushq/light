@@ -16,5 +16,4 @@ module.exports = {
     'node',
   ],
   coverageDirectory: './coverage/',
-  collectCoverage: true,
 };
