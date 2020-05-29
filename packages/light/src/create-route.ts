@@ -11,6 +11,7 @@ import {
 } from 'micro';
 import {
   CreateRoute,
+  Context,
   MiddlewareObject,
   PluginObject,
   Handlers,
@@ -39,7 +40,7 @@ export default (): CreateRoute => {
   const _plugins: PluginObject = JSON.parse('{}');
   const handlers: Handlers = JSON.parse('{}');
 
-  const useMiddleware = (middleware: MiddlewareObject, methods?: HTTPMethod[]): void => {
+  const useMiddleware = (middleware: Middleware, methods?: HTTPMethod[]): void => {
     if (methods) {
       // TODO:
     }
@@ -69,26 +70,7 @@ export default (): CreateRoute => {
     const method = Req.method?.toLowerCase() as HTTPMethod;
 
     let handler = async (req: Request, res: Response): Promise<any> => {
-      const applyMiddleware = async (mw?: Middleware[]): Promise<void> => {
-        if (!mw) return;
-        // eslint-disable-next-line no-restricted-syntax
-        for (const middleware of mw) {
-          // eslint-disable-next-line no-await-in-loop
-          await middleware(req, res);
-          // TODO: short circuit
-        }
-      };
-
-      await applyMiddleware(_middleware.global);
-      await applyMiddleware(_middleware[method]);
-
-      const methodNotSupported: HandlerFunction = ({ createError: createError405 }): {} => {
-        throw createError405(405, 'Method Not Allowed');
-      };
-
-      const fn = handlers[method] || handlers.all || methodNotSupported;
-
-      return fn({
+      const context: Context = {
         req,
         res,
         buffer,
@@ -97,11 +79,36 @@ export default (): CreateRoute => {
         send,
         sendError,
         createError,
-      });
+      };
+
+      const applyMiddleware = async (mw?: Middleware[]): Promise<boolean> => {
+        if (!mw) return false;
+        // eslint-disable-next-line no-restricted-syntax
+        for (const middleware of mw) {
+          // eslint-disable-next-line no-await-in-loop
+          await middleware(context);
+
+          if (context.res.headersSent) {
+            return true;
+          }
+        }
+        return false;
+      };
+
+      if (await applyMiddleware(_middleware.global)) return null;
+      if (await applyMiddleware(_middleware[method])) return null;
+
+      const methodNotSupported: HandlerFunction = ({ res: mnsRes, send: mnsSend }): void => {
+        mnsSend(mnsRes, 405, 'Method Not Allowed');
+      };
+
+      const fn = handlers[method] || handlers.all || methodNotSupported;
+
+      return fn(context);
     };
 
-    const applyPlugins = (p?: Plugin): void => {
-      if (!p) return;
+    const applyPlugins = (p?: Plugin[]): void => {
+      if (!p || !p.length) return;
 
       handler = p
         .reverse()

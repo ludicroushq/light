@@ -19,7 +19,7 @@ export type HTTPMethod = 'connect' | 'delete' | 'get' | 'head' | 'options' | 'pa
 export const Methods: HTTPMethod[] = ['connect', 'delete', 'get', 'head', 'options', 'patch', 'post', 'put', 'trace'];
 
 // params sent to handlers
-export interface HandlerParams {
+export interface Context {
   req: Request;
   res: Response;
   buffer: typeof buffer;
@@ -31,7 +31,7 @@ export interface HandlerParams {
 }
 
 // types of get() and the function passed in
-export type HandlerFunction = (params: HandlerParams) => {};
+export type HandlerFunction = (params: Context) => any | Promise<any>;
 export type HandlerMethod = (fn: HandlerFunction) => void;
 
 // serverless types
@@ -55,8 +55,8 @@ export type CreateRoute = Record<HTTPMethod, HandlerMethod> & {
 
 // createRoute inner types
 export type Handlers = Partial<Record<HTTPMethod | 'all', HandlerFunction>>;
-export type Middleware = any;
-export type Plugin = any;
+export type Middleware = (params: Context) => any | Promise<any>;
+export type Plugin = (fn: HandlerFunction) => HandlerFunction;
 export type MiddlewareObject = Partial<Record<HTTPMethod | 'global', Middleware[]>>;
 export type PluginObject = Partial<Record<HTTPMethod | 'global', Plugin[]>>;
 

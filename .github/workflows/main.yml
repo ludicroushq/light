@@ -22,11 +22,7 @@ jobs:
     - run: npx lerna run --stream ci
       env:
         CI: true
-    - name: Coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ./packages/light/coverage/lcov.info
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   basic-example:
     env:
