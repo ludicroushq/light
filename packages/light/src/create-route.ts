@@ -65,7 +65,7 @@ export default (): CreateRoute => {
    * The route that is exposed in every file
    * Essentially a self contained server (allows it to work in serverless environments)
    */
-  let route: AnyRoute = async (Req: Request, Res: Response): Promise<any> => {
+  const fun = async (Req: Request, Res: Response): Promise<any> => {
     const method = Req.method?.toLowerCase() as HTTPMethod;
 
     let handler = async (req: Request, res: Response): Promise<any> => {
@@ -130,19 +130,21 @@ export default (): CreateRoute => {
     wrappers[method] = genFunction(method as HTTPMethod | 'all');
   });
 
+  let route: AnyRoute = fun;
+
   // transform exports
   if (isServerless) {
     if (isNow) {
-      route = (a: Request, b: Response): {} => run(a, b, (route as RequestHandler));
+      route = (a: Request, b: Response): {} => run(a, b, (fun as RequestHandler));
     }
     if (isNetlify || isAWS) {
       route = {
-        handler: AWSServerlessMicro(route),
+        handler: AWSServerlessMicro(fun),
       };
     }
     if (isRunKit) {
       route = {
-        endpoint: (a: Request, b: Response): {} => run(a, b, (route as RequestHandler)),
+        endpoint: (a: Request, b: Response): {} => run(a, b, (fun as RequestHandler)),
       };
     }
   }
