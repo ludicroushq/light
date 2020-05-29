@@ -8,7 +8,7 @@
     "jest": "jest --verbose",
     "lint": "eslint src . --ext js,ts,tsx",
     "ci:jest": "jest --verbose --maxWorkers=4",
-    "ci": "npm run lint && npm run ci:jest && npx codecov",
+    "ci": "npm run lint && npm run ci:jest",
     "compile": "tsc",
     "prepublish": "npm run compile",
     "semantic-release": "npx semantic-release"
