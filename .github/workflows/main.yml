@@ -4,13 +4,10 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [10.x, 12.x]
-
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
@@ -23,6 +20,20 @@ jobs:
       env:
         CI: true
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+  spellcheck-docs:
+    env:
+      CI: true
+    runs-on: ubuntu-latest
+    working-directory: ./examples/basic
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - run: npm ci
+    - run: npm run spellcheck
 
   basic-example:
     env:

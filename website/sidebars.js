@@ -6,9 +6,11 @@ module.exports = {
     ],
     "Core Concepts": [
       "core/routes",
+      "core/context",
       "core/routing",
       "core/plugins",
       "core/middleware",
+      "core/logging",
       "core/query",
       "core/params",
       "core/body-parsing",

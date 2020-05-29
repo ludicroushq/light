@@ -4,7 +4,11 @@ title: Getting Started
 sidebar_label: Getting Started
 ---
 
-Getting started is quick and easy! This guide assumes you are running the latest LTS version of node.
+:::info light is currently in beta
+Please note, while light is in beta we will be making breaking changes every minor version. Once we hit 2.0, we will follow semver and only break on major versions
+:::
+
+Getting started is quick and easy! This guide assumes you are running the latest LTS version of node. There is also a live example at the bottom if you want to try out light without setting it up locally!
 
 ## Install
 
@@ -46,7 +50,7 @@ get(() => {
 module.exports = route;
 ```
 
-This is probably different that what you are used to with `express`, `koa`, `hapi`, etc. There are a few interesting parts to this file. The `createRoute` function is the core of light and it returns an object containing `route`, `get`, `post`, `put`, `patch`, `delete`, and a bunch of other HTTP methods. For each route you can add whatever methods you like to support. Any methods you do not define will return `405 Method Not Allowed`. Additionally `createRoute` exports an `all` function which will respond to any HTTP method. At the bottom we export `route`. `route` is a function that is generated at the start of the server based on what environment the server is starting in. If the server is started with the CLI, it will generate a serverfull function, but if started in a serverless environment such as Vercel or AWS Lambda, the function will mutate to respond correctly!
+This is probably different that what you are used to with `express`, `koa`, `hapi`, etc. There are a few interesting parts to this file. The `createRoute` function is the core of light and it returns an object containing `route`, `get`, `post`, `put`, `patch`, `delete`, and a bunch of other HTTP methods. For each route you can add whatever methods you like to support. Any methods you do not define will return `405 Method Not Allowed`. Additionally `createRoute` exports an `all` function which will respond to any HTTP method. At the bottom we export `route`. `route` is a function that is generated at the start of the server based on what environment the server is starting in. If the server is started with the CLI, it will generate a server-full function, but if started in a serverless environment such as Vercel or AWS Lambda, the function will mutate to respond correctly!
 
 Once you are done editing the file, run `npm run dev` to start the server with hot module reloading. If you did everything right, your terminal should output something similar to this.
 
@@ -66,3 +70,19 @@ Phew, that was a lot. Don't worry though, you just learnt about 80% of light! It
 - has very little magic behind the scenes, what you see in a route is what you get
 
 Feel free to continue with the guides in the sidebar to understand more of the framework!
+
+## Live Example
+
+If you want to mess around with the example provided above without setting it up on your computer, you can try it out on RunKit! Just edit the code below and click the URL in the bottom right.
+
+import Embed from 'react-runkit';
+
+<Embed mode="endpoint" source={`process.env.LIGHT_ENV = 'runkit';
+const { createRoute } = require('light');\n
+const { route, get } = createRoute();\n
+get(() => {
+  return {
+    hello: 'world',
+  };
+});\n
+module.exports = route;`} />
