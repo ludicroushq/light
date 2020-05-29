@@ -5,3 +5,5 @@ apos
 stylelint
 kubernetes
 proxying
+HOCs
+HOC

@@ -18,7 +18,7 @@ While that is the official definition of a light plugin, it is quite confusing s
 3. The plugin should return a function that takes in a context and returns a response. You will want to use the previous `fn` that was provided to get the intended response and mutate if you so choose.
 4. **Make sure to either return a value at the end of your plugin or end the request with `send`.**
 
-Here is an example with a basic logging pluggin.
+Here is an example with a basic logging plugin.
 
 import Embed from 'react-runkit';
 
