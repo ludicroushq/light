@@ -68,7 +68,9 @@ const handle = async (argv: Args): Promise<void> => {
 
     logger.info(`[ ${chalk.blueBright('hmr')} ] starting the hot reloader`);
     const chokidar = require('chokidar'); // eslint-disable-line
-    const watcher = chokidar.watch(cwd);
+    const watcher = chokidar.watch(cwd, {
+      ignored: ['**/node_modules/**/*', '**/node_modules/**/.*', '**/.git/**/*'],
+    });
 
     watcher.on('ready', (): void => {
       logger.info(`[ ${chalk.blueBright('hmr')} ] watching for changes`);

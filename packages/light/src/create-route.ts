@@ -9,6 +9,7 @@ import {
   createError,
   RequestHandler,
 } from 'micro';
+import useParams from './utils/use-params';
 import {
   CreateRoute,
   Context,
@@ -79,6 +80,7 @@ export default (): CreateRoute => {
         send,
         sendError,
         createError,
+        useParams,
       };
 
       const applyMiddleware = async (mw?: Middleware[]): Promise<boolean> => {

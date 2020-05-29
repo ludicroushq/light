@@ -9,6 +9,7 @@ import {
   sendError,
   createError,
 } from 'micro';
+import useParams from '../utils/use-params';
 
 // req/res
 export type Request = IncomingMessage;
@@ -28,6 +29,7 @@ export interface Context {
   send: typeof send;
   sendError: typeof sendError;
   createError: typeof createError;
+  useParams: typeof useParams;
 }
 
 // types of get() and the function passed in
