@@ -15,8 +15,6 @@ module.exports = {
     'json',
     'node',
   ],
-  jest: {
-    coverageDirectory: './coverage/',
-    collectCoverage: true,
-  },
+  coverageDirectory: './coverage/',
+  collectCoverage: true,
 };

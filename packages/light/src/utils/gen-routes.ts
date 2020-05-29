@@ -26,12 +26,13 @@ export default (routes: string[], rootPath: string): RouteObject[] => {
       return x;
     }).join('/');
 
-    if (path === '/index') {
+    if (path.endsWith('/index')) {
       routeObjects.push({
-        path: '/',
+        path: path.substring(0, path.length - 6) || '/',
         handler,
         location: routePath,
       });
+      return;
     }
 
     routeObjects.push({
