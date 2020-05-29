@@ -22,10 +22,6 @@ jobs:
     - run: npx lerna run --stream ci
       env:
         CI: true
-    - run: npx codecov
-      working-directory: ./packages/light
-      env:
-        CI: true
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   basic-example:
