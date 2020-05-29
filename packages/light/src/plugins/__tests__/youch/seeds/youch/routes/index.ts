@@ -1,4 +1,4 @@
-import { createRoute } from '../../../../../index';
+import { createRoute } from '../../../../../../index';
 
 const { route, get } = createRoute();
 

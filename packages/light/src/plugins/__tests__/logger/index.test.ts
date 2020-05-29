@@ -1,11 +1,11 @@
 import request from 'supertest';
 
 import { join } from 'path';
-import { createTest } from '../../index';
+import { createTest } from '../../../index';
 
 describe('plugins', () => {
-  describe('youch', () => {
-    it('youches the error', async () => {
+  describe('logger', () => {
+    it('logs the error', async () => {
       const cwd = jest.spyOn(process, 'cwd');
       cwd.mockReturnValue(join(__dirname, './seeds/logger'));
       const spy = jest.spyOn(console, 'info').mockImplementation();

@@ -1,14 +1,15 @@
 import request from 'supertest';
 
 import { join } from 'path';
-import { createTest } from '../../index';
+import logger from '../../../logger';
+import { createTest } from '../../../index';
 
 describe('plugins', () => {
   describe('youch', () => {
     it('youches the error', async () => {
       const cwd = jest.spyOn(process, 'cwd');
       cwd.mockReturnValue(join(__dirname, './seeds/youch'));
-      const spy = jest.spyOn(console, 'log').mockImplementation();
+      const spy = jest.spyOn(logger, 'info').mockImplementation();
 
       const { server } = createTest({ youch: true });
 
