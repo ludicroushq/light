@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "name": "light-vercel",
   "public": true,
   "builds": [
     {
