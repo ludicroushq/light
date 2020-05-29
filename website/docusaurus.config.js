@@ -8,6 +8,7 @@ module.exports = {
   projectName: 'light', // Usually your repo name.
   scripts: ['https://embed.runkit.com'],
   themeConfig: {
+    sidebarCollapsible: false,
     navbar: {
       title: 'light',
       logo: {
