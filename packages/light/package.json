@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "tsc -w",
     "test": "npm run lint && npm run jest",
-    "jest": "jest --verbose",
+    "jest": "jest --verbose --coverage",
     "lint": "eslint src . --ext js,ts,tsx",
-    "ci:jest": "jest --verbose --maxWorkers=4",
+    "ci:jest": "jest --verbose --maxWorkers=4 --coverage",
     "ci": "npm run lint && npm run ci:jest && npx codecov",
     "compile": "tsc",
     "prepublish": "npm run compile",
