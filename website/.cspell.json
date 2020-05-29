@@ -1,0 +1,13 @@
+{
+  "version": "0.1",
+  "language": "en",
+  "dictionaries": [
+    "light"
+  ],
+  "dictionaryDefinitions": [
+    {
+      "name": "light",
+      "path": "./dictionary.txt"
+    }
+  ]
+}

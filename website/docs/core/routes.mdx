@@ -36,6 +36,20 @@ const {
 module.exports = route;
 ```
 
+
+## Example
+
+import Embed from 'react-runkit';
+
+<Embed mode="endpoint" source={`process.env.LIGHT_ENV = 'runkit';
+const { createRoute } = require('light');\n
+const { route, get, post, all } = createRoute();\n
+get(() => 'hello get');
+post(() => 'hello post');
+all(() => 'hello everything else') // this applies to all other http methods\n
+module.exports = route;`} />
+
+
 ## `route`
 
 Under the hood, `createRoute` is a closure containing information on how to respond requests. The `route` variable is a function that when invoked with a request and response will respond according to the `process.env.LIGHT_ENV`, HTTP method, and what middleware/context/plugins are defined.
@@ -44,41 +58,30 @@ For light to properly work, you must export this function as shown above.
 
 ## `get`, `post`, `all`, etc
 
-TODO: coming soon
+Using `get`, `post`, `all`, and other HTTP method functions will allow you to respond to requests. You may choose to implement as many methods as you want.
+
+:::note
+light first looks to see if you have defined a method specific handler (e.g. `get`), then looks to see if you have defined a global handler (i.e. `all`), and finally returns `405 Method Not Supported`
+:::
+
+You must pass a function to the methods which accepts a ctx parameter (see [the context docs](core/context) docs) which includes keys such as `req`, `res`, `send`. Inside of the function you can either respond to the request using the provided `send` function, or you can return a string or JSON. Light uses [`micro`](https://github.com/zeit/micro) under the hood to respond to requests.
 
 ## `useMiddleware`
 
-TODO: coming soon
+`useMiddleware` allows you to inject middleware for the route. You can also specify which methods the middleware should apply to. You may call this function as many times as you need, passing in one middleware function each time. See [the middleware docs](core/middleware.md) for more information.
 
 ## `usePlugin`
 
-TODO: coming soon
+`usePlugin` allows you to inject plugin for the route. You can also specify which methods the plugin should apply to. You may call this function as many times as you need, passing in one plugin each time. See [the plugin docs](core/plugins.md) for more information.
 
 ## `useConnect`
 
-TODO: coming soon
+:::caution
+This feature currently has not been implemented, we are working on it!
+:::
 
 ## `useContext`
 
-TODO: coming soon
-
-
-## Example
-
-import Embed from 'react-runkit';
-
-<Embed mode="endpoint" source={`process.env.LIGHT_ENV = 'runkit';
-const { createRoute } = require('light');\n
-const { route, get, useMiddleware, usePlugin } = createRoute();\n
-useMiddleware(({ req }) => {
-  console.log(req.url);
-});
-usePlugin((fn) => async (ctx) => {
-  const before = Date.now();
-  const result = await fn(ctx);
-  const after = Date.now();
-  console.log('request served in', after-before, 'ms');
-  return result;
-});\n
-get(() => 'hello world!');\n
-module.exports = route;`} />
+:::caution
+This feature currently has not been implemented, we are working on it!
+:::
