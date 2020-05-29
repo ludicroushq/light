@@ -25,7 +25,9 @@ jobs:
     env:
       CI: true
     runs-on: ubuntu-latest
-    working-directory: ./examples/basic
+    defaults:
+      run:
+        working-directory: ./website
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js 12.x
