@@ -79,8 +79,10 @@ jobs:
       env:
         CI: true
 
-  zeit-now-example:
+  vercel-example:
     runs-on: ubuntu-latest
+    env:
+      CI: true
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js 12.x
@@ -90,11 +92,9 @@ jobs:
     - run: npm ci
     - run: npx lerna bootstrap
     - run: npm ci
-      working-directory: ./examples/zeit-now
+      working-directory: ./examples/vercel
     - run: npm test
-      working-directory: ./examples/zeit-now
-      env:
-        CI: true
+      working-directory: ./examples/vercel
 
   netlify-example:
     runs-on: ubuntu-latest
