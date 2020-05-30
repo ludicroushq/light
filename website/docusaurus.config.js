@@ -9,6 +9,10 @@ module.exports = {
   scripts: ['https://embed.runkit.com'],
   themeConfig: {
     sidebarCollapsible: false,
+    algolia: {
+      apiKey: process.env.ALGOLIA_API_KEY,
+      indexName: process.env.ALGOLIA_INDEX_NAME,
+    },
     navbar: {
       title: 'light',
       logo: {
