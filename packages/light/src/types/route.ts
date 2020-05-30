@@ -52,6 +52,7 @@ export type CreateRoute = Record<HTTPMethod, HandlerMethod> & {
   route: AnyRoute;
   useMiddleware: (middleware: Middleware, methods?: HTTPMethod[]) => void;
   usePlugin: (plugin: Plugin, methods?: HTTPMethod[]) => void;
+  useConnect: (connect: any, methods?: HTTPMethod[]) => void;
   run: typeof run;
 };
 

@@ -52,6 +52,20 @@ export default (): CreateRoute => {
     _middleware.global.push(middleware);
   };
 
+  const useConnect = (connect: any, methods?: HTTPMethod[]): void => {
+    const middleware: Middleware = (ctx) => new Promise((resolve, reject) => {
+      connect(ctx.req, ctx.res, (result: any) => {
+        if (result instanceof Error) {
+          return reject(result);
+        }
+
+        return resolve(result);
+      });
+    });
+
+    useMiddleware(middleware, methods);
+  };
+
   const usePlugin = (plugin: Plugin, methods?: HTTPMethod[]): void => {
     if (methods) {
       // TODO:
@@ -161,6 +175,7 @@ export default (): CreateRoute => {
     route,
     useMiddleware,
     usePlugin,
+    useConnect,
     run,
     ...wrappers,
   };
