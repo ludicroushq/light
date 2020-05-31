@@ -10,6 +10,7 @@ import {
   RequestHandler,
 } from 'micro';
 import useParams from './utils/use-params';
+import useQuery from './utils/use-query';
 import {
   CreateRoute,
   Context,
@@ -93,7 +94,8 @@ export default (): CreateRoute => {
       send,
       sendError,
       createError,
-      useParams,
+      useParams: useParams(req.url || '/'),
+      useQuery: useQuery(req.url || '/'),
     };
     let handler = async (ctx: Context): Promise<any> => {
       const applyMiddleware = async (mw?: Middleware[]): Promise<boolean> => {
