@@ -1,0 +1,26 @@
+---
+id: connect
+title: Connect
+---
+
+:::note
+This is currently nothing more than a wrapper. We are looking to support all of the popular Connect middleware, so if you find one that does not work, please file an issue on GitHub!
+:::
+
+## Introduction
+
+Light has a tiny wrapper for [Connect](https://github.com/senchalabs/connect) style middleware. It currently does not do anything other than directly convert the connect middleware to light middleware. We are exploring different popular middleware and hope to support all of them.
+
+## Using a Middleware
+
+You can add connect middleware to the route by using the `useConnect` function.
+
+import Embed from 'react-runkit';
+
+<Embed mode="endpoint" source={`process.env.LIGHT_ENV = 'runkit';
+const { createRoute } = require('light');
+const cors = require('cors');\n
+const { route, get, useConnect } = createRoute();\n
+useConnect(cors());\n
+get(({ req }) => 'hello, this has cors headers!');\n
+module.exports = route;`} />
