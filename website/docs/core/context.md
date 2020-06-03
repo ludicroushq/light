@@ -9,7 +9,8 @@ Context is just another name for the parameter available in middleware, plugins,
 
 - `req`: request
 - `res`: response
-- `useParams`: see [params](core/params.md) docs
+- `useParams`: see [params](core/middleware.mdx) docs
+- `useQuery`: see [query](core/query.mdx) docs
 - `buffer`: [micro](https://github.com/vercel/micro)'s buffer function
 - `text`: [micro](https://github.com/vercel/micro)'s text function
 - `json`: [micro](https://github.com/vercel/micro)'s json function

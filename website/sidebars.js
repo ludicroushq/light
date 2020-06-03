@@ -29,6 +29,10 @@ module.exports = {
       "deploy/google-cloud-functions",
       "deploy/azure-functions",
     ],
-    "Third Party": ["third-party/apollo"],
+    "Third Party": [
+      "third-party/apollo",
+      "third-party/jest",
+      "third-party/ava",
+    ],
   },
 };
