@@ -7,3 +7,4 @@ kubernetes
 proxying
 HOCs
 HOC
+hapi
