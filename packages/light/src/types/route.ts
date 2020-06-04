@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import { IncomingMessage, ServerResponse } from 'http';
-import { buffer, text, json, run, send, sendError, createError } from 'micro';
+import { run, createError } from 'micro';
 
 // req/res
 export type Request = IncomingMessage;

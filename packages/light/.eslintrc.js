@@ -9,5 +9,9 @@ module.exports = {
   rules: {
     'no-underscore-dangle': 'off',
     '@typescript-eslint/no-throw-literal': 'off',
+
+    // prettier
+    'object-curly-newline': 'off',
+    'implicit-arrow-linebreak': 'off',
   },
 };
