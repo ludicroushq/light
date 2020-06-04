@@ -27,3 +27,15 @@ get(({ createError }) => {
   throw createError(401, 'please sign in');
 });\n
 module.exports = route;`} />
+
+or with `sendError`
+
+<Embed mode="endpoint" source={`process.env.LIGHT_ENV = 'runkit';
+const { createRoute } = require('light');\n
+const { route, get } = createRoute();\n
+get(({ sendError }) => {
+  const err = new Error('please sign in');
+  err.statusCode = 401;
+  sendError(err);
+});\n
+module.exports = route;`} />

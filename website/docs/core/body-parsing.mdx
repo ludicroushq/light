@@ -13,15 +13,13 @@ If you are looking at micro's docs, please note that you **do not** pass the `re
 
 ## Example
 
-<!-- TODO: replace this with correct implementation -->
-
 import Embed from 'react-runkit';
 
 <Embed mode="endpoint" source={`process.env.LIGHT_ENV = 'runkit';
 const { createRoute } = require('light');\n
 const { route, post } = createRoute();\n
-post(async ({ text, req }) => {
-  const body = await text(req);
+post(async ({ text }) => {
+  const body = await text();
   return { body };
 });\n
 module.exports = route;`} />
