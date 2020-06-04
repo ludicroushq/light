@@ -8,3 +8,6 @@ proxying
 HOCs
 HOC
 hapi
+usemiddleware
+useconnect
+useplugin
