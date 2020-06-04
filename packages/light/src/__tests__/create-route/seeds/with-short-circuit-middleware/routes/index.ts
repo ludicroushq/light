@@ -6,7 +6,7 @@ useMiddleware(({ req }) => {
   (req as any).test = true;
 });
 
-useMiddleware(({ res, send }) => send(res, 200, 'short circuit!'));
+useMiddleware(({ send }) => send(200, 'short circuit!'));
 
 get(({ req }: any) => ({ test: req.test }));
 

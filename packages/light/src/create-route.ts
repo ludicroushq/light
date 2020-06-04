@@ -106,8 +106,8 @@ export default (): CreateRoute => {
       if (await applyMiddleware(_middleware.global)) return null;
       if (await applyMiddleware(_middleware[method])) return null;
 
-      const methodNotSupported: HandlerFunction = ({ res: mnsRes, send: mnsSend }): void => {
-        mnsSend(mnsRes, 405, 'Method Not Allowed');
+      const methodNotSupported: HandlerFunction = ({ send: mnsSend }): void => {
+        mnsSend(405, 'Method Not Allowed');
       };
 
       const fn = handlers[method] || handlers.all || methodNotSupported;
