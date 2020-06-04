@@ -17,7 +17,12 @@ With HMR all of those problems will go away. Some times you will have restart ma
 
 ## Dangers
 
-The reason many avoid HMR in node is because it is known to cause memory leaks. But does it matter? Not really, for a few reasons. First, this is enabled exclusively in development so you will never have to worry about leaks in your production sever. Secondly, it will generally take a LOT of reloads before memory leaks become a issue in development so it is mostly okay. To stay on the safe side, simply restart your server every couple of hours
+The reason many avoid HMR in node is because it is known to cause memory leaks. But does it matter? Not really, for a few reasons.
+
+- This is enabled exclusively in development so you will never have to worry about leaks in your production sever.
+- It will generally take a LOT of reloads before memory leaks become a issue in development so it is mostly okay.
+
+To stay on the safe side, simply restart your server every couple of hours.
 
 ## Usage
 

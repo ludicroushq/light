@@ -7,6 +7,8 @@ title: Plugins
 
 The idea of plugins comes from [Micro](https://github.com/vercel/micro), however light uses a slightly different API. Plugins allow you to wrap a request completely and run code, before the request, after the request, and also mutate the response. It is similar to Higher Order Components (HOCs) in React.
 
+**For the majority of cases, middleware is usually enough. It's better to use middleware over plugins if you can.**
+
 ## Using a Plugin
 
 You can add plugins to the route by using the `usePlugin` function. A plugin is a function that takes in a fn and returns another function that takes in a [context](core/context.md) and a valid response.
