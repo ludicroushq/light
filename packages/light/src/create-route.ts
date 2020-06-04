@@ -1,14 +1,5 @@
 import AWSServerlessMicro from 'aws-serverless-micro';
-import {
-  buffer,
-  text,
-  json,
-  run,
-  send,
-  sendError,
-  createError,
-  RequestHandler,
-} from 'micro';
+import { buffer, text, json, run, send, sendError, createError, RequestHandler } from 'micro';
 import useParams from './utils/use-params';
 import useQuery from './utils/use-query';
 import {
@@ -36,7 +27,6 @@ const isRunKit = LIGHT_ENV === 'runkit';
 const isNow = LIGHT_ENV === 'now';
 const isServerless = isNetlify || isAWS || isRunKit || isNow;
 
-
 export default (): CreateRoute => {
   const _middleware: MiddlewareObject = JSON.parse('{}');
   const _plugins: PluginObject = JSON.parse('{}');
@@ -54,15 +44,16 @@ export default (): CreateRoute => {
   };
 
   const useConnect = (connect: any, methods?: HTTPMethod[]): void => {
-    const middleware: Middleware = (ctx) => new Promise((resolve, reject) => {
-      connect(ctx.req, ctx.res, (result: any) => {
-        if (result instanceof Error) {
-          return reject(result);
-        }
+    const middleware: Middleware = (ctx) =>
+      new Promise((resolve, reject) => {
+        connect(ctx.req, ctx.res, (result: any) => {
+          if (result instanceof Error) {
+            return reject(result);
+          }
 
-        return resolve(result);
+          return resolve(result);
+        });
       });
-    });
 
     useMiddleware(middleware, methods);
   };
@@ -88,12 +79,12 @@ export default (): CreateRoute => {
     const context: Context = {
       req,
       res,
-      buffer,
-      text,
-      json,
-      send,
-      sendError,
       createError,
+      buffer: (info) => buffer(req, info),
+      text: (info) => text(req, info),
+      json: (info) => json(req, info),
+      send: (code, data) => send(res, code, data),
+      sendError: (info) => sendError(req, res, info),
       useParams: useParams(req.url || '/'),
       useQuery: useQuery(req.url || '/'),
     };
@@ -127,15 +118,12 @@ export default (): CreateRoute => {
     const applyPlugins = (p?: Plugin[]): void => {
       if (!p || !p.length) return;
 
-      handler = p
-        .reverse()
-        .reduce((acc: any, val: any): any => val(acc), handler);
+      handler = p.reverse().reduce((acc: any, val: any): any => val(acc), handler);
     };
 
     // applyPlugins(run);
     applyPlugins(_plugins.global);
     applyPlugins(_plugins[method]);
-
 
     return handler(context);
   };
@@ -148,7 +136,6 @@ export default (): CreateRoute => {
     handlers[key] = fn;
   };
 
-
   const wrappers = JSON.parse('{}');
   [...Methods, 'all'].forEach((method): void => {
     wrappers[method] = genFunction(method as HTTPMethod | 'all');
@@ -159,7 +146,7 @@ export default (): CreateRoute => {
   // transform exports
   if (isServerless) {
     if (isNow) {
-      route = (a: Request, b: Response): {} => run(a, b, (fun as RequestHandler));
+      route = (a: Request, b: Response): {} => run(a, b, fun as RequestHandler);
     }
     if (isNetlify || isAWS) {
       route = {
@@ -168,7 +155,7 @@ export default (): CreateRoute => {
     }
     if (isRunKit) {
       route = {
-        endpoint: (a: Request, b: Response): {} => run(a, b, (fun as RequestHandler)),
+        endpoint: (a: Request, b: Response): {} => run(a, b, fun as RequestHandler),
       };
     }
   }

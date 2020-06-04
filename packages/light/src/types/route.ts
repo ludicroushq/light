@@ -1,32 +1,50 @@
 /* eslint-disable no-undef */
 import { IncomingMessage, ServerResponse } from 'http';
-import {
-  buffer,
-  text,
-  json,
-  run,
-  send,
-  sendError,
-  createError,
-} from 'micro';
+import { buffer, text, json, run, send, sendError, createError } from 'micro';
 
 // req/res
 export type Request = IncomingMessage;
 export type Response = ServerResponse;
 
 // HTTP methods
-export type HTTPMethod = 'connect' | 'delete' | 'get' | 'head' | 'options' | 'patch' | 'post' | 'put' | 'trace';
-export const Methods: HTTPMethod[] = ['connect', 'delete', 'get', 'head', 'options', 'patch', 'post', 'put', 'trace'];
+export type HTTPMethod =
+  | 'connect'
+  | 'delete'
+  | 'get'
+  | 'head'
+  | 'options'
+  | 'patch'
+  | 'post'
+  | 'put'
+  | 'trace';
+export const Methods: HTTPMethod[] = [
+  'connect',
+  'delete',
+  'get',
+  'head',
+  'options',
+  'patch',
+  'post',
+  'put',
+  'trace',
+];
+
+type ContextInfo = { limit?: string | number; encoding?: string };
 
 // params sent to handlers
 export interface Context {
   req: Request;
   res: Response;
-  buffer: typeof buffer;
-  text: typeof text;
-  json: typeof json;
-  send: typeof send;
-  sendError: typeof sendError;
+  buffer: (info?: ContextInfo) => Promise<Buffer | string>;
+  text: (info?: ContextInfo) => Promise<string>;
+  json: (info?: ContextInfo) => Promise<object>;
+  send: (code: number, data?: any) => Promise<void>;
+  sendError: (info: {
+    statusCode?: number;
+    status?: number;
+    message?: string;
+    stack?: string;
+  }) => Promise<void>;
   createError: typeof createError;
   useParams: (path: string) => any;
   useQuery: () => any;
