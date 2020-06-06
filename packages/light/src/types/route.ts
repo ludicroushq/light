@@ -29,15 +29,15 @@ export const Methods: HTTPMethod[] = [
   'trace',
 ];
 
-type ContextInfo = { limit?: string | number; encoding?: string };
+type BodyParsingInfo = { limit?: string | number; encoding?: string };
 
 // params sent to handlers
 export interface Context {
   req: Request;
   res: Response;
-  buffer: (info?: ContextInfo) => Promise<Buffer | string>;
-  text: (info?: ContextInfo) => Promise<string>;
-  json: (info?: ContextInfo) => Promise<object>;
+  buffer: (info?: BodyParsingInfo) => Promise<Buffer | string>;
+  text: (info?: BodyParsingInfo) => Promise<string>;
+  json: (info?: BodyParsingInfo) => Promise<object>;
   send: (code: number, data?: any) => Promise<void>;
   sendError: (info: {
     statusCode?: number;
@@ -46,8 +46,8 @@ export interface Context {
     stack?: string;
   }) => Promise<void>;
   createError: typeof createError;
-  useParams: (path: string) => any;
-  useQuery: () => any;
+  useParams: (path: string) => object;
+  useQuery: () => object;
 }
 
 // types of get() and the function passed in

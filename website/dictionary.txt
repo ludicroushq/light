@@ -7,3 +7,11 @@ kubernetes
 proxying
 HOCs
 HOC
+hapi
+usemiddleware
+useconnect
+useplugin
+Netlify's
+websockets
+typeof
+youch
