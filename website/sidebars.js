@@ -35,4 +35,24 @@ module.exports = {
       "third-party/ava",
     ],
   },
+  api: {
+    "Exported Functions": [
+      "api/exported/create-route",
+      "api/exported/create-server",
+      "api/exported/create-test",
+      "api/exported/logger",
+    ],
+    Context: [
+      "api/context/req",
+      "api/context/res",
+      "api/context/buffer",
+      "api/context/text",
+      "api/context/json",
+      "api/context/send",
+      "api/context/send-error",
+      "api/context/create-error",
+      "api/context/use-params",
+      "api/context/use-query",
+    ],
+  },
 };

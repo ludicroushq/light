@@ -22,8 +22,14 @@ module.exports = {
       links: [
         {
           to: "docs/",
-          activeBasePath: "docs",
+          activeBaseRegex: "docs/(?!api).*",
           label: "Docs",
+          position: "right",
+        },
+        {
+          to: "docs/api/exported/create-route",
+          activeBasePath: "docs/api",
+          label: "API",
           position: "right",
         },
         { to: "blog", label: "Blog", position: "right" },
