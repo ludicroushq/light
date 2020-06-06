@@ -13,3 +13,5 @@ useconnect
 useplugin
 Netlify's
 websockets
+typeof
+youch
