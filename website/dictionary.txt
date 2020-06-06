@@ -11,3 +11,5 @@ hapi
 usemiddleware
 useconnect
 useplugin
+Netlify's
+websockets
