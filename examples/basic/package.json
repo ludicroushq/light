@@ -9,7 +9,7 @@
     "light": "../../packages/light"
   },
   "devDependencies": {
-    "jest": "^25.1.0",
+    "jest": "^25.5.4",
     "supertest": "^4.0.2"
   }
 }

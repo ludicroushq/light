@@ -2,7 +2,7 @@
   "name": "core",
   "private": true,
   "devDependencies": {
-    "lerna": "^3.20.2"
+    "lerna": "^3.22.0"
   },
   "dependencies": {}
 }
