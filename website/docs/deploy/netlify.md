@@ -23,11 +23,11 @@ Before you can deploy, you must first populate your git repository. Follow the [
 
 That's all you need in terms of code! Now head over to Netlify's website and click the "New Site From Git" button. Follow the steps to connect your GitHub account to Netlify and add your GitHub repo. Once you get to the final step, just leave the pre-filled data as is and press deploy. **This will deploy successfully, BUT your endpoints will not work.** Why is that? Well, light does not know which environment it needs to transform to. To set this up, open the settings page (on the top), go to the "Build and Deploy" section in the sidebar, and click "Environments" in the sidebar. Click "Edit Variables", and add a new environment variable which sets `LIGHT_ENVIRONMENT` to `netlify`. The end result should look like this.
 
-![environment settings in netlify](https://github.com/ludicroushq/light/tree/207804d2e826e1f45ff0c63ba7b17f61c563bd82/static/images/screenshots/netlify/environment.png)
+![environment settings in netlify](/img/netlify/env.png)
 
 Press save to save your changes. Finally, to update your function to use this environment variable, you must go to the "Deploys" page at the top, and press "Trigger Deploy", and "Deploy Site".
 
-![trigger deploy](https://github.com/ludicroushq/light/tree/207804d2e826e1f45ff0c63ba7b17f61c563bd82/static/images/screenshots/netlify/trigger-deploy.png)
+![trigger deploy](/img/netlify/trigger-deploy.png)
 
 That's it! Your functions will now be deployed and ready to use!
 
