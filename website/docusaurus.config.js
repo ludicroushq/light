@@ -47,12 +47,12 @@ module.exports = {
           title: "Docs",
           items: [
             {
-              label: "Style Guide",
-              to: "docs/",
+              label: "Docs",
+              to: "docs",
             },
             {
-              label: "Second Doc",
-              to: "docs/doc2/",
+              label: "API",
+              to: "docs/api/exported/create-route",
             },
           ],
         },
@@ -60,17 +60,22 @@ module.exports = {
           title: "Community",
           items: [
             {
-              label: "Stack Overflow",
-              href: "https://stackoverflow.com/questions/tagged/docusaurus",
+              label: "Help",
+              href:
+                "https://github.com/ludicroushq/light/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc",
             },
-            {
-              label: "Discord",
-              href: "https://discordapp.com/invite/docusaurus",
-            },
-            {
-              label: "Twitter",
-              href: "https://twitter.com/docusaurus",
-            },
+            // {
+            //   label: "Stack Overflow",
+            //   href: "https://stackoverflow.com/questions/tagged/docusaurus",
+            // },
+            // {
+            //   label: "Discord",
+            //   href: "https://discordapp.com/invite/docusaurus",
+            // },
+            // {
+            //   label: "Twitter",
+            //   href: "https://twitter.com/nahtnam",
+            // },
           ],
         },
         {
@@ -82,7 +87,7 @@ module.exports = {
             },
             {
               label: "GitHub",
-              href: "https://github.com/facebook/docusaurus",
+              href: "https://github.com/ludicroushq/light",
             },
           ],
         },
@@ -104,8 +109,7 @@ module.exports = {
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
-          editUrl:
-            "https://github.com/ludicroushq/light/edit/master/website/blog/",
+          editUrl: "https://github.com/ludicroushq/light/edit/master/website/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),

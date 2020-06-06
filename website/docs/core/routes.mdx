@@ -63,7 +63,7 @@ Using `get`, `post`, `all`, and other HTTP method functions will allow you to re
 light first looks to see if you have defined a method specific handler (e.g. `get`), then looks to see if you have defined a global handler (i.e. `all`), and finally returns `405 Method Not Supported`
 :::
 
-You must pass a function to the methods which accepts a ctx parameter (see [the context docs](core/context) docs) which includes keys such as `req`, `res`, `send`. Inside of the function you can either respond to the request using the provided `send` function, or you can return a string or JSON. Light uses [`micro`](https://github.com/vercel/micro) under the hood to respond to requests.
+You must pass a function to the methods which accepts a ctx parameter (see [the context docs](core/context.md) docs) which includes keys such as `req`, `res`, `send`. Inside of the function you can either respond to the request using the provided `send` function, or you can return a string or JSON. Light uses [`micro`](https://github.com/vercel/micro) under the hood to respond to requests.
 
 ## `useMiddleware`
 
