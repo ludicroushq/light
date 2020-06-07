@@ -15,3 +15,9 @@ Netlify's
 websockets
 typeof
 youch
+gcloud
+noreferrer
+noopener
+bgcolor
+Helvetica
+Arial

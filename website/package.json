@@ -12,10 +12,12 @@
   "dependencies": {
     "@docusaurus/core": "^2.0.0-alpha.56",
     "@docusaurus/preset-classic": "^2.0.0-alpha.56",
+    "@material-ui/core": "^4.10.1",
     "classnames": "^2.2.6",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-runkit": "^0.9.0"
+    "react-runkit": "^0.9.0",
+    "react-typed": "^1.2.0"
   },
   "browserslist": {
     "production": [
