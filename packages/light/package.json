@@ -54,7 +54,7 @@
     "youch-terminal": "^1.0.0"
   },
   "devDependencies": {
-    "@types/jest": "^24.9.1",
+    "@types/jest": "^26.0.0",
     "@types/micro": "^7.3.3",
     "@types/node": "^11.15.14",
     "@types/node-fetch": "^2.5.7",
