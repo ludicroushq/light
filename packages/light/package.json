@@ -42,7 +42,7 @@
     "chokidar": "^2.1.8",
     "decache": "^4.6.0",
     "emojic": "^1.1.15",
-    "find-my-way": "^2.2.3",
+    "find-my-way": "^3.0.1",
     "glob": "^7.1.6",
     "micro": "^9.3.4",
     "path-parser": "^6.1.0",
