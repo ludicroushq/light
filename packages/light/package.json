@@ -39,7 +39,7 @@
   "dependencies": {
     "aws-serverless-micro": "^1.0.4",
     "chalk": "^4.1.0",
-    "chokidar": "^2.1.8",
+    "chokidar": "^3.4.0",
     "decache": "^4.6.0",
     "emojic": "^1.1.15",
     "find-my-way": "^3.0.1",
