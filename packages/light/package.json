@@ -38,7 +38,7 @@
   "homepage": "https://github.com/ludicroushq/light#readme",
   "dependencies": {
     "aws-serverless-micro": "^1.0.4",
-    "chalk": "^2.4.2",
+    "chalk": "^4.1.0",
     "chokidar": "^2.1.8",
     "decache": "^4.6.0",
     "emojic": "^1.1.15",
