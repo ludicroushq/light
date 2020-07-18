@@ -56,7 +56,7 @@
   "devDependencies": {
     "@types/jest": "^26.0.4",
     "@types/micro": "^7.3.3",
-    "@types/node": "^11.15.17",
+    "@types/node": "^11.15.18",
     "@types/node-fetch": "^2.5.7",
     "@types/pretty-time": "^1.1.0",
     "@types/supertest": "^2.0.10",
@@ -64,9 +64,9 @@
     "@types/uuid": "^8.0.0",
     "@types/yargs": "^15.0.5",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
-    "@typescript-eslint/parser": "^3.6.0",
+    "@typescript-eslint/parser": "^3.6.1",
     "coveralls": "^3.1.0",
-    "eslint": "^7.4.0",
+    "eslint": "^7.5.0",
     "eslint-config-airbnb-typescript": "^7.2.1",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.22.0",
@@ -79,7 +79,7 @@
     "supertest": "^4.0.2",
     "test-listen": "^1.1.0",
     "ts-jest": "^24.3.0",
-    "typescript": "^3.9.6"
+    "typescript": "^3.9.7"
   },
   "gitHead": "35e2b8b194643a6084748c51ff2a02b88577e593"
 }
