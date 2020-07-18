@@ -7,6 +7,7 @@ export { Server };
 export interface LightServer {
   server: Server;
   router: any;
+  _fullRoutePaths: string[];
   reload: () => void;
 }
 

@@ -52,18 +52,14 @@ const handle = async (argv: Args): Promise<void> => {
     [key: string]: string | number | undefined;
   }
 
-  const {
-    HOST = '0.0.0.0',
-  }: ProcessEnv = process.env;
+  const { HOST = '0.0.0.0' }: ProcessEnv = process.env;
 
-  let {
-    PORT = 3000,
-  }: ProcessEnv = process.env;
+  let { PORT = 3000 }: ProcessEnv = process.env;
   if (argv.port) {
     PORT = argv.port;
   }
 
-  app.server.listen(PORT, (HOST as any), (): void => {
+  app.server.listen(PORT, HOST as any, (): void => {
     logger.info(`[ ${chalk.magentaBright('listening')} ] on port ${PORT}`);
 
     logger.info(`[ ${chalk.blueBright('hmr')} ] starting the hot reloader`);
@@ -76,13 +72,24 @@ const handle = async (argv: Args): Promise<void> => {
       logger.info(`[ ${chalk.blueBright('hmr')} ] watching for changes`);
     });
 
-    watcher.on('change', async (p: string): Promise<void> => {
-      logger.info(`[ ${chalk.blueBright('hmr')} ] swapping out ${chalk.yellow(relative(cwd, p))}`);
-      // remove edited file from cache
-      decache(p);
-      // reload the server
-      app.reload();
-    });
+    watcher.on(
+      'change',
+      async (p: string): Promise<void> => {
+        logger.info(
+          `[ ${chalk.blueBright('hmr')} ] swapping out ${chalk.yellow(relative(cwd, p))}`,
+        );
+        // remove edited file from cache
+        decache(p);
+
+        // decache all routes
+        app._fullRoutePaths.forEach((x: string) => {
+          decache(x);
+        });
+
+        // reload the server
+        app.reload();
+      },
+    );
   });
 };
 

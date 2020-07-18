@@ -10,10 +10,7 @@ import importConfig from './utils/import-config';
 import injectRoutes from './utils/inject-routes';
 import requestLoggerPlugin from './plugins/logger';
 
-export default ({
-  youch = false,
-  requestLogger = true,
-}: CreateServerOptions): LightServer => {
+export default ({ youch = false, requestLogger = true }: CreateServerOptions): LightServer => {
   // create find-my-way router with default 404 handler
   let defaultRoute = (_: Request, res: Response): void => {
     res.statusCode = 404;
@@ -32,9 +29,9 @@ export default ({
   const cwd = process.cwd();
   const config = importConfig();
   const rootPath = join(cwd, config.root ? config.root : './');
+  const routeFiles = findRoutes(rootPath);
 
   const fillRouter = (): void => {
-    const routeFiles = findRoutes(rootPath);
     const generatedRoutes = genRoutes(routeFiles, rootPath);
     const plugins: Plugin[] = [];
 
@@ -57,6 +54,7 @@ export default ({
 
   return {
     router,
+    _fullRoutePaths: routeFiles.map((x) => join(rootPath, 'routes', x)),
     reload: (): void => {
       // reset the router
       router.reset();
