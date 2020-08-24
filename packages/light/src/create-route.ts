@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import AWSServerlessMicro from 'aws-serverless-micro';
 import { buffer, text, json, run, send, sendError, createError, RequestHandler } from 'micro';
 import useParams from './utils/use-params';
