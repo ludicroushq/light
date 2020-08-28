@@ -1,172 +1,38 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import AWSServerlessMicro from 'aws-serverless-micro';
-import { buffer, text, json, run, send, sendError, createError, RequestHandler } from 'micro';
-import useParams from './utils/use-params';
-import useQuery from './utils/use-query';
 import {
   CreateRoute,
-  Context,
-  MiddlewareObject,
-  PluginObject,
-  Handlers,
   HTTPMethod,
   Methods,
-  AnyRoute,
-  Middleware,
-  Plugin,
   HandlerFunction,
   HandlerMethod,
-  Request,
-  Response,
+  Route,
+  HandlerMethodOptions,
 } from './types/route';
 
-// detect if serverless environment
-const { LIGHT_ENV } = process.env;
-const isNetlify = LIGHT_ENV === 'netlify';
-const isAWS = LIGHT_ENV === 'aws';
-const isRunKit = LIGHT_ENV === 'runkit';
-const isNow = LIGHT_ENV === 'now';
-const isServerless = isNetlify || isAWS || isRunKit || isNow;
-
 export default (): CreateRoute => {
-  const _middleware: MiddlewareObject = JSON.parse('{}');
-  const _plugins: PluginObject = JSON.parse('{}');
-  const handlers: Handlers = JSON.parse('{}');
-
-  const useMiddleware = (middleware: Middleware, methods?: HTTPMethod[]): void => {
-    if (methods) {
-      // TODO:
-    }
-
-    if (!_middleware.global) {
-      _middleware.global = [];
-    }
-    _middleware.global.push(middleware);
-  };
-
-  const useConnect = (connect: any, methods?: HTTPMethod[]): void => {
-    const middleware: Middleware = (ctx) =>
-      new Promise((resolve, reject) => {
-        connect(ctx.req, ctx.res, (result: any) => {
-          if (result instanceof Error) {
-            return reject(result);
-          }
-
-          return resolve(result);
-        });
-      });
-
-    useMiddleware(middleware, methods);
-  };
-
-  const usePlugin = (plugin: Plugin, methods?: HTTPMethod[]): void => {
-    if (methods) {
-      // TODO:
-    }
-
-    if (!_plugins.global) {
-      _plugins.global = [];
-    }
-    _plugins.global.push(plugin);
-  };
-
-  /**
-   * The route that is exposed in every file
-   * Essentially a self contained server (allows it to work in serverless environments)
-   */
-  const fun = async (req: Request, res: Response): Promise<any> => {
-    const method = req.method?.toLowerCase() as HTTPMethod;
-
-    const context: Context = {
-      req,
-      res,
-      createError,
-      buffer: (info) => buffer(req, info),
-      text: (info) => text(req, info),
-      json: (info) => json(req, info),
-      send: (code, data) => send(res, code, data),
-      sendError: (info) => sendError(req, res, info),
-      useParams: useParams(req.url || '/'),
-      useQuery: useQuery(req.url || '/'),
-    };
-    let handler = async (ctx: Context): Promise<any> => {
-      const applyMiddleware = async (mw?: Middleware[]): Promise<boolean> => {
-        if (!mw) return false;
-        // eslint-disable-next-line no-restricted-syntax
-        for (const middleware of mw) {
-          // eslint-disable-next-line no-await-in-loop
-          await middleware(ctx);
-
-          if (ctx.res.headersSent) {
-            return true;
-          }
-        }
-        return false;
-      };
-
-      if (await applyMiddleware(_middleware.global)) return null;
-      if (await applyMiddleware(_middleware[method])) return null;
-
-      const methodNotSupported: HandlerFunction = ({ send: mnsSend }): void => {
-        mnsSend(405, 'Method Not Allowed');
-      };
-
-      const fn = handlers[method] || handlers.all || methodNotSupported;
-
-      return fn(ctx);
-    };
-
-    const applyPlugins = (p?: Plugin[]): void => {
-      if (!p || !p.length) return;
-
-      handler = p.reverse().reduce((acc: any, val: any): any => val(acc), handler);
-    };
-
-    // applyPlugins(run);
-    applyPlugins(_plugins.global);
-    applyPlugins(_plugins[method]);
-
-    return handler(context);
-  };
+  const route: Route = JSON.parse('{}');
 
   /**
    * Generate wrapper functions for all http methods
    */
-  const genFunction = (key: HTTPMethod | 'all'): HandlerMethod => (fn: HandlerFunction): void => {
+  const genFunction = (key: HTTPMethod | 'ALL'): HandlerMethod => (
+    fn: HandlerFunction,
+    opts?: HandlerMethodOptions,
+  ): void => {
     if (!fn) throw new Error('please provide a function to method');
-    handlers[key] = fn;
+    route[key] = {
+      handler: fn,
+      middleware: opts?.middleware || [],
+    };
   };
 
-  const wrappers = JSON.parse('{}');
-  [...Methods, 'all'].forEach((method): void => {
-    wrappers[method] = genFunction(method as HTTPMethod | 'all');
+  const wrappers: Record<HTTPMethod | 'ALL', HandlerMethod> = JSON.parse('{}');
+  [...Methods, 'ALL'].forEach((method): void => {
+    wrappers[method as HTTPMethod | 'ALL'] = genFunction(method as HTTPMethod | 'ALL');
   });
-
-  let route: AnyRoute = fun;
-
-  // transform exports
-  if (isServerless) {
-    if (isNow) {
-      route = (a: Request, b: Response): {} => run(a, b, fun as RequestHandler);
-    }
-    if (isNetlify || isAWS) {
-      route = {
-        handler: AWSServerlessMicro(fun),
-      };
-    }
-    if (isRunKit) {
-      route = {
-        endpoint: (a: Request, b: Response): {} => run(a, b, fun as RequestHandler),
-      };
-    }
-  }
 
   return {
     route,
-    useMiddleware,
-    usePlugin,
-    useConnect,
-    run,
     ...wrappers,
   };
 };

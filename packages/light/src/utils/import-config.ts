@@ -1,27 +1,25 @@
 import { existsSync } from 'fs';
 import { join } from 'path';
-import { LightConfig } from '../types/config';
+import { LightConfig, LoggerConfig } from '../types/config';
 
-export default (): LightConfig => {
+const importFile = (fileName: string) => {
   const path = process.cwd();
-  const file = join(path, 'light.config.js');
-  const fileTS = join(path, 'light.config.ts');
+  const file = join(path, fileName);
   if (existsSync(file)) {
     let conf = require(file); // eslint-disable-line
     if (conf.default) conf = conf.default;
-    return conf || {};
+    return conf;
   }
-  if (existsSync(fileTS)) {
-    let conf = require(fileTS); // eslint-disable-line
-    if (conf.default) conf = conf.default;
-    return conf || {};
-  }
-  return {};
+  return null;
 };
 
+export const importLoggerConfig = (): LoggerConfig =>
+  importFile('config/logger.ts') || importFile('config/logger.js') || {};
+
+export const importLightConfig = (): LightConfig =>
+  importFile('light.config.ts') || importFile('light.config.js') || {};
+
 export const isTypescript = (): boolean => {
-  const path = process.cwd();
-  const fileTS = join(path, 'light.config.ts');
-  const tsConfig = join(path, 'tsconfig.json');
-  return existsSync(fileTS) || existsSync(tsConfig);
+  const tsConfig = join(process.cwd(), 'tsconfig.json');
+  return existsSync(tsConfig);
 };

@@ -2,7 +2,8 @@
 
 export interface LightConfig {
   root?: string;
-  typescript?: boolean;
+}
+
+export interface LoggerConfig {
   logger?: () => any;
-  requestLogger?: () => any;
 }

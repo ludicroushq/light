@@ -1,5 +1,5 @@
-import importConfig from './utils/import-config';
+import { importLoggerConfig } from './utils/import-config';
 
-const { logger } = importConfig();
+const { logger } = importLoggerConfig();
 
 export default logger?.() || console;

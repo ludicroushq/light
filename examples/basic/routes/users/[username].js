@@ -1,10 +1,9 @@
 const { createRoute } = require('light');
-const { route, get } = createRoute();
+const { route, GET } = createRoute();
 
-get(({ req, useParams }) => {
-  const { username } = useParams('/users/:username');
+GET(({ req }) => {
   return {
-    hello: username,
+    hello: req.params.username,
   };
 });
 
