@@ -13,11 +13,15 @@ const importFile = (fileName: string) => {
   return null;
 };
 
-export const importLoggerConfig = (): LoggerConfig =>
-  importFile('config/logger.ts') || importFile('config/logger.js') || {};
-
 export const importLightConfig = (): LightConfig =>
   importFile('light.config.ts') || importFile('light.config.js') || {};
+
+export const importLoggerConfig = (): LoggerConfig => {
+  const { root = '' } = importLightConfig();
+  return (
+    importFile(join(root, 'config/logger.ts')) || importFile(join(root, 'config/logger.js')) || {}
+  );
+};
 
 export const isTypescript = (): boolean => {
   const tsConfig = join(process.cwd(), 'tsconfig.json');

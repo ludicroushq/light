@@ -7,15 +7,18 @@ import {
   HandlerMethod,
   Route,
   HandlerMethodOptions,
+  Middleware,
 } from './types/route';
 
-export default (): CreateRoute => {
+export const createRoute = (): CreateRoute => {
   const route: Route = JSON.parse('{}');
+  const middleware: Middleware[] = [];
+  route.middleware = middleware;
 
   /**
    * Generate wrapper functions for all http methods
    */
-  const genFunction = (key: HTTPMethod | 'ALL'): HandlerMethod => (
+  const genFunction = (key: HTTPMethod): HandlerMethod => (
     fn: HandlerFunction,
     opts?: HandlerMethodOptions,
   ): void => {
@@ -26,13 +29,20 @@ export default (): CreateRoute => {
     };
   };
 
-  const wrappers: Record<HTTPMethod | 'ALL', HandlerMethod> = JSON.parse('{}');
-  [...Methods, 'ALL'].forEach((method): void => {
-    wrappers[method as HTTPMethod | 'ALL'] = genFunction(method as HTTPMethod | 'ALL');
+  const wrappers: Record<HTTPMethod, HandlerMethod> = JSON.parse('{}');
+  [...Methods].forEach((method): void => {
+    wrappers[method as HTTPMethod] = genFunction(method as HTTPMethod);
   });
 
   return {
     route,
+    useMiddleware: (mw: Middleware | Middleware[]) => {
+      if (!Array.isArray(mw)) {
+        middleware.push(mw);
+        return;
+      }
+      middleware.push(...mw);
+    },
     ...wrappers,
   };
 };

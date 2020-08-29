@@ -9,10 +9,23 @@ const { route, GET } = createRoute();
 //   return result;
 // });
 
-GET(async () => {
-  return {
-    hello: 'worlds',
-  };
-});
+GET(
+  async () => {
+    return {
+      hello: 'worlds',
+    };
+  },
+  {
+    middleware: [
+      (fn) => async (ctx) => {
+        const before = Date.now();
+        const result = await fn(ctx);
+        const after = Date.now();
+        console.log('request served in', after - before, 'ms');
+        return result;
+      },
+    ],
+  },
+);
 
 module.exports = route;

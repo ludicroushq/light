@@ -73,7 +73,7 @@ export interface HandlerMethodOptions {
   middleware?: Middleware[];
 }
 // Type for GET, POST, etc functions
-export type HandlerMethod = (fn: HandlerFunction, opts: HandlerMethodOptions) => void;
+export type HandlerMethod = (fn: HandlerFunction, opts?: HandlerMethodOptions) => void;
 // Type of the function passed by the user
 export type HandlerFunction = (params: Context) => any | Promise<any>;
 
@@ -86,22 +86,22 @@ type BaseRoute = {
   [key in HTTPMethod]?: RouteMethod;
 };
 export interface Route extends BaseRoute {
-  ALL: RouteMethod;
+  middleware: Middleware[];
 }
 
 export interface CreateRoute extends Record<HTTPMethod, HandlerMethod> {
-  ALL: HandlerMethod;
+  useMiddleware: (middleware: Middleware | Middleware[]) => void;
   route: Route;
 }
 
 // createRoute inner types
-export type Handlers = Partial<Record<HTTPMethod | 'ALL', HandlerFunction>>;
+export type Handlers = Partial<Record<HTTPMethod, HandlerFunction>>;
 export type Middleware = (fn: HandlerFunction) => HandlerFunction;
 
 // route object
 export interface RouteObject {
   path: string;
-  handler: Route;
+  route: Route;
   file: string;
 }
 

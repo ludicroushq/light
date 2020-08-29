@@ -12,4 +12,7 @@ export interface LightServer {
   reload: () => RouteObject[];
 }
 
-export interface CreateServerOptions {}
+export interface CreateServerOptions {
+  requestLogger?: boolean;
+  youch?: boolean;
+}

@@ -55,6 +55,7 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.4",
+    "@types/lodash": "^4.14.160",
     "@types/micro": "^7.3.3",
     "@types/node": "^14.0.26",
     "@types/node-fetch": "^2.5.7",

@@ -32,7 +32,7 @@ export default (routes: string[], rootPath: string): RouteObject[] => {
     if (path.endsWith('/index')) {
       routeObjects.push({
         path: path.substring(0, path.length - 6) || '/',
-        handler,
+        route: handler,
         file: routePath,
       });
       return;
@@ -40,7 +40,7 @@ export default (routes: string[], rootPath: string): RouteObject[] => {
 
     routeObjects.push({
       path,
-      handler,
+      route: handler,
       file: routePath,
     });
   });

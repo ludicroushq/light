@@ -6,7 +6,6 @@ import chalk from 'chalk';
 import decache from 'decache';
 
 import { isTypescript } from '../../utils/import-config';
-import { createServer, logger } from '../../index';
 
 export const command = 'dev';
 export const desc = 'start a development server';
@@ -28,10 +27,16 @@ const handle = async (argv: Args): Promise<void> => {
     require('ts-node').register(); // eslint-disable-line
   }
 
+  /**
+   * IMPORTANT: We need to import the light library AFTER we require ts-node
+   */
+  // eslint-disable-next-line global-require
+  const { createServer, logger } = require('../../index');
+
   logger.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
 
   const cwd = process.cwd();
-  const app = createServer();
+  const app = createServer({ youch: true });
 
   const { HOST = '0.0.0.0' } = process.env;
 

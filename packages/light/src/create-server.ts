@@ -5,14 +5,34 @@ import { IncomingMessage, ServerResponse } from 'http';
 import { importLightConfig } from './utils/import-config';
 import genRoutes from './utils/gen-routes';
 import findRoutes from './utils/find-routes';
-import { LightServer } from './types/server';
+import { LightServer, CreateServerOptions } from './types/server';
 import injectRoutes from './utils/inject-routes';
+import { applyMiddleware } from './utils/apply-middleware';
+import { requestHandlerWrapper } from './utils/request-handler';
 
-export default (): LightServer => {
+export const createServer = ({
+  youch = false,
+  requestLogger = true,
+}: CreateServerOptions): LightServer => {
+  /**
+   * IMPORTANT: We need to import the logging middleware at start-time
+   * since the ts-node loader wont be injected during the initial import
+   */
+  // eslint-disable-next-line global-require
+  const { requestLoggerMiddleware } = require('./middleware/logger');
+  // eslint-disable-next-line global-require
+  const { youchMiddleware } = require('./middleware/youch');
+
+  const middleware = [
+    ...(requestLogger ? [requestLoggerMiddleware] : []),
+    ...(youch ? [youchMiddleware] : []),
+  ];
   // create find-my-way router with default 404 handler
-  const defaultRoute = (): void => {
-    throw createError(404, 'Not Found');
-  };
+  const defaultRoute = requestHandlerWrapper(
+    applyMiddleware(middleware, () => {
+      throw createError(404, 'Not Found');
+    }) as () => never,
+  ) as () => never;
 
   const router = Router({
     ignoreTrailingSlash: true,
@@ -26,9 +46,7 @@ export default (): LightServer => {
 
   const fillRouter = () => {
     const generatedRoutes = genRoutes(routeFiles, rootPath);
-
-    injectRoutes(router, generatedRoutes);
-
+    injectRoutes(router, generatedRoutes, { middleware });
     return generatedRoutes;
   };
   const generatedRoutes = fillRouter();
