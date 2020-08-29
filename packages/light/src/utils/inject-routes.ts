@@ -1,4 +1,4 @@
-import Router, { HTTPMethod } from 'find-my-way';
+import Router from 'find-my-way';
 
 import { RouteObject, Middleware, Route } from '../types/route';
 import { applyMiddleware } from './apply-middleware';

@@ -1,4 +1,3 @@
-import { Handler } from 'find-my-way';
 import { HandlerFunction, Middleware } from '../types/route';
 
 export const applyMiddleware = (

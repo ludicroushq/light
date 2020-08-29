@@ -1,8 +1,7 @@
 /* eslint-disable no-undef */
 import { IncomingMessage, ServerResponse } from 'http';
-import { run, createError } from 'micro';
+import { createError } from 'micro';
 import { HTTPMethod } from 'find-my-way';
-import { boolean } from 'yargs';
 
 // HTTP methods
 export { HTTPMethod };

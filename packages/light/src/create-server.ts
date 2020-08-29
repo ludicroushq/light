@@ -53,8 +53,7 @@ export const createServer = ({
 
   // create the http server
   const server = micro(async (req: IncomingMessage, res: ServerResponse) =>
-    router.lookup(req, res),
-  );
+    router.lookup(req, res));
 
   return {
     router,
