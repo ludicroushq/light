@@ -81,7 +81,7 @@
     "supertest": "^4.0.2",
     "test-listen": "^1.1.0",
     "ts-jest": "^24.3.0",
-    "typescript": "^3.9.7"
+    "typescript": "^4.0.2"
   },
   "gitHead": "35e2b8b194643a6084748c51ff2a02b88577e593"
 }
