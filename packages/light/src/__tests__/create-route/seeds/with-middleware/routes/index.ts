@@ -1,11 +1,12 @@
 import { createRoute } from '../../../../../index';
 
-const { route, get, useMiddleware } = createRoute();
+const { route, GET, useMiddleware } = createRoute();
 
-useMiddleware(({ req }) => {
-  (req as any).test = true;
+useMiddleware((fn) => async (ctx) => {
+  (ctx.req as any).test = true;
+  return fn(ctx);
 });
 
-get(({ req }) => ({ test: (req as any).test }));
+GET(({ req }) => ({ test: (req as any).test }));
 
 export default route;

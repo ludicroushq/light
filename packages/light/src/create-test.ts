@@ -1,4 +1,7 @@
 import { createServer } from './create-server';
-import { LightServer } from './types/server';
+import { LightServer, CreateServerOptions } from './types/server';
 
-export const createTest = (): LightServer => createServer();
+interface CreateTestOptions extends CreateServerOptions {}
+
+export const createTest = (args?: CreateTestOptions): LightServer =>
+  createServer({ youch: false, requestLogger: false, ...args });

@@ -28,7 +28,7 @@ describe('createRoute', () => {
 
         const get = await supertest(server).get('/');
         expect(get.status).toStrictEqual(200);
-        expect(get.text).toBe('short circuit!');
+        expect(get.text).toBe('short circuit');
 
         cwd.mockRestore();
       });

@@ -3,6 +3,10 @@ import {
   createServer,
   createTest,
   logger,
+  createConfig,
+  createLogger,
+  withServerless,
+  withConnect,
 } from '../../index';
 
 describe('index', () => {
@@ -20,5 +24,21 @@ describe('index', () => {
 
   it('exports logger', () => {
     expect(logger).toBeTruthy();
+  });
+
+  it('exports createConfig', () => {
+    expect(createConfig).toBeTruthy();
+  });
+
+  it('exports createLogger', () => {
+    expect(createLogger).toBeTruthy();
+  });
+
+  it('exports withServerless', () => {
+    expect(withServerless).toBeTruthy();
+  });
+
+  it('exports withConnect', () => {
+    expect(withConnect).toBeTruthy();
   });
 });

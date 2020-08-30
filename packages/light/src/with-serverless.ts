@@ -18,7 +18,7 @@ export const withServerless = (route: Route) => {
   }
   const routeHandler = (req: IncomingMessage, res: ServerResponse) => {
     const method = req.method || 'GET';
-    const routeMethod = route[method as HTTPMethod] || route.ALL;
+    const routeMethod = route[method as HTTPMethod];
     if (!routeMethod) {
       throw createError(405, 'Method Not Allowed');
     }

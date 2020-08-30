@@ -13,10 +13,10 @@ describe('createRoute', () => {
 
         const get = await supertest(server).get('/');
         expect(get.status).toStrictEqual(200);
-        expect(get.text).toBe('get works!');
+        expect(get.text).toBe('GET works!');
         const post = await supertest(server).post('/');
-        expect(post.status).toStrictEqual(405);
-        expect(post.text).toBe('Method Not Allowed');
+        expect(post.status).toStrictEqual(404);
+        expect(post.text).toBe('Not Found');
 
         cwd.mockRestore();
       });
@@ -31,28 +31,10 @@ describe('createRoute', () => {
 
         const post = await supertest(server).post('/');
         expect(post.status).toStrictEqual(200);
-        expect(post.text).toBe('post works!');
+        expect(post.text).toBe('POST works!');
         const get = await supertest(server).get('/');
-        expect(get.status).toStrictEqual(405);
-        expect(get.text).toBe('Method Not Allowed');
-
-        cwd.mockRestore();
-      });
-    });
-
-    describe('all', () => {
-      it('returns for all methods', async () => {
-        const cwd = jest.spyOn(process, 'cwd');
-        cwd.mockReturnValue(join(__dirname, './seeds/with-all'));
-
-        const { server } = createTest();
-
-        const get = await supertest(server).get('/');
-        expect(get.status).toStrictEqual(200);
-        expect(get.text).toBe('all works!');
-        const post = await supertest(server).post('/');
-        expect(post.status).toStrictEqual(200);
-        expect(post.text).toBe('all works!');
+        expect(get.status).toStrictEqual(404);
+        expect(get.text).toBe('Not Found');
 
         cwd.mockRestore();
       });

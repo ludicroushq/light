@@ -4,7 +4,8 @@
   "description": "a modern framework",
   "scripts": {
     "dev": "tsc -w",
-    "test": "npm run lint && npm run jest",
+    "test": "npm run lint && npm run type-check && npm run jest",
+    "type-check": "tsc --noEmit",
     "jest": "jest --verbose --coverage",
     "lint": "eslint src . --ext js,ts,tsx",
     "ci:jest": "jest --verbose --maxWorkers=4 --coverage",

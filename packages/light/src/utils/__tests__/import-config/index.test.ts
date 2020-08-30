@@ -1,13 +1,13 @@
 import { join } from 'path';
 
-import importConfig from '../../import-config';
+import { importLightConfig } from '../../import-config';
 
 describe('import-config', () => {
   it('returns empty object with no config', () => {
     const cwd = jest.spyOn(process, 'cwd');
     cwd.mockReturnValue(join(__dirname));
 
-    expect(importConfig()).toMatchObject({});
+    expect(importLightConfig()).toMatchObject({});
 
     cwd.mockRestore();
   });
@@ -16,9 +16,9 @@ describe('import-config', () => {
     const cwd = jest.spyOn(process, 'cwd');
     cwd.mockReturnValue(join(__dirname, './seeds/config'));
 
-    const config = importConfig();
+    const config = importLightConfig();
     expect(config).toMatchObject({
-      hello: 'world',
+      root: 'src',
     });
 
     cwd.mockRestore();

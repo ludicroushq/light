@@ -1,7 +1,7 @@
 import request from 'supertest';
 
 import { join } from 'path';
-import logger from '../../../logger';
+import { logger } from '../../../logger';
 import { createTest } from '../../../index';
 
 describe('plugins', () => {

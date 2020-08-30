@@ -1,8 +1,8 @@
 import { createRoute } from '../../../../../index';
 
-const { route, post } = createRoute();
+const { route, POST } = createRoute();
 
-post(async ({ text }) => {
+POST(async ({ text }) => {
   const body = await text();
   return { body };
 });

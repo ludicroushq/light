@@ -1,8 +1,8 @@
 import { createRoute } from '../../../../../index';
 
-const { route, get } = createRoute();
+const { route, GET } = createRoute();
 
-get(async ({ sendError }) => {
+GET(async ({ sendError }) => {
   const error = new Error('test should not fail');
   (error as any).statusCode = 401;
   sendError(error);

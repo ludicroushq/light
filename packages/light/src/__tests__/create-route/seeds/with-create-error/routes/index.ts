@@ -1,8 +1,8 @@
 import { createRoute } from '../../../../../index';
 
-const { route, get } = createRoute();
+const { route, GET } = createRoute();
 
-get(async ({ createError }) => {
+GET(async ({ createError }) => {
   throw createError(401, 'test should not fail');
 });
 

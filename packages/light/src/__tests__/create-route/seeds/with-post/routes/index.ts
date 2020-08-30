@@ -1,7 +1,7 @@
 import { createRoute } from '../../../../../index';
 
-const { route, post } = createRoute();
+const { route, POST } = createRoute();
 
-post(() => 'post works!');
+POST(() => 'POST works!');
 
 export default route;
