@@ -11,6 +11,6 @@
   "devDependencies": {
     "jest": "^25.5.4",
     "supertest": "^4.0.2",
-    "ts-node": "^8.10.2"
+    "ts-node": "^9.0.0"
   }
 }
