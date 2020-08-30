@@ -6,7 +6,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "light": "^1.12.0",
+    "light": "^2.0.0-alpha.2",
     "pino": "^6.4.0"
   },
   "devDependencies": {
