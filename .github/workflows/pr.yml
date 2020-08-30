@@ -1,0 +1,22 @@
+name: pr
+
+on: [pull_request]
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - run: npm ci
+      - run: npx lerna bootstrap
+      - run: npm ci
+        working-directory: ./benchmark
+      - run: npm test
+        working-directory: ./benchmark
+        env:
+          CI: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
