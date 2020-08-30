@@ -9,7 +9,7 @@ describe('gen-routes', () => {
       expect.arrayContaining([
         expect.objectContaining({
           path: '/',
-          location: join(__dirname, './seeds/with-default/routes/index.js'),
+          file: join(__dirname, './seeds/with-default/routes/index.js'),
         }),
       ]),
     );
@@ -21,7 +21,7 @@ describe('gen-routes', () => {
       expect.arrayContaining([
         expect.objectContaining({
           path: '/:params',
-          location: join(__dirname, './seeds/with-params/routes/[params].js'),
+          file: join(__dirname, './seeds/with-params/routes/[params].js'),
         }),
       ]),
     );
@@ -33,7 +33,7 @@ describe('gen-routes', () => {
       expect.arrayContaining([
         expect.objectContaining({
           path: '/test',
-          location: join(__dirname, './seeds/with-nested-index/routes/test/index.js'),
+          file: join(__dirname, './seeds/with-nested-index/routes/test/index.js'),
         }),
       ]),
     );

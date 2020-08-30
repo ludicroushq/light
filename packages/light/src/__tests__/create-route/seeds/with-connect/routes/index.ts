@@ -1,12 +1,15 @@
 import { createRoute } from '../../../../../index';
+import { withConnect } from '../../../../../with-connect';
 
-const { route, get, useConnect } = createRoute();
+const { route, GET, useMiddleware } = createRoute();
 
-useConnect((req: any, res: any, next: any) => {
-  req.test = true;
-  next();
-});
+useMiddleware(
+  withConnect((req: any, res: any, next: any) => {
+    req.test = true;
+    next();
+  }),
+);
 
-get(({ req }) => ({ test: (req as any).test }));
+GET(({ req }) => ({ test: (req as any).test }));
 
 export default route;

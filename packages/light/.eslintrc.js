@@ -10,6 +10,7 @@ module.exports = {
   rules: {
     'no-underscore-dangle': 'off',
     '@typescript-eslint/no-throw-literal': 'off',
+    'import/prefer-default-export': 'off',
 
     // prettier
     'object-curly-newline': 'off',

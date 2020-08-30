@@ -1,8 +1,12 @@
 /* eslint-disable no-undef, import/prefer-default-export */
 
+import { Middleware } from './route';
+
 export interface LightConfig {
   root?: string;
-  typescript?: boolean;
-  logger?: () => any;
-  requestLogger?: () => any;
+}
+
+export interface LoggerConfig {
+  logger?: any;
+  onRequest?: Middleware;
 }

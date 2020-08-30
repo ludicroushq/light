@@ -16,29 +16,32 @@ export default (routes: string[], rootPath: string): RouteObject[] => {
     const parsedFile = parse(join('/', route));
     const fileName = join(parsedFile.dir, parsedFile.name);
 
-    const path = fileName.split('/').map((x): string => {
-      if (x.startsWith('[') && x.endsWith(']')) {
-        const newName = x.split('');
-        newName.pop();
-        newName.shift();
-        return `:${newName.join('')}`;
-      }
-      return x;
-    }).join('/');
+    const path = fileName
+      .split('/')
+      .map((x): string => {
+        if (x.startsWith('[') && x.endsWith(']')) {
+          const newName = x.split('');
+          newName.pop();
+          newName.shift();
+          return `:${newName.join('')}`;
+        }
+        return x;
+      })
+      .join('/');
 
     if (path.endsWith('/index')) {
       routeObjects.push({
         path: path.substring(0, path.length - 6) || '/',
-        handler,
-        location: routePath,
+        route: handler,
+        file: routePath,
       });
       return;
     }
 
     routeObjects.push({
       path,
-      handler,
-      location: routePath,
+      route: handler,
+      file: routePath,
     });
   });
 

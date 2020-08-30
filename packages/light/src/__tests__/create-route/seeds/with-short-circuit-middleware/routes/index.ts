@@ -1,13 +1,9 @@
 import { createRoute } from '../../../../../index';
 
-const { route, get, useMiddleware } = createRoute();
+const { route, GET, useMiddleware } = createRoute();
 
-useMiddleware(({ req }) => {
-  (req as any).test = true;
-});
+useMiddleware(() => async () => 'short circuit');
 
-useMiddleware(({ send }) => send(200, 'short circuit!'));
-
-get(({ req }: any) => ({ test: req.test }));
+GET(() => ({ oops: 'somethings wrong' }));
 
 export default route;

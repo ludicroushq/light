@@ -1,25 +1,38 @@
-import micro from 'micro';
+import micro, { createError } from 'micro';
 import Router from 'find-my-way';
 import { join } from 'path';
-import youchPlugin from './plugins/youch';
+import { IncomingMessage, ServerResponse } from 'http';
+import { importLightConfig } from './utils/import-config';
 import genRoutes from './utils/gen-routes';
 import findRoutes from './utils/find-routes';
 import { LightServer, CreateServerOptions } from './types/server';
-import { Request, Response, Plugin } from './types/route';
-import importConfig from './utils/import-config';
 import injectRoutes from './utils/inject-routes';
-import requestLoggerPlugin from './plugins/logger';
+import { applyMiddleware } from './utils/apply-middleware';
+import { requestHandlerWrapper } from './utils/request-handler';
 
-export default ({ youch = false, requestLogger = true }: CreateServerOptions): LightServer => {
+export const createServer = ({
+  youch = false,
+  requestLogger = true,
+}: CreateServerOptions): LightServer => {
+  /**
+   * IMPORTANT: We need to import the logging middleware at start-time
+   * since the ts-node loader wont be injected during the initial import
+   */
+  // eslint-disable-next-line global-require
+  const { requestLoggerMiddleware } = require('./middleware/logger');
+  // eslint-disable-next-line global-require
+  const { youchMiddleware } = require('./middleware/youch');
+
+  const middleware = [
+    ...(requestLogger ? [requestLoggerMiddleware] : []),
+    ...(youch ? [youchMiddleware] : []),
+  ];
   // create find-my-way router with default 404 handler
-  let defaultRoute = (_: Request, res: Response): void => {
-    res.statusCode = 404;
-    res.end('Not Found');
-  };
-
-  if (requestLogger) {
-    defaultRoute = requestLoggerPlugin(defaultRoute);
-  }
+  const defaultRoute = requestHandlerWrapper(
+    applyMiddleware(middleware, () => {
+      throw createError(404, 'Not Found');
+    }) as () => never,
+  ) as () => never;
 
   const router = Router({
     ignoreTrailingSlash: true,
@@ -27,39 +40,29 @@ export default ({ youch = false, requestLogger = true }: CreateServerOptions): L
   });
 
   const cwd = process.cwd();
-  const config = importConfig();
+  const config = importLightConfig();
   const rootPath = join(cwd, config.root ? config.root : './');
   const routeFiles = findRoutes(rootPath);
 
-  const fillRouter = (): void => {
+  const fillRouter = () => {
     const generatedRoutes = genRoutes(routeFiles, rootPath);
-    const plugins: Plugin[] = [];
-
-    if (youch) {
-      plugins.push(youchPlugin);
-    }
-
-    if (requestLogger) {
-      plugins.push(requestLoggerPlugin);
-    }
-
-    injectRoutes(router, generatedRoutes, plugins);
+    injectRoutes(router, generatedRoutes, { middleware });
+    return generatedRoutes;
   };
-  fillRouter();
+  const generatedRoutes = fillRouter();
 
   // create the http server
-  const server = micro(
-    async (req: Request, res: Response): Promise<any> => router.lookup(req, res),
-  );
+  const server = micro(async (req: IncomingMessage, res: ServerResponse) =>
+    router.lookup(req, res));
 
   return {
     router,
-    _fullRoutePaths: routeFiles.map((x) => join(rootPath, 'routes', x)),
-    reload: (): void => {
+    generatedRoutes,
+    reload: () => {
       // reset the router
       router.reset();
       // reimport routes
-      fillRouter();
+      return fillRouter();
     },
     server,
   };

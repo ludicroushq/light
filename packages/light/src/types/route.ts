@@ -1,37 +1,56 @@
 /* eslint-disable no-undef */
 import { IncomingMessage, ServerResponse } from 'http';
-import { run, createError } from 'micro';
-
-// req/res
-export type Request = IncomingMessage;
-export type Response = ServerResponse;
+import { createError } from 'micro';
+import { HTTPMethod } from 'find-my-way';
 
 // HTTP methods
-export type HTTPMethod =
-  | 'connect'
-  | 'delete'
-  | 'get'
-  | 'head'
-  | 'options'
-  | 'patch'
-  | 'post'
-  | 'put'
-  | 'trace';
+export { HTTPMethod };
 export const Methods: HTTPMethod[] = [
-  'connect',
-  'delete',
-  'get',
-  'head',
-  'options',
-  'patch',
-  'post',
-  'put',
-  'trace',
+  'ACL',
+  'BIND',
+  'CHECKOUT',
+  'CONNECT',
+  'COPY',
+  'DELETE',
+  'GET',
+  'HEAD',
+  'LINK',
+  'LOCK',
+  'M-SEARCH',
+  'MERGE',
+  'MKACTIVITY',
+  'MKCALENDAR',
+  'MKCOL',
+  'MOVE',
+  'NOTIFY',
+  'OPTIONS',
+  'PATCH',
+  'POST',
+  'PROPFIND',
+  'PROPPATCH',
+  'PURGE',
+  'PUT',
+  'REBIND',
+  'REPORT',
+  'SEARCH',
+  'SOURCE',
+  'SUBSCRIBE',
+  'TRACE',
+  'UNBIND',
+  'UNLINK',
+  'UNLOCK',
+  'UNSUBSCRIBE',
 ];
 
-type BodyParsingInfo = { limit?: string | number; encoding?: string };
+// req/res
+export interface Request extends IncomingMessage {
+  params: Record<string, string | undefined>;
+  query: Record<string, string | string[]>;
+}
+export interface Response extends ServerResponse {}
 
-// params sent to handlers
+// Context
+type BodyParsingInfo = { limit?: string | number; encoding?: string };
 export interface Context {
   req: Request;
   res: Response;
@@ -46,44 +65,51 @@ export interface Context {
     stack?: string;
   }) => Promise<void>;
   createError: typeof createError;
-  useParams: (path: string) => object;
-  useQuery: () => object;
 }
 
-// types of get() and the function passed in
+// Create Route
+export interface HandlerMethodOptions {
+  middleware?: Middleware[];
+}
+// Type for GET, POST, etc functions
+export type HandlerMethod = (fn: HandlerFunction, opts?: HandlerMethodOptions) => void;
+// Type of the function passed by the user
 export type HandlerFunction = (params: Context) => any | Promise<any>;
-export type HandlerMethod = (fn: HandlerFunction) => void;
 
-// serverless types
-export type ServerRoute = (req: Request, res: Response) => {};
-export interface RunkitRoute {
-  endpoint: ServerRoute;
+// Value returned by `route`, AKA the exported value from the file
+interface RouteMethod {
+  handler: HandlerFunction;
+  middleware: Middleware[];
 }
-export interface AWSRoute {
-  handler: ServerRoute;
-}
-export type AnyRoute = ServerRoute | RunkitRoute | AWSRoute;
-
-// createRoute return values
-export type CreateRoute = Record<HTTPMethod, HandlerMethod> & {
-  all: HandlerMethod;
-  route: AnyRoute;
-  useMiddleware: (middleware: Middleware, methods?: HTTPMethod[]) => void;
-  usePlugin: (plugin: Plugin, methods?: HTTPMethod[]) => void;
-  useConnect: (connect: any, methods?: HTTPMethod[]) => void;
-  run: typeof run;
+type BaseRoute = {
+  [key in HTTPMethod]?: RouteMethod;
 };
+export interface Route extends BaseRoute {
+  middleware: Middleware[];
+}
+
+export interface CreateRoute extends Record<HTTPMethod, HandlerMethod> {
+  useMiddleware: (middleware: Middleware | Middleware[]) => void;
+  route: Route;
+}
 
 // createRoute inner types
-export type Handlers = Partial<Record<HTTPMethod | 'all', HandlerFunction>>;
-export type Middleware = (params: Context) => any | Promise<any>;
-export type Plugin = (fn: HandlerFunction) => HandlerFunction;
-export type MiddlewareObject = Partial<Record<HTTPMethod | 'global', Middleware[]>>;
-export type PluginObject = Partial<Record<HTTPMethod | 'global', Plugin[]>>;
+export type Handlers = Partial<Record<HTTPMethod, HandlerFunction>>;
+export type Middleware = (fn: HandlerFunction) => HandlerFunction;
 
 // route object
 export interface RouteObject {
   path: string;
-  handler: ServerRoute;
-  location: string;
+  route: Route;
+  file: string;
 }
+
+// serverless types
+export type RegularRoute = (req: Request, res: Response) => {};
+export interface RunkitRoute {
+  endpoint: RegularRoute;
+}
+export interface AWSRoute {
+  handler: RegularRoute;
+}
+export type AnyRoute = RegularRoute | RunkitRoute | AWSRoute;

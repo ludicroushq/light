@@ -1,17 +1,43 @@
 import Router from 'find-my-way';
 
-import { RouteObject, Plugin } from '../types/route';
+import { RouteObject, Middleware, Route } from '../types/route';
+import { applyMiddleware } from './apply-middleware';
+import { requestHandlerWrapper } from './request-handler';
+
+type InjectRoutesOptions = {
+  middleware?: Middleware[];
+};
 
 export default (
   router: Router.Instance<Router.HTTPVersion.V1>,
   routes: RouteObject[],
-  plugins: Plugin[] = [],
+  opts: InjectRoutesOptions,
 ): void => {
-  routes.forEach((route): void => {
-    let { handler } = route;
-    handler = plugins
-      .reverse()
-      .reduce((acc: any, val: any): any => val(acc), handler);
-    router.all(route.path, (req, res): any => handler(req, res));
+  routes.forEach((routeObj): void => {
+    const { route, path } = routeObj;
+    if (!route) {
+      throw new Error('nothing was exported');
+    }
+
+    Object.keys(route).forEach((untypedKey) => {
+      const key = untypedKey as keyof Route;
+      if (key === 'middleware') return;
+      const value = route[key];
+      if (!value) {
+        throw new Error('no handler specified');
+      }
+
+      const { handler } = value;
+
+      const middleware = [
+        ...(opts.middleware || []),
+        ...(route.middleware || []),
+        ...(value.middleware || []),
+      ];
+      const appliedHandler = applyMiddleware(middleware, handler);
+      const requestHandler = requestHandlerWrapper(appliedHandler);
+
+      router.on(key, path, requestHandler);
+    });
   });
 };

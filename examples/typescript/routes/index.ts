@@ -1,19 +1,20 @@
-import { IncomingMessage, ServerResponse } from 'http'
+import { IncomingMessage, ServerResponse } from 'http';
 import { createRoute } from 'light';
 
-const { route, addMiddleware, addPlugin } = createRoute('index');
+const { route, GET, useMiddleware } = createRoute();
 
-addMiddleware(() => console.log('hi'));
-addPlugin((fn: any) => async (req: IncomingMessage, res: ServerResponse) => {
+useMiddleware((fn) => async (ctx) => {
   console.log('before');
-  const result = await fn(req, res);
+  const result = await fn(ctx);
   console.log('after');
   return result;
 });
 
-module.exports = route(async (req: IncomingMessage) => {
-  console.log(`recieving request at path: ${req.url}`);
+GET(async ({ req }) => {
+  console.log(`receiving request at path: ${req.url}`);
   return {
     hello: 'world',
   };
 });
+
+module.exports = route;

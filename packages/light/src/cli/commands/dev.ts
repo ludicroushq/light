@@ -6,9 +6,9 @@ import chalk from 'chalk';
 import decache from 'decache';
 
 import { isTypescript } from '../../utils/import-config';
+import { RouteObject } from '../../types/route';
 
-export const command = 'dev [dir]';
-export const aliases: string[] = ['d'];
+export const command = 'dev';
 export const desc = 'start a development server';
 
 export const builder: CommandBuilder = {
@@ -16,30 +16,21 @@ export const builder: CommandBuilder = {
     alias: 'p',
     description: 'specify which port the server should run on',
   },
-  typescript: {
-    alias: 't',
-    boolean: true,
-    description: 'enable typescript in the project',
-  },
-  dir: {
-    default: './',
-    description: 'base directory for the light server',
-    hidden: true,
-  },
 };
 
 interface Args {
-  dir: string;
   port?: string;
-  typescript?: boolean;
 }
 
 const handle = async (argv: Args): Promise<void> => {
   const ts = isTypescript();
-  if (argv.typescript || ts) {
+  if (ts) {
     require('ts-node').register(); // eslint-disable-line
   }
 
+  /**
+   * IMPORTANT: We need to import the light library AFTER we require ts-node
+   */
   // eslint-disable-next-line global-require
   const { createServer, logger } = require('../../index');
 
@@ -48,13 +39,9 @@ const handle = async (argv: Args): Promise<void> => {
   const cwd = process.cwd();
   const app = createServer({ youch: true });
 
-  interface ProcessEnv {
-    [key: string]: string | number | undefined;
-  }
+  const { HOST = '0.0.0.0' } = process.env;
 
-  const { HOST = '0.0.0.0' }: ProcessEnv = process.env;
-
-  let { PORT = 3000 }: ProcessEnv = process.env;
+  let { PORT = 3000 } = process.env;
   if (argv.port) {
     PORT = argv.port;
   }
@@ -67,6 +54,8 @@ const handle = async (argv: Args): Promise<void> => {
     const watcher = chokidar.watch(cwd, {
       ignored: ['**/node_modules/**/*', '**/node_modules/**/.*', '**/.git/**/*'],
     });
+
+    let { generatedRoutes } = app;
 
     watcher.on('ready', (): void => {
       logger.info(`[ ${chalk.blueBright('hmr')} ] watching for changes`);
@@ -82,12 +71,12 @@ const handle = async (argv: Args): Promise<void> => {
         decache(p);
 
         // decache all routes
-        app._fullRoutePaths.forEach((x: string) => {
-          decache(x);
+        generatedRoutes.forEach((x: RouteObject) => {
+          decache(x.file);
         });
 
         // reload the server
-        app.reload();
+        generatedRoutes = app.reload();
       },
     );
   });

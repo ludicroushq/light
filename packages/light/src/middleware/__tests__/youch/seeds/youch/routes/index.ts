@@ -1,8 +1,8 @@
 import { createRoute } from '../../../../../../index';
 
-const { route, get } = createRoute();
+const { route, GET } = createRoute();
 
-get(() => {
+GET(() => {
   throw new Error('testing');
 });
 

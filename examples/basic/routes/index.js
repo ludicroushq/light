@@ -1,15 +1,7 @@
 const { createRoute } = require('light');
-const { route, get, useMiddleware, usePlugin } = createRoute();
+const { route, GET } = createRoute();
 
-useMiddleware(() => console.log('hi'));
-usePlugin((fn) => async (req, res) => {
-  console.log('before');
-  const result = await fn(req, res);
-  console.log('after');
-  return result;
-});
-
-get(async () => {
+GET(async () => {
   return {
     hello: 'world',
   };

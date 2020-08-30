@@ -30,9 +30,9 @@ const getCode = (name) => {
   return `${env}
 
 const { createRoute } = require('light');
-const { route, get } = createRoute();
+const { route, GET } = createRoute();
 
-get(() => {
+GET(() => {
   return {
     hello: 'world',
   };
@@ -62,9 +62,9 @@ function Page() {
   });
 
   const sampleCode = `const { createRoute } = require('light');
-const { route, get } = createRoute();
+const { route, GET } = createRoute();
 
-get(() => {
+GET(() => {
   return {
     hello: 'world',
   };
@@ -327,14 +327,14 @@ module.exports = route;`;
               <Embed
                 mode="endpoint"
                 source={`process.env.LIGHT_ENV = 'runkit';
-const { createRoute } = require('light');\n
-const { route, get } = createRoute();\n
-get(() => {
+const { createRoute, withServerless } = require('light');\n
+const { route, GET } = createRoute();\n
+GET(() => {
   return {
     hello: 'world!',
   };
 });
-module.exports = route;`}
+module.exports = withServerless(route);`}
               />
             </Grid>
             <Grid item sm={12} md={4} direction="column">

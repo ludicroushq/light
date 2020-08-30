@@ -1,7 +1,7 @@
-import createServer from './create-server';
-import { CreateServerOptions, LightServer } from './types/server';
+import { createServer } from './create-server';
+import { LightServer, CreateServerOptions } from './types/server';
 
-export default (opts?: CreateServerOptions): LightServer => createServer({
-  requestLogger: false,
-  ...(opts || {}),
-});
+interface CreateTestOptions extends CreateServerOptions {}
+
+export const createTest = (args?: CreateTestOptions): LightServer =>
+  createServer({ youch: false, requestLogger: false, ...args });
