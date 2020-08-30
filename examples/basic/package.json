@@ -9,7 +9,7 @@
     "light": "^2.0.0-alpha.2"
   },
   "devDependencies": {
-    "jest": "^25.5.4",
+    "jest": "^26.4.2",
     "supertest": "^4.0.2"
   }
 }
