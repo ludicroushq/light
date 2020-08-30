@@ -61,9 +61,13 @@ const run = async () => {
   console.log('Benchmarking light');
   const light = await benchmarkLight();
   message(`
-  Express took **${express}ms** to respond to 1k requests\n
-  Koa took **${koa}ms** to respond to 1k requests\n
-  Light took **${light}ms** to respond to 1k requests\n
+  ### Benchmark Results
+
+  Express took **${express}ms** to respond to 1k requests
+
+  Koa took **${koa}ms** to respond to 1k requests
+
+  Light took **${light}ms** to respond to 1k requests
   `);
 };
 
