@@ -6,6 +6,7 @@ import chalk from 'chalk';
 import decache from 'decache';
 
 import { isTypescript } from '../../utils/import-config';
+import { RouteObject } from '../../types/route';
 
 export const command = 'dev';
 export const desc = 'start a development server';
@@ -70,7 +71,7 @@ const handle = async (argv: Args): Promise<void> => {
         decache(p);
 
         // decache all routes
-        generatedRoutes.forEach((x) => {
+        generatedRoutes.forEach((x: RouteObject) => {
           decache(x.file);
         });
 

@@ -1,7 +1,7 @@
 /* eslint-disable no-undef, import/prefer-default-export */
 
 import { Server } from 'http';
-import { RouteObject } from 'route';
+import { RouteObject } from './route';
 
 export { Server };
 
