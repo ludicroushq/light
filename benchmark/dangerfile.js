@@ -42,7 +42,7 @@ const benchmarkKoa = async () => {
 
 const benchmarkLight = async () => {
   const server = createServer({ youch: false, requestLogger: false });
-  const url = await listen(lightServer.server);
+  const url = await listen(server.server);
 
   const start = Date.now();
   await benchmark(url);
