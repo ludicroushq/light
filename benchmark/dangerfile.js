@@ -1,4 +1,4 @@
-const { message } = require('danger');
+const { message, warn } = require('danger');
 const listen = require('test-listen');
 const fetch = require('node-fetch');
 const http = require('http');
@@ -60,7 +60,7 @@ const run = async () => {
   const koa = await benchmarkKoa();
   console.log('Benchmarking light');
   const light = await benchmarkLight();
-  message(`
+  const text = `
   ### Benchmark Results
 
   Express took **${express}ms** to respond to 1k requests
@@ -68,7 +68,13 @@ const run = async () => {
   Koa took **${koa}ms** to respond to 1k requests
 
   Light took **${light}ms** to respond to 1k requests
-  `);
+  `;
+
+  if (Math.min(express, koa, light) === light) {
+    message(text);
+  } else {
+    warn(text);
+  }
 };
 
 run();
