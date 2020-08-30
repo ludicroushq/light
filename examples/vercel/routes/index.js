@@ -1,7 +1,7 @@
 const { createRoute, logger } = require('light');
-const { route, get } = createRoute();
+const { route, GET } = createRoute();
 
-get(() => {
+GET(() => {
   logger.info('hello logs!');
 
   return {

@@ -1,8 +1,8 @@
 // IMPORTANT NOTE: You will need to set LIGHT_ENV=netlify in the Netlify Environment Variables settings
 const { createRoute } = require('light');
-const { route, get } = createRoute();
+const { route, GET } = createRoute();
 
-get(() => ({
+GET(() => ({
   hello: 'netlify!',
 }));
 
