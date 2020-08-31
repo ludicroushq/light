@@ -9,6 +9,10 @@ updates:
     schedule:
       interval: daily
   - package-ecosystem: npm
+    directory: '/website'
+    schedule:
+      interval: daily
+  - package-ecosystem: npm
     directory: '/benchmark'
     schedule:
       interval: daily

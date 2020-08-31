@@ -9,9 +9,11 @@ import {
   HandlerMethodOptions,
   Middleware,
 } from './types/route';
+import { isServerless } from './utils/serverless';
+import { withServerless } from './with-serverless';
 
 export const createRoute = (): CreateRoute => {
-  const route: Route = JSON.parse('{}');
+  let route: Route = JSON.parse('{}');
   const middleware: Middleware[] = [];
   route.middleware = middleware;
 
@@ -33,6 +35,10 @@ export const createRoute = (): CreateRoute => {
   [...Methods].forEach((method): void => {
     wrappers[method as HTTPMethod] = genFunction(method as HTTPMethod);
   });
+
+  if (isServerless()) {
+    route = withServerless(route);
+  }
 
   return {
     route,
