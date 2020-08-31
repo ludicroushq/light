@@ -20,7 +20,7 @@ export const withServerless = (route: Route) => {
     const method = req.method || 'GET';
     const routeMethod = route[method as HTTPMethod];
     if (!routeMethod) {
-      throw createError(405, 'Method Not Allowed');
+      throw createError(404, 'Not Found');
     }
     const { handler, middleware } = routeMethod;
     const mw = [...(route.middleware || []), ...(middleware || [])];
