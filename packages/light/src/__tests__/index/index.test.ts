@@ -5,7 +5,6 @@ import {
   logger,
   createConfig,
   createLogger,
-  withServerless,
   withConnect,
 } from '../../index';
 
@@ -32,10 +31,6 @@ describe('index', () => {
 
   it('exports createLogger', () => {
     expect(createLogger).toBeTruthy();
-  });
-
-  it('exports withServerless', () => {
-    expect(withServerless).toBeTruthy();
   });
 
   it('exports withConnect', () => {

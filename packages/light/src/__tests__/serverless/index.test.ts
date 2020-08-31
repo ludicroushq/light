@@ -1,5 +1,3 @@
-import { assert } from 'console';
-
 describe('createRoute', () => {
   describe('serverless', () => {
     describe('with runkit', () => {
