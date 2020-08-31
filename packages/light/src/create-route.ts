@@ -29,6 +29,9 @@ export const createRoute = (): CreateRoute => {
       handler: fn,
       middleware: opts?.middleware || [],
     };
+    if (isServerless()) {
+      route = withServerless(route);
+    }
   };
 
   const wrappers: Record<HTTPMethod, HandlerMethod> = JSON.parse('{}');
