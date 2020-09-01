@@ -26,7 +26,7 @@
     "express": "^4.17.1",
     "fastify": "^3.3.0",
     "koa": "^2.13.0",
-    "light": "^2.0.0-alpha.2",
+    "light": "^2.0.0-alpha.3",
     "node-fetch": "^2.6.0",
     "test-listen": "^1.1.0"
   }
