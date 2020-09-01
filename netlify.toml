@@ -2,3 +2,4 @@
   base = "website"
   command = "npm run build"
   publish = "website/build"
+  ignore = "git diff --quiet master website/"
