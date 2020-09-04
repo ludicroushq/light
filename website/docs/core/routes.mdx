@@ -45,7 +45,7 @@ module.exports = withServerless(route);`}
 
 ## `route`
 
-Under the hood, `createRoute` is a closure containing information on how to respond requests. The `route` variable is an object that when injected into the router when the server starts or will tranform based on `process.env.LIGHT_ENV` if wrapped with `withServerless`.
+Under the hood, `createRoute` is a closure containing information on how to respond requests. The `route` variable is an object that when injected into the router when the server starts or will transform based on `process.env.LIGHT_ENV` if wrapped with `withServerless`.
 
 For light to properly work, you must export this object as shown above.
 
