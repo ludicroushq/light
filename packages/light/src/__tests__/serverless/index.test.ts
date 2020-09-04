@@ -5,7 +5,7 @@ describe('createRoute', () => {
         process.env.LIGHT_ENV = 'runkit';
         jest.resetModules();
         // eslint-disable-next-line global-require
-        const route = require('./seeds/with-endpoint/serverless/index');
+        const route = require('./seeds/with-endpoint/routes/index');
         expect(route.default.endpoint).toBeTruthy();
         process.env.LIGHT_ENV = undefined;
       });
@@ -16,7 +16,7 @@ describe('createRoute', () => {
         process.env.LIGHT_ENV = 'netlify';
         jest.resetModules();
         // eslint-disable-next-line global-require
-        const route = require('./seeds/with-endpoint/serverless/index');
+        const route = require('./seeds/with-endpoint/routes/index');
         expect(route.default.handler).toBeTruthy();
         process.env.LIGHT_ENV = undefined;
       });
@@ -27,7 +27,7 @@ describe('createRoute', () => {
         process.env.LIGHT_ENV = 'aws';
         jest.resetModules();
         // eslint-disable-next-line global-require
-        const route = require('./seeds/with-endpoint/serverless/index');
+        const route = require('./seeds/with-endpoint/routes/index');
         expect(route.default.handler).toBeTruthy();
         process.env.LIGHT_ENV = undefined;
       });
@@ -38,7 +38,7 @@ describe('createRoute', () => {
         process.env.LIGHT_ENV = 'now';
         jest.resetModules();
         // eslint-disable-next-line global-require
-        const route = require('./seeds/with-endpoint/serverless/index');
+        const route = require('./seeds/with-endpoint/routes/index');
         expect(typeof route.default).toBe('function');
         process.env.LIGHT_ENV = undefined;
       });
