@@ -33,15 +33,15 @@ Then add the following scripts to your `package.json`.
 
 ## Usage
 
-Once you have installed light, all `.ts` and `.js` files under the `routes` directory will automatically be imported. Typescript will be automatically run/compiled if there is a `tsconfig.json` in the root directory or if `light.config.ts` exists. Additionally, all files that end in `.test.(t|j)s` and files in `__tests__` folders will be ignore.
+Once you have installed light, all `.ts` and `.js` files under the `routes` directory will automatically be imported. Typescript will be automatically run/compiled if there is a `tsconfig.json` in the root directory. Additionally, all files that end in `.test.(t|j)s` and files in `__tests__` folders will be ignore.
 
 To get started, lets populate `routes/index.js`. Please note we use [Next.js style routing](https://nextjs.org/docs/routing/introduction). You can check out the routing docs on the left for more information.
 
 ```js
 const { createRoute } = require('light');
-const { route, get } = createRoute();
+const { route, GET } = createRoute();
 
-get(() => {
+GET(() => {
   return {
     hello: 'world',
   };
@@ -50,7 +50,7 @@ get(() => {
 module.exports = route;
 ```
 
-This is probably different that what you are used to with `express`, `koa`, `hapi`, etc. There are a few interesting parts to this file. The `createRoute` function is the core of light and it returns an object containing `route`, `get`, `post`, `put`, `patch`, `delete`, and a bunch of other HTTP methods. For each route you can add whatever methods you like to support. Any methods you do not define will return `405 Method Not Allowed`. Additionally `createRoute` exports an `all` function which will respond to any HTTP method. At the bottom we export `route`. `route` is a function that is generated at the start of the server based on what environment the server is starting in. If the server is started with the CLI, it will generate a server-full function, but if started in a serverless environment such as Vercel or AWS Lambda, the function will mutate to respond correctly!
+This is probably different that what you are used to with `express`, `koa`, `hapi`, etc. There are a few interesting parts to this file. The `createRoute` function is the core of light and it returns an object containing `ROUTE`, `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, and a bunch of other HTTP methods. For each route you can add whatever methods you like to support. Any methods you do not define will return `404 Not Found`. At the bottom we export `route`. `route` is an object containing all of the information needed to execute your code. If the server is started with the CLI, it will transform that object and inject it in the router, but if you are planning on using a serverless environment, you can wrap it with the `withServerless` function to transform it into a request handler.
 
 Once you are done editing the file, run `npm run dev` to start the server with hot module reloading. If you did everything right, your terminal should output something similar to this.
 
@@ -66,7 +66,7 @@ Once you are done editing the file, run `npm run dev` to start the server with h
 Phew, that was a lot. Don't worry though, you just learnt about 80% of light! It's really that simple. You now have a dev server that
 
 - hot swaps any code you change without restarting the server
-- supports many different serverless and hosting platforms
+- can support many different serverless and hosting platforms
 - has very little magic behind the scenes, what you see in a route is what you get
 
 Feel free to continue with the guides in the sidebar to understand more of the framework!
@@ -77,12 +77,15 @@ If you want to mess around with the example provided above without setting it up
 
 import Embed from 'react-runkit';
 
-<Embed mode="endpoint" source={`process.env.LIGHT_ENV = 'runkit';
-const { createRoute } = require('light');\n
-const { route, get } = createRoute();\n
-get(() => {
+<Embed
+  mode="endpoint"
+  source={`process.env.LIGHT_ENV = 'runkit';
+const { createRoute, withServerless } = require('light');\n
+const { route, GET } = createRoute();\n
+GET(() => {
   return {
     hello: 'world',
   };
 });\n
-module.exports = route;`} />
+module.exports = withServerless(route);`}
+/>

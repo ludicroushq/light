@@ -5,37 +5,43 @@ title: Middleware
 
 ## Introduction
 
-Light middleware is very similar to other kinds of middleware in node frameworks, however the api is slightly different. Middleware allow you to run code before your request to populate fields you will need later on. Good examples of middleware include authentication, cors, etc.
+Light middleware is slightly different compared to other kinds of middleware in node frameworks. Middleware allow you to wrap a request completely and run code, before the request, after the request, and also mutate the response. It is similar to Higher Order Components (HOCs) in React.
 
 ## Using a Middleware
 
-You can add middleware to the route by using the `useMiddleware` function. A middleware is simply just another request handler method, similar to the ones you put in `get`, `post`, `all`, etc. The function is provided with a [context](core/context.md) and can either `send` or choose not to return anything. If the request is ended in the middleware, all following code will not execute.
+There are three different ways you can inject a middleware into a request handler.
+
+1. Method specific - By passing it into a `GET`, `POST`, etc function
+2. Route specific - By using the `useMiddleware` function exported by `createRoute`
+3. Global - TODO
+
+A middleware is a function that takes in a fn and returns another function that takes in a [context](core/context.md) and a valid response.
+
+While that is the official definition of a light plugin, it is quite confusing so lets break it down:
+
+1. A middleware is a function
+2. The parameter sent to the middleware is another function (called `fn`). `fn` is the actual route handler that is defined in the http method functions. (Think of it like the `next` function in Express middleware) In the majority of cases, you will want to await `fn` in the following step to get the intended response and then mutate if you so choose.
+3. The middleware should return another function that takes in a context and returns a response. You will want to use the previous `fn` that was provided to get the intended response and mutate if you so choose.
+4. **Make sure to either return a value at the end of your plugin or end the request with `send`.**
 
 A typical middleware looks like this.
 
 import Embed from 'react-runkit';
 
-<Embed mode="endpoint" source={`process.env.LIGHT_ENV = 'runkit';
-const { createRoute } = require('light');\n
-const { route, get, useMiddleware } = createRoute();\n
-useMiddleware(({ req }) => {
-  req.user = 'bob';
-})\n
-get(({ req }) => \`hello \${req.user}\`);\n
-module.exports = route;`} />
+<Embed
+  mode="endpoint"
+  source={`process.env.LIGHT_ENV = 'runkit';
+const { createRoute, withServerless } = require('light');\n
+const { route, GET, useMiddleware } = createRoute();\n
+useMiddleware((fn) => async (ctx) => {
+  const before = Date.now();
+  const result = await fn(ctx);
+  const after = Date.now();
+  console.log('request served in', after - before, 'ms');
+  return result;
+});\n
+GET(() => 'hello world!');\n
+module.exports = withServerless(route);`}
+/>
 
-## Short Circuit
-
-A middleware can also choose to end the request early. A good example of this would be when the user is trying to access a protected resource without signing in.
-
-<Embed mode="endpoint" source={`process.env.LIGHT_ENV = 'runkit';
-const { createRoute } = require('light');\n
-const { route, get, useMiddleware } = createRoute();\n
-useMiddleware(({ req, res, send }) => {
-  if (!req.headers.token) {
-    return send(res, 401, 'please sign in!');
-  }
-  req.user = 'bob';
-})\n
-get(({ req }) => \`hello \${req.user}\`);\n
-module.exports = route;`} />
+Make a request to the URL above and take a look at the logs. You can see that we were able to start a timer before the rest of the code, and then `console.log` the difference after.
