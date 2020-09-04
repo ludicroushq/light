@@ -20,10 +20,10 @@ import Embed from 'react-runkit';
 <Embed
   mode="endpoint"
   source={`process.env.LIGHT_ENV = 'runkit';
-const { createRoute, withServerless, withConnect } = require('light');
+const { createRoute, withConnect } = require('light');
 const cors = require('cors');\n
 const { route, GET, useMiddleware } = createRoute();\n
 useMiddleware(withConnect(cors()));\n
 GET(({ req }) => 'hello, this has cors headers!');\n
-module.exports = withServerless(route);`}
+module.exports = route;`}
 />

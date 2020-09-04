@@ -4,4 +4,4 @@ const { route, GET } = createRoute('index');
 
 GET(() => 'hello world!');
 
-export default withServerless(route);
+export default route;

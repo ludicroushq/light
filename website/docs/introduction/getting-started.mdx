@@ -50,7 +50,7 @@ GET(() => {
 module.exports = route;
 ```
 
-This is probably different that what you are used to with `express`, `koa`, `hapi`, etc. There are a few interesting parts to this file. The `createRoute` function is the core of light and it returns an object containing `ROUTE`, `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, and a bunch of other HTTP methods. For each route you can add whatever methods you like to support. Any methods you do not define will return `404 Not Found`. At the bottom we export `route`. `route` is an object containing all of the information needed to execute your code. If the server is started with the CLI, it will transform that object and inject it in the router, but if you are planning on using a serverless environment, you can wrap it with the `withServerless` function to transform it into a request handler.
+This is probably different that what you are used to with `express`, `koa`, `hapi`, etc. There are a few interesting parts to this file. The `createRoute` function is the core of light and it returns an object containing `ROUTE`, `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, and a bunch of other HTTP methods. For each route you can add whatever methods you like to support. Any methods you do not define will return `404 Not Found`. At the bottom we export `route`. `route` is an object containing all of the information needed to execute your code. If the server is started with the CLI, it will transform that object and inject it in the router, but if it is run in a serverless environment, it will transform it into a request handler.
 
 Once you are done editing the file, run `npm run dev` to start the server with hot module reloading. If you did everything right, your terminal should output something similar to this.
 
@@ -80,12 +80,12 @@ import Embed from 'react-runkit';
 <Embed
   mode="endpoint"
   source={`process.env.LIGHT_ENV = 'runkit';
-const { createRoute, withServerless } = require('light');\n
+const { createRoute } = require('light');\n
 const { route, GET } = createRoute();\n
 GET(() => {
   return {
     hello: 'world',
   };
 });\n
-module.exports = withServerless(route);`}
+module.exports = route;`}
 />
