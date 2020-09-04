@@ -1,0 +1,20 @@
+{
+  "folders": [
+    {
+      "name": "light",
+      "path": "packages/light"
+    },
+    {
+      "name": "website",
+      "path": "website"
+    },
+    {
+      "name": "examples",
+      "path": "examples"
+    },
+    {
+      "name": "benchmark",
+      "path": "benchmark"
+    }
+  ]
+}

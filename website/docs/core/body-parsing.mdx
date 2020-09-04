@@ -15,14 +15,17 @@ If you are looking at micro's docs, please note that you **do not** pass the `re
 
 import Embed from 'react-runkit';
 
-<Embed mode="endpoint" source={`process.env.LIGHT_ENV = 'runkit';
-const { createRoute } = require('light');\n
-const { route, post } = createRoute();\n
-post(async ({ text }) => {
+<Embed
+  mode="endpoint"
+  source={`process.env.LIGHT_ENV = 'runkit';
+const { createRoute, withServerless } = require('light');\n
+const { route, POST } = createRoute();\n
+POST(async ({ text }) => {
   const body = await text();
   return { body };
 });\n
-module.exports = route;`} />
+module.exports = withServerless(route);`}
+/>
 
 Run the following command to make a request to the URL provided in the example
 

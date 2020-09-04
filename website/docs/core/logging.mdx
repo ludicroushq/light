@@ -9,14 +9,16 @@ title: Logging
 
 ## Introduction
 
-Logging is extremely important when it comes to building application as it lets you debug through your logs. Since the logging community in node is fragmented, light allow you to provide the logging function. By default it uses console but can be overridden in the `light.config.js` file like so.
+Logging is extremely important when it comes to building application as it lets you debug through your logs. Since the logging community in node is fragmented, light allows you to provide the logging function. By default it uses console but can be overridden in the `config/logger.js` file like so.
 
-```js {2-4} title="light.config.js"
-module.exports = {
+```js {2-4} title="config/logger.js"
+const { createLogger } = require('light');
+
+module.exports = createLogger({
   logger() {
     return myCustomLogger;
-  }
-}
+  },
+});
 ```
 
 :::caution
@@ -27,11 +29,14 @@ Everywhere else in your application you can use the logger by importing it from 
 
 import Embed from 'react-runkit';
 
-<Embed mode="endpoint" source={`process.env.LIGHT_ENV = 'runkit';
-const { createRoute, logger } = require('light');\n
-const { route, get } = createRoute();\n
-get(({ req }) => {
+<Embed
+  mode="endpoint"
+  source={`process.env.LIGHT_ENV = 'runkit';
+const { createRoute, logger, withServerless } = require('light');\n
+const { route, GET } = createRoute();\n
+GET(({ req }) => {
   logger.info(\`request made to \${req.url}\`);
   return 'hello world!';
 });\n
-module.exports = route;`} />
+module.exports = withServerless(route);`}
+/>

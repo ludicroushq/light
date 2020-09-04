@@ -8,6 +8,7 @@ title: Error Handling
 Since light uses [micro](https://github.com/vercel/micro) under the hood, we can use the same techniques for error handling. Any errors that are thrown are automatically caught and handled by light/micro.
 
 <!-- TODO: link to api docs -->
+
 In general, it checks the error object for `statusCode` and a `message`. You can also use the `createError` and `sendError` functions. See more information [here](https://github.com/vercel/micro#error-handling).
 
 :::note
@@ -20,22 +21,28 @@ If you are looking at micro's docs, please note that you **do not** pass the `re
 
 import Embed from 'react-runkit';
 
-<Embed mode="endpoint" source={`process.env.LIGHT_ENV = 'runkit';
-const { createRoute } = require('light');\n
-const { route, get } = createRoute();\n
-get(({ createError }) => {
+<Embed
+  mode="endpoint"
+  source={`process.env.LIGHT_ENV = 'runkit';
+const { createRoute, withServerless } = require('light');\n
+const { route, GET } = createRoute();\n
+GET(({ createError }) => {
   throw createError(401, 'please sign in');
 });\n
-module.exports = route;`} />
+module.exports = withServerless(route);`}
+/>
 
 or with `sendError`
 
-<Embed mode="endpoint" source={`process.env.LIGHT_ENV = 'runkit';
-const { createRoute } = require('light');\n
-const { route, get } = createRoute();\n
-get(({ sendError }) => {
+<Embed
+  mode="endpoint"
+  source={`process.env.LIGHT_ENV = 'runkit';
+const { createRoute, withServerless } = require('light');\n
+const { route, GET } = createRoute();\n
+GET(({ sendError }) => {
   const err = new Error('please sign in');
   err.statusCode = 401;
   sendError(err);
 });\n
-module.exports = route;`} />
+module.exports = withServerless(route);`}
+/>
