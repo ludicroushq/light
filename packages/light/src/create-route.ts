@@ -50,12 +50,12 @@ export const createRoute = (): CreateRoute => {
   if (isServerless) {
     const routeHandler = (req: IncomingMessage, res: ServerResponse) => {
       const method = req.method || 'GET';
-      const routeMethod = route[method as HTTPMethod];
+      const routeMethod = _route[method as HTTPMethod];
       if (!routeMethod) {
         throw createError(404, 'Not Found');
       }
       const { handler, middleware: routeMethodMiddleware } = routeMethod;
-      const mw = [...(route.middleware || []), ...(routeMethodMiddleware || [])];
+      const mw = [...(_route.middleware || []), ...(routeMethodMiddleware || [])];
       const appliedHandler = applyMiddleware(mw, handler);
       const requestHandler = requestHandlerWrapper(appliedHandler);
 
