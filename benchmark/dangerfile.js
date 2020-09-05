@@ -77,15 +77,22 @@ const run = async () => {
   const fastify = await benchmarkFastify();
   console.log('Benchmarking light');
   const light = await benchmarkLight();
+
+  const getRPS = (ms) => {
+    return Math.round(10000 / (ms / 1000));
+  };
+
   const text = `
   ### Benchmark Results
 
+  Makes 10,000 requests to each framework and times the result.
+
   | Framework | Total Time | Req/Sec |
   |-----------|------------|---------|
-  | Express   |${express}ms|${10000 / (express / 1000)}|
-  | Koa       |${koa}ms|${10000 / (koa / 1000)}|
-  | Fastify   |${fastify}ms|${10000 / (fastify / 1000)}|
-  | **Light** |${light}ms|${10000 / (light / 1000)}|
+  | Express   |${express}ms|${getRPS(express)}|
+  | Koa       |${koa}ms|${getRPS(koa)}|
+  | Fastify   |${fastify}ms|${getRPS(fastify)}|
+  | **Light** |**${light}ms**|**${getRPS(light)}**|
   `;
 
   if (Math.min(express, koa, fastify, light) === light) {
