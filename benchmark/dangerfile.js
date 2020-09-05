@@ -6,7 +6,7 @@ const { createServer } = require('light');
 const fastify = require('./fastify');
 
 const benchmark = async (url) => {
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < 10000; i++) {
     const req = await fetch(url);
     const res = await req.json();
     if (res.hello !== 'world') {
@@ -80,13 +80,13 @@ const run = async () => {
   const text = `
   ### Benchmark Results
 
-  Express took **${express}ms** to respond to 1k requests
+  Express took **${express}ms** to respond to 10k requests
 
-  Koa took **${koa}ms** to respond to 1k requests
+  Koa took **${koa}ms** to respond to 10k requests
 
-  Fastify took **${fastify}ms** to respond to 1k requests
+  Fastify took **${fastify}ms** to respond to 10k requests
 
-  Light took **${light}ms** to respond to 1k requests
+  Light took **${light}ms** to respond to 10k requests
   `;
 
   if (Math.min(express, koa, fastify, light) === light) {
