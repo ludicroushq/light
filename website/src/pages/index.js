@@ -327,14 +327,14 @@ module.exports = route;`;
               <Embed
                 mode="endpoint"
                 source={`process.env.LIGHT_ENV = 'runkit';
-const { createRoute, withServerless } = require('light');\n
+const { createRoute } = require('light');\n
 const { route, GET } = createRoute();\n
 GET(() => {
   return {
     hello: 'world!',
   };
 });
-module.exports = withServerless(route);`}
+module.exports = route;`}
               />
             </Grid>
             <Grid item sm={12} md={4} direction="column">

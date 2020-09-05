@@ -18,7 +18,7 @@ The `createRoute` function can be imported from light and returns an object cont
 - `useMiddleware`: allows you to add middleware ([described below](#usemiddleware))
 
 ```js
-const { createRoute, withServerless } = require('light');
+const { createRoute } = require('light');
 
 const { route, useMiddleware, GET, POST, PUT, PATCH, DELETE, ...etc } = createRoute();
 
@@ -26,7 +26,7 @@ const { route, useMiddleware, GET, POST, PUT, PATCH, DELETE, ...etc } = createRo
 
 module.exports = route;
 // or optionally add serverless support
-// module.exports = withServerless(route);
+// module.exports = route;
 ```
 
 ## Example
@@ -36,16 +36,16 @@ import Embed from 'react-runkit';
 <Embed
   mode="endpoint"
   source={`process.env.LIGHT_ENV = 'runkit';
-const { createRoute, withServerless } = require('light');\n
+const { createRoute } = require('light');\n
 const { route, GET, POST } = createRoute();\n
 GET(() => 'hello get');
 POST(() => 'hello post');
-module.exports = withServerless(route);`}
+module.exports = route;`}
 />
 
 ## `route`
 
-Under the hood, `createRoute` is a closure containing information on how to respond requests. The `route` variable is an object that when injected into the router when the server starts or will transform based on `process.env.LIGHT_ENV` if wrapped with `withServerless`.
+Under the hood, `createRoute` is a closure containing information on how to respond requests. The `route` variable is an object that when injected into the router when the server starts or will transform based on `process.env.LIGHT_ENV`.
 
 For light to properly work, you must export this object as shown above.
 

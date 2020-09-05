@@ -24,12 +24,12 @@ import Embed from 'react-runkit';
 <Embed
   mode="endpoint"
   source={`process.env.LIGHT_ENV = 'runkit';
-const { createRoute, withServerless } = require('light');\n
+const { createRoute } = require('light');\n
 const { route, GET } = createRoute();\n
 GET(({ createError }) => {
   throw createError(401, 'please sign in');
 });\n
-module.exports = withServerless(route);`}
+module.exports = route;`}
 />
 
 or with `sendError`
@@ -37,12 +37,12 @@ or with `sendError`
 <Embed
   mode="endpoint"
   source={`process.env.LIGHT_ENV = 'runkit';
-const { createRoute, withServerless } = require('light');\n
+const { createRoute } = require('light');\n
 const { route, GET } = createRoute();\n
 GET(({ sendError }) => {
   const err = new Error('please sign in');
   err.statusCode = 401;
   sendError(err);
 });\n
-module.exports = withServerless(route);`}
+module.exports = route;`}
 />

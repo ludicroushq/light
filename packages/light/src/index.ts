@@ -3,6 +3,5 @@ export { createServer } from './create-server';
 export { createTest } from './create-test';
 export { createConfig } from './create-config';
 export { createLogger } from './create-logger';
-export { withServerless } from './with-serverless';
 export { withConnect } from './with-connect';
 export { logger } from './logger';

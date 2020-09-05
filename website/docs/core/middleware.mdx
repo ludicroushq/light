@@ -31,7 +31,7 @@ import Embed from 'react-runkit';
 <Embed
   mode="endpoint"
   source={`process.env.LIGHT_ENV = 'runkit';
-const { createRoute, withServerless } = require('light');\n
+const { createRoute } = require('light');\n
 const { route, GET, useMiddleware } = createRoute();\n
 useMiddleware((fn) => async (ctx) => {
   const before = Date.now();
@@ -41,7 +41,7 @@ useMiddleware((fn) => async (ctx) => {
   return result;
 });\n
 GET(() => 'hello world!');\n
-module.exports = withServerless(route);`}
+module.exports = route;`}
 />
 
 Make a request to the URL above and take a look at the logs. You can see that we were able to start a timer before the rest of the code, and then `console.log` the difference after.

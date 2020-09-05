@@ -32,11 +32,11 @@ import Embed from 'react-runkit';
 <Embed
   mode="endpoint"
   source={`process.env.LIGHT_ENV = 'runkit';
-const { createRoute, logger, withServerless } = require('light');\n
+const { createRoute, logger } = require('light');\n
 const { route, GET } = createRoute();\n
 GET(({ req }) => {
   logger.info(\`request made to \${req.url}\`);
   return 'hello world!';
 });\n
-module.exports = withServerless(route);`}
+module.exports = route;`}
 />

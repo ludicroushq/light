@@ -1,3 +1,3 @@
 [build]
   command = "npm install"
-  functions = "serverless"
+  functions = "routes"
