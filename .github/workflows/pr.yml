@@ -10,9 +10,10 @@ jobs:
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: "12.x"
       - run: npm ci
       - run: npx lerna bootstrap
+      - run: npx lerna run compile
       - run: npm ci
         working-directory: ./benchmark
       - run: npm test
