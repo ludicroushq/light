@@ -83,7 +83,7 @@ const run = async () => {
   };
 
   const text = `
-  ### Benchmark Results
+  ## Benchmark Results
 
   Makes 10,000 requests to each framework and times the result.
 
