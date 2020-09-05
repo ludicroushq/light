@@ -80,13 +80,12 @@ const run = async () => {
   const text = `
   ### Benchmark Results
 
-  Express took **${express}ms** to respond to 10k requests
-
-  Koa took **${koa}ms** to respond to 10k requests
-
-  Fastify took **${fastify}ms** to respond to 10k requests
-
-  Light took **${light}ms** to respond to 10k requests
+  | Framework | Total Time | Req/Sec |
+  |-----------|------------|---------|
+  | Express   |${express}ms|${10000 / (express / 1000)}|
+  | Koa       |${koa}ms|${10000 / (koa / 1000)}|
+  | Fastify   |${fastify}ms|${10000 / (fastify / 1000)}|
+  | **Light** |${light}ms|${10000 / (light / 1000)}|
   `;
 
   if (Math.min(express, koa, fastify, light) === light) {
