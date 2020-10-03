@@ -2,4 +2,4 @@
   base = "website"
   command = "npm run build"
   publish = "website/build"
-  ignore = "git diff --quiet master website/"
+  ignore = "git diff —quiet HEAD^ HEAD website && git log -1 --pretty=%B | grep dependabot"
