@@ -1,12 +1,12 @@
 module.exports = {
-  title: "light",
-  tagline: "a next gen node framework",
-  url: "https://light.js.org",
-  baseUrl: "/",
-  favicon: "img/favicon.png",
-  organizationName: "ludicroushq", // Usually your GitHub org/user name.
-  projectName: "light", // Usually your repo name.
-  scripts: ["https://embed.runkit.com"],
+  title: 'light',
+  tagline: 'a next gen node framework',
+  url: 'https://light.js.org',
+  baseUrl: '/',
+  favicon: 'img/favicon.png',
+  organizationName: 'ludicroushq', // Usually your GitHub org/user name.
+  projectName: 'light', // Usually your repo name.
+  scripts: ['https://embed.runkit.com'],
   themeConfig: {
     sidebarCollapsible: false,
     algolia: {
@@ -14,55 +14,55 @@ module.exports = {
       indexName: process.env.ALGOLIA_INDEX_NAME,
     },
     navbar: {
-      title: "light",
+      title: 'light',
       logo: {
-        alt: "light",
-        src: "img/logo.svg",
+        alt: 'light',
+        src: 'img/logo.svg',
       },
-      links: [
+      items: [
         {
-          to: "docs/",
-          activeBaseRegex: "docs/(?!api).*",
-          label: "Docs",
-          position: "right",
+          to: 'docs/',
+          activeBaseRegex: 'docs/(?!api).*',
+          label: 'Docs',
+          position: 'right',
         },
         {
-          to: "docs/api/exported/create-route",
-          activeBasePath: "docs/api",
-          label: "API",
-          position: "right",
+          to: 'docs/api/exported/create-route',
+          activeBasePath: 'docs/api',
+          label: 'API',
+          position: 'right',
         },
-        { to: "blog", label: "Blog", position: "right" },
+        { to: 'blog', label: 'Blog', position: 'right' },
         {
-          href: "https://github.com/ludicroushq/light",
-          label: "GitHub",
-          position: "right",
+          href: 'https://github.com/ludicroushq/light',
+          label: 'GitHub',
+          position: 'right',
         },
       ],
     },
     footer: {
-      style: "dark",
+      style: 'dark',
       links: [
         {
-          title: "Docs",
+          title: 'Docs',
           items: [
             {
-              label: "Docs",
-              to: "docs",
+              label: 'Docs',
+              to: 'docs',
             },
             {
-              label: "API",
-              to: "docs/api/exported/create-route",
+              label: 'API',
+              to: 'docs/api/exported/create-route',
             },
           ],
         },
         {
-          title: "Community",
+          title: 'Community',
           items: [
             {
-              label: "Help",
+              label: 'Help',
               href:
-                "https://github.com/ludicroushq/light/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc",
+                'https://github.com/ludicroushq/light/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc',
             },
             // {
             //   label: "Stack Overflow",
@@ -79,15 +79,15 @@ module.exports = {
           ],
         },
         {
-          title: "More",
+          title: 'More',
           items: [
             {
-              label: "Blog",
-              to: "blog",
+              label: 'Blog',
+              to: 'blog',
             },
             {
-              label: "GitHub",
-              href: "https://github.com/ludicroushq/light",
+              label: 'GitHub',
+              href: 'https://github.com/ludicroushq/light',
             },
           ],
         },
@@ -97,22 +97,22 @@ module.exports = {
   },
   presets: [
     [
-      "@docusaurus/preset-classic",
+      '@docusaurus/preset-classic',
       {
         docs: {
           // It is recommended to set document id as docs home page (`docs/` path).
-          homePageId: "introduction/getting-started",
-          sidebarPath: require.resolve("./sidebars.js"),
+          // homePageId: "introduction/getting-started",
+          sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: "https://github.com/ludicroushq/light/edit/master/website/",
+          editUrl: 'https://github.com/ludicroushq/light/edit/master/website/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
-          editUrl: "https://github.com/ludicroushq/light/edit/master/website/",
+          editUrl: 'https://github.com/ludicroushq/light/edit/master/website/',
         },
         theme: {
-          customCss: require.resolve("./src/css/custom.css"),
+          customCss: require.resolve('./src/css/custom.css'),
         },
       },
     ],
