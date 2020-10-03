@@ -32,6 +32,6 @@
     ]
   },
   "devDependencies": {
-    "cspell": "^4.0.63"
+    "cspell": "^4.1.0"
   }
 }
