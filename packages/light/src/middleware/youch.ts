@@ -4,7 +4,7 @@ import forTerminal from 'youch-terminal';
 import { Context } from '../types/route';
 import { logger } from '../logger';
 
-export const youchMiddleware = (fun: any) => async (ctx: Context): Promise<void> => {
+export const youchMiddleware = (fun: any) => async (ctx: Context): Promise<any> => {
   try {
     return await fun(ctx);
   } catch (err) {
