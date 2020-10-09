@@ -354,7 +354,12 @@ module.exports = route;`}
           get started
         </Box>
         <Box textAlign="center" pt={2}>
-          <Button href="/docs" variant="contained" color="primary" size="large">
+          <Button
+            href="/docs/introduction/getting-started.mdx"
+            variant="contained"
+            color="primary"
+            size="large"
+          >
             check out the docs
           </Button>
         </Box>

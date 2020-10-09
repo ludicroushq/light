@@ -9,14 +9,14 @@ module.exports = {
   scripts: ['https://embed.runkit.com'],
   themeConfig: {
     sidebarCollapsible: false,
-    ...(process.env.NODE_ENV === 'production'
-      ? {
-          algolia: {
-            apiKey: process.env.ALGOLIA_API_KEY,
-            indexName: process.env.ALGOLIA_INDEX_NAME,
-          },
-        }
-      : {}),
+    // ...(process.env.NODE_ENV === 'production'
+    //   ? {
+    //       algolia: {
+    //         apiKey: process.env.ALGOLIA_API_KEY,
+    //         indexName: process.env.ALGOLIA_INDEX_NAME,
+    //       },
+    //     }
+    //   : {}),
     navbar: {
       title: 'light',
       logo: {
@@ -52,7 +52,7 @@ module.exports = {
           items: [
             {
               label: 'Docs',
-              to: 'docs',
+              to: 'docs/introduction/getting-started',
             },
             {
               label: 'API',
