@@ -1,44 +1,30 @@
 module.exports = {
-  title: 'light',
-  tagline: 'a next gen node framework',
-  url: 'https://light.js.org',
+  title: 'My Site',
+  tagline: 'The tagline of my site',
+  url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/',
-  favicon: 'img/favicon.png',
-  organizationName: 'ludicroushq', // Usually your GitHub org/user name.
-  projectName: 'light', // Usually your repo name.
-  scripts: ['https://embed.runkit.com'],
+  onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'warn',
+  favicon: 'img/favicon.ico',
+  organizationName: 'facebook', // Usually your GitHub org/user name.
+  projectName: 'docusaurus', // Usually your repo name.
   themeConfig: {
-    sidebarCollapsible: false,
-    // ...(process.env.NODE_ENV === 'production'
-    //   ? {
-    //       algolia: {
-    //         apiKey: process.env.ALGOLIA_API_KEY,
-    //         indexName: process.env.ALGOLIA_INDEX_NAME,
-    //       },
-    //     }
-    //   : {}),
     navbar: {
-      title: 'light',
+      title: 'My Site',
       logo: {
-        alt: 'light',
+        alt: 'My Site Logo',
         src: 'img/logo.svg',
       },
       items: [
         {
-          to: 'docs/introduction/getting-started',
-          activeBaseRegex: 'docs/(?!api).*',
+          to: 'docs/',
+          activeBasePath: 'docs',
           label: 'Docs',
-          position: 'right',
+          position: 'left',
         },
+        {to: 'blog', label: 'Blog', position: 'left'},
         {
-          to: 'docs/api/exported/create-route',
-          activeBasePath: 'docs/api',
-          label: 'API',
-          position: 'right',
-        },
-        { to: 'blog', label: 'Blog', position: 'right' },
-        {
-          href: 'https://github.com/ludicroushq/light',
+          href: 'https://github.com/facebook/docusaurus',
           label: 'GitHub',
           position: 'right',
         },
@@ -51,12 +37,12 @@ module.exports = {
           title: 'Docs',
           items: [
             {
-              label: 'Docs',
-              to: 'docs/introduction/getting-started',
+              label: 'Style Guide',
+              to: 'docs/',
             },
             {
-              label: 'API',
-              to: 'docs/api/exported/create-route',
+              label: 'Second Doc',
+              to: 'docs/doc2/',
             },
           ],
         },
@@ -64,22 +50,17 @@ module.exports = {
           title: 'Community',
           items: [
             {
-              label: 'Help',
-              href:
-                'https://github.com/ludicroushq/light/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc',
+              label: 'Stack Overflow',
+              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
             },
-            // {
-            //   label: "Stack Overflow",
-            //   href: "https://stackoverflow.com/questions/tagged/docusaurus",
-            // },
-            // {
-            //   label: "Discord",
-            //   href: "https://discordapp.com/invite/docusaurus",
-            // },
-            // {
-            //   label: "Twitter",
-            //   href: "https://twitter.com/nahtnam",
-            // },
+            {
+              label: 'Discord',
+              href: 'https://discordapp.com/invite/docusaurus',
+            },
+            {
+              label: 'Twitter',
+              href: 'https://twitter.com/docusaurus',
+            },
           ],
         },
         {
@@ -91,12 +72,12 @@ module.exports = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/ludicroushq/light',
+              href: 'https://github.com/facebook/docusaurus',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} ludicrous LLC.`,
+      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
     },
   },
   presets: [
@@ -104,16 +85,16 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
-          // It is recommended to set document id as docs home page (`docs/` path).
-          // homePageId: "introduction/getting-started",
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/ludicroushq/light/edit/master/website/',
+          editUrl:
+            'https://github.com/facebook/docusaurus/edit/master/website/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
-          editUrl: 'https://github.com/ludicroushq/light/edit/master/website/',
+          editUrl:
+            'https://github.com/facebook/docusaurus/edit/master/website/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
