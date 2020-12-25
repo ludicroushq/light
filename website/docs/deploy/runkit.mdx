@@ -1,0 +1,24 @@
+---
+id: runkit
+title: Runkit
+---
+
+## Introduction
+
+RunKit is a fun and dynamic website which lets you prototype your applications. With their support for [endpoints](https://runkit.com/docs/endpoint) and light's flexibility, you can easily run the framework on RunKit. As you have probably noticed, light's docs makes extensive use of RunKit to provide live demos.
+
+## Usage
+
+Simply create a new notebook and add the following code.
+
+import Embed from 'react-runkit';
+
+<Embed mode="endpoint" source={`process.env.LIGHT_ENV = 'runkit';
+const { createRoute } = require('light');\n
+const { route, get } = createRoute();\n
+get(() => 'hello world!');\n
+module.exports = route;`} />
+
+Then click the "run" button. It should print `Object {endpoint: function()}`. If you get that, then you are all set. Press the little "endpoint" button underneath the title to see your project live.
+
+A demo of this functionality can be seen on the [home page](/).

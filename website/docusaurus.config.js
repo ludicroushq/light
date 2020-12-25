@@ -8,7 +8,13 @@ module.exports = {
   favicon: 'img/favicon.ico',
   organizationName: 'ludicroushq', // Usually your GitHub org/user name.
   projectName: 'light', // Usually your repo name.
+  plugins: ['docusaurus-tailwindcss-loader'],
+  scripts: ['https://embed.runkit.com'],
   themeConfig: {
+    colorMode: {
+      defaultMode: 'light',
+      disableSwitch: true,
+    },
     navbar: {
       title: 'light.js',
       logo: {
@@ -17,9 +23,15 @@ module.exports = {
       },
       items: [
         {
-          to: 'docs/',
-          activeBasePath: 'docs',
+          to: 'docs/introduction/getting-started',
+          activeBaseRegex: 'docs/(?!api).*',
           label: 'Docs',
+          position: 'right',
+        },
+        {
+          to: 'docs/api/exported/create-route',
+          activeBasePath: 'docs/api',
+          label: 'API',
           position: 'right',
         },
         { to: 'blog', label: 'Blog', position: 'right' },
@@ -36,14 +48,14 @@ module.exports = {
         {
           title: 'Docs',
           items: [
-            {
-              label: 'Style Guide',
-              to: 'docs/',
-            },
-            {
-              label: 'Second Doc',
-              to: 'docs/doc2/',
-            },
+            // {
+            //   label: 'Style Guide',
+            //   to: 'docs/',
+            // },
+            // {
+            //   label: 'Second Doc',
+            //   to: 'docs/doc2/',
+            // },
           ],
         },
         {
@@ -87,12 +99,12 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/facebook/docusaurus/edit/master/website/',
+          // editUrl: 'https://github.com/facebook/docusaurus/edit/master/website/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
-          editUrl: 'https://github.com/facebook/docusaurus/edit/master/website/blog/',
+          // editUrl: 'https://github.com/facebook/docusaurus/edit/master/website/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

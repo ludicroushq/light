@@ -1,0 +1,25 @@
+---
+id: query
+title: Query
+---
+
+## Introduction
+
+Light automatically parses query parameters for you. A `query` object is passed as part of the context and can be used to extract the query params out of the url. If multiple values with the same key are passed, then it returns an array instead of a string.
+
+TODO
+
+import Embed from 'react-runkit';
+
+<Embed
+  mode="endpoint"
+  source={`process.env.LIGHT_ENV = 'runkit';
+const { createRoute } = require('light');\n
+const { route, get } = createRoute();\n
+get(({ req, useQuery }) => {
+  const { hello } = useQuery();
+  if (!hello) return 'please add "?hello=world" or "?hello=1&hello=2" to the url';\n
+  return { hello };
+});\n
+module.exports = route;`}
+/>
