@@ -1,5 +1,3 @@
-const { join } = require('path');
-
 module.exports = function (context, options) {
   return {
     name: 'postcss-tailwindcss-loader',

@@ -1,4 +1,4 @@
-import { Context } from './types/route';
+import { Context } from '../types';
 
 export const withConnect = (connect: any) => (fn: any) => async (ctx: Context) => {
   await new Promise((resolve, reject) => {

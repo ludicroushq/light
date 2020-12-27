@@ -11,9 +11,9 @@ import {
   Route,
   HandlerMethodOptions,
   Middleware,
-} from './types/route';
-import { applyMiddleware } from './utils/apply-middleware';
-import { requestHandlerWrapper } from './utils/request-handler';
+} from '../types';
+import { applyMiddleware } from './apply-middleware';
+import { requestHandlerWrapper } from './request-handler';
 
 const { LIGHT_ENV } = process.env;
 const isNetlify = LIGHT_ENV === 'netlify';
