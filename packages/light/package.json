@@ -1,6 +1,6 @@
 {
   "name": "light",
-  "version": "2.0.0-alpha.6",
+  "version": "2.0.0-alpha.7",
   "description": "a modern framework",
   "scripts": {
     "dev": "tsc -w",
@@ -36,13 +36,13 @@
   },
   "homepage": "https://github.com/ludicroushq/light#readme",
   "dependencies": {
-    "@lightjs/cli": "0.0.0",
-    "@lightjs/config": "0.0.0",
-    "@lightjs/core": "0.0.0",
-    "@lightjs/logger": "0.0.0",
-    "@lightjs/server": "0.0.0",
-    "@lightjs/test": "0.0.0",
-    "@lightjs/types": "0.0.0",
+    "@lightjs/cli": "^2.0.0-alpha.7",
+    "@lightjs/config": "^2.0.0-alpha.7",
+    "@lightjs/core": "^2.0.0-alpha.7",
+    "@lightjs/logger": "^2.0.0-alpha.7",
+    "@lightjs/server": "^2.0.0-alpha.7",
+    "@lightjs/test": "^2.0.0-alpha.7",
+    "@lightjs/types": "^2.0.0-alpha.7",
     "pretty-time": "^1.1.0",
     "uuid": "^8.3.1",
     "youch": "^2.1.1",

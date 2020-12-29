@@ -1,6 +1,6 @@
 {
   "name": "@lightjs/config",
-  "version": "0.0.0",
+  "version": "2.0.0-alpha.7",
   "description": "lightjs config",
   "main": "lib",
   "types": "lib/index.d.ts",
@@ -30,12 +30,11 @@
   },
   "homepage": "https://github.com/ludicroushq/light#readme",
   "devDependencies": {
-    "@lightjs/types": "0.0.0",
+    "@lightjs/types": "^2.0.0-alpha.7",
     "@types/jest": "^26.0.19",
     "@types/node": "^14.14.16",
     "jest": "^26.6.3",
     "ts-jest": "^26.4.4",
     "typescript": "^4.1.3"
-  },
-  "dependencies": {}
+  }
 }
