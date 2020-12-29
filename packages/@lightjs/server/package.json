@@ -37,5 +37,6 @@
   "dependencies": {
     "@lightjs/router": "^2.0.0-alpha.7",
     "micro": "^9.3.4"
-  }
+  },
+  "gitHead": "f7a52c8243375c2160dabf6c279cf4f253301f62"
 }

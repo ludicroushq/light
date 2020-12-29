@@ -40,5 +40,6 @@
   "dependencies": {
     "find-my-way": "^3.0.5",
     "micro": "^9.3.4"
-  }
+  },
+  "gitHead": "f7a52c8243375c2160dabf6c279cf4f253301f62"
 }

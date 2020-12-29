@@ -35,5 +35,6 @@
   },
   "dependencies": {
     "@lightjs/server": "^2.0.0-alpha.7"
-  }
+  },
+  "gitHead": "f7a52c8243375c2160dabf6c279cf4f253301f62"
 }
