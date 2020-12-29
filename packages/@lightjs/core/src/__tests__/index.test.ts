@@ -1,11 +1,7 @@
-import { createRoute, createConfig, withConnect } from '../index';
+import { createRoute, withConnect } from '../index';
 
 it('exports createRoute', () => {
   expect(createRoute).toBeTruthy();
-});
-
-it('exports createConfig', () => {
-  expect(createConfig).toBeTruthy();
 });
 
 it('exports withConnect', () => {

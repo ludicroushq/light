@@ -11,9 +11,8 @@ import {
   Route,
   HandlerMethodOptions,
   Middleware,
-} from '../types';
-import { applyMiddleware } from './apply-middleware';
-import { requestHandlerWrapper } from './request-handler';
+} from '@lightjs/types';
+import { requestHandlerWrapper, applyMiddleware } from '@lightjs/utils';
 
 const { LIGHT_ENV } = process.env;
 const isNetlify = LIGHT_ENV === 'netlify';
@@ -47,6 +46,7 @@ export const createRoute = (): CreateRoute => {
   });
 
   let route = _route;
+  // TODO: extract this to its own package
   if (isServerless) {
     const routeHandler = (req: IncomingMessage, res: ServerResponse) => {
       const method = req.method || 'GET';

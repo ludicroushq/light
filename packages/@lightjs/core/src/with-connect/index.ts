@@ -1,4 +1,4 @@
-import { Context } from '../types';
+import { Context } from '@lightjs/types';
 
 export const withConnect = (connect: any) => (fn: any) => async (ctx: Context) => {
   await new Promise((resolve, reject) => {
