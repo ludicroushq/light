@@ -2,10 +2,12 @@ import micro from 'micro';
 import { IncomingMessage, ServerResponse } from 'http';
 import { LightServer, CreateServerOptions } from '@lightjs/types';
 import { createRouter } from '@lightjs/router';
+import { importLightConfig } from '@lightjs/config';
 
 export const createServer = ({
   middleware: globalMiddleware = [],
 }: CreateServerOptions = {}): LightServer => {
+  importLightConfig();
   // TODO: apply this
   // /**
   //  * IMPORTANT: We need to import the logging middleware at start-time

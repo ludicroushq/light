@@ -35,6 +35,7 @@
     "typescript": "^4.1.3"
   },
   "dependencies": {
+    "@lightjs/config": "^2.0.0-alpha.7",
     "@lightjs/router": "^2.0.0-alpha.8",
     "micro": "^9.3.4"
   },

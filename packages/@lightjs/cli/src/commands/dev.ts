@@ -37,7 +37,7 @@ const handle = async (argv: Args): Promise<void> => {
   logger.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
 
   const cwd = process.cwd();
-  const app = createServer({ youch: true });
+  const app = createServer();
 
   const { HOST = '0.0.0.0' } = process.env;
 
@@ -74,6 +74,8 @@ const handle = async (argv: Args): Promise<void> => {
         generatedRoutes.forEach((x: RouteObject) => {
           decache(x.file);
         });
+
+        process.removeAllListeners();
 
         // reload the server
         generatedRoutes = app.reload();

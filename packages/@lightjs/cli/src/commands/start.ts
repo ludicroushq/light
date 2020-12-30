@@ -29,11 +29,12 @@ const handle = async (argv: Args): Promise<void> => {
    * IMPORTANT: We need to import the light library AFTER we require ts-node
    */
   // eslint-disable-next-line global-require
-  const { logger, createServer } = require('../../index');
+  const { createServer } = require('@lightjs/server');
+  const { logger } = require('@lightjs/logger');
 
   logger.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
 
-  const app = createServer({});
+  const app = createServer();
 
   const { HOST = '0.0.0.0' } = process.env;
 

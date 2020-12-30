@@ -5,7 +5,7 @@ import genRoutes from '../utils/gen-routes';
 import findRoutes from '../utils/find-routes';
 import injectRoutes from '../utils/inject-routes';
 import { createError } from 'micro';
-import { importLightConfig } from '@lightjs/config';
+import { config } from '@lightjs/config';
 import { requestHandlerWrapper, applyMiddleware } from '@lightjs/utils';
 
 export const createRouter = ({ middleware = [] }: CreateRouterOptions) => {
@@ -22,7 +22,6 @@ export const createRouter = ({ middleware = [] }: CreateRouterOptions) => {
   });
 
   const cwd = process.cwd();
-  const config = importLightConfig();
   const rootPath = join(cwd, config.root ? config.root : './');
   const routeFiles = findRoutes(rootPath);
 

@@ -2,6 +2,10 @@
   "name": "light",
   "version": "2.0.0-alpha.8",
   "description": "a modern framework",
+  "main": "lib",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "dev": "tsc -w",
     "test": "npm run lint && npm run type-check && npm run jest",
@@ -13,11 +17,7 @@
     "compile": "tsc",
     "prepublishOnly": "npm run compile"
   },
-  "main": "lib",
   "types": "lib/index.d.ts",
-  "files": [
-    "lib"
-  ],
   "bin": {
     "light": "./lib/cli/index.js"
   },
