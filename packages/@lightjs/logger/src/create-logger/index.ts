@@ -1,7 +1,7 @@
 import { UseLoggerOptions, Logger } from '@lightjs/types';
 
 const createLogger = () => {
-  let logger: Logger = { ...console };
+  const logger: Logger = { ...console };
   const useLogger = ({ logger: newLoggerFn }: UseLoggerOptions = {}) => {
     if (newLoggerFn) {
       const newLogger = newLoggerFn();

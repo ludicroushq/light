@@ -6,12 +6,6 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "dev": "tsc -w",
-    "test": "npm run lint && npm run type-check && npm run jest",
-    "type-check": "tsc --noEmit",
-    "jest": "jest --verbose --coverage",
-    "lint": "eslint src . --ext js,ts",
-    "ci:jest": "jest --verbose --maxWorkers=4 --coverage",
-    "ci": "npm run lint && npm run ci:jest && npx codecov",
     "compile": "tsc",
     "prepublishOnly": "npm run compile"
   },
@@ -30,11 +24,11 @@
   },
   "homepage": "https://github.com/ludicroushq/light#readme",
   "devDependencies": {
-    "@lightjs/types": "^2.0.0-alpha.9",
     "typescript": "^4.1.3"
   },
   "dependencies": {
-    "@lightjs/server": "^2.0.0-alpha.9"
+    "@lightjs/server": "^2.0.0-alpha.9",
+    "@lightjs/types": "0.0.0"
   },
   "gitHead": "f7a52c8243375c2160dabf6c279cf4f253301f62"
 }

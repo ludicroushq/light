@@ -1,8 +1,6 @@
 import { createRoute } from '../index';
 
-const mw = () => async () => {
-  return { hello: 'world' };
-};
+const mw = () => async () => ({ hello: 'world' });
 
 it('supports global middleware', () => {
   const { useMiddleware, route } = createRoute();

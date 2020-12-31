@@ -1,7 +1,7 @@
 import { Config } from '@lightjs/types';
 
 const createConfig = () => {
-  let config: Config = {};
+  const config: Config = {};
   const useConfig = (newConfig: Config) => {
     // We can't just redefine the `config` variable since it will not propagate
     // Instead we should update the Object. This is not foolproof but it should work

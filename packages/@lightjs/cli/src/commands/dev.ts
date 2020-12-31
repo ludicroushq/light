@@ -33,6 +33,7 @@ const handle = async (argv: Args): Promise<void> => {
    */
   // eslint-disable-next-line global-require
   const { createServer } = require('@lightjs/server');
+  // eslint-disable-next-line global-require
   const { logger } = require('@lightjs/logger');
 
   logger.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);

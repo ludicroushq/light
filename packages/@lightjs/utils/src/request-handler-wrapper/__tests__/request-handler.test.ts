@@ -1,7 +1,7 @@
 import { requestHandlerWrapper } from '../index';
 
 it('returns handlers', () => {
-  const handler = (handler: any) => handler;
+  const handler = (x: any) => x;
   expect(requestHandlerWrapper(handler)({} as any, {} as any, {}, {})).toMatchInlineSnapshot(`
     Object {
       "buffer": [Function],

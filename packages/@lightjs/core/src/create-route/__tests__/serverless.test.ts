@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 describe('runkit', () => {
   it('returns the correct handler', () => {
     process.env.LIGHT_ENV = 'runkit';

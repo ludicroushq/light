@@ -6,12 +6,6 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "dev": "tsc -w",
-    "test": "npm run lint && npm run type-check && npm run jest",
-    "type-check": "tsc --noEmit",
-    "jest": "jest --verbose --coverage",
-    "lint": "eslint src . --ext js,ts",
-    "ci:jest": "jest --verbose --maxWorkers=4 --coverage",
-    "ci": "npm run lint && npm run ci:jest && npx codecov",
     "compile": "tsc",
     "prepublishOnly": "npm run compile"
   },

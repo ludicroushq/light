@@ -1,12 +1,12 @@
 import Router from 'find-my-way';
 import { join } from 'path';
 import { CreateRouterOptions } from '@lightjs/types';
-import genRoutes from '../utils/gen-routes';
-import findRoutes from '../utils/find-routes';
-import injectRoutes from '../utils/inject-routes';
 import { createError } from 'micro';
 import { config } from '@lightjs/config';
 import { requestHandlerWrapper, applyMiddleware } from '@lightjs/utils';
+import genRoutes from '../utils/gen-routes';
+import findRoutes from '../utils/find-routes';
+import injectRoutes from '../utils/inject-routes';
 
 export const createRouter = ({ middleware = [] }: CreateRouterOptions) => {
   // create find-my-way router with default 404 handler

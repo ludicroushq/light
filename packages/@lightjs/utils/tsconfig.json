@@ -9,5 +9,5 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["**/*.ts", "**/*.js", "**/.*.js", "src/request-handler-wrapper"]
+  "include": ["**/*.ts", "**/*.js", "**/.*.js"]
 }
