@@ -1,9 +1,8 @@
-type LoggerFunction = (...message: any[]) => void;
 export interface Logger {
-  info: LoggerFunction;
-  error: LoggerFunction;
-  warn: LoggerFunction;
-  debug: LoggerFunction;
+  info: Function;
+  error: Function;
+  warn: Function;
+  debug: Function;
 }
 
 export interface UseLoggerOptions {
