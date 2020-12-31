@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
-      - run: npx lerna run install
+      - run: npx lerna exec --parallel -- npm install
       - run: npx lerna run build
       - run: npx lerna bootstrap
       - run: npm run ci
