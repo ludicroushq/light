@@ -35,7 +35,7 @@
     "ts-jest": "^26.4.4",
     "typescript": "^4.1.3"
   },
-  "gitHead": "f7a52c8243375c2160dabf6c279cf4f253301f62",
+  "gitHead": "21e1deb610f7d54f0f7da3ac0e4514db6b59c25c",
   "dependencies": {
     "@lightjs/types": "^1.13.0"
   }
