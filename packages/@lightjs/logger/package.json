@@ -4,10 +4,15 @@
   "description": "lightjs logger",
   "main": "lib",
   "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "dev": "tsc -w",
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -rf lib",
     "compile": "tsc",
-    "prepublishOnly": "npm run compile"
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",

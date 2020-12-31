@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "ci": "npm run ci:type-check && npm run ci:jest && npm run ci:lint && npm run ci:codecov",
-    "ci:type-check": "lerna link --force-local && lerna run compile && lerna exec --parallel -- npx tsc --noEmit",
+    "ci:type-check": "lerna run compile && lerna link --force-local && lerna exec --parallel -- npx tsc --noEmit",
     "ci:lint": "eslint .",
     "ci:jest": "jest --verbose --maxWorkers=4 --coverage",
     "ci:codecov": "codecov"
