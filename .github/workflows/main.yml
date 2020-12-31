@@ -17,6 +17,7 @@ jobs:
       - run: npm ci
       - run: npx lerna bootstrap
       - run: npx lerna link --force-local
+      - run: npx lerna run build
       - run: npm run ci
         env:
           CI: true
