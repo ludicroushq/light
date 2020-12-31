@@ -1,6 +1,6 @@
 {
   "name": "@lightjs/types",
-  "version": "1.13.0",
+  "version": "1.14.0",
   "description": "lightjs types",
   "main": "lib",
   "types": "lib/index.d.ts",

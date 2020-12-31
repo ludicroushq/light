@@ -1,6 +1,6 @@
 {
   "name": "@lightjs/logger",
-  "version": "1.13.0",
+  "version": "1.14.0",
   "description": "lightjs logger",
   "main": "lib",
   "types": "lib/index.d.ts",
@@ -34,7 +34,7 @@
   },
   "gitHead": "21e1deb610f7d54f0f7da3ac0e4514db6b59c25c",
   "dependencies": {
-    "@lightjs/config": "^1.13.0",
-    "@lightjs/types": "^1.13.0"
+    "@lightjs/config": "^1.14.0",
+    "@lightjs/types": "^1.14.0"
   }
 }
