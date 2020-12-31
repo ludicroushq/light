@@ -37,7 +37,7 @@
     "@lightjs/config": "^2.0.0-alpha.9",
     "@lightjs/logger": "^2.0.0-alpha.9",
     "@lightjs/server": "^2.0.0-alpha.9",
-    "@lightjs/types": "0.0.0",
+    "@lightjs/types": "^2.0.0-alpha.9",
     "chalk": "^4.1.0",
     "chokidar": "^3.4.3",
     "decache": "^4.6.0",

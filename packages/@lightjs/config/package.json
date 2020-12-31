@@ -37,6 +37,6 @@
   },
   "gitHead": "f7a52c8243375c2160dabf6c279cf4f253301f62",
   "dependencies": {
-    "@lightjs/types": "0.0.0"
+    "@lightjs/types": "^2.0.0-alpha.9"
   }
 }
