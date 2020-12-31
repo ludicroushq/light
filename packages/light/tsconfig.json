@@ -9,5 +9,5 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["**/*.ts", "**/*.js", "**/.*.js"]
+  "include": ["**/*.ts", "**/*.js", "**/.*.js", "../@lightjs/cli/src/types/external/youch.d.ts"]
 }

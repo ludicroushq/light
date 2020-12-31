@@ -44,7 +44,9 @@
     "decache": "^4.6.0",
     "emojic": "^1.1.16",
     "ts-node": "^9.1.1",
-    "yargs": "^16.2.0"
+    "yargs": "^16.2.0",
+    "youch": "^2.1.1",
+    "youch-terminal": "^1.0.1"
   },
   "gitHead": "f7a52c8243375c2160dabf6c279cf4f253301f62"
 }

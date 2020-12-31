@@ -6,6 +6,7 @@ import chalk from 'chalk';
 import decache from 'decache';
 import { isTypescript } from '@lightjs/config';
 import { RouteObject } from '@lightjs/types';
+import { youchMiddleware } from '../middleware/youch';
 
 export const command = 'dev';
 export const desc = 'start a development server';
@@ -37,7 +38,9 @@ const handle = async (argv: Args): Promise<void> => {
   logger.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
 
   const cwd = process.cwd();
-  const app = createServer();
+  const app = createServer({
+    middleware: [youchMiddleware],
+  });
 
   const { HOST = '0.0.0.0' } = process.env;
 
