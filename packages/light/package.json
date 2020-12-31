@@ -1,7 +1,7 @@
 {
   "name": "light",
   "version": "1.14.0",
-  "description": "a modern framework",
+  "description": "a next-gen framework",
   "main": "lib",
   "files": [
     "lib"
