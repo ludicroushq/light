@@ -16,11 +16,13 @@ import {
 import { requestHandlerWrapper, applyMiddleware } from '@lightjs/utils';
 
 const { LIGHT_ENV } = process.env;
-const isNetlify = LIGHT_ENV === 'netlify';
-const isAWS = LIGHT_ENV === 'aws';
-const isRunKit = LIGHT_ENV === 'runkit';
-const isNow = LIGHT_ENV === 'now';
-const isServerless = isNetlify || isAWS || isRunKit || isNow;
+const isNetlify = LIGHT_ENV?.toLowerCase() === 'netlify';
+const isAWS = LIGHT_ENV?.toLowerCase() === 'aws';
+const isRunKit = LIGHT_ENV?.toLowerCase() === 'runkit';
+const isNow = LIGHT_ENV?.toLowerCase() === 'now';
+const isVercel = LIGHT_ENV?.toLowerCase() === 'vercel';
+const isNextJS = LIGHT_ENV?.toLowerCase() === 'nextjs';
+const isServerless = isNetlify || isAWS || isRunKit || isNow || isVercel || isNextJS;
 
 export const createRoute = (): CreateRoute => {
   const _route: Route = JSON.parse('{}');
@@ -62,7 +64,7 @@ export const createRoute = (): CreateRoute => {
 
       return requestHandler(req, res, {}, null);
     };
-    if (isNow) {
+    if (isNow || isVercel || isNextJS) {
       (route as any) = (req: IncomingMessage, res: ServerResponse) => run(req, res, routeHandler);
     }
     if (isNetlify || isAWS) {
