@@ -1,46 +1,11 @@
 /* eslint-disable no-undef */
-import { IncomingMessage, ServerResponse } from 'http';
+import { IncomingMessage, METHODS, ServerResponse } from 'http';
 import { createError } from 'micro';
 import { HTTPMethod } from 'find-my-way';
 
 // HTTP methods
 export { HTTPMethod };
-export const Methods: HTTPMethod[] = [
-  'ACL',
-  'BIND',
-  'CHECKOUT',
-  'CONNECT',
-  'COPY',
-  'DELETE',
-  'GET',
-  'HEAD',
-  'LINK',
-  'LOCK',
-  'M-SEARCH',
-  'MERGE',
-  'MKACTIVITY',
-  'MKCALENDAR',
-  'MKCOL',
-  'MOVE',
-  'NOTIFY',
-  'OPTIONS',
-  'PATCH',
-  'POST',
-  'PROPFIND',
-  'PROPPATCH',
-  'PURGE',
-  'PUT',
-  'REBIND',
-  'REPORT',
-  'SEARCH',
-  'SOURCE',
-  'SUBSCRIBE',
-  'TRACE',
-  'UNBIND',
-  'UNLINK',
-  'UNLOCK',
-  'UNSUBSCRIBE',
-];
+export const Methods: HTTPMethod[] = METHODS as HTTPMethod[];
 
 // req/res
 export interface Request extends IncomingMessage {
