@@ -1,0 +1,26 @@
+{
+  "name": "examples",
+  "version": "0.0.0",
+  "description": "lightjs examples",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ludicroushq/light.git"
+  },
+  "keywords": [
+    "lightjs",
+    "examples"
+  ],
+  "author": "Manthan Mallikarjun",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ludicroushq/light/issues"
+  },
+  "homepage": "https://github.com/ludicroushq/light#readme",
+  "devDependencies": {
+    "lerna": "^3.22.1"
+  }
+}
