@@ -1,0 +1,4 @@
+{
+  "packages": ["basic", "netlify", "nextjs", "typescript", "vercel"],
+  "version": "0.0.0"
+}

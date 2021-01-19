@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [10.x, 12.x]
+        node-version: [10.x, 12.x, 14.x]
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -16,7 +16,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
       - run: npx lerna bootstrap
-      - run: npx lerna run --stream ci
+      - run: npx lerna link --force-local
+      - run: npx lerna run build
+      - run: npm run ci
         env:
           CI: true
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
@@ -37,7 +39,7 @@ jobs:
       - run: npm ci
       - run: npm run spellcheck
 
-  basic-example:
+  examples:
     env:
       CI: true
     runs-on: ubuntu-latest
@@ -50,58 +52,8 @@ jobs:
       - run: npm ci
       - run: npx lerna bootstrap
       - run: npm ci
-        working-directory: ./examples/basic
-      - run: npm test
-        working-directory: ./examples/basic
-
-  vercel-example:
-    runs-on: ubuntu-latest
-    env:
-      CI: true
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 12.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-      - run: npm ci
+        working-directory: ./examples
       - run: npx lerna bootstrap
-      - run: npm ci
-        working-directory: ./examples/vercel
+        working-directory: ./examples
       - run: npm test
-        working-directory: ./examples/vercel
-
-  netlify-example:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 12.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-      - run: npm ci
-      - run: npx lerna bootstrap
-      - run: npm ci
-        working-directory: ./examples/netlify
-      - run: npm test
-        working-directory: ./examples/netlify
-        env:
-          CI: true
-
-  benchmark:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 12.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-      - run: npm ci
-      - run: npx lerna bootstrap
-      - run: npm ci
-        working-directory: ./benchmark
-      - run: npm test
-        working-directory: ./benchmark
-        env:
-          CI: true
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: ./examples

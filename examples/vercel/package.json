@@ -1,17 +1,16 @@
 {
-  "name": "zeit-now",
+  "name": "vercel",
   "scripts": {
     "dev": "light dev",
     "start": "light start",
     "test": "jest"
   },
   "dependencies": {
-    "light": "^2.0.0-alpha.3",
-    "pino": "^6.7.0"
+    "light": "^2.0.0-alpha.12"
   },
   "devDependencies": {
     "jest": "^26.6.3",
-    "supertest": "^6.0.1"
+    "supertest": "^6.1.1"
   },
   "pkg": {
     "scripts": "light.config.js"

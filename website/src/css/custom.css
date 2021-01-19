@@ -5,30 +5,16 @@
  * work well for content-centric websites.
  */
 
-@import url('https://rsms.me/inter/inter.css');
-html {
-  font-family: 'Inter', sans-serif;
-}
-@supports (font-variation-settings: normal) {
-  html {
-    font-family: 'Inter var', sans-serif;
-  }
-}
-
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #7986cb;
-  --ifm-color-primary-dark: #5c6bc0;
-  --ifm-color-primary-darker: #3f51b5;
-  --ifm-color-primary-darkest: #3949ab;
-  --ifm-color-primary-light: #9fa8da;
-  --ifm-color-primary-lighter: #c5cae9;
-  --ifm-color-primary-lightest: #e8eaf6;
+  --ifm-color-primary: #6366f1;
+  --ifm-color-primary-dark: #4f46e5;
+  --ifm-color-primary-darker: #4338ca;
+  --ifm-color-primary-darkest: #3730a3;
+  --ifm-color-primary-light: #818cf8;
+  --ifm-color-primary-lighter: #a5b4fc;
+  --ifm-color-primary-lightest: #c7d2fe;
   --ifm-code-font-size: 95%;
-}
-
-body {
-  background-color: inherit !important;
 }
 
 .docusaurus-highlight-code-line {
@@ -38,6 +24,8 @@ body {
   padding: 0 var(--ifm-pre-padding);
 }
 
-.footer__links {
-  text-align: center;
+#tailwind {
+  @tailwind base;
+  @tailwind components;
 }
+@tailwind utilities;

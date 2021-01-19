@@ -1,0 +1,45 @@
+{
+  "name": "@lightjs/router",
+  "version": "2.0.0-alpha.12",
+  "description": "lightjs router",
+  "main": "lib",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "dev": "tsc -w",
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -rf lib",
+    "compile": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ludicroushq/light.git"
+  },
+  "keywords": [
+    "lightjs",
+    "router"
+  ],
+  "author": "Manthan Mallikarjun",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ludicroushq/light/issues"
+  },
+  "homepage": "https://github.com/ludicroushq/light#readme",
+  "devDependencies": {
+    "@types/glob": "^7.1.3",
+    "@types/micro": "^7.3.3",
+    "typescript": "^4.1.3"
+  },
+  "dependencies": {
+    "@lightjs/config": "^2.0.0-alpha.12",
+    "@lightjs/types": "^2.0.0-alpha.11",
+    "@lightjs/utils": "^2.0.0-alpha.11",
+    "find-my-way": "^3.0.5",
+    "glob": "^7.1.6",
+    "micro": "^9.3.4"
+  },
+  "gitHead": "21e1deb610f7d54f0f7da3ac0e4514db6b59c25c"
+}

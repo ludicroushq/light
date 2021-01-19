@@ -1,9 +1,7 @@
 {
   "version": "0.1",
   "language": "en",
-  "dictionaries": [
-    "light"
-  ],
+  "dictionaries": ["light"],
   "dictionaryDefinitions": [
     {
       "name": "light",

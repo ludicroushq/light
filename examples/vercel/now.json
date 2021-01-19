@@ -6,7 +6,7 @@
       "src": "routes/**/*.js",
       "use": "@now/node",
       "config": {
-        "includeFiles": ["config/logger.js"]
+        "includeFiles": ["light.config.js"]
       }
     }
   ],
