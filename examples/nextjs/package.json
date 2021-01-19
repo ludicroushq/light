@@ -4,7 +4,7 @@
     "dev": "next dev"
   },
   "dependencies": {
-    "light": "^2.0.0-alpha.3",
+    "light": "^2.0.0-alpha.11",
     "next": "^10.0.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"

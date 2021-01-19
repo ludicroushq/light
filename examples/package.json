@@ -4,7 +4,7 @@
   "description": "lightjs examples",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "lerna exec --parallel -- npm test"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,8 @@
   "homepage": "https://github.com/ludicroushq/light#readme",
   "devDependencies": {
     "lerna": "^3.22.1"
+  },
+  "dependencies": {
+    "winston": "^3.3.3"
   }
 }

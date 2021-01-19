@@ -6,6 +6,7 @@ const importFile = (fileName: string) => {
   const file = join(path, fileName);
   if (existsSync(file)) {
     let conf = require(file); // eslint-disable-line
+    if (!conf) return null;
     if (conf.default) conf = conf.default;
     return conf;
   }

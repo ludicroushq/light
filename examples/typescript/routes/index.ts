@@ -1,4 +1,3 @@
-import { IncomingMessage, ServerResponse } from 'http';
 import { createRoute } from 'light';
 
 const { route, GET, useMiddleware } = createRoute();
