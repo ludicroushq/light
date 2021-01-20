@@ -5,7 +5,7 @@ module.exports = {
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.png',
   organizationName: 'ludicroushq', // Usually your GitHub org/user name.
   projectName: 'light', // Usually your repo name.
   plugins: ['docusaurus-tailwindcss-loader'],
@@ -18,8 +18,8 @@ module.exports = {
     navbar: {
       title: 'light.js',
       logo: {
-        alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        alt: 'light',
+        src: 'img/light.svg',
       },
       items: [
         {

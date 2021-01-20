@@ -10,15 +10,17 @@ export function Hero() {
             light.js
           </h2>
           <p className="mt-1 text-6xl font-extrabold text-gray-900 sm:text-7xl sm:tracking-tight lg:text-8xl">
-            The node framework for the next generation.
+            The Node Framework for the Next Generation.
           </p>
-          <p className="max-w-4xl mt-5 mx-auto text-xl text-gray-500">
-            Light.js is a zero-configuration Express.js/Koa.js packed with all the features but with
-            the performance of a bare-metal node server. It comes with all of the best node has to
-            offer with: react-hooks style templates, typescript support, and file-system based
-            routing.
+          <p className="max-w-4xl mt-8 mx-auto text-xl text-gray-500">
+            Light is a zero-configuration node server with sane defaults and optimal performance. It
+            ships with all of modern tools by default: hooks-style endpoints, typescript support,
+            and file-system based routing.
+            <h2 className="text-base text-indigo-600 tracking-wide uppercase mt-2">
+              No Boilerplate, No Opinions, No Bulls**t.
+            </h2>
           </p>
-          <div className="mt-4">
+          <div className="mt-6">
             <Link
               to="docs/introduction/getting-started"
               className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
