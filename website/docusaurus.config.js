@@ -5,7 +5,7 @@ module.exports = {
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.png',
   organizationName: 'ludicroushq', // Usually your GitHub org/user name.
   projectName: 'light', // Usually your repo name.
   plugins: ['docusaurus-tailwindcss-loader'],
@@ -18,8 +18,8 @@ module.exports = {
     navbar: {
       title: 'light.js',
       logo: {
-        alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        alt: 'light',
+        src: 'img/light.svg',
       },
       items: [
         {
@@ -46,32 +46,44 @@ module.exports = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: 'Documentation',
           items: [
-            // {
-            //   label: 'Style Guide',
-            //   to: 'docs/',
-            // },
-            // {
-            //   label: 'Second Doc',
-            //   to: 'docs/doc2/',
-            // },
+            {
+              label: 'Getting Started',
+              to: 'docs/introduction/getting-started',
+            },
+            {
+              label: 'Core Concepts',
+              to: 'docs/core/routes',
+            },
+            {
+              label: 'Deploy',
+              to: 'docs/deploy/vercel',
+            },
+            {
+              label: 'Third Party',
+              to: 'docs/third-party/apollo',
+            },
+            {
+              label: 'API',
+              to: 'docs/api/exported/create-route',
+            },
           ],
         },
         {
           title: 'Community',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              label: 'Discussions',
+              href: 'https://github.com/ludicroushq/light/discussions',
+            },
+            {
+              label: 'Issues',
+              href: 'https://github.com/ludicroushq/light/issues',
             },
             {
               label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
+              href: 'https://discord.gg/A6m2QmjrWY',
             },
           ],
         },
@@ -79,7 +91,7 @@ module.exports = {
           title: 'More',
           items: [
             {
-              label: 'Blog',
+              label: 'Light.js Blog',
               to: 'blog',
             },
             {
@@ -88,8 +100,25 @@ module.exports = {
             },
           ],
         },
+        {
+          title: 'About Ludicrous',
+          items: [
+            {
+              label: 'Home',
+              to: 'https://www.ludicroushq.com',
+            },
+            {
+              label: 'Blog',
+              to: 'https://blog.ludicroushq.com',
+            },
+            {
+              label: 'Twitter',
+              href: 'https://twitter.com/ludicroushq',
+            },
+          ],
+        },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright &copy; ${new Date().getFullYear()} ludicrous LLC.`,
     },
   },
   presets: [

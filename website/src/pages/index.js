@@ -1,6 +1,11 @@
 import React from 'react';
 import Layout from '@theme/Layout';
-import { Hero } from '../routes/index/Hero';
+import Hero from '../routes/index/Hero';
+import UseAnywhere from '../routes/index/UseAnywhere';
+import Features from '../routes/index/Features';
+import CTA from '../routes/index/CTA';
+import Runkit from '../routes/index/Runkit';
+import Stats from '../routes/index/Stats';
 // import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 // import clsx from 'clsx';
 // import Link from '@docusaurus/Link';
@@ -13,6 +18,11 @@ function Home() {
     <Layout title="Home" description="Description will go into a meta tag in <head />">
       <div id="tailwind">
         <Hero />
+        <Features />
+        <UseAnywhere />
+        <Stats />
+        <Runkit />
+        <CTA />
       </div>
     </Layout>
   );

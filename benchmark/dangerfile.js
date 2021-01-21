@@ -3,7 +3,6 @@ const listen = require('test-listen');
 const fetch = require('node-fetch');
 const http = require('http');
 const { createServer } = require('light');
-const fastify = require('./fastify');
 
 const benchmark = async (url) => {
   for (let i = 0; i < 10000; i++) {
