@@ -4,7 +4,7 @@ import Hero from '../routes/index/Hero';
 import UseAnywhere from '../routes/index/UseAnywhere';
 import Features from '../routes/index/Features';
 import CTA from '../routes/index/CTA';
-import FAQ from '../routes/index/FAQ';
+import Runkit from '../routes/index/Runkit';
 import Stats from '../routes/index/Stats';
 // import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 // import clsx from 'clsx';
@@ -21,7 +21,7 @@ function Home() {
         <Features />
         <UseAnywhere />
         <Stats />
-        <FAQ />
+        <Runkit />
         <CTA />
       </div>
     </Layout>

@@ -35,7 +35,7 @@ export default function UseAnywhere(props) {
           </h2>
           <p className="mt-2 text-3xl font-extrabold text-gray-900">Use Anywhere</p>
           <p className="mt-4 text-lg text-gray-500">
-            Light can run as a normal server, or transform itself to in a variety of different
+            Light can run as a normal server, or transform itself to work in a variety of different
             serverless environments and frameworks without any code changes.
           </p>
         </div>
@@ -43,7 +43,7 @@ export default function UseAnywhere(props) {
           <dl className="space-y-10 sm:space-y-0 sm:grid sm:grid-cols-2 sm:grid-rows-3 sm:grid-flow-row sm:gap-x-6 sm:gap-y-10 lg:gap-x-8">
             <Item
               name="Bare Metal Server"
-              description="With the run of a `light start`, you can get light running on a bare metal server."
+              description="With the run of `light start`, you can get light running on a bare metal server."
             />
             <Item
               name="Docker"
@@ -55,7 +55,7 @@ export default function UseAnywhere(props) {
             />
             <Item
               name="Next.js"
-              description="Light works well even without it's CLI and can be used inside of Next.js api routes."
+              description="Light works well even without a server at all and can be used inside of Next.js api routes."
             />
             <Item
               name="Vercel"

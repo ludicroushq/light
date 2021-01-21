@@ -6,11 +6,10 @@ export default function Stats(props) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-            Trusted by developers from over 80 planets
+            A Reliable Framework
           </h2>
           <p className="mt-3 text-xl text-gray-500 sm:mt-4">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellendus repellat
-            laudantium.
+            We do a lot of things behind the scenes to ensure that Light is bug free.
           </p>
         </div>
       </div>
@@ -22,21 +21,21 @@ export default function Stats(props) {
               <dl className="rounded-lg bg-white shadow-lg sm:grid sm:grid-cols-3">
                 <div className="flex flex-col border-b border-gray-100 p-6 text-center sm:border-0 sm:border-r">
                   <dt className="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">
-                    Pepperoni
+                    Type Safe
                   </dt>
-                  <dd className="order-1 text-5xl font-extrabold text-indigo-600">100%</dd>
+                  <dd className="order-1 text-5xl font-extrabold text-indigo-600">Fully</dd>
                 </div>
                 <div className="flex flex-col border-t border-b border-gray-100 p-6 text-center sm:border-0 sm:border-l sm:border-r">
                   <dt className="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">
-                    Delivery
+                    Code Coverage
                   </dt>
-                  <dd className="order-1 text-5xl font-extrabold text-indigo-600">24/7</dd>
+                  <dd className="order-1 text-5xl font-extrabold text-indigo-600">100%</dd>
                 </div>
                 <div className="flex flex-col border-t border-gray-100 p-6 text-center sm:border-0 sm:border-l">
                   <dt className="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">
-                    Calories
+                    Defaults
                   </dt>
-                  <dd className="order-1 text-5xl font-extrabold text-indigo-600">100k</dd>
+                  <dd className="order-1 text-5xl font-extrabold text-indigo-600">Sane</dd>
                 </div>
               </dl>
             </div>

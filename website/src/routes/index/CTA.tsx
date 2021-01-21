@@ -1,3 +1,4 @@
+import Link from '@docusaurus/Link';
 import React from 'react';
 
 export default function CTA(props) {
@@ -9,21 +10,21 @@ export default function CTA(props) {
           <span className="block text-indigo-600">Check out the docs.</span>
         </h2>
         <div className="mt-8 lex lg:mt-0 lg:flex-shrink-0">
-          <div className="inline-flex rounded-md shadow">
+          <div className=" inline-flex rounded-md shadow">
             <a
-              href="/"
-              className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+              href="https://github.com/ludicroushq/light"
+              className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50"
             >
-              Get started
+              GitHub
             </a>
           </div>
           <div className="ml-3 inline-flex rounded-md shadow">
-            <a
-              href="/"
-              className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50"
+            <Link
+              to="/docs/introduction/getting-started"
+              className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
             >
-              Learn more
-            </a>
+              Get started
+            </Link>
           </div>
         </div>
       </div>

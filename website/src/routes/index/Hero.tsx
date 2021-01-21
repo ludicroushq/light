@@ -21,6 +21,12 @@ export default function Hero() {
             </h2>
           </p>
           <div className="mt-6">
+            <a
+              href="https://github.com/ludicroushq/light"
+              className="inline-flex mr-4 items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              GitHub
+            </a>
             <Link
               to="docs/introduction/getting-started"
               className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
