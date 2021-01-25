@@ -6,7 +6,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "light": "^2.0.0-alpha.12"
+    "light": "^2.0.0-alpha.13"
   },
   "devDependencies": {
     "@types/jest": "^26.0.20",
