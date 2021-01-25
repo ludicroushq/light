@@ -1,3 +1,4 @@
+import { Config } from '@lightjs/types';
 import { existsSync } from 'fs';
 import { join } from 'path';
 
@@ -13,7 +14,7 @@ const importFile = (fileName: string) => {
   return null;
 };
 
-export const importLightConfig = (): void =>
+export const importLightConfig = (): Config =>
   importFile('light.config.ts') || importFile('light.config.js') || {};
 
 export const isTypescript = (): boolean => {

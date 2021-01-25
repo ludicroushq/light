@@ -1,8 +1,8 @@
 export interface Logger {
-  info: Function;
-  error: Function;
-  warn: Function;
-  debug: Function;
+  info: (message: any, context?: string) => void;
+  error: (message: any, trace?: string, context?: string) => void;
+  warn: (message: any, context?: string) => void;
+  debug: (message: any, context?: string) => void;
 }
 
 export interface UseLoggerOptions {

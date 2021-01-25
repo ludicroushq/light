@@ -1,18 +1,16 @@
-import { Config } from '@lightjs/types';
+import { Config, UseLoggerOptions } from '@lightjs/types';
 
-const createConfig = () => {
-  const config: Config = {};
-  const useConfig = (newConfig: Config) => {
-    // We can't just redefine the `config` variable since it will not propagate
-    // Instead we should update the Object. This is not foolproof but it should work
-    Object.keys(newConfig).forEach((key) => {
-      const configKey = key as keyof Config;
-      config[configKey] = newConfig[key as keyof Config];
-    });
+export const createConfig = (defaultConfig?: Config) => {
+  const config: Config = defaultConfig || {};
+
+  const useLogger = ({ logger: newLoggerFn }: UseLoggerOptions = {}) => {
+    if (newLoggerFn) {
+      const newLogger = newLoggerFn();
+      config.logs = {
+        logger: newLogger,
+      };
+    }
   };
-  return { config, useConfig };
+
+  return { config, useLogger };
 };
-
-const { config, useConfig } = createConfig();
-
-export { config, useConfig };

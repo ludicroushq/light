@@ -2,7 +2,7 @@ import Router from 'find-my-way';
 import { join } from 'path';
 import { CreateRouterOptions } from '@lightjs/types';
 import { createError } from 'micro';
-import { config } from '@lightjs/config';
+import { importLightConfig } from '@lightjs/config';
 import { requestHandlerWrapper, applyMiddleware } from '@lightjs/utils';
 import genRoutes from '../utils/gen-routes';
 import findRoutes from '../utils/find-routes';
@@ -22,6 +22,7 @@ export const createRouter = ({ middleware = [] }: CreateRouterOptions) => {
   });
 
   const cwd = process.cwd();
+  const config = importLightConfig();
   const rootPath = join(cwd, config.root ? config.root : './');
   const routeFiles = findRoutes(rootPath);
 

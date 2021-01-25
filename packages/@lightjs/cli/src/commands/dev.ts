@@ -6,7 +6,6 @@ import chalk from 'chalk';
 import decache from 'decache';
 import { isTypescript } from '@lightjs/config';
 import { RouteObject } from '@lightjs/types';
-import { youchMiddleware } from '../middleware/youch';
 
 export const command = 'dev';
 export const desc = 'start a development server';
@@ -35,6 +34,8 @@ const handle = async (argv: Args): Promise<void> => {
   const { createServer } = require('@lightjs/server');
   // eslint-disable-next-line global-require
   const { logger } = require('@lightjs/logger');
+  // eslint-disable-next-line global-require
+  const { youchMiddleware } = require('../middleware/youch');
 
   logger.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
 
