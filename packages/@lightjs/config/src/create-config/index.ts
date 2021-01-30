@@ -1,4 +1,4 @@
-import { Config, UseLoggerOptions } from '@lightjs/types';
+import { Config, Middleware, UseLoggerOptions } from '@lightjs/types';
 
 export const createConfig = (defaultConfig?: Config) => {
   const config: Config = defaultConfig || {};
@@ -12,5 +12,12 @@ export const createConfig = (defaultConfig?: Config) => {
     }
   };
 
-  return { config, useLogger };
+  const useMiddleware = (middleware: Middleware) => {
+    if (!config.middleware) {
+      config.middleware = [];
+    }
+    config.middleware.push(middleware);
+  };
+
+  return { config, useLogger, useMiddleware };
 };

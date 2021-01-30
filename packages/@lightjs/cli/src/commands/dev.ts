@@ -4,7 +4,7 @@ import { relative } from 'path';
 import emojic from 'emojic';
 import chalk from 'chalk';
 import decache from 'decache';
-import { isTypescript } from '@lightjs/config';
+import { isTypescript, importLightConfig } from '@lightjs/config';
 import { RouteObject } from '@lightjs/types';
 
 export const command = 'dev';
@@ -37,11 +37,14 @@ const handle = async (argv: Args): Promise<void> => {
   // eslint-disable-next-line global-require
   const { youchMiddleware } = require('../middleware/youch');
 
+  const config = importLightConfig();
+  const globalMiddleware = config.middleware || [];
+
   logger.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
 
   const cwd = process.cwd();
   const app = createServer({
-    middleware: [youchMiddleware],
+    middleware: [youchMiddleware, ...globalMiddleware],
   });
 
   const { HOST = '0.0.0.0' } = process.env;

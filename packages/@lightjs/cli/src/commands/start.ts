@@ -3,7 +3,7 @@ import { CommandBuilder } from 'yargs'; // eslint-disable-line
 import emojic from 'emojic';
 import chalk from 'chalk';
 
-import { isTypescript } from '@lightjs/config';
+import { importLightConfig, isTypescript } from '@lightjs/config';
 
 export const command = 'start';
 export const desc = 'start a production server';
@@ -33,9 +33,14 @@ const handle = async (argv: Args): Promise<void> => {
   // eslint-disable-next-line global-require
   const { logger } = require('@lightjs/logger');
 
+  const config = importLightConfig();
+  const globalMiddleware = config.middleware || [];
+
   logger.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
 
-  const app = createServer();
+  const app = createServer({
+    middleware: globalMiddleware,
+  });
 
   const { HOST = '0.0.0.0' } = process.env;
 
