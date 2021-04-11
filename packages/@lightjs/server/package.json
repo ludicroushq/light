@@ -1,6 +1,6 @@
 {
   "name": "@lightjs/server",
-  "version": "2.0.0-alpha.14",
+  "version": "2.0.0-alpha.15",
   "description": "lightjs server",
   "main": "lib",
   "types": "lib/index.d.ts",
@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@lightjs/config": "^2.0.0-alpha.14",
-    "@lightjs/router": "^2.0.0-alpha.14",
+    "@lightjs/router": "^2.0.0-alpha.15",
     "@lightjs/types": "^2.0.0-alpha.14",
     "micro": "^9.3.4"
   },
