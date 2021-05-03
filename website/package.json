@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@docusaurus/core": "^2.0.0-alpha.ffe8b6106",
-    "@docusaurus/preset-classic": "^2.0.0-alpha.ffe8b6106",
+    "@docusaurus/preset-classic": "^2.0.0-alpha.75",
     "@mdx-js/react": "^1.6.21",
     "@tailwindcss/postcss7-compat": "^2.1.0",
     "autoprefixer": "^9.8.6",
