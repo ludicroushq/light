@@ -1,0 +1,19 @@
+pull_request_rules:
+  - name: automatic merge for Dependabot pull requests
+    conditions:
+      - author=dependabot
+      - check-success=build (10.x)
+      - check-success=build (12.x)
+      - check-success=build (14.x)
+      - check-success=spellcheck-docs
+      - check-success=benchmark
+      - check-success=examples
+      - check-success=Danger
+      - check-success=Vercel
+      - check-success=WIP
+      - check-success=codecov/patch
+      - check-success=codecov/project
+      - title~=^Bump [^\s]+ from ([\d]+)\..+ to \1\.
+    actions:
+      merge:
+        method: merge
