@@ -15,19 +15,16 @@
   "dependencies": {
     "@docusaurus/core": "^2.0.0-beta.0",
     "@docusaurus/preset-classic": "^2.0.0-beta.0",
+    "@heroicons/react": "^1.0.1",
     "@mdx-js/react": "^1.6.21",
     "@tailwindcss/postcss7-compat": "^2.1.2",
-    "autoprefixer": "^9.8.6",
     "clsx": "^1.1.1",
     "docusaurus-tailwindcss-loader": "file:plugins/postcss-tailwindcss-loader",
-    "heroicons-react": "^1.4.0",
-    "postcss": "^7.0.35",
     "postcss-import": "^12.0.1",
     "postcss-nested": "^4.2.3",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-runkit": "^0.9.0",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.2"
+    "react-runkit": "^0.9.0"
   },
   "browserslist": {
     "production": [
@@ -47,7 +44,11 @@
     "@types/react": "^17.0.5",
     "@types/react-helmet": "^6.1.1",
     "@types/react-router-dom": "^5.1.7",
+    "autoprefixer": "^10.2.5",
     "cspell": "^5.4.1",
+    "postcss": "^8.2.15",
+    "postcss-preset-env": "^6.7.0",
+    "tailwindcss": "^2.1.2",
     "typescript": "^4.2.4"
   }
 }

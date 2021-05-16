@@ -1,5 +1,6 @@
-import { Code, LinkOutline, TerminalOutline } from 'heroicons-react';
 import React, { ComponentType, FC, ReactComponentElement, ReactNode } from 'react';
+import { CodeIcon } from '@heroicons/react/solid';
+import { LinkIcon, TerminalIcon } from '@heroicons/react/outline';
 
 function Item({
   title,
@@ -32,17 +33,17 @@ export default function Features(props) {
           <Item
             title="Native Typescript Support"
             description="Light is fully built with TypeScript so you can be more confident when deploying your codebase to production."
-            Icon={Code}
+            Icon={CodeIcon}
           />
           <Item
             title="Support for Express and Koa Middleware"
             description="We know that there are a lot of great existing middleware which is why we provide wrappers to use Express and Koa middleware."
-            Icon={LinkOutline}
+            Icon={LinkIcon}
           />
           <Item
             title="Great Development Experience"
             description="Light comes with Typescript, Hot Module Reloading, and File Based Routing to make your development experience fast and organized."
-            Icon={TerminalOutline}
+            Icon={TerminalIcon}
           />
         </dl>
       </div>

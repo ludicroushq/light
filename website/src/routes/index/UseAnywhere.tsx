@@ -1,4 +1,4 @@
-import { Check, Clock } from 'heroicons-react';
+import { CheckIcon, ClockIcon } from '@heroicons/react/solid';
 import React, { ReactNode } from 'react';
 
 function Item({
@@ -13,9 +13,9 @@ function Item({
   return (
     <div className="flex">
       {comingSoon ? (
-        <Clock className="flex-shrink-0 h-6 w-6 text-yellow-500" />
+        <ClockIcon className="flex-shrink-0 h-6 w-6 text-yellow-500" />
       ) : (
-        <Check className="flex-shrink-0 h-6 w-6 text-green-500" />
+        <CheckIcon className="flex-shrink-0 h-6 w-6 text-green-500" />
       )}
       <div className="ml-3">
         <dt className="text-lg leading-6 font-medium text-gray-900">{name}</dt>
