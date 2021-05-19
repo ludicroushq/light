@@ -11,6 +11,10 @@ module.exports = {
   plugins: ['docusaurus-tailwindcss-loader'],
   scripts: ['https://embed.runkit.com'],
   themeConfig: {
+    algolia: {
+      apiKey: process.env.ALGOLIA_API_KEY,
+      indexName: process.env.ALGOLIA_INDEX_NAME,
+    },
     colorMode: {
       defaultMode: 'light',
       disableSwitch: true,
