@@ -21,7 +21,7 @@
     "clsx": "^1.1.1",
     "docusaurus-tailwindcss-loader": "file:plugins/postcss-tailwindcss-loader",
     "postcss-import": "^14.0.2",
-    "postcss-nested": "^4.2.3",
+    "postcss-nested": "^5.0.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-runkit": "^0.9.0"
