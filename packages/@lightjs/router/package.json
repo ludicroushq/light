@@ -31,7 +31,7 @@
   "devDependencies": {
     "@types/glob": "^7.1.3",
     "@types/micro": "^7.3.5",
-    "typescript": "^4.2.4"
+    "typescript": "^4.3.2"
   },
   "dependencies": {
     "@lightjs/config": "^2.0.0-alpha.14",
