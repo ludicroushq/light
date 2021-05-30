@@ -20,7 +20,7 @@
     "@tailwindcss/postcss7-compat": "^2.1.2",
     "clsx": "^1.1.1",
     "docusaurus-tailwindcss-loader": "file:plugins/postcss-tailwindcss-loader",
-    "postcss-import": "^12.0.1",
+    "postcss-import": "^14.0.2",
     "postcss-nested": "^4.2.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
