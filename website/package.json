@@ -17,7 +17,7 @@
     "@docusaurus/preset-classic": "^2.0.0-beta.0",
     "@heroicons/react": "^1.0.1",
     "@mdx-js/react": "^1.6.21",
-    "@tailwindcss/postcss7-compat": "^2.1.2",
+    "@tailwindcss/postcss7-compat": "^2.1.4",
     "clsx": "^1.1.1",
     "docusaurus-tailwindcss-loader": "file:plugins/postcss-tailwindcss-loader",
     "postcss-import": "^14.0.2",
