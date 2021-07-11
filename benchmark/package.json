@@ -22,7 +22,7 @@
   "homepage": "https://github.com/ludicroushq/light#readme",
   "dependencies": {
     "@koa/router": "^10.0.0",
-    "danger": "^10.6.4",
+    "danger": "^10.6.6",
     "express": "^4.17.1",
     "fastify": "^3.19.0",
     "koa": "^2.13.0",
