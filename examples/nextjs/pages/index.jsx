@@ -1,7 +1,3 @@
 export default function Index() {
-  return (
-    <div>
-      visit /api
-    </div>
-  );
+  return <div>visit /api</div>;
 }

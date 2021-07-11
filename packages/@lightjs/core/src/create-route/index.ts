@@ -32,16 +32,15 @@ export const createRoute = (): CreateRoute => {
   /**
    * Generate wrapper functions for all http methods
    */
-  const genFunction = (key: HTTPMethod): HandlerMethod => (
-    fn: HandlerFunction,
-    opts?: HandlerMethodOptions,
-  ): void => {
-    if (!fn) throw new Error('please provide a function to method');
-    _route[key] = {
-      handler: fn,
-      middleware: opts?.middleware || [],
+  const genFunction =
+    (key: HTTPMethod): HandlerMethod =>
+    (fn: HandlerFunction, opts?: HandlerMethodOptions): void => {
+      if (!fn) throw new Error('please provide a function to method');
+      _route[key] = {
+        handler: fn,
+        middleware: opts?.middleware || [],
+      };
     };
-  };
 
   const wrappers: Record<HTTPMethod, HandlerMethod> = JSON.parse('{}');
   [...Methods].forEach((method): void => {

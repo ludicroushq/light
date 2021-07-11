@@ -69,26 +69,21 @@ const handle = async (argv: Args): Promise<void> => {
       logger.info(`[ ${chalk.blueBright('hmr')} ] watching for changes`);
     });
 
-    watcher.on(
-      'change',
-      async (p: string): Promise<void> => {
-        logger.info(
-          `[ ${chalk.blueBright('hmr')} ] swapping out ${chalk.yellow(relative(cwd, p))}`,
-        );
-        // remove edited file from cache
-        decache(p);
+    watcher.on('change', async (p: string): Promise<void> => {
+      logger.info(`[ ${chalk.blueBright('hmr')} ] swapping out ${chalk.yellow(relative(cwd, p))}`);
+      // remove edited file from cache
+      decache(p);
 
-        // decache all routes
-        generatedRoutes.forEach((x: RouteObject) => {
-          decache(x.file);
-        });
+      // decache all routes
+      generatedRoutes.forEach((x: RouteObject) => {
+        decache(x.file);
+      });
 
-        process.removeAllListeners();
+      process.removeAllListeners();
 
-        // reload the server
-        generatedRoutes = app.reload();
-      },
-    );
+      // reload the server
+      generatedRoutes = app.reload();
+    });
   });
 };
 
