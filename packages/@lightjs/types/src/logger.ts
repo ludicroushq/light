@@ -4,7 +4,3 @@ export interface Logger {
   warn: (message: any, context?: string) => void;
   debug: (message: any, context?: string) => void;
 }
-
-export interface UseLoggerOptions {
-  logger?: () => Logger;
-}
