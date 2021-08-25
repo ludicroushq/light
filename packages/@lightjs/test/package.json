@@ -1,6 +1,6 @@
 {
   "name": "@lightjs/test",
-  "version": "2.0.0-alpha.15",
+  "version": "2.0.0-alpha.16",
   "description": "lightjs test",
   "main": "lib",
   "types": "lib/index.d.ts",
@@ -32,8 +32,8 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
-    "@lightjs/server": "^2.0.0-alpha.15",
-    "@lightjs/types": "^2.0.0-alpha.14"
+    "@lightjs/server": "^2.0.0-alpha.16",
+    "@lightjs/types": "^2.0.0-alpha.16"
   },
   "gitHead": "21e1deb610f7d54f0f7da3ac0e4514db6b59c25c"
 }

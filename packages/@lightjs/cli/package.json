@@ -1,6 +1,6 @@
 {
   "name": "@lightjs/cli",
-  "version": "2.0.0-alpha.15",
+  "version": "2.0.0-alpha.16",
   "description": "lightjs cli",
   "main": "lib",
   "types": "lib/index.d.ts",
@@ -34,10 +34,10 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
-    "@lightjs/config": "^2.0.0-alpha.14",
-    "@lightjs/logger": "^2.0.0-alpha.14",
-    "@lightjs/server": "^2.0.0-alpha.15",
-    "@lightjs/types": "^2.0.0-alpha.14",
+    "@lightjs/config": "^2.0.0-alpha.16",
+    "@lightjs/logger": "^2.0.0-alpha.16",
+    "@lightjs/server": "^2.0.0-alpha.16",
+    "@lightjs/types": "^2.0.0-alpha.16",
     "chalk": "^4.1.1",
     "chokidar": "^3.5.2",
     "decache": "^4.6.0",

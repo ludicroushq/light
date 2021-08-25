@@ -1,6 +1,6 @@
 {
   "name": "@lightjs/utils",
-  "version": "2.0.0-alpha.15",
+  "version": "2.0.0-alpha.16",
   "description": "lightjs utils",
   "main": "lib",
   "types": "lib/index.d.ts",
@@ -36,7 +36,7 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
-    "@lightjs/types": "^2.0.0-alpha.14",
+    "@lightjs/types": "^2.0.0-alpha.16",
     "find-my-way": "^3.0.5",
     "micro": "^9.3.4"
   },
