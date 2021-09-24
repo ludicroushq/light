@@ -25,7 +25,7 @@
     "danger": "^10.6.6",
     "express": "^4.17.1",
     "fastify": "^3.19.0",
-    "koa": "^2.13.0",
+    "koa": "^2.13.3",
     "light": "file://../packages/light",
     "node-fetch": "^2.6.0",
     "test-listen": "^1.1.0"
