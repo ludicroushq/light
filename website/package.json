@@ -13,7 +13,7 @@
     "spellcheck": "cspell 'src/**/*' 'docs/**/*'"
   },
   "dependencies": {
-    "@docusaurus/core": "^2.0.0-beta.3",
+    "@docusaurus/core": "^2.0.0-beta.6",
     "@docusaurus/preset-classic": "^2.0.0-beta.3",
     "@heroicons/react": "^1.0.2",
     "@mdx-js/react": "^1.6.21",
