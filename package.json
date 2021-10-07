@@ -2,18 +2,16 @@
   "name": "core",
   "private": true,
   "scripts": {
-    "ci": "npm run ci:type-check && npm run ci:jest && npm run ci:lint && npm run ci:codecov",
+    "ci": "npm run ci:type-check && npm run ci:jest && npm run ci:lint",
     "ci:type-check": "lerna exec --parallel -- npx tsc --noEmit",
     "ci:lint": "eslint .",
-    "ci:jest": "jest --verbose --maxWorkers=4 --coverage",
-    "ci:codecov": "codecov"
+    "ci:jest": "jest --verbose --maxWorkers=4 --coverage"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",
     "@types/node": "^16.3.1",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
-    "codecov": "^3.8.1",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-airbnb-typescript": "^13.0.0",
