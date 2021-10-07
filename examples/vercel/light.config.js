@@ -13,8 +13,6 @@ const logger = winston.createLogger({
   ],
 });
 
-useLogger({
-  logger: () => logger,
-});
+useLogger(logger)
 
 module.exports = config;
