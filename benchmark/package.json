@@ -27,7 +27,7 @@
     "fastify": "^3.19.0",
     "koa": "^2.13.0",
     "light": "file://../packages/light",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.5",
     "test-listen": "^1.1.0"
   }
 }

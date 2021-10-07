@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/ludicroushq/light#readme",
   "devDependencies": {
-    "lerna": "^3.22.1"
+    "lerna": "^4.0.0"
   },
   "dependencies": {
     "winston": "^3.3.3"

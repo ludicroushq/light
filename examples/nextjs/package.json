@@ -1,7 +1,8 @@
 {
   "name": "nextjs",
   "scripts": {
-    "dev": "next dev"
+    "dev": "next dev",
+    "test": ""
   },
   "dependencies": {
     "light": "^2.0.0-alpha.15",
