@@ -29,21 +29,21 @@
   },
   "homepage": "https://github.com/ludicroushq/light#readme",
   "devDependencies": {
-    "@types/node": "^16.10.3",
-    "@types/yargs": "^17.0.3",
-    "typescript": "^4.3.5"
+    "@types/node": "^16.11.11",
+    "@types/yargs": "^17.0.7",
+    "typescript": "^4.5.2"
   },
   "dependencies": {
     "@lightjs/config": "^2.0.0-alpha.16",
     "@lightjs/logger": "^2.0.0-alpha.16",
     "@lightjs/server": "^2.0.0-alpha.16",
     "@lightjs/types": "^2.0.0-alpha.16",
-    "chalk": "^4.1.1",
+    "chalk": "^5.0.0",
     "chokidar": "^3.5.2",
-    "decache": "^4.6.0",
+    "decache": "^4.6.1",
     "emojic": "^1.1.16",
-    "ts-node": "^10.2.1",
-    "yargs": "^17.2.1",
+    "ts-node": "^10.4.0",
+    "yargs": "^17.3.0",
     "youch": "^2.2.2",
     "youch-terminal": "^1.1.1"
   },
