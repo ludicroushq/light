@@ -1,5 +1,6 @@
 import { join, parse } from 'path';
 import { RouteObject } from '@lightjs/types';
+import { convertFileNameToPath } from './convert-file-name-to-path';
 
 export default (routes: string[], rootPath: string): RouteObject[] => {
   const routesDir = join(rootPath, './routes');
@@ -16,27 +17,9 @@ export default (routes: string[], rootPath: string): RouteObject[] => {
     const parsedFile = parse(join('/', route));
     const fileName = join(parsedFile.dir, parsedFile.name);
 
-    const path = fileName
-      .split('/')
-      .map((x): string => {
-        if (x.startsWith('[') && x.endsWith(']')) {
-          const newName = x.split('');
-          newName.pop();
-          newName.shift();
-          return `:${newName.join('')}`;
-        }
-        return x;
-      })
-      .join('/');
+    console.log('this is new');
 
-    if (path.endsWith('/index')) {
-      routeObjects.push({
-        path: path.substring(0, path.length - 6) || '/',
-        route: handler,
-        file: routePath,
-      });
-      return;
-    }
+    const path = convertFileNameToPath(fileName);
 
     routeObjects.push({
       path,
