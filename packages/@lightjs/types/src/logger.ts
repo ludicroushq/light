@@ -1,1 +1,3 @@
-export interface Logger extends Console {}
+export interface Logger {
+  info: (message: string) => void;
+}
