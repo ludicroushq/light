@@ -1,1 +1,0 @@
-# @lightjs/config

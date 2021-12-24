@@ -8,5 +8,11 @@ module.exports = {
   },
   rules: {
     'import/prefer-default-export': 'off',
+    'jest/expect-expect': [
+      'error',
+      {
+        assertFunctionNames: ['expect', 'supertest.**.expect'],
+      },
+    ],
   },
 };
