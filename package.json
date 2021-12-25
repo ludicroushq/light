@@ -8,7 +8,6 @@
     "ci:jest": "jest --verbose --maxWorkers=4 --coverage"
   },
   "devDependencies": {
-    "@types/jest": "^27.0.3",
     "@types/node": "^16.11.11",
     "@typescript-eslint/eslint-plugin": "^5.5.0",
     "@typescript-eslint/parser": "^5.5.0",
@@ -18,10 +17,10 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jest": "^25.3.0",
-    "jest": "^27.4.3",
+    "jest": "^27.4.5",
     "lerna": "^4.0.0",
     "prettier": "^2.5.0",
-    "ts-jest": "^27.0.7",
+    "ts-jest": "^27.1.2",
     "typescript": "^4.5.2"
   },
   "license": "MIT"
