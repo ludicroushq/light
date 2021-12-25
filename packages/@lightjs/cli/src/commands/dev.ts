@@ -5,7 +5,6 @@ import emojic from 'emojic';
 import chalk from 'chalk';
 import decache from 'decache';
 import { isTypescript, importLightConfig } from '@lightjs/config';
-import { useLogger } from '@lightjs/logger';
 import { createServer } from '@lightjs/server';
 import { ImportedRoute } from '@lightjs/types';
 
@@ -29,6 +28,12 @@ const handle = async (argv: Args): Promise<void> => {
     require('ts-node').register(); // eslint-disable-line
   }
 
+  const config = importLightConfig();
+  const logger = config.logger?.internalLogger() ?? console;
+  const globalMiddleware = config.middleware || [];
+
+  logger.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
+
   /**
    * NOTE: We import youchMiddleware like this because it contains the use of the logger.
    * Using the logger requires the import of the light config which may be in typescript.
@@ -36,12 +41,6 @@ const handle = async (argv: Args): Promise<void> => {
    */
   // eslint-disable-next-line global-require
   const { youchMiddleware } = require('../middleware/youch');
-  const logger = useLogger();
-
-  const config = importLightConfig();
-  const globalMiddleware = config.middleware || [];
-
-  logger.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
 
   const cwd = process.cwd();
   const app = createServer({

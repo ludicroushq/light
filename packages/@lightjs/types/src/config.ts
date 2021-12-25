@@ -1,12 +1,16 @@
 import { Middleware } from './createRoute';
 import { Logger } from './logger';
 
-type CustomUseLogger = () => Logger;
+type UseLogger = () => Logger;
+type InternalLogger = () => {
+  info(message: string): void;
+};
 
 export interface Config {
   root?: string;
   middleware?: Middleware[];
   logger?: {
-    useLogger: CustomUseLogger;
+    useLogger: UseLogger;
+    internalLogger: InternalLogger;
   };
 }
