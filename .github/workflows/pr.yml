@@ -13,7 +13,7 @@ jobs:
       - run: npm ci
       - run: npx lerna bootstrap
       - run: npx lerna run compile
-      - run: npm install
+      - run: npm ci
         working-directory: ./benchmark
       - run: npm link ../packages/light
         working-directory: ./benchmark
