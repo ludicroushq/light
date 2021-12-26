@@ -36,6 +36,7 @@
     "micro": "^9.3.4"
   },
   "devDependencies": {
+    "@lightjs/test": "^1.14.0",
     "@netlify/functions": "^0.10.0",
     "@types/cors": "^2.8.12",
     "@types/micro": "^7.3.6",
