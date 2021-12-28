@@ -8,6 +8,7 @@
     "ci:jest": "jest --verbose --maxWorkers=4 --coverage"
   },
   "devDependencies": {
+    "@types/jest": "^27.0.3",
     "@types/node": "^16.11.11",
     "@typescript-eslint/eslint-plugin": "^5.5.0",
     "@typescript-eslint/parser": "^5.5.0",
