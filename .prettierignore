@@ -6,3 +6,4 @@ benchmark
 examples
 build
 package-lock.json
+lerna.json
