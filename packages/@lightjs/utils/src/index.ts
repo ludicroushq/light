@@ -1,2 +1,2 @@
-export * from './request-handler-wrapper';
-export * from './apply-middleware';
+export { applyMiddleware } from './applyMiddleware';
+export { convertHandlerFunctionToRequestHandler } from './convertHandlerFunctionToRequestHandler';

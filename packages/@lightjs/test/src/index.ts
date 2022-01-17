@@ -1,1 +1,2 @@
-export * from './create-test';
+export { createTest } from './createTest';
+export { createRouteTest } from './createRouteTest';

@@ -2,8 +2,8 @@
 import { CommandBuilder } from 'yargs'; // eslint-disable-line
 import emojic from 'emojic';
 import chalk from 'chalk';
-
 import { importLightConfig, isTypescript } from '@lightjs/config';
+import { createServer } from '@lightjs/server';
 
 export const command = 'start';
 export const desc = 'start a production server';
@@ -25,15 +25,8 @@ const handle = async (argv: Args): Promise<void> => {
     require('ts-node').register(); // eslint-disable-line
   }
 
-  /**
-   * IMPORTANT: We need to import the light library AFTER we require ts-node
-   */
-  // eslint-disable-next-line global-require
-  const { createServer } = require('@lightjs/server');
-  // eslint-disable-next-line global-require
-  const { logger } = require('@lightjs/logger');
-
   const config = importLightConfig();
+  const logger = config.logger?.internalLogger() ?? console;
   const globalMiddleware = config.middleware || [];
 
   logger.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);

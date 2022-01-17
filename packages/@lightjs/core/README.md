@@ -1,1 +1,1 @@
-# @lightjs/config
+# @lightjs/core

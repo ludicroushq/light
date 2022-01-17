@@ -1,6 +1,6 @@
 import { createRoute, withConnect } from '../index';
 
-it('exports createRoute', () => {
+it('exports route', () => {
   expect(createRoute).toBeTruthy();
 });
 

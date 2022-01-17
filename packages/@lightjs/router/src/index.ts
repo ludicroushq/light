@@ -1,1 +1,1 @@
-export * from './create-router';
+export { createRouter } from './createRouter';

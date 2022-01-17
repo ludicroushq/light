@@ -1,13 +1,4 @@
 {
-  "compilerOptions": {
-    "target": "ES2017",
-    "module": "commonjs",
-    "declaration": true,
-    "outDir": "./lib",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  },
-  "include": ["**/*.ts", "**/*.js", "**/.*.js"]
+  "extends": "./tsconfig.build.json",
+  "include": ["packages/**/*", ".eslintrc.js", "jest.config.js"]
 }

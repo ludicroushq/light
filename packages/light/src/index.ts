@@ -1,6 +1,6 @@
 export { createConfig } from '@lightjs/config';
-export { createTest } from '@lightjs/test';
+export { createTest, createRouteTest } from '@lightjs/test';
 export { createServer } from '@lightjs/server';
 export { createRoute, withConnect } from '@lightjs/core';
-export { logger } from '@lightjs/logger';
-export * from '@lightjs/types';
+export { useLogger } from '@lightjs/logger';
+export { Request, Response, Component, Logger, Context, HandlerFunction } from '@lightjs/types';

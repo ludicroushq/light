@@ -1,2 +1,2 @@
-export * from './with-connect';
-export * from './create-route';
+export { createRoute } from './createRoute';
+export { withConnect } from './withConnect';

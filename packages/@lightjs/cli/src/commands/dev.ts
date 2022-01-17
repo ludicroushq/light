@@ -5,7 +5,8 @@ import emojic from 'emojic';
 import chalk from 'chalk';
 import decache from 'decache';
 import { isTypescript, importLightConfig } from '@lightjs/config';
-import { RouteObject } from '@lightjs/types';
+import { createServer } from '@lightjs/server';
+import { ImportedRoute } from '@lightjs/types';
 
 export const command = 'dev';
 export const desc = 'start a development server';
@@ -27,20 +28,19 @@ const handle = async (argv: Args): Promise<void> => {
     require('ts-node').register(); // eslint-disable-line
   }
 
-  /**
-   * IMPORTANT: We need to import the light library AFTER we require ts-node
-   */
-  // eslint-disable-next-line global-require
-  const { createServer } = require('@lightjs/server');
-  // eslint-disable-next-line global-require
-  const { logger } = require('@lightjs/logger');
-  // eslint-disable-next-line global-require
-  const { youchMiddleware } = require('../middleware/youch');
-
   const config = importLightConfig();
+  const logger = config.logger?.internalLogger() ?? console;
   const globalMiddleware = config.middleware || [];
 
   logger.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
+
+  /**
+   * NOTE: We import youchMiddleware like this because it contains the use of the logger.
+   * Using the logger requires the import of the light config which may be in typescript.
+   * Since we initialize ts-node above, we need to make sure the youch import is after.
+   */
+  // eslint-disable-next-line global-require
+  const { youchMiddleware } = require('../middleware/youch');
 
   const cwd = process.cwd();
   const app = createServer({
@@ -63,7 +63,7 @@ const handle = async (argv: Args): Promise<void> => {
       ignored: ['**/node_modules/**/*', '**/node_modules/**/.*', '**/.git/**/*'],
     });
 
-    let { generatedRoutes } = app;
+    let { importedRoutes } = app;
 
     watcher.on('ready', (): void => {
       logger.info(`[ ${chalk.blueBright('hmr')} ] watching for changes`);
@@ -75,14 +75,14 @@ const handle = async (argv: Args): Promise<void> => {
       decache(p);
 
       // decache all routes
-      generatedRoutes.forEach((x: RouteObject) => {
+      importedRoutes.forEach((x: ImportedRoute) => {
         decache(x.file);
       });
 
       process.removeAllListeners();
 
       // reload the server
-      generatedRoutes = app.reload();
+      importedRoutes = app.reload();
     });
   });
 };
