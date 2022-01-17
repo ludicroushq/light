@@ -1,9 +1,14 @@
 {
-  "packages": ["packages/light", "packages/@lightjs/*"],
-  "version": "2.0.0-alpha.17",
+  "packages": [
+    "packages/light",
+    "packages/@lightjs/*"
+  ],
+  "version": "2.0.0-alpha.18",
   "command": {
     "version": {
-      "ignoreChanges": ["*.md"]
+      "ignoreChanges": [
+        "*.md"
+      ]
     }
   }
 }
