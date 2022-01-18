@@ -1,6 +1,6 @@
 {
   "name": "light",
-  "version": "2.0.0-alpha.20",
+  "version": "2.0.0-alpha.21",
   "description": "a next-gen framework",
   "main": "lib",
   "files": [
@@ -37,7 +37,7 @@
     "@lightjs/core": "^2.0.0-alpha.19",
     "@lightjs/logger": "^2.0.0-alpha.19",
     "@lightjs/server": "^2.0.0-alpha.19",
-    "@lightjs/test": "^2.0.0-alpha.19",
+    "@lightjs/test": "^2.0.0-alpha.21",
     "@lightjs/types": "^2.0.0-alpha.19"
   },
   "devDependencies": {
