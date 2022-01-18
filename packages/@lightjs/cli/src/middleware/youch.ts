@@ -4,7 +4,7 @@ import Youch from 'youch';
 import forTerminal from 'youch-terminal';
 
 const config = importLightConfig();
-const logger = config.logger?.internalLogger() ?? console;
+const logger = config.logger?.createFrameworkLogger() ?? console;
 
 export function youchMiddleware(fun: any) {
   return async function youchHandler(ctx: Context) {
