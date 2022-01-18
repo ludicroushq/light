@@ -26,7 +26,7 @@ const handle = async (argv: Args): Promise<void> => {
   }
 
   const config = importLightConfig();
-  const logger = config.logger?.internalLogger() ?? console;
+  const logger = config.logger?.createFrameworkLogger() ?? console;
   const globalMiddleware = config.middleware || [];
 
   logger.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
