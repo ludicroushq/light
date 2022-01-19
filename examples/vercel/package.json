@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "jest": "^27.4.3",
-    "supertest": "^6.1.6"
+    "supertest": "^6.2.2"
   },
   "pkg": {
     "scripts": "light.config.js"
