@@ -1,12 +1,15 @@
-const { createRoute, logger } = require('light');
-const { route, GET } = createRoute();
+const { createRoute, useLogger } = require('light');
 
-GET(() => {
-  logger.info('hello logs!');
+const logger = useLogger()
 
+module.exports = createRoute(() => {
   return {
-    hello: 'vercel with light!',
-  };
-});
+    async GET() {
+      logger.info('hello logs!');
 
-module.exports = route;
+      return {
+        hello: 'vercel with light!',
+      };
+    }
+  }
+})

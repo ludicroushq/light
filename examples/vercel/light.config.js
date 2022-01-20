@@ -1,8 +1,6 @@
 const { createConfig } = require('light');
 const winston = require('winston');
 
-const { config, useLogger } = createConfig();
-
 const logger = winston.createLogger({
   level: 'info',
   format: winston.format.json(),
@@ -13,6 +11,14 @@ const logger = winston.createLogger({
   ],
 });
 
-useLogger(logger)
+function createLogger() {
+  return logger
+}
 
-module.exports = config;
+
+module.exports = createConfig({
+  logger: {
+    createLogger,
+    createFrameworkLogger: createLogger,
+  }
+})
