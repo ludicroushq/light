@@ -4,31 +4,55 @@ updates:
     directory: '/'
     schedule:
       interval: daily
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-patch', 'version-update:semver-minor']
   - package-ecosystem: npm
     directory: '/website'
     schedule:
       interval: daily
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-patch', 'version-update:semver-minor']
   - package-ecosystem: npm
     directory: '/benchmark'
     schedule:
       interval: daily
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-patch', 'version-update:semver-minor']
   - package-ecosystem: npm
     directory: '/examples/basic'
     schedule:
       interval: daily
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-patch', 'version-update:semver-minor']
   - package-ecosystem: npm
     directory: '/examples/netlify'
     schedule:
       interval: daily
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-patch', 'version-update:semver-minor']
   - package-ecosystem: npm
     directory: '/examples/nextjs'
     schedule:
       interval: daily
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-patch', 'version-update:semver-minor']
   - package-ecosystem: npm
     directory: '/examples/typescript'
     schedule:
       interval: daily
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-patch', 'version-update:semver-minor']
   - package-ecosystem: npm
     directory: '/examples/vercel'
     schedule:
       interval: daily
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-patch', 'version-update:semver-minor']
