@@ -7,7 +7,7 @@ const cors = require('cors');
 const { createRoute, withConnect } = require('light');
 
 // we need to export our route for the world to listen!
-module.exports = createRoute(() => {
+module.exports = createRoute(({ useMiddleware }) => {
   /*
     light uses a unique kind of middleware, but it also provides
     a wrapper for connect (express) and koa style middleware
