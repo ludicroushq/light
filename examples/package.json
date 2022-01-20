@@ -24,6 +24,5 @@
     "lerna": "^4.0.0"
   },
   "dependencies": {
-    "winston": "^3.3.3"
   }
 }

@@ -1,10 +1,11 @@
 const { createRoute } = require('light');
-const { route, GET } = createRoute();
 
-GET(async () => {
+module.exports = createRoute(() => {
   return {
-    hello: 'world',
-  };
+    async GET() {
+      return {
+        hello: 'world',
+      };
+    }
+  }
 });
-
-module.exports = route;

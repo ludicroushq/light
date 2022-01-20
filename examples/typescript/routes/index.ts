@@ -1,19 +1,19 @@
 import { createRoute } from 'light';
 
-const { route, GET, useMiddleware } = createRoute();
+export default createRoute(({ useMiddleware }) => {
+  useMiddleware((fn) => async (ctx) => {
+    console.log('before');
+    const result = await fn(ctx);
+    console.log('after');
+    return result;
+  });
 
-useMiddleware((fn) => async (ctx) => {
-  console.log('before');
-  const result = await fn(ctx);
-  console.log('after');
-  return result;
-});
-
-GET(async ({ req }) => {
-  console.log(`receiving request at path: ${req.url}`);
   return {
-    hello: 'world',
-  };
-});
-
-module.exports = route;
+    async GET({ req }) {
+      console.log(`receiving request at path: ${req.url}`);
+      return {
+        hello: 'world',
+      };
+    }
+  }
+})

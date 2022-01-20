@@ -6,7 +6,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "light": "^2.0.0-alpha.15"
+    "light": "^2.0.0-alpha.21",
+    "winston": "^3.4.0"
   },
   "devDependencies": {
     "jest": "^27.4.3",
