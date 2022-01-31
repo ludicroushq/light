@@ -45,7 +45,7 @@
     "ts-node": "^10.4.0",
     "yargs": "^17.3.0",
     "youch": "^2.2.2",
-    "youch-terminal": "^1.1.1"
+    "youch-terminal": "^2.1.2"
   },
   "gitHead": "21e1deb610f7d54f0f7da3ac0e4514db6b59c25c"
 }
