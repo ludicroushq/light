@@ -2,8 +2,9 @@
 import { CommandBuilder } from 'yargs'; // eslint-disable-line
 import emojic from 'emojic';
 import chalk from 'chalk';
-import { importLightConfig, isTypescript } from '@lightjs/config';
+import { importMiddlewareConfig, isTypescript } from '@lightjs/config';
 import { createServer } from '@lightjs/server';
+import { useFrameworkLogger } from '@lightjs/logger';
 
 export const command = 'start';
 export const desc = 'start a production server';
@@ -25,9 +26,9 @@ const handle = async (argv: Args): Promise<void> => {
     require('ts-node').register(); // eslint-disable-line
   }
 
-  const config = importLightConfig();
-  const logger = config.logger?.createFrameworkLogger() ?? console;
-  const globalMiddleware = config.middleware || [];
+  const logger = useFrameworkLogger();
+  const middlewareConfig = importMiddlewareConfig();
+  const globalMiddleware = middlewareConfig?.().global || [];
 
   logger.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
 

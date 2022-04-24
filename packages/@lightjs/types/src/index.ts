@@ -19,4 +19,4 @@ export {
   VercelRoute,
 } from './routeHandler';
 export { Logger } from './logger';
-export { Config } from './config';
+export { Config, CreateConfig, CreateLoggerConfig, CreateMiddlewareConfig } from './config';

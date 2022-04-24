@@ -1,5 +1,5 @@
-import { Config } from '@lightjs/types';
+import { CreateConfig } from '@lightjs/types';
 
-export function createConfig(config: Config) {
+export function createConfig(config: CreateConfig) {
   return config;
 }

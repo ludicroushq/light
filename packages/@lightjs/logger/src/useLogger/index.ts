@@ -1,12 +1,12 @@
 import { Logger } from '@lightjs/types';
-import { importLightConfig } from '@lightjs/config';
+import { importLoggerConfig } from '@lightjs/config';
 
 export function useLogger(): Logger {
-  const config = importLightConfig();
+  const config = importLoggerConfig();
 
-  if (config.logger?.createLogger) {
-    return config.logger.createLogger();
+  if (!config) {
+    return console;
   }
 
-  return console;
+  return config();
 }

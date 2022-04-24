@@ -23,8 +23,8 @@ export function createRouter({ middleware = [] }: CreateRouterOptions) {
   });
 
   const cwd = process.cwd();
-  const config = importLightConfig();
-  const rootPath = join(cwd, config.root ? config.root : './');
+  const config = importLightConfig()?.();
+  const rootPath = join(cwd, config?.sourceDir ? config.sourceDir : './');
 
   const fillRouter = () => {
     const routeFiles = findRouteFiles(rootPath);

@@ -4,9 +4,10 @@ import { relative } from 'path';
 import emojic from 'emojic';
 import chalk from 'chalk';
 import decache from 'decache';
-import { isTypescript, importLightConfig } from '@lightjs/config';
+import { isTypescript, importMiddlewareConfig } from '@lightjs/config';
 import { createServer } from '@lightjs/server';
 import { ImportedRoute } from '@lightjs/types';
+import { useFrameworkLogger } from '@lightjs/logger';
 
 export const command = 'dev';
 export const desc = 'start a development server';
@@ -28,11 +29,13 @@ const handle = async (argv: Args): Promise<void> => {
     require('ts-node').register(); // eslint-disable-line
   }
 
-  const config = importLightConfig();
-  const logger = config.logger?.createFrameworkLogger() ?? console;
-  const globalMiddleware = config.middleware || [];
+  const logger = useFrameworkLogger();
+  const middlewareConfig = importMiddlewareConfig();
+  const globalMiddleware = middlewareConfig?.().global || [];
 
-  logger.info(`[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`);
+  ((logger as unknown as any)?.info || console.info)(
+    `[ ${chalk.redBright('start')} ] ${emojic.fire} igniting the server ${emojic.fire}`,
+  );
 
   /**
    * NOTE: We import youchMiddleware like this because it contains the use of the logger.
