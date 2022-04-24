@@ -1,6 +1,6 @@
 {
   "name": "light",
-  "version": "1.15.0",
+  "version": "2.0.0-alpha.22",
   "description": "a next-gen framework",
   "main": "lib",
   "files": [
@@ -32,13 +32,13 @@
   },
   "homepage": "https://github.com/ludicroushq/light#readme",
   "dependencies": {
-    "@lightjs/cli": "^1.15.0",
-    "@lightjs/config": "^1.15.0",
-    "@lightjs/core": "^1.15.0",
-    "@lightjs/logger": "^1.15.0",
-    "@lightjs/server": "^1.15.0",
-    "@lightjs/test": "^1.15.0",
-    "@lightjs/types": "^1.15.0"
+    "@lightjs/cli": "^2.0.0-alpha.22",
+    "@lightjs/config": "^2.0.0-alpha.22",
+    "@lightjs/core": "^2.0.0-alpha.22",
+    "@lightjs/logger": "^2.0.0-alpha.22",
+    "@lightjs/server": "^2.0.0-alpha.22",
+    "@lightjs/test": "^2.0.0-alpha.22",
+    "@lightjs/types": "^2.0.0-alpha.22"
   },
   "devDependencies": {
     "@types/node": "^16.11.11",
