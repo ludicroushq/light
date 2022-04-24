@@ -1,10 +1,9 @@
-import { importLightConfig } from '@lightjs/config';
+import { useFrameworkLogger } from '@lightjs/logger';
 import { Context } from '@lightjs/types';
 import Youch from 'youch';
 import forTerminal from 'youch-terminal';
 
-const config = importLightConfig();
-const logger = config.logger?.createFrameworkLogger() ?? console;
+const logger = useFrameworkLogger();
 
 export function youchMiddleware(fun: any) {
   return async function youchHandler(ctx: Context) {

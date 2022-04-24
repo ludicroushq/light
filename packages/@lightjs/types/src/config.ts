@@ -1,16 +1,15 @@
 import { Middleware } from './createRoute';
 import { Logger } from './logger';
 
-type CreateLogger = () => Logger;
-type FrameworkLogger = () => {
-  info(message: string): void;
+export type Config = {
+  sourceDir?: string;
 };
 
-export interface Config {
-  root?: string;
-  middleware?: Middleware[];
-  logger?: {
-    createLogger: CreateLogger;
-    createFrameworkLogger: FrameworkLogger;
-  };
-}
+export type CreateConfig = () => Config;
+
+export type CreateLoggerConfig = () => Logger;
+
+type MiddlewareConfig = {
+  global: Array<Middleware>;
+};
+export type CreateMiddlewareConfig = () => MiddlewareConfig;
