@@ -1,6 +1,6 @@
 {
   "name": "@lightjs/core",
-  "version": "1.15.0",
+  "version": "2.0.0-alpha.22",
   "description": "lightjs core",
   "main": "lib",
   "types": "lib/index.d.ts",
@@ -28,15 +28,15 @@
   },
   "homepage": "https://github.com/ludicroushq/light#readme",
   "dependencies": {
-    "@lightjs/types": "^1.15.0",
-    "@lightjs/utils": "^1.15.0",
+    "@lightjs/types": "^2.0.0-alpha.22",
+    "@lightjs/utils": "^2.0.0-alpha.22",
     "@types/connect": "^3.4.35",
     "aws-serverless-micro": "^1.0.4",
     "find-my-way": "^5.0.0",
     "micro": "^9.3.4"
   },
   "devDependencies": {
-    "@lightjs/test": "^1.14.0",
+    "@lightjs/test": "^2.0.0-alpha.22",
     "@netlify/functions": "^0.10.0",
     "@types/cors": "^2.8.12",
     "@types/micro": "^7.3.6",
