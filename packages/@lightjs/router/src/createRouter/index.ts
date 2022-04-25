@@ -1,13 +1,22 @@
 import Router from 'find-my-way';
-import { join } from 'path';
 import { CreateRouterOptions } from '@lightjs/types';
 import { createError } from 'micro';
-import { importLightConfig } from '@lightjs/config';
 import { convertHandlerFunctionToRequestHandler, applyMiddleware } from '@lightjs/utils';
-
+import { join } from 'path';
+import { existsSync } from 'fs';
 import { findRouteFiles } from '../utils/findRouteFiles';
 import { importRouteFiles } from '../utils/importRouteFiles';
 import { injectRouteIntoRouter } from '../utils/injectRouteIntoRouter';
+
+function findRoutesFolder() {
+  const cwd = process.cwd();
+  const rootDir = join(cwd, 'routes');
+  const srcDir = join(cwd, 'src', 'routes');
+
+  if (existsSync(rootDir)) return rootDir;
+  if (existsSync(srcDir)) return srcDir;
+  return rootDir;
+}
 
 export function createRouter({ middleware = [] }: CreateRouterOptions) {
   // create find-my-way router with default 404 handler
@@ -22,13 +31,11 @@ export function createRouter({ middleware = [] }: CreateRouterOptions) {
     defaultRoute,
   });
 
-  const cwd = process.cwd();
-  const config = importLightConfig()?.();
-  const rootPath = join(cwd, config?.sourceDir ? config.sourceDir : './');
+  const routesDirPath = findRoutesFolder();
 
   const fillRouter = () => {
-    const routeFiles = findRouteFiles(rootPath);
-    const importedRoutes = importRouteFiles(routeFiles, rootPath);
+    const routeFiles = findRouteFiles(routesDirPath);
+    const importedRoutes = importRouteFiles(routeFiles, routesDirPath);
     injectRouteIntoRouter(router, importedRoutes, { middleware });
     return importedRoutes;
   };

@@ -1,14 +1,15 @@
 import { existsSync } from 'fs';
-import { join } from 'path';
 
-export const importFile = (fileName: string) => {
-  const path = process.cwd();
-  const file = join(path, fileName);
-  if (existsSync(file)) {
-    let conf = require(file); // eslint-disable-line
+function importFile(fileName: string) {
+  if (existsSync(fileName)) {
+    let conf = require(fileName); // eslint-disable-line
     if (!conf) return null;
     if (conf.default) conf = conf.default;
     return conf;
   }
   return null;
-};
+}
+
+export function importTSorJSFile(fileName: string) {
+  return importFile(`${fileName}.ts`) || importFile(`${fileName}.js`);
+}

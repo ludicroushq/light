@@ -2,12 +2,10 @@ import { join, parse } from 'path';
 import { ImportedRoute } from '@lightjs/types';
 import { convertFileNameToPath } from './convertFileNameToPath';
 
-export function importRouteFiles(routes: string[], rootPath: string) {
-  const routesDir = join(rootPath, './routes');
-
+export function importRouteFiles(routes: string[], routesDirPath: string) {
   const routeObjects: ImportedRoute[] = [];
   routes.forEach((route: string): void => {
-    const routePath = join(routesDir, route);
+    const routePath = join(routesDirPath, route);
 
     let handler = require(routePath); // eslint-disable-line
     if (handler.default) {

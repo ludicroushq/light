@@ -1,9 +1,7 @@
 import { Middleware } from './createRoute';
 import { Logger } from './logger';
 
-export type Config = {
-  sourceDir?: string;
-};
+export type Config = {};
 
 export type CreateConfig = () => Config;
 
