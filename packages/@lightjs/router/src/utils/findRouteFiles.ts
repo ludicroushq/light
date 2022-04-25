@@ -1,10 +1,8 @@
-import { join } from 'path';
 import { sync as globSync } from 'glob';
 
-export function findRouteFiles(rootPath: string) {
-  const routesDir = join(rootPath, './routes');
+export function findRouteFiles(routesDirPath: string) {
   const routes = globSync('**/*.[jt]s', {
-    cwd: routesDir,
+    cwd: routesDirPath,
     // TODO: allow configuration of ignore
     ignore: ['**/__tests__/**/*.[jt]s?(x)', '**/?*.+(spec|test).[tj]s?(x)'],
   });
