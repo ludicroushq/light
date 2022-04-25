@@ -3,7 +3,9 @@ import { join } from 'path';
 import { importTSorJSFile } from '../utils/importFile';
 
 export function importLightConfig(): CreateConfig | null {
-  return importTSorJSFile('light.config');
+  const cwd = process.cwd();
+  const path = join(cwd, 'light.config');
+  return importTSorJSFile(path);
 }
 
 /**
