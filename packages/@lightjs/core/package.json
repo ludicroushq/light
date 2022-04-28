@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@lightjs/test": "^2.0.0-alpha.26",
-    "@netlify/functions": "^0.10.0",
+    "@netlify/functions": "^1.0.0",
     "@types/cors": "^2.8.12",
     "@types/micro": "^7.3.6",
     "@types/supertest": "^2.0.11",
