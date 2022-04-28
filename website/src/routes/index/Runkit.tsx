@@ -6,23 +6,23 @@ process.env.LIGHT_ENV = 'runkit';
 const cors = require('cors');
 const { createRoute, withConnect } = require('light');
 
-const { route, GET, POST, useMiddleware } = createRoute();
+// we need to export our route for the world to listen!
+module.exports = createRoute(({ useMiddleware }) => {
+  /*
+    light uses a unique kind of middleware, but it also provides
+    a wrapper for connect (express) and koa style middleware
+  */
+  useMiddleware(withConnect(cors()));
 
-/*
-  light uses a unique kind of middleware, but it also provides
-  a wrapper for connect (express) and koa style middleware
-*/
-useMiddleware(withConnect(cors()))
-
-// define handlers for the methods you need
-GET(() => {
+  // define handlers for the methods you need
   return {
-    hello: 'world',
-  };
-});
-
-// finally we need to export our route for the world to listen!
-module.exports = route;`;
+    async GET() {
+      return {
+        hello: 'world',
+      };
+    }
+  }
+});`;
 
 export default function Runkit(props) {
   return (
