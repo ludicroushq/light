@@ -24,7 +24,7 @@
     "@koa/router": "^10.1.1",
     "danger": "^11.0.2",
     "express": "^4.17.3",
-    "fastify": "^3.28.0",
+    "fastify": "^3.29.4",
     "koa": "^2.13.4",
     "light": "file://../packages/light",
     "node-fetch": "^2.6.6",
